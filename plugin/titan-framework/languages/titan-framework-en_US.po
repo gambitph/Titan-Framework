@@ -1,0 +1,97 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Titan Framework\n"
+"POT-Creation-Date: 2014-02-14 01:06+0800\n"
+"PO-Revision-Date: 2014-02-14 01:07+0800\n"
+"Last-Translator: Benjamin Intal <bfintal@gmail.com>\n"
+"Language-Team: Gambit <bf.intal@gambit.ph>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../class-admin-panel.php:264
+msgid "Settings saved."
+msgstr ""
+
+#: ../class-admin-panel.php:266
+msgid "Settings reset to default."
+msgstr ""
+
+#: ../class-meta-box.php:35 ../class-theme-customizer-section.php:27
+msgid "More Options"
+msgstr ""
+
+#: ../class-option-save.php:20
+msgid "Save Changes"
+msgstr ""
+
+#: ../class-option-save.php:23
+msgid "Reset to Default"
+msgstr ""
+
+#: ../class-option-select-categories.php:37
+#: ../class-option-select-categories.php:103
+#: ../class-option-select-pages.php:30 ../class-option-select-posts.php:38
+#: ../class-option-select-posts.php:105
+msgid "Select"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:50
+msgid "Ultra-light"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:53
+msgid "Light"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:56
+msgid "Book"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:59
+msgid "Medium"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:62
+msgid "Semi-Bold"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:65
+msgid "Bold"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:68
+msgid "Extra-Bold"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:71
+msgid "Ultra-Bold"
+msgstr ""
+
+#: ../class-option-select-googlefont.php:74
+msgid "Regular"
+msgstr ""
+
+#: ../class-option-upload.php:34
+msgid "Upload"
+msgstr ""
+
+#: ../class-option.php:35
+#, php-format
+msgid "Option type or extended class %s does not exist."
+msgstr ""
+
+#: ../class-titan-framework.php:227 ../class-titan-framework.php:262
+#, php-format
+msgid ""
+"Wrong usage of %s, this should be called inside a hook or from within a "
+"theme file."
+msgstr ""
+
+#: ../titan-framework.php:82
+msgid "What's this?"
+msgstr ""
