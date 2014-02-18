@@ -128,7 +128,7 @@ class TitanFrameworkOption {
         return $this->getOptionNamespace() . '_' . $this->settings['id'];
     }
 
-    protected function __call( $name, $args ) {
+    public function __call( $name, $args ) {
         $default = is_array( $args ) && count( $args ) ? $args[0] : '';
         if ( stripos( $name, 'get' ) === 0) {
             $setting = strtolower( substr( $name, 3 ) );
