@@ -236,7 +236,7 @@ class TitanFrameworkAdminPanel {
 
     public function createAdminPage() {
         ?>
-        <div class='wrap'>
+        <div class='wrap titan-framework-panel-wrap'>
         <?php
 
         if ( ! count( $this->tabs ) ):

@@ -95,8 +95,11 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
             $('select.tf-select-googlefont ~ input').each(function() {
                 var val = $(this).val();
                 if ( val != '' ) {
-                    val = unserialize(val);
-                    console.log('value:', val);
+                    try {
+                        val = unserialize(val);
+                    } catch (err) {
+                        return;
+                    }
 
                     var $this = $(this);
                     $.each(val.variants, function(i, variant) {

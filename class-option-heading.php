@@ -9,7 +9,7 @@ class TitanFrameworkOptionHeading extends TitanFrameworkOption {
      */
     public function display() {
         ?>
-        <tr valign="top" class="even first">
+        <tr valign="top" class="even first tf-heading">
         <th scope="row" class="first last" colspan="2">
         <h3><?php echo $this->settings['name'] ?></h3>
         </th>

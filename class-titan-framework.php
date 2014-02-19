@@ -71,6 +71,7 @@ class TitanFramework {
     public function loadAdminScripts() {
         wp_enqueue_media();
         wp_enqueue_script( 'tf-serialize', plugins_url( 'serialize.js', __FILE__ ) );
+        wp_enqueue_script( 'tf-styling', plugins_url( 'admin-styling.js', __FILE__ ) );
         wp_enqueue_style( 'tf-admin-styles', plugins_url( 'admin-styles.css', __FILE__ ) );
     }
 
