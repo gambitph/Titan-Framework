@@ -37,7 +37,7 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
     /*
      * Display for theme customizer
      */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         $args = array(
             'orderby' => $this->settings['orderby'],
             'order' => $this->settings['order'],
@@ -58,6 +58,7 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
             'settings' => $this->getID(),
             'description' => $this->settings['desc'],
             'options' => $this->settings['options'],
+            'priority' => $priority,
         ) ) );
     }
 }

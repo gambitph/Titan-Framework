@@ -46,13 +46,14 @@ class TitanFrameworkOptionSelectPages extends TitanFrameworkOption {
     /*
      * Display for theme customizer
      */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         $wp_customize->add_control( new TitanFrameworkCustomizeControl( $wp_customize, $this->getID(), array(
             'label' => $this->settings['name'],
             'section' => $section->settings['id'],
             'settings' => $this->getID(),
             'type' => 'dropdown-pages',
             'description' => $this->settings['desc'],
+            'priority' => $priority,
         ) ) );
     }
 }

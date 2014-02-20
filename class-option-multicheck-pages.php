@@ -31,7 +31,7 @@ class TitanFrameworkOptionMulticheckPages extends TitanFrameworkOptionMulticheck
     /*
      * Display for theme customizer
      */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         // Remember the pages so as not to perform any more lookups
         if ( ! isset( self::$allPages ) ) {
             self::$allPages = get_pages();
@@ -48,6 +48,7 @@ class TitanFrameworkOptionMulticheckPages extends TitanFrameworkOptionMulticheck
             'settings' => $this->getID(),
             'description' => $this->settings['desc'],
             'options' => $this->settings['options'],
+            'priority' => $priority,
         ) ) );
     }
 }

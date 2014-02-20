@@ -45,7 +45,7 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
     /*
      * Display for theme customizer
      */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         $isAssociativeArray = false;
 
         if ( count( $this->settings['options'] ) ) {
@@ -71,6 +71,7 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
             'choices' => $this->settings['options'],
             'settings' => $this->getID(),
             'description' => $this->settings['desc'],
+            'priority' => $priority,
         ) ) );
     }
 }

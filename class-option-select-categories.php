@@ -53,7 +53,7 @@ class TitanFrameworkOptionSelectCategories extends TitanFrameworkOption {
     /*
      * Display for theme customizer
      */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         $wp_customize->add_control( new TitanFrameworkOptionSelectCategoriesControl( $wp_customize, $this->getID(), array(
             'label' => $this->settings['name'],
             'section' => $section->settings['id'],
@@ -64,6 +64,7 @@ class TitanFrameworkOptionSelectCategories extends TitanFrameworkOption {
             'taxonomy' => $this->settings['taxonomy'],
             'hide_empty' => $this->settings['hide_empty'],
             'show_count' => $this->settings['show_count'],
+            'priority' => $priority,
         ) ) );
     }
 }

@@ -188,11 +188,14 @@ class TitanFrameworkOption {
 
     /* overridden */
     public function cleanValueForGetting( $value ) {
+        if ( is_array( $value ) ) {
+            return $value;
+        }
         return stripslashes( $value );
     }
 
     /* overridden */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
 
     }
 }

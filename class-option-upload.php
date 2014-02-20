@@ -39,12 +39,13 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
     /*
      * Display for theme customizer
      */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         $wp_customize->add_control( new TitanFrameworkOptionUploadControl( $wp_customize, $this->getID(), array(
             'label' => $this->settings['name'],
             'section' => $section->getID(),
             'settings' => $this->getID(),
             'description' => $this->settings['desc'],
+            'priority' => $priority,
         ) ) );
     }
 

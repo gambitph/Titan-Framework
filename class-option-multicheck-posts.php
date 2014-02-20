@@ -38,7 +38,7 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
     /*
      * Display for theme customizer
      */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         $args = array(
             'post_type' => $this->settings['post_type'],
             'posts_per_page' => $this->settings['num'],
@@ -60,6 +60,7 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
             'settings' => $this->getID(),
             'description' => $this->settings['desc'],
             'options' => $this->settings['options'],
+            'priority' => $priority,
         ) ) );
     }
 }

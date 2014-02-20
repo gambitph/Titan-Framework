@@ -54,7 +54,7 @@ class TitanFrameworkOptionSelectPosts extends TitanFrameworkOption {
     /*
      * Display for theme customizer
      */
-    public function registerCustomizerControl( $wp_customize, $section ) {
+    public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         $wp_customize->add_control( new TitanFrameworkOptionSelectPostsControl( $wp_customize, $this->getID(), array(
             'label' => $this->settings['name'],
             'section' => $section->settings['id'],
@@ -65,6 +65,7 @@ class TitanFrameworkOptionSelectPosts extends TitanFrameworkOption {
             'post_status' => $this->settings['post_status'],
             'orderby' => $this->settings['orderby'],
             'order' => $this->settings['order'],
+            'priority' => $priority,
         ) ) );
     }
 }
