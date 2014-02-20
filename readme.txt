@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 1.0.2
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,7 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 * Checkbox
 * Color picker
+* Editor (WYSIWYG)
 * Heading
 * Media uploader
 * Multicheck
@@ -44,6 +45,7 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Note
 * Number
 * Radio buttons
+* Radio palette picker
 * Save and reset buttons
 * Select (drop down)
 * Select Google WebFont
@@ -152,6 +154,17 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 == Screenshots ==
 
 == Changelog ==
+
+= 1.1 =
+* Added WYSIWYG editor option
+* Added Radio Palette option
+* Fixed bug where special characters in admin pages and tabs were not redirecting correctly
+* Fixed minor bug where customizer options become reordered
+* Minor bug fixes
+
+= 1.0.1 - 1.0.2 =
+* Added styling to the admin options
+* Fixed minor debug error in options (Thanks to @Dovy)
 
 = 1.0 =
 First release
