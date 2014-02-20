@@ -241,7 +241,7 @@ class TitanFramework {
         }
 
         // Apply cleaning method for the value (for serialized data, slashes, etc)
-        if ( $value != null ) {
+        if ( $value !== null ) {
             if ( ! empty( $this->optionsUsed[$optionName] ) ) {
                 $value = $this->optionsUsed[$optionName]->cleanValueForGetting( $value );
             }

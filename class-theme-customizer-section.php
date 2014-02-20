@@ -57,7 +57,15 @@ class TitanFrameworkThemeCustomizerSection {
                 ?>
                 wp.customize( '<?php echo $option->getID() ?>', function( v ) {
                     v.bind( function( value ) {
-                        <?php echo $option->settings['livepreview'] ?>
+                        <?php
+
+                        // Some options may want to insert custom jQuery code before manipulation of live preview
+                        if ( ! empty( $option->settings['id'] ) ) {
+                            do_action( 'tf_livepreview_pre', $option->settings['id'], $option->settings['type'], $option );
+                        }
+
+                        echo $option->settings['livepreview'];
+                        ?>
                     } );
                 } );
                 <?php
