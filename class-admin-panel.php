@@ -185,11 +185,13 @@ class TitanFrameworkAdminPanel {
          * Redirect to prevent refresh saving
          */
 
+        // urlencode to allow special characters in the url
         $activeTab = $this->getActiveTab();
-        $tab = empty( $activeTab ) ? '' : '&tab=' . $activeTab->settings['id'];
-        $message = empty( $message ) ? '' : '&message=' . $message;
+        $args = '?page=' . urlencode( $this->settings['id'] );
+        $args .= empty( $activeTab ) ? '' : '&tab=' . urlencode( $activeTab->settings['id'] );
+        $args .= empty( $message ) ? '' : '&message=' . $message;
 
-        wp_redirect( admin_url( 'admin.php?page=' . $this->settings['id'] . $tab . $message ) );
+        wp_redirect( admin_url( 'admin.php' . $args ) );
     }
 
     private function verifySecurity() {
