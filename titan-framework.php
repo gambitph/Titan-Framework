@@ -25,6 +25,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'class-meta-box.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-checkbox.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-color.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-option-editor.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-heading.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-multicheck.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-multicheck-categories.php' );
