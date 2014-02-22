@@ -51,7 +51,9 @@ class TitanFramework {
 
     public function rememberGoogleFonts( $option ) {
         if ( is_a( $option, 'TitanFrameworkOptionSelectGooglefont' ) ) {
-            $this->googleFontsOptions[] = $option;
+            if ( $option->settings['enqueue'] ) {
+                $this->googleFontsOptions[] = $option;
+            }
         }
     }
 
