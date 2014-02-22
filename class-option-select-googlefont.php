@@ -4,6 +4,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
 
+    public $defaultSecondarySettings = array(
+        'enqueue' => true,
+    );
+
     public static $firstLoad = true;
 
     public static function formScript( $value ) {
