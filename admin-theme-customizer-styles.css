@@ -45,3 +45,16 @@
     display: inline-block;
     margin-right: 5px;
 }
+
+/* radio image */
+.tf-radio-image img {
+    vertical-align: middle;
+}
+.tf-radio-image {
+    margin-top: 10px;
+    display: inline-block;
+    margin-right: 5px;
+}
+.tf-radio-image input[type=radio] {
+    margin-top: 0;
+}
