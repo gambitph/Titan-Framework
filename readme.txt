@@ -14,7 +14,11 @@ The most easy to use WordPress option framework.
 
 Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 
-**For developers: for documentation and examples, please visit our website at [titanframework.net](http://titanframework.net)**
+Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. Read our guide on how to [Get Started with Titan Framework](https://www.titanframework.net/get-started/)
+
+* [Documentation and Tutorials for Developers](http://titanframework.net)
+* [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
+* [Issue Tracker](https://github.com/gambitph/Titan-Framework/issues)
 
 = Features =
 
@@ -46,6 +50,7 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Number
 * Radio buttons
 * Radio palette picker
+* Radio image
 * Save and reset buttons
 * Select (drop down)
 * Select Google WebFont
@@ -54,17 +59,28 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Text
 * Textarea
 
-**For developers: for documentation and examples, please visit our website at [titanframework.net](http://titanframework.net)**
+= Supporting the Framework =
+
+Titan is super new, so far the framework has been getting good feedback from the community. Help out and spread the word by starring this repo, sending tweets, writing blog posts about what you think about Titan, and [review the plugin](http://wordpress.org/support/view/plugin-reviews/titan-framework).
+
+= Donate to the Development =
+
+If Titan Framework has helped you in any way, we would appreciate any amount of donations that you give us. Donations would mean more development time for the framework as I am continuously developing it during my free time.
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9X7HJBGJ37VH6)
 
 == Installation ==
 
 1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Use the provided classes and functions in your theme or plugin
+3. Use the provided classes and functions in your theme or plugin. Read our guide on how to [Get Started with Titan Framework](https://www.titanframework.net/get-started/)
 
 == Frequently Asked Questions ==
 
-**Please visit our website at [titanframework.net](http://titanframework.net)**
+* [Site FAQs](https://www.titanframework.net/faqs/)
+* [Documentation and Tutorials for Developers](http://titanframework.net)
+* [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
+* [Issue Tracker](https://github.com/gambitph/Titan-Framework/issues)
 
 == Sample Code ==
 
