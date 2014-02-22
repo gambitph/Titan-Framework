@@ -116,6 +116,12 @@ class TitanFramework {
      */
     public function updateThemeModListing() {
         $allThemeMods = get_theme_mods();
+
+        // For fresh installs there won't be any theme mods yet
+        if ( $allThemeMods === false ) {
+            $allThemeMods = array();
+        }
+
         $allThemeModKeys = array_fill_keys( array_keys( $allThemeMods ), null );
 
         // Check existing theme mods
