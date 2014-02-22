@@ -33,6 +33,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'class-option-multicheck-posts.php' 
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-note.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-number.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-radio.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'class-option-radio-image.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-radio-palette.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-save.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'class-option-select-categories.php' );

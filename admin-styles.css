@@ -197,3 +197,17 @@
 .tf-radio-palette label:first-child {
     margin-left: 0
 }
+/* radio images */
+.tf-radio-image label {
+    margin-left: 30px;
+    white-space: nowrap;
+}
+.tf-radio-image label:first-child {
+    margin-left: 0;
+}
+.form-table .tf-radio-image input[type=radio] {
+    margin-top: 0;
+}
+.tf-radio-image img {
+    vertical-align: middle;
+}
