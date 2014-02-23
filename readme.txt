@@ -171,6 +171,11 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 
 == Screenshots ==
 
+1. An admin page with tabs and options created using Titan Framework
+2. Supports theme customizer sections, options and live previewing
+3. Meta box support for pages, posts and custom post types
+4. Sample code on how to create admin pages and options
+
 == Changelog ==
 
 = 1.1.1 =
