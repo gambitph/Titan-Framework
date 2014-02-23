@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,8 @@ The most easy to use WordPress option framework.
 == Description ==
 
 Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
+
+= The Goal =
 
 Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. Read our guide on how to [Get Started with Titan Framework](https://www.titanframework.net/get-started/)
 
@@ -170,6 +172,13 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 == Screenshots ==
 
 == Changelog ==
+
+= 1.1.1 =
+* Titan can now be embedded into themes and plugins
+* Added Radio Image option
+* Better layout for Google WebFont option
+* Now enforcing unique option ids
+* Fixed bug that shows up in fresh WP installs
 
 = 1.1 =
 * Added WYSIWYG editor option
