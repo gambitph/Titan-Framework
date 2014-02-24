@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 1.1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,7 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 * Admin options and tabs
 * Meta boxes and options
 * Theme customizer sections and options
+* Automatic CSS generation
 
 = Options available in admin pages, meta boxes and theme customizer: =
 
@@ -177,6 +178,10 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.2 =
+* Better embedding handling
+* Automatic CSS generation
 
 = 1.1.1 =
 * Titan can now be embedded into themes and plugins
