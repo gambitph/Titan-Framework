@@ -198,7 +198,7 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
 
         // set a default value
         $value = $this->getValue();
-        if ( $value == array() ) {
+        if ( $value == array() || empty( $value['name'] ) || empty( $value['variants'] ) || empty( $value['subsets'] ) ) {
             $value = array( 'name' => 'Open Sans', 'variants' => array( '400' ), 'subsets' => array( 'latin' ) );
         }
 
