@@ -178,7 +178,7 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
                 };
 
                 // update the preview
-                $(this).siblings('iframe').attr('src', '<?php echo plugins_url( 'iframe-googlefont-preview.php?f=', __FILE__ ) ?>' + val.name);
+                $(this).siblings('iframe').attr('src', '<?php echo TitanFramework::getURL( 'iframe-googlefont-preview.php?f=', __FILE__ ) ?>' + val.name);
 
                 // update the hidden field
                 $(this).siblings('input').val(serialize(val)).trigger('change');
@@ -222,7 +222,7 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
 
 
         // preview
-        printf( "<iframe src='%s'></iframe>", plugins_url( 'iframe-googlefont-preview.php?f=' . $value['name'], __FILE__ ) );
+        printf( "<iframe src='%s'></iframe>", TitanFramework::getURL( 'iframe-googlefont-preview.php?f=' . $value['name'], __FILE__ ) );
 
 
         // select variants

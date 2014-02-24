@@ -98,9 +98,9 @@ class TitanFramework {
 
     public function loadAdminScripts() {
         wp_enqueue_media();
-        wp_enqueue_script( 'tf-serialize', plugins_url( 'serialize.js', __FILE__ ) );
-        wp_enqueue_script( 'tf-styling', plugins_url( 'admin-styling.js', __FILE__ ) );
-        wp_enqueue_style( 'tf-admin-styles', plugins_url( 'admin-styles.css', __FILE__ ) );
+        wp_enqueue_script( 'tf-serialize', TitanFramework::getURL( 'serialize.js', __FILE__ ) );
+        wp_enqueue_script( 'tf-styling', TitanFramework::getURL( 'admin-styling.js', __FILE__ ) );
+        wp_enqueue_style( 'tf-admin-styles', TitanFramework::getURL( 'admin-styles.css', __FILE__ ) );
     }
 
     public function getAllOptions() {
@@ -340,6 +340,39 @@ class TitanFramework {
             ?>
         </div>
         <?php
+    }
+
+    /**
+     * Acts the same way as plugins_url( 'script', __FILE__ ) but returns then correct url
+     * when called from inside a theme.
+     *
+     * @param   string $script the script to get the url to, relative to $file
+     * @param   string $file the current file, should be __FILE__
+     * @return  string the url to $script
+     * @since   1.1.2
+     */
+    public static function getURL( $script, $file ) {
+        $parentTheme = trailingslashit( get_template_directory() );
+        $childTheme = trailingslashit( get_stylesheet_directory() );
+        $plugin = trailingslashit( dirname( $file ) );
+
+        // framework is in a parent theme
+        if ( stripos( $file, $parentTheme ) !== false ) {
+            $dir = trailingslashit( dirname( str_replace( $parentTheme, '', $file ) ) );
+            if ( $dir == './' ) {
+                $dir = '';
+            }
+            return trailingslashit( get_template_directory_uri() ) . $dir . $script;
+        // framework is in a child theme
+        } else if ( stripos( $file, $childTheme ) !== false ) {
+            $dir = trailingslashit( dirname( str_replace( $childTheme, '', $file ) ) );
+            if ( $dir == './' ) {
+                $dir = '';
+            }
+            return trailingslashit( get_stylesheet_directory_uri() ) . $dir . $script;
+        }
+        // framework is a or in a plugin
+        return plugins_url( $script, $file );
     }
 }
 ?>
