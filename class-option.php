@@ -138,6 +138,14 @@ class TitanFrameworkOption {
     }
 
     protected function echoOptionHeader( $showDesc = false ) {
+        // Allow overriding for custom styling
+        $useCustom = false;
+        $useCustom = apply_filters( 'tf_use_custom_option_header', $useCustom );
+        if ( $useCustom ) {
+            do_action( 'tf_custom_option_header', $this );
+            return;
+        }
+
         $id = $this->getID();
         $name = $this->getName();
         ?>
@@ -157,6 +165,14 @@ class TitanFrameworkOption {
     }
 
     protected function echoOptionFooter( $showDesc = true ) {
+        // Allow overriding for custom styling
+        $useCustom = false;
+        $useCustom = apply_filters( 'tf_use_custom_option_footer', $useCustom );
+        if ( $useCustom ) {
+            do_action( 'tf_custom_option_footer', $this );
+            return;
+        }
+
         $desc = $this->getDesc();
         if ( ! empty( $desc ) && $showDesc ):
             ?>
