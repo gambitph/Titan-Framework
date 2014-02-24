@@ -370,6 +370,7 @@ class TitanFramework {
                 $dir = '';
             }
             return trailingslashit( get_stylesheet_directory_uri() ) . $dir . $script;
+        }
         // framework is a or in a plugin
         return plugins_url( $script, $file );
     }
