@@ -11,6 +11,7 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Does NOT clutter the database
 * Integrates with your project seamlessly
 * Theme customizer live preview integration
+* Automatic CSS generation
 
 
 ## Getting Started With Titan Framework
