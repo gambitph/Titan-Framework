@@ -352,17 +352,24 @@ class TitanFramework {
      * @since   1.1.2
      */
     public static function getURL( $script, $file ) {
-        $theme = trailingslashit( get_template_directory() );
+        $parentTheme = trailingslashit( get_template_directory() );
+        $childTheme = trailingslashit( get_stylesheet_directory() );
         $plugin = trailingslashit( dirname( $file ) );
 
-        // framework is in a theme
-        if ( stripos( $file, $theme ) !== false ) {
-            $dir = trailingslashit( dirname( str_replace( $theme, '', $file ) ) );
+        // framework is in a parent theme
+        if ( stripos( $file, $parentTheme ) !== false ) {
+            $dir = trailingslashit( dirname( str_replace( $parentTheme, '', $file ) ) );
             if ( $dir == './' ) {
                 $dir = '';
             }
             return trailingslashit( get_template_directory_uri() ) . $dir . $script;
-        }
+        // framework is in a child theme
+        } else if ( stripos( $file, $childTheme ) !== false ) {
+            $dir = trailingslashit( dirname( str_replace( $childTheme, '', $file ) ) );
+            if ( $dir == './' ) {
+                $dir = '';
+            }
+            return trailingslashit( get_stylesheet_directory_uri() ) . $dir . $script;
         // framework is a or in a plugin
         return plugins_url( $script, $file );
     }
