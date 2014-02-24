@@ -16,6 +16,8 @@ class TitanFramework {
     private static $allOptionIDs = array();
     private static $allOptions;
 
+    private $cssInstance;
+
     // We store
     public $optionsUsed = array();
 
@@ -36,6 +38,8 @@ class TitanFramework {
         $optionNamespace = str_replace( ' ', '-', trim( strtolower( $optionNamespace ) ) );
 
         $this->optionNamespace = $optionNamespace;
+
+        $this->cssInstance = new TitanFrameworkCSS( $this );
 
         add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 1 );
         add_action( 'after_setup_theme', array( $this, 'updateOptionDBListing' ) );
@@ -315,6 +319,10 @@ class TitanFramework {
         $obj = new TitanFrameworkWidgetArea( $settings, $this );
         $this->widgetAreas[] = $obj;
         return $obj;
+    }
+
+    public function createCSS( $CSSString ) {
+        $this->cssInstance->addCSS( $CSSString );
     }
 
     public static function displayFrameworkError( $message, $errorObject = null ) {

@@ -191,6 +191,8 @@ class TitanFrameworkAdminPanel {
         $args .= empty( $activeTab ) ? '' : '&tab=' . urlencode( $activeTab->settings['id'] );
         $args .= empty( $message ) ? '' : '&message=' . $message;
 
+        do_action( 'tf_admin_options_saved' );
+
         wp_redirect( admin_url( 'admin.php' . $args ) );
     }
 
