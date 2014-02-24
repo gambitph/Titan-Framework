@@ -17,37 +17,37 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // Used for general naming
 @define( 'TF_NAME', 'Titan Framework' );
 
-require_once( plugin_dir_path( __FILE__ ) . 'class-admin-notification.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-admin-panel.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-admin-tab.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-meta-box.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-checkbox.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-color.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-editor.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-heading.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-multicheck.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-multicheck-categories.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-multicheck-pages.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-multicheck-posts.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-note.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-number.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-radio.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-radio-image.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-radio-palette.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-save.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-select-categories.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-select-googlefont.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-select-pages.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-select-posts.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-select.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-text.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-textarea.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-option-upload.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-theme-customizer-section.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-titan-framework.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'class-wp-customize-control.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'functions-googlefonts.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-admin-notification.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-admin-panel.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-admin-tab.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-meta-box.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-checkbox.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-color.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-editor.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-heading.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-multicheck.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-multicheck-categories.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-multicheck-pages.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-multicheck-posts.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-note.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-number.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-radio.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-radio-image.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-radio-palette.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-save.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-select-categories.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-select-googlefont.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-select-pages.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-select-posts.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-select.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-text.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-textarea.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-option-upload.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-theme-customizer-section.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-titan-framework.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'class-wp-customize-control.php' );
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'functions-googlefonts.php' );
 
 
 /**
