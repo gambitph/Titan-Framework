@@ -47,12 +47,12 @@ class TitanFramework {
         if ( is_admin() ) {
             add_action( 'after_setup_theme', array( $this, 'updateThemeModListing' ) );
             add_action( 'after_setup_theme', array( $this, 'updateMetaDbListing' ) );
+            add_action( 'tf_create_option', array( $this, "verifyUniqueIDs" ) );
         }
 
         add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
         add_action( 'wp_enqueue_scripts', array( $this, "loadFrontEndScripts" ) );
         add_action( 'tf_create_option', array( $this, "rememberGoogleFonts" ) );
-        add_action( 'tf_create_option', array( $this, "verifyUniqueIDs" ) );
     }
 
     /**
