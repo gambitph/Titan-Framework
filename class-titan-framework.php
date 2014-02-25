@@ -39,6 +39,8 @@ class TitanFramework {
 
         $this->optionNamespace = $optionNamespace;
 
+        do_action( 'tf_init', $this );
+
         $this->cssInstance = new TitanFrameworkCSS( $this );
 
         add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 1 );
@@ -323,6 +325,10 @@ class TitanFramework {
 
     public function createCSS( $CSSString ) {
         $this->cssInstance->addCSS( $CSSString );
+    }
+
+    public function createShortcode( $settings ) {
+        do_action( 'tf_create_shortcode', $settings );
     }
 
     public static function displayFrameworkError( $message, $errorObject = null ) {
