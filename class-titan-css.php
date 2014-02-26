@@ -186,6 +186,7 @@ class TitanFrameworkCSS {
 		$noCSSOptionTypes = array(
 			'text',
 			'textarea',
+			'editor',
 		);
 
         // Get all the CSS
