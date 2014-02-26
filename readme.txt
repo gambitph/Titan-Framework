@@ -188,6 +188,13 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 
 == Changelog ==
 
+= 1.2.1 =
+* Added French translations (thanks @PunKeel)
+* Added removeOption function
+* Fixed bug where fonts sometimes cannot be changed
+* Fixed fatal error encountered sometimes when generating CSS
+* Fixed bug where other post types are unable to be saved
+
 = 1.2 =
 * Better embedding handling
 * Automatic CSS generation
