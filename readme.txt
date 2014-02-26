@@ -65,7 +65,7 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 
 = Are You Using Titan Framework in Your Project? =
 
-Let me know, send me an email at (mailto:bf.intal@gambit.ph)[bf.intal@gambit.ph] with the details of your project along with a screenshot and I'll add it to the showcase here and in the site.
+Let me know, send me an email at bf.intal@gambit.ph with the details of your project along with a screenshot and I'll add it to the showcase here and in the site.
 
 = Supporting the Framework =
 
