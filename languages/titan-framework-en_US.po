@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Titan Framework\n"
-"POT-Creation-Date: 2014-02-22 14:28+0800\n"
-"PO-Revision-Date: 2014-02-22 14:28+0800\n"
+"POT-Creation-Date: 2014-02-26 22:38+0800\n"
+"PO-Revision-Date: 2014-02-26 22:38+0800\n"
 "Last-Translator: Benjamin Intal <bfintal@gmail.com>\n"
 "Language-Team: Gambit <bf.intal@gambit.ph>\n"
 "MIME-Version: 1.0\n"
@@ -13,11 +13,11 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../class-admin-panel.php:266
+#: ../class-admin-panel.php:268
 msgid "Settings saved."
 msgstr ""
 
-#: ../class-admin-panel.php:268
+#: ../class-admin-panel.php:270
 msgid "Settings reset to default."
 msgstr ""
 
@@ -40,39 +40,39 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:50
+#: ../class-option-select-googlefont.php:54
 msgid "Ultra-light"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:53
+#: ../class-option-select-googlefont.php:57
 msgid "Light"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:56
+#: ../class-option-select-googlefont.php:60
 msgid "Book"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:59
+#: ../class-option-select-googlefont.php:63
 msgid "Medium"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:62
+#: ../class-option-select-googlefont.php:66
 msgid "Semi-Bold"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:65
+#: ../class-option-select-googlefont.php:69
 msgid "Bold"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:68
+#: ../class-option-select-googlefont.php:72
 msgid "Extra-Bold"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:71
+#: ../class-option-select-googlefont.php:75
 msgid "Ultra-Bold"
 msgstr ""
 
-#: ../class-option-select-googlefont.php:74
+#: ../class-option-select-googlefont.php:78
 msgid "Regular"
 msgstr ""
 
@@ -85,21 +85,26 @@ msgstr ""
 msgid "Option type or extended class %s does not exist."
 msgstr ""
 
-#: ../class-titan-framework.php:234 ../class-titan-framework.php:269
+#: ../class-titan-framework.php:79
+#, php-format
+msgid "All option IDs must be unique. The id %s has been used multiple times."
+msgstr ""
+
+#: ../class-titan-framework.php:310 ../class-titan-framework.php:345
 #, php-format
 msgid ""
 "Wrong usage of %s, this should be called inside a hook or from within a "
 "theme file."
 msgstr ""
 
-#: ../titan-framework.php:118
+#: ../titan-framework.php:122
 msgid "Documentation"
 msgstr ""
 
-#: ../titan-framework.php:122
+#: ../titan-framework.php:126
 msgid "GitHub Repo"
 msgstr ""
 
-#: ../titan-framework.php:126
+#: ../titan-framework.php:130
 msgid "Issue Tracker"
 msgstr ""
