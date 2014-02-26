@@ -333,8 +333,11 @@ class TitanFrameworkAdminPanel {
     }
 
     public function createOption( $settings ) {
+		if ( ! apply_filters( 'tf_create_option_continue', true, $settings ) ) {
+			return null;
+		}
+
         $obj = TitanFrameworkOption::factory( $settings, $this );
-        // $obj = new TitanFrameworkOption( $settings, $this );
         $this->options[] = $obj;
 
         if ( ! empty( $obj->settings['id'] ) ) {
