@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,7 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 * Does NOT clutter the database
 * Integrates with your project seamlessly
 * Theme customizer live preview integration
+* Supports child themes
 
 = Easy creation of: =
 
@@ -62,9 +63,17 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 * Text
 * Textarea
 
+= Are You Using Titan Framework in Your Project? =
+
+Let me know, send me an email at bf.intal@gambit.ph with the details of your project along with a screenshot and I'll add it to the showcase here and in the site.
+
 = Supporting the Framework =
 
 Titan is super new, so far the framework has been getting good feedback from the community. Help out and spread the word by starring this repo, sending tweets, writing blog posts about what you think about Titan, and [review the plugin](http://wordpress.org/support/view/plugin-reviews/titan-framework).
+
+= Help Translate =
+
+We want Titan Framework to be used by everyone, and since not everyone speaks or reads english, we would appreciate it if you can [help translate the framework to your language](https://www.transifex.com/projects/p/titan-framework/).
 
 = Donate to the Development =
 
@@ -178,6 +187,13 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.2.1 =
+* Added French translations (thanks @PunKeel)
+* Added removeOption function
+* Fixed bug where fonts sometimes cannot be changed
+* Fixed fatal error encountered sometimes when generating CSS
+* Fixed bug where other post types are unable to be saved
 
 = 1.2 =
 * Better embedding handling

@@ -12,13 +12,17 @@ class TitanFramework {
     private $widgetAreas = array();
     private $googleFontsOptions = array();
 
+	// We store option ids which should not be created here (see removeOption)
+	private $optionsToRemove = array();
+
     private static $instances = array();
     private static $allOptionIDs = array();
     private static $allOptions;
 
     private $cssInstance;
 
-    // We store
+    // We store the options (with IDs) here, used for ensuring our serialized option
+	// value doesn't get cluttered with unused options
     public $optionsUsed = array();
 
     public static function getInstance( $optionNamespace ) {
@@ -55,6 +59,8 @@ class TitanFramework {
         add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
         add_action( 'wp_enqueue_scripts', array( $this, "loadFrontEndScripts" ) );
         add_action( 'tf_create_option', array( $this, "rememberGoogleFonts" ) );
+        add_action( 'tf_create_option', array( $this, "rememberAllOptions" ) );
+		add_filter( 'tf_create_option_continue', array( $this, "removeChildThemeOptions" ), 10, 2 );
     }
 
     /**
@@ -88,6 +94,23 @@ class TitanFramework {
             }
         }
     }
+
+
+    /**
+     * Action hook on tf_create_option to remember all the options, used to
+	 * ensure that our serialized option does not get cluttered with unused
+	 * options
+     *
+     * @access  public
+	 * @param	TitanFrameworkOption $option The option that was just created
+     * @return	void
+     * @since   1.2.1
+     */
+	public function rememberAllOptions( $option ) {
+        if ( ! empty( $option->settings['id'] ) ) {
+            $this->optionsUsed[ $option->settings['id'] ] = $option;
+        }
+	}
 
     public function loadFrontEndScripts() {
         foreach ( $this->googleFontsOptions as $googleFontOption ) {
@@ -256,6 +279,44 @@ class TitanFramework {
         $this->themeCustomizerSections[] = $obj;
         return $obj;
     }
+
+
+    /**
+     * A function available ONLY to CHILD themes to stop the creation of options
+	 * created by the PARENT theme.
+     *
+     * @access  public
+	 * @param	string $optionName The id of the option to remove / stop from being created
+     * @return  void
+     * @since   1.2.1
+     */
+	public function removeOption( $optionName ) {
+		$this->optionsToRemove[] = $optionName;
+	}
+
+
+    /**
+     * Hook to the tf_create_option_continue filter, to check whether or not to continue
+	 * adding an option (if the option id was used in $titan->removeOption).
+     *
+     * @access  public
+	 * @param	boolean $continueCreating If true, the option will be created
+	 * @param	array $optionSettings The settings for the option to be created
+     * @return  boolean If true, continue with creating the option. False to stop it.
+     * @since   1.2.1
+     */
+	public function removeChildThemeOptions( $continueCreating, $optionSettings ) {
+		if ( ! count( $this->optionsToRemove ) ) {
+			return $continueCreating;
+		}
+		if ( empty( $optionSettings['id'] ) ) {
+			return $continueCreating;
+		}
+		if ( in_array( $optionSettings['id'], $this->optionsToRemove ) ) {
+			return false;
+		}
+		return $continueCreating;
+	}
 
     public function getOption( $optionName, $postID = null ) {
         $value = null;
