@@ -119,7 +119,7 @@ class TitanFrameworkMetaBox {
 		}
 
 		// Check permissions
-		if ( 'page' == $this->settings['post_type'] ] ) {
+		if ( 'page' == $this->settings['post_type'] ) {
 			if ( ! current_user_can( 'edit_page', $postID ) ) {
 				return false;
 			}
