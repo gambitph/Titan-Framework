@@ -21,7 +21,8 @@ class TitanFramework {
 
     private $cssInstance;
 
-    // We store
+    // We store the options (with IDs) here, used for ensuring our serialized option
+	// value doesn't get cluttered with unused options
     public $optionsUsed = array();
 
     public static function getInstance( $optionNamespace ) {
@@ -58,6 +59,7 @@ class TitanFramework {
         add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
         add_action( 'wp_enqueue_scripts', array( $this, "loadFrontEndScripts" ) );
         add_action( 'tf_create_option', array( $this, "rememberGoogleFonts" ) );
+        add_action( 'tf_create_option', array( $this, "rememberAllOptions" ) );
 		add_filter( 'tf_create_option_continue', array( $this, "removeChildThemeOptions" ), 10, 2 );
     }
 
@@ -92,6 +94,23 @@ class TitanFramework {
             }
         }
     }
+
+
+    /**
+     * Action hook on tf_create_option to remember all the options, used to
+	 * ensure that our serialized option does not get cluttered with unused
+	 * options
+     *
+     * @access  public
+	 * @param	TitanFrameworkOption $option The option that was just created
+     * @return	void
+     * @since   1.2.1
+     */
+	public function rememberAllOptions( $option ) {
+        if ( ! empty( $option->settings['id'] ) ) {
+            $this->optionsUsed[ $option->settings['id'] ] = $option;
+        }
+	}
 
     public function loadFrontEndScripts() {
         foreach ( $this->googleFontsOptions as $googleFontOption ) {

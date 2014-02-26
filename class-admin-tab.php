@@ -42,10 +42,6 @@ class TitanFrameworkAdminTab {
         $obj = TitanFrameworkOption::factory( $settings, $this );
         $this->options[] = $obj;
 
-        if ( ! empty( $obj->settings['id'] ) ) {
-            $this->owner->owner->optionsUsed[$obj->settings['id']] = $obj;
-        }
-
         do_action( 'tf_create_option', $obj );
 
         return $obj;
