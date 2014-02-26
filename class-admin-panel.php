@@ -120,8 +120,8 @@ class TitanFrameworkAdminPanel {
 		$message = '';
 
 		/*
-		*  Save
-		*/
+		 *  Save
+		 */
 		if ( 'save' == $_POST['action'] ) {
 			// we are in a tab
 			$activeTab = $this->getActiveTab();
@@ -162,8 +162,8 @@ class TitanFrameworkAdminPanel {
 			$message = 'saved';
 
 		/*
-		* Reset
-		*/
+		 * Reset
+		 */
 		} else if ( 'reset' == $_POST['action'] ) {
 			// we are in a tab
 			$activeTab = $this->getActiveTab();
@@ -357,4 +357,5 @@ public function createAdminPage() {
 
 		return $obj;
 	}
+
 }
