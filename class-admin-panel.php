@@ -4,346 +4,357 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class TitanFrameworkAdminPanel {
 
-    private $defaultSettings = array(
-        'name' => '', // Name of the menu item
-        'title' => '', // Title displayed on the top of the admin panel
-        'parent' => null, // id of parent, if blank, then this is a top level menu
-        'id' => '', // Unique ID of the menu item
-        'capability' => 'manage_options', // User role
-        'icon' => 'dashicons-admin-generic', // Menu icon for top level menus only http://melchoyce.github.io/dashicons/
-        'position' => null, // Menu position. Can be used for both top and sub level menus
-        'use_form' => true, // If false, options will not be wrapped in a form
-    );
+	private $defaultSettings = array(
+		'name' => '', // Name of the menu item
+		'title' => '', // Title displayed on the top of the admin panel
+		'parent' => null, // id of parent, if blank, then this is a top level menu
+		'id' => '', // Unique ID of the menu item
+		'capability' => 'manage_options', // User role
+		'icon' => 'dashicons-admin-generic', // Menu icon for top level menus only http://melchoyce.github.io/dashicons/
+		'position' => null, // Menu position. Can be used for both top and sub level menus
+		'use_form' => true, // If false, options will not be wrapped in a form
+	);
 
-    public $settings;
-    public $options = array();
-    public $tabs = array();
-    public $owner;
+	public $settings;
+	public $options = array();
+	public $tabs = array();
+	public $owner;
+	public $panelID;
 
-    public $panelID;
+	private $activeTab = null;
+	private static $idsUsed = array();
 
-    private $activeTab = null;
-    private static $idsUsed = array();
+	function __construct( $settings, $owner ) {
+		$this->owner = $owner;
 
-    function __construct( $settings, $owner ) {
-        $this->owner = $owner;
+		if ( ! is_admin() ) {
+			return;
+		}
 
-        if ( ! is_admin() ) {
-            return;
-        }
+		$this->settings = array_merge( $this->defaultSettings, $settings );
+		// $this->options = $options;
 
-        $this->settings = array_merge( $this->defaultSettings, $settings );
-        // $this->options = $options;
+		if ( empty( $this->settings['name'] ) ) {
+			return;
+		}
 
-        if ( empty( $this->settings['name'] ) ) {
-            return;
-        }
+		if ( empty( $this->settings['title'] ) ) {
+			$this->settings['title'] = $this->settings['name'];
+		}
 
-        if ( empty( $this->settings['title'] ) ) {
-            $this->settings['title'] = $this->settings['name'];
-        }
+		if ( empty( $this->settings['id'] ) ) {
+			$prefix = '';
 
-        if ( empty( $this->settings['id'] ) ) {
-            $prefix = '';
-            if ( ! empty( $this->settings['parent'] ) ) {
-                $prefix = str_replace( ' ', '-', trim( strtolower( $this->settings['parent'] ) ) ) . '-';
-            }
-            $this->settings['id'] = $prefix . str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
-        }
+			if ( ! empty( $this->settings['parent'] ) ) {
+				$prefix = str_replace( ' ', '-', trim( strtolower( $this->settings['parent'] ) ) ) . '-';
+			}
 
-        // make sure all our IDs are unique
-        $suffix = '';
-        while ( in_array( $this->settings['id'] . $suffix, self::$idsUsed ) ) {
-            if ( $suffix === '' ) {
-                $suffix = 2;
-            } else {
-                $suffix++;
-            }
-        }
-        $this->settings['id'] .= $suffix;
+			$this->settings['id'] = $prefix . str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
+		}
 
-        // keep track of all IDs used
-        self::$idsUsed[] = $this->settings['id'];
+		// make sure all our IDs are unique
+		$suffix = '';
 
-        $priority = -1;
-        if ( $this->settings['parent'] ) {
-            $priority = intval( $this->settings['position'] );
-        }
+		while ( in_array( $this->settings['id'] . $suffix, self::$idsUsed ) ) {
+			if ( '' === $suffix ) {
+				$suffix = 2;
+			} else {
+				$suffix++;
+			}
+		}
 
-        add_action( 'admin_menu', array( $this, 'register' ), $priority );
-    }
+		$this->settings['id'] .= $suffix;
 
-    public function createAdminPanel( $settings ) {
-        $settings['parent'] = $this->settings['id'];
-        return $this->owner->createAdminPanel( $settings );
-    }
+		// keep track of all IDs used
+		self::$idsUsed[] = $this->settings['id'];
 
-    public function register() {
-        // Parent menu
-        if ( empty( $this->settings['parent'] ) ) {
-            $this->panelID = add_menu_page( $this->settings['name'],
-                           $this->settings['name'],
-                           $this->settings['capability'],
-                           $this->settings['id'],
-                           array( $this, 'createAdminPage' ),
-                           $this->settings['icon'],
-                           $this->settings['position'] );
-        // Sub menu
-        } else {
-            $this->panelID = add_submenu_page( $this->settings['parent'],
-                              $this->settings['name'],
-                              $this->settings['name'],
-                              $this->settings['capability'],
-                              $this->settings['id'],
-                              array( $this, 'createAdminPage' ) );
-        }
+		$priority = -1;
 
-        add_action( 'load-' . $this->panelID, array( $this, 'saveOptions' ) );
-    }
+		if ( $this->settings['parent'] ) {
+			$priority = intval( $this->settings['position'] );
+		}
 
-    protected function getOptionNamespace() {
-        return $this->owner->optionNamespace;
-    }
+		add_action( 'admin_menu', array( $this, 'register' ), $priority );
+	}
 
-    public function saveOptions() {
-        if ( ! $this->verifySecurity() ) {
-            return;
-        }
+	public function createAdminPanel( $settings ) {
+		$settings['parent'] = $this->settings['id'];
 
-        $message = '';
+		return $this->owner->createAdminPanel( $settings );
+	}
 
-        /*
-         *  Save
-         */
+	public function register() {
+		// Parent menu
+		if ( empty( $this->settings['parent'] ) ) {
+			$this->panelID = add_menu_page( $this->settings['name'],
+				$this->settings['name'],
+				$this->settings['capability'],
+				$this->settings['id'],
+				array( $this, 'createAdminPage' ),
+				$this->settings['icon'],
+				$this->settings['position']
+			);
+		// Sub menu
+		} else {
+			$this->panelID = add_submenu_page( $this->settings['parent'],
+				$this->settings['name'],
+				$this->settings['name'],
+				$this->settings['capability'],
+				$this->settings['id'],
+				array( $this, 'createAdminPage' )
+			);
+		}
 
-        if ( $_POST['action'] == 'save' ) {
-            // we are in a tab
-            $activeTab = $this->getActiveTab();
-            if ( ! empty( $activeTab ) ) {
-                foreach ( $activeTab->options as $option ) {
-                    if ( empty( $option->settings['id'] ) ) {
-                        continue;
-                    }
+		add_action( 'load-' . $this->panelID, array( $this, 'saveOptions' ) );
+	}
 
-                    if ( ! empty( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
-                        $value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
-                    } else {
-                        $value = '';
-                    }
-                    // $value = $option->cleanValueForSaving( $value );
-                    $this->owner->setOption( $option->settings['id'], $value );
-                }
-            }
+	protected function getOptionNamespace() {
+		return $this->owner->optionNamespace;
+	}
 
-            foreach ( $this->options as $option ) {
-                if ( empty( $option->settings['id'] ) ) {
-                    continue;
-                }
+	public function saveOptions() {
+		if ( ! $this->verifySecurity() ) {
+			return;
+		}
 
-                if ( ! empty( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
-                    $value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
-                } else {
-                    $value = '';
-                }
+		$message = '';
 
-                $this->owner->setOption( $option->settings['id'], $value );
-            }
-            $this->owner->saveOptions();
+		/*
+		*  Save
+		*/
+		if ( 'save' == $_POST['action'] ) {
+			// we are in a tab
+			$activeTab = $this->getActiveTab();
 
-            $message = 'saved';
+			if ( ! empty( $activeTab ) ) {
+				foreach ( $activeTab->options as $option ) {
+					if ( empty( $option->settings['id'] ) ) {
+						continue;
+					}
 
-        /*
-         * Reset
-         */
+					if ( ! empty( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
+						$value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
+					} else {
+						$value = '';
+					}
 
-        } else if ( $_POST['action'] == 'reset' ) {
-            // we are in a tab
-            $activeTab = $this->getActiveTab();
-            if ( ! empty( $activeTab ) ) {
-                foreach ( $activeTab->options as $option ) {
-                    if ( empty( $option->settings['id'] ) ) {
-                        continue;
-                    }
+					// $value = $option->cleanValueForSaving( $value );
+					$this->owner->setOption( $option->settings['id'], $value );
+				}
+			}
 
-                    $this->owner->setOption( $option->settings['id'], $option->settings['default'] );
-                }
-            }
+			foreach ( $this->options as $option ) {
+				if ( empty( $option->settings['id'] ) ) {
+					continue;
+				}
 
-            foreach ( $this->options as $option ) {
-                if ( empty( $option->settings['id'] ) ) {
-                    continue;
-                }
+				if ( ! empty( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
+					$value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
+				} else {
+					$value = '';
+				}
 
-                $this->owner->setOption( $option->settings['id'], $option->settings['default'] );
-            }
-            $this->owner->saveOptions();
+				$this->owner->setOption( $option->settings['id'], $value );
+			}
+	
+			$this->owner->saveOptions();
 
-            $message = 'reset';
-        }
+			$message = 'saved';
 
-        /*
-         * Redirect to prevent refresh saving
-         */
+		/*
+		* Reset
+		*/
+		} else if ( 'reset' == $_POST['action'] ) {
+			// we are in a tab
+			$activeTab = $this->getActiveTab();
 
-        // urlencode to allow special characters in the url
-        $activeTab = $this->getActiveTab();
-        $args = '?page=' . urlencode( $this->settings['id'] );
-        $args .= empty( $activeTab ) ? '' : '&tab=' . urlencode( $activeTab->settings['id'] );
-        $args .= empty( $message ) ? '' : '&message=' . $message;
+			if ( ! empty( $activeTab ) ) {
+				foreach ( $activeTab->options as $option ) {
+					if ( empty( $option->settings['id'] ) ) {
+						continue;
+					}
 
-        do_action( 'tf_admin_options_saved' );
+					$this->owner->setOption( $option->settings['id'], $option->settings['default'] );
+				}
+			}
 
-        wp_redirect( admin_url( 'admin.php' . $args ) );
-    }
+			foreach ( $this->options as $option ) {
+				if ( empty( $option->settings['id'] ) ) {
+					continue;
+				}
 
-    private function verifySecurity() {
-        if ( empty( $_POST ) || empty( $_POST['action'] ) ) {
-            return false;
-        }
+				$this->owner->setOption( $option->settings['id'], $option->settings['default'] );
+			}
 
-        $screen = get_current_screen();
-        if ( $screen->id != $this->panelID ) {
-            return false;
-        }
+			$this->owner->saveOptions();
 
-        if ( ! current_user_can( $this->settings['capability'] ) ) {
-            return false;
-        }
+			$message = 'reset';
+		}
 
-        if ( ! check_admin_referer( $this->settings['id'], TF . '_nonce' ) ) {
-            return false;
-        }
+		/*
+		* Redirect to prevent refresh saving
+		*/
+		// urlencode to allow special characters in the url
+		$activeTab = $this->getActiveTab();
+		$args = '?page=' . urlencode( $this->settings['id'] );
+		$args .= empty( $activeTab ) ? '' : '&tab=' . urlencode( $activeTab->settings['id'] );
+		$args .= empty( $message ) ? '' : '&message=' . $message;
 
-        return true;
-    }
+		do_action( 'tf_admin_options_saved' );
+		wp_redirect( admin_url( 'admin.php' . $args ) );
+	}
 
-    public function getActiveTab() {
-        if ( ! count( $this->tabs ) ) {
-            return '';
-        }
-        if ( ! empty( $this->activeTab ) ) {
-            return $this->activeTab;
-        }
+	private function verifySecurity() {
+		if ( empty( $_POST ) || empty( $_POST['action'] ) ) {
+			return false;
+		}
 
-        if ( empty( $_GET['tab'] ) ) {
-            $this->activeTab = $this->tabs[0];
-            return $this->activeTab;
-        }
+		$screen = get_current_screen();
 
-        foreach ( $this->tabs as $tab ) {
-            if ( $tab->settings['id'] == $_GET['tab'] ) {
-                $this->activeTab = $tab;
-                return $this->activeTab;
-            }
-        }
-    }
+		if ( $screen->id != $this->panelID ) {
+			return false;
+		}
 
-    public function createAdminPage() {
-        ?>
-        <div class='wrap titan-framework-panel-wrap'>
-        <?php
+		if ( ! current_user_can( $this->settings['capability'] ) ) {
+			return false;
+		}
 
-        if ( ! count( $this->tabs ) ):
-            ?>
-            <h2><?php echo $this->settings['title'] ?></h2>
-            <?php
-        endif;
+		if ( ! check_admin_referer( $this->settings['id'], TF . '_nonce' ) ) {
+			return false;
+		}
 
-        if ( count( $this->tabs ) ):
-            ?>
-            <h2 class="nav-tab-wrapper">
-            <?php
-            foreach ( $this->tabs as $tab ) {
-                $tab->displayTab();
-            }
-            ?>
-            </h2>
-            <h2><?php echo $this->getActiveTab()->settings['title'] ?></h2>
-            <?php
-        endif;
+		return true;
+	}
 
-        // Display notification if we did something
-        if ( ! empty( $_GET['message'] ) ) {
-            if ( $_GET['message'] == 'saved' ) {
-                echo TitanFrameworkAdminNotification::formNotification( __( 'Settings saved.', TF_I18NDOMAIN ), $_GET['message'] );
-            } else if ( $_GET['message'] == 'reset' ) {
-                echo TitanFrameworkAdminNotification::formNotification( __( 'Settings reset to default.', TF_I18NDOMAIN ), $_GET['message'] );
-            }
-        }
+	public function getActiveTab() {
+		if ( ! count( $this->tabs ) ) {
+			return '';
+		}
 
-        if ( $this->settings['use_form'] ):
-            ?>
-            <form method='post'>
-            <?php
-        endif;
+		if ( ! empty( $this->activeTab ) ) {
+			return $this->activeTab;
+		}
 
-        if ( $this->settings['use_form'] ) {
-            // security
-            wp_nonce_field( $this->settings['id'], TF . '_nonce' );
-        }
+		if ( empty( $_GET['tab'] ) ) {
+			$this->activeTab = $this->tabs[0];
 
-        ?>
-        <table class='form-table'>
-            <tbody>
-        <?php
+			return $this->activeTab;
+		}
 
-        $activeTab = $this->getActiveTab();
-        if ( ! empty( $activeTab ) ) {
-            $activeTab->displayOptions();
-        }
+		foreach ( $this->tabs as $tab ) {
+			if ( $tab->settings['id'] == $_GET['tab'] ) {
+				$this->activeTab = $tab;
 
-        foreach ( $this->options as $option ) {
-            $option->display();
-        }
+				return $this->activeTab;
+			}
+		}
+	}
 
-        ?>
-            </tbody>
-        </table>
-        <?php
+public function createAdminPage() {
+	?>
+	<div class='wrap titan-framework-panel-wrap'>
+		<?php
+		if ( ! count( $this->tabs ) ):
+		?>
+		<h2><?php echo $this->settings['title'] ?></h2>
+		<?php
+		endif;
 
-        if ( $this->settings['use_form'] ):
-            ?>
-            </form>
-            <?php
-        endif;
+		if ( count( $this->tabs ) ):
+		?>
+		<h2 class="nav-tab-wrapper">
+			<?php
+			foreach ( $this->tabs as $tab ) {
+				$tab->displayTab();
+			}
+			?>
+		</h2>
+		<h2><?php echo $this->getActiveTab()->settings['title'] ?></h2>
+		<?php
+		endif;
 
-        // Reset form. We use JS to trigger a reset from other buttons within the main form
-        // This is used by class-option-save.php
-        if ( $this->settings['use_form'] ):
-            ?>
-            <form method='post' id='tf-reset-form'>
-                <?php
-                // security
-                wp_nonce_field( $this->settings['id'], TF . '_nonce' );
-                ?>
-                <input type='hidden' name='action' value='reset'/>
-            </form>
-            <?php
-        endif;
-        ?>
+		// Display notification if we did something
+		if ( ! empty( $_GET['message'] ) ) {
+			if ( 'saved' == $_GET['message'] ) {
+				echo TitanFrameworkAdminNotification::formNotification( __( 'Settings saved.', TF_I18NDOMAIN ), $_GET['message'] );
+			} else if ( 'reset' == $_GET['message'] ) {
+				echo TitanFrameworkAdminNotification::formNotification( __( 'Settings reset to default.', TF_I18NDOMAIN ), $_GET['message'] );
+			}
+		}
 
-        </div>
-        <?php
-    }
+		if ( $this->settings['use_form'] ):
+			?>
+			<form method='post'>
+			<?php
+		endif;
 
-    public function createTab( $settings ) {
-        $obj = new TitanFrameworkAdminTab( $settings, $this );
-        $this->tabs[] = $obj;
-        return $obj;
-    }
+		if ( $this->settings['use_form'] ) {
+		// security
+			wp_nonce_field( $this->settings['id'], TF . '_nonce' );
+		}
 
-    public function createOption( $settings ) {
-        $obj = TitanFrameworkOption::factory( $settings, $this );
-        // $obj = new TitanFrameworkOption( $settings, $this );
-        $this->options[] = $obj;
+		?>
+			<table class='form-table'>
+				<tbody>
+		<?php
 
-        if ( ! empty( $obj->settings['id'] ) ) {
-            $this->owner->optionsUsed[$obj->settings['id']] = $obj;
-        }
+		$activeTab = $this->getActiveTab();
+		if ( ! empty( $activeTab ) ) {
+			$activeTab->displayOptions();
+		}
 
-        do_action( 'tf_create_option', $obj );
+		foreach ( $this->options as $option ) {
+			$option->display();
+		}
 
-        return $obj;
-    }
+		?>
+			</tbody>
+		</table>
+		<?php
+
+		if ( $this->settings['use_form'] ):
+			?>
+			</form>
+			<?php
+		endif;
+
+		// Reset form. We use JS to trigger a reset from other buttons within the main form
+		// This is used by class-option-save.php
+		if ( $this->settings['use_form'] ):
+			?>
+			<form method='post' id='tf-reset-form'>
+				<?php
+				// security
+				wp_nonce_field( $this->settings['id'], TF . '_nonce' );
+				?>
+				<input type='hidden' name='action' value='reset'/>
+			</form>
+			<?php
+			endif;
+			?>
+
+		</div>
+		<?php
+	}
+
+	public function createTab( $settings ) {
+		$obj = new TitanFrameworkAdminTab( $settings, $this );
+		$this->tabs[] = $obj;
+
+		return $obj;
+	}
+
+	public function createOption( $settings ) {
+		$obj = TitanFrameworkOption::factory( $settings, $this );
+		// $obj = new TitanFrameworkOption( $settings, $this );
+		$this->options[] = $obj;
+
+		if ( ! empty( $obj->settings['id'] ) ) {
+			$this->owner->optionsUsed[ $obj->settings['id'] ] = $obj;
+		}
+
+		do_action( 'tf_create_option', $obj );
+
+		return $obj;
+	}
 }
-?>
