@@ -182,6 +182,13 @@ class TitanFrameworkCSS {
     public function generateCSS() {
         $cssString = '';
 
+		// These are the option types which are not allowed:
+		$noCSSOptionTypes = array(
+			'text',
+			'textarea',
+			'editor',
+		);
+
         // Get all the CSS
         foreach ( $this->allOptionsWithIDs as $option ) {
             // Add the values as SaSS variables
@@ -189,6 +196,11 @@ class TitanFrameworkCSS {
 
             // Add the custom CSS
             if ( ! empty( $option->settings['css'] ) ) {
+				// Only do this for the allowed types
+				if ( in_array( $option->settings['type'], $noCSSOptionTypes ) ) {
+					continue;
+				}
+
                 // In the css parameter, we accept the term `value` as our current value,
                 // translate it into the SaSS variable for the current option
                 $cssString .= str_replace( 'value', '$' . $option->settings['id'], $option->settings['css'] );
