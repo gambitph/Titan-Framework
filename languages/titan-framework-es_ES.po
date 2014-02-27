@@ -1,0 +1,120 @@
+#
+# Translators:
+# maperezotero <maperezotero@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Titan Framework\n"
+"POT-Creation-Date: 2014-02-26 22:38+0800\n"
+"PO-Revision-Date: 2014-02-28 07:54+0800\n"
+"Last-Translator: Benjamin Intal <bfintal@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/titan-framework/"
+"language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../class-admin-panel.php:268
+msgid "Settings saved."
+msgstr "Ajustes guardados."
+
+#: ../class-admin-panel.php:270
+msgid "Settings reset to default."
+msgstr "Ajustes restablecidos a los valores por defecto."
+
+#: ../class-meta-box.php:35 ../class-theme-customizer-section.php:27
+msgid "More Options"
+msgstr "Más Opciones"
+
+#: ../class-option-save.php:20
+msgid "Save Changes"
+msgstr "Guardar Cambios"
+
+#: ../class-option-save.php:23
+msgid "Reset to Default"
+msgstr "Restablecer a valores por defecto"
+
+#: ../class-option-select-categories.php:37
+#: ../class-option-select-categories.php:104
+#: ../class-option-select-pages.php:30 ../class-option-select-posts.php:38
+#: ../class-option-select-posts.php:106
+msgid "Select"
+msgstr "Seleccionar"
+
+#: ../class-option-select-googlefont.php:54
+msgid "Ultra-light"
+msgstr "Ultra-light"
+
+#: ../class-option-select-googlefont.php:57
+msgid "Light"
+msgstr "Light"
+
+#: ../class-option-select-googlefont.php:60
+msgid "Book"
+msgstr "Book"
+
+#: ../class-option-select-googlefont.php:63
+msgid "Medium"
+msgstr "Medium"
+
+#: ../class-option-select-googlefont.php:66
+msgid "Semi-Bold"
+msgstr "Semi-Bold"
+
+#: ../class-option-select-googlefont.php:69
+msgid "Bold"
+msgstr "Bold"
+
+#: ../class-option-select-googlefont.php:72
+msgid "Extra-Bold"
+msgstr "Extra-Bold"
+
+#: ../class-option-select-googlefont.php:75
+msgid "Ultra-Bold"
+msgstr "Ultra-Bold"
+
+#: ../class-option-select-googlefont.php:78
+msgid "Regular"
+msgstr "Regular"
+
+#: ../class-option-upload.php:34
+msgid "Upload"
+msgstr "Subir"
+
+#: ../class-option.php:35
+#, php-format
+msgid "Option type or extended class %s does not exist."
+msgstr "El tipo de opción o clase extendida %s no existe."
+
+#: ../class-titan-framework.php:79
+#, php-format
+msgid "All option IDs must be unique. The id %s has been used multiple times."
+msgstr ""
+"Todas las ID de las opciones deben ser únicas. La id %s ha sido utilizada "
+"varias veces."
+
+#: ../class-titan-framework.php:310 ../class-titan-framework.php:345
+#, php-format
+msgid ""
+"Wrong usage of %s, this should be called inside a hook or from within a "
+"theme file."
+msgstr ""
+"Uso erróneo de %s, se debe llamar desde dentro de un hook o desde un archivo "
+"del theme o plantilla."
+
+#: ../titan-framework.php:122
+msgid "Documentation"
+msgstr "Documentación"
+
+#: ../titan-framework.php:126
+msgid "GitHub Repo"
+msgstr "Repositorio en GitHub"
+
+#: ../titan-framework.php:130
+msgid "Issue Tracker"
+msgstr "Seguimiento de Incidencias"
