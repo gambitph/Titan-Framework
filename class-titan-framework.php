@@ -321,25 +321,35 @@ class TitanFramework {
     public function getOption( $optionName, $postID = null ) {
         $value = null;
 
-        if ( empty( $postID ) ) {
-            // option
+		// If no $postID is given, try and get it if we are in a loop
+		if ( empty( $postID ) && ! is_admin() ) {
+			if ( get_post() != null ) {
+				$postID = get_the_ID();
+			}
+		}
 
-            if ( ! is_array( self::$allOptions ) ) {
+		// Get the option value
+		if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
+			$option = $this->optionsUsed[ $optionName ];
+
+			if ( $option->type == TitanFrameworkOption::TYPE_ADMIN ) {
+
                 // this is blank if called too early. getOption should be called inside a hook or template
-                self::displayFrameworkError( sprintf( __( 'Wrong usage of %s, this should be called inside a hook or from within a theme file.', TF_I18NDOMAIN ), '<code>getOption</code>' ) );
-                return '';
-            }
+	            if ( ! is_array( self::$allOptions ) ) {
+	                self::displayFrameworkError( sprintf( __( 'Wrong usage of %s, this should be called inside a hook or from within a theme file.', TF_I18NDOMAIN ), '<code>getOption</code>' ) );
+	                return null;
+	            }
 
-            if ( array_key_exists( $optionName, self::$allOptions[$this->optionNamespace] ) ) {
-                $value = self::$allOptions[$this->optionNamespace][$optionName];
-            } else {
-                // customizer
+				$value = self::$allOptions[ $this->optionNamespace ][ $optionName ];
+
+			} else if ( $option->type == TitanFrameworkOption::TYPE_META ) {
+	            $value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
+
+			} else if ( $option->type == TitanFrameworkOption::TYPE_CUSTOMIZER ) {
                 $value = get_theme_mod( $this->optionNamespace . '_' . $optionName );
-            }
-        } else {
-            // meta
-            $value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
-        }
+
+			}
+		}
 
         // Apply cleaning method for the value (for serialized data, slashes, etc)
         if ( $value !== null ) {

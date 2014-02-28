@@ -8,8 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 
 class TitanFrameworkOption {
+
+	const TYPE_META = 'meta';
+	const TYPE_ADMIN = 'option';
+	const TYPE_CUSTOMIZER = 'customizer';
+
     public $settings;
-    public $type; // 'option' or 'meta'
+    public $type; // One of the TYPE_* constants above
     public $owner;
 
     private static $defaultSettings = array(
@@ -60,8 +65,8 @@ class TitanFrameworkOption {
         $this->settings = array_merge( self::$defaultSettings, $this->defaultSecondarySettings );
         $this->settings = array_merge( $this->settings, $settings );
 
-        $this->type = is_a( $owner, 'TitanFrameworkMetaBox' ) ? 'meta' : 'option';
-        $this->type = is_a( $owner, 'TitanFrameworkThemeCustomizerSection' ) ? 'customizer' : $this->type;
+        $this->type = is_a( $owner, 'TitanFrameworkMetaBox' ) ? self::TYPE_META : self::TYPE_ADMIN;
+        $this->type = is_a( $owner, 'TitanFrameworkThemeCustomizerSection' ) ? self::TYPE_CUSTOMIZER : $this->type;
     }
 
     /**
@@ -89,7 +94,7 @@ class TitanFrameworkOption {
     }
 
     public function getValue() {
-        if ( $this->type == 'option' ) {
+        if ( $this->type == self::TYPE_ADMIN ) {
             if ( is_a( $this->owner, 'TitanFrameworkAdminTab' ) ) {
                 $allOptions = $this->owner->owner->owner->getAllOptions();
             } else {
@@ -99,7 +104,7 @@ class TitanFrameworkOption {
                 return $allOptions[$this->settings['id']];
             }
             return '';
-        } else if ( $this->type == 'meta' ) {
+        } else if ( $this->type == self::TYPE_META ) {
             // for meta options, use the default value for new posts/pages
             if ( $this->isEditPage( 'new' ) ) {
                 return $this->settings['default'];
@@ -107,9 +112,10 @@ class TitanFrameworkOption {
                 // use the saved value for edited posts/pages
                 return get_post_meta( $this->owner->postID, $this->getID(), true );
             }
-        } else if ( $this->type == 'customizer' ) {
+        } else if ( $this->type == self::TYPE_CUSTOMIZER ) {
             return get_theme_mod( $this->getID() );
         }
+		return false;
     }
 
     protected function getOptionNamespace() {
