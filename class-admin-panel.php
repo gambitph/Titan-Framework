@@ -243,22 +243,37 @@ class TitanFrameworkAdminPanel {
         <div class='wrap titan-framework-panel-wrap'>
         <?php
 
-        if ( ! count( $this->tabs ) ):
-            ?>
-            <h2><?php echo $this->settings['title'] ?></h2>
-            <?php
-        endif;
+		do_action( 'tf_admin_page_start' );
 
         if ( count( $this->tabs ) ):
             ?>
             <h2 class="nav-tab-wrapper">
             <?php
+
+			do_action( 'tf_admin_page_tab_start' );
+
             foreach ( $this->tabs as $tab ) {
                 $tab->displayTab();
             }
+
+			do_action( 'tf_admin_page_tab_end' );
+
             ?>
             </h2>
-            <h2><?php echo $this->getActiveTab()->settings['title'] ?></h2>
+            <?php
+        endif;
+
+		?>
+		<div class='options-container'>
+		<?php
+
+		if ( count( $this->tabs ) ):
+			echo "<h2>" . $this->getActiveTab()->settings['title'] . "</h2>";
+		endif;
+
+        if ( ! count( $this->tabs ) ):
+            ?>
+            <h2><?php echo $this->settings['title'] ?></h2>
             <?php
         endif;
 
@@ -287,6 +302,8 @@ class TitanFrameworkAdminPanel {
             <tbody>
         <?php
 
+		do_action( 'tf_admin_page_table_start' );
+
         $activeTab = $this->getActiveTab();
         if ( ! empty( $activeTab ) ) {
             $activeTab->displayOptions();
@@ -295,6 +312,8 @@ class TitanFrameworkAdminPanel {
         foreach ( $this->options as $option ) {
             $option->display();
         }
+
+		do_action( 'tf_admin_page_table_end' );
 
         ?>
             </tbody>
@@ -320,8 +339,11 @@ class TitanFrameworkAdminPanel {
             </form>
             <?php
         endif;
-        ?>
 
+		do_action( 'tf_admin_page_end' );
+
+		?>
+		<div class='options-container'>
         </div>
         <?php
     }
