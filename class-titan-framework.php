@@ -321,17 +321,11 @@ class TitanFramework {
     public function getOption( $optionName, $postID = null ) {
         $value = null;
 
-		// If no $postID is given, try and get it if we are in a loop
-		if ( empty( $postID ) && ! is_admin() ) {
-			if ( get_post() != null ) {
-				$postID = get_the_ID();
-			}
-		}
-
 		// Get the option value
 		if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
 			$option = $this->optionsUsed[ $optionName ];
 
+			// Admin page options
 			if ( $option->type == TitanFrameworkOption::TYPE_ADMIN ) {
 
                 // this is blank if called too early. getOption should be called inside a hook or template
@@ -342,9 +336,21 @@ class TitanFramework {
 
 				$value = self::$allOptions[ $this->optionNamespace ][ $optionName ];
 
+
+			// Meta box options
 			} else if ( $option->type == TitanFrameworkOption::TYPE_META ) {
+
+				// If no $postID is given, try and get it if we are in a loop
+				if ( empty( $postID ) && ! is_admin() ) {
+					if ( get_post() != null ) {
+						$postID = get_the_ID();
+					}
+				}
+
 	            $value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
 
+
+			// Theme customizer options
 			} else if ( $option->type == TitanFrameworkOption::TYPE_CUSTOMIZER ) {
                 $value = get_theme_mod( $this->optionNamespace . '_' . $optionName );
 
