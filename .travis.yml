@@ -11,14 +11,14 @@ php:
 
 # WordPress version used in first build configuration.
 env:
-    - WP_VERSION=master WP_MULTISITE=0
-    - WP_VERSION=3.4.2 WP_MULTISITE=0
-    - WP_VERSION=3.3.3 WP_MULTISITE=0
-    - WP_VERSION=3.2.1 WP_MULTISITE=0
-    - WP_VERSION=master WP_MULTISITE=1
-    - WP_VERSION=3.4.2 WP_MULTISITE=1
-    - WP_VERSION=3.3.3 WP_MULTISITE=1
-    - WP_VERSION=3.2.1 WP_MULTISITE=1
+    - WP_VERSION=latest WP_MULTISITE=0
+    - WP_VERSION=3.8 WP_MULTISITE=0
+    - WP_VERSION=3.8.1 WP_MULTISITE=0
+    - WP_VERSION=3.7 WP_MULTISITE=0
+    - WP_VERSION=latest WP_MULTISITE=1
+    - WP_VERSION=3.8 WP_MULTISITE=1
+    - WP_VERSION=3.8.1 WP_MULTISITE=1
+    - WP_VERSION=3.7 WP_MULTISITE=1
 
 # Next we define our matrix of additional build configurations to test against.
 # The versions listed above will automatically create our first configuration,
