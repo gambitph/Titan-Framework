@@ -157,15 +157,17 @@ class TitanFrameworkCSS {
                 $cssString = $this->formCSSVariables( $id, $subValue, $subKey, $cssString );
             }
         } else {
-            if ( $key === false ) {
-                $cssString .= "\$" . esc_attr( $id ) . ": '" . esc_attr( $value ) . "';\n";
+            // If the value is a color, don't wrap it in quotes
+            if ( preg_match( '/^#[a-f0-9]{6}$/i', $value ) ) {
+				$value = esc_attr( $value );
+			} else {
+				$value = "'" . esc_attr( $value ) . "'";
+			}
+
+            if ( false === $key  ) {
+                $cssString .= "\$" . esc_attr( $id ) . ": " . $value . ";\n";
             } else {
-                // If the value is a color, don't wrap it in quotes
-                if ( preg_match( '/^#[a-f0-9]{6}$/i', $value ) ) {
-                    $cssString .= "\$" . esc_attr( $id ) . "-" . esc_attr( $key ) . ": " . esc_attr( $value ) . ";\n";
-                } else {
-                    $cssString .= "\$" . esc_attr( $id ) . "-" . esc_attr( $key ) . ": '" . esc_attr( $value ) . "';\n";
-                }
+                $cssString .= "\$" . esc_attr( $id ) . "-" . esc_attr( $key ) . ": " . $value . ";\n";
             }
         }
         return $cssString;
