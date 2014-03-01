@@ -102,11 +102,11 @@ If Titan Framework has helped you in any way, we would appreciate any amount of 
 
 // Create menu
 $panel = $titan->createAdminPanel( array(
-    'name' => 'Menu Name',
+	'name' => 'Menu Name',
 ) );
 
 $panel2 = $panel->createAdminPanel( array(
-    'name' => 'Submenu Name',
+	'name' => 'Submenu Name',
 ) );`
 
 = Creating an option in an admin page =
@@ -115,21 +115,21 @@ $panel2 = $panel->createAdminPanel( array(
 
 // Create menu
 $panel = $titan->createAdminPanel( array(
-    'name' => 'Menu Name',
+	'name' => 'Menu Name',
 ) );
 
 // Create a select option
 $panel->createOption( array(
-    'name' => 'Select One',
-    'id' => 'my_selected_id
-    'type' => 'select',
-    'options' => array(
-        '1' => 'Option one',
-        '2' => 'Option two',
-        '3' => 'Option three',
-    ),
-    'default' => '3',
-    'desc' => 'Some description',
+	'name' => 'Select One',
+	'id' => 'my_selected_id
+	'type' => 'select',
+	'options' => array(
+		'1' => 'Option one',
+		'2' => 'Option two',
+		'3' => 'Option three',
+	),
+	'default' => '3',
+	'desc' => 'Some description',
 ) );`
 
 = Create a meta box with an option =
@@ -138,14 +138,14 @@ $panel->createOption( array(
 
 // Create menu
 $box = $titan->createMetaBox( array(
-    'name' => 'Menu Name',
+	'name' => 'Menu Name',
 ) );
 
 $box->createOption( array(
-    'name' => 'My Text',
-    'type' => 'text',
-    'id' => 'my_text_id',
-    'desc' => 'Some description',
+	'name' => 'My Text',
+	'type' => 'text',
+	'id' => 'my_text_id',
+	'desc' => 'Some description',
 ) );`
 
 = Create a theme customizer with an option with live preview =
@@ -153,16 +153,16 @@ $box->createOption( array(
 `$titan = TitanFramework::getInstance( 'my-plugin' );
 
 $section = $titan->createThemeCustomizerSection( array(
-    'name' => 'My Section',
-    'desc' => 'Section description',
+	'name' => 'My Section',
+	'desc' => 'Section description',
 ) );
 
 $section->createOption( array(
-    'id' => 'my_color',
-    'name' => 'My Color',
-    'type' => 'color',
-    'default' => '#555555',
-    'livepreview' => "$('#main').css('backgroundColor', value);",
+	'id' => 'my_color',
+	'name' => 'My Color',
+	'type' => 'color',
+	'default' => '#555555',
+	'livepreview' => "$('#main').css('backgroundColor', value);",
 ) );`
 
 = Getting values =

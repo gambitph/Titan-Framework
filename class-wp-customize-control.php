@@ -7,12 +7,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  */
 add_action( 'customize_register', 'registerTitanFrameworkCustomizeControl', 1 );
 function registerTitanFrameworkCustomizeControl() {
-    class TitanFrameworkCustomizeControl extends WP_Customize_Control {
-        public $description;
+	class TitanFrameworkCustomizeControl extends WP_Customize_Control {
+		public $description;
 
-        public function render_content() {
-            parent::render_content();
-            echo "<p class='description'>{$this->description}</p>";
-        }
-    }
+		public function render_content() {
+			parent::render_content();
+			echo "<p class='description'>{$this->description}</p>";
+		}
+	}
 }

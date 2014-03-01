@@ -1,60 +1,60 @@
 /* Styles for the preview image option */
 .tf-theme-customizer.thumbnail img {
-    max-width: 100%;
-    height: auto;
-    padding: 2px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -o-box-sizing: border-box;
-    box-sizing: border-box;
-    background: #666;
+	max-width: 100%;
+	height: auto;
+	padding: 2px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	background: #666;
 }
 .tf-upload-image + .remove {
-    line-height: 28px;
+	line-height: 28px;
 }
 
 .tf-googlefont-area label {
-    display: block;
+	display: block;
 }
 
 /* radio-palette */
 .tf-radio-palette span {
-    display: inline-block;
-    height: 40px;
+	display: inline-block;
+	height: 40px;
 }
 .tf-radio-palette span span {
-    width: 15px;
+	width: 15px;
 }
 .tf-radio-palette > label > span {
-    padding: 2px;
-    border: 1px solid #ddd;
+	padding: 2px;
+	border: 1px solid #ddd;
 }
 .tf-radio-palette input[type=radio] {
-    vertical-align: top;
-    margin-top: 17px;
+	vertical-align: top;
+	margin-top: 17px;
 }
 .tf-radio-palette label {
-    margin-left: 30px;
-    white-space: nowrap;
+	margin-left: 30px;
+	white-space: nowrap;
 }
 .tf-radio-palette label:first-child {
-    margin-left: 0
+	margin-left: 0
 }
 .tf-radio-palette {
-    margin-top: 10px;
-    display: inline-block;
-    margin-right: 5px;
+	margin-top: 10px;
+	display: inline-block;
+	margin-right: 5px;
 }
 
 /* radio image */
 .tf-radio-image img {
-    vertical-align: middle;
+	vertical-align: middle;
 }
 .tf-radio-image {
-    margin-top: 10px;
-    display: inline-block;
-    margin-right: 5px;
+	margin-top: 10px;
+	display: inline-block;
+	margin-right: 5px;
 }
 .tf-radio-image input[type=radio] {
-    margin-top: 0;
+	margin-top: 0;
 }
