@@ -198,6 +198,9 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
 
 		// set a default value
 		$value = $this->getValue();
+		if ( is_serialized( $value ) ) {
+			$value = unserialize( $value );
+		}
 		if ( $value == array() || empty( $value['name'] ) || empty( $value['variants'] ) || empty( $value['subsets'] ) ) {
 			$value = array( 'name' => 'Open Sans', 'variants' => array( '400' ), 'subsets' => array( 'latin' ) );
 		}
@@ -250,9 +253,12 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
 		}
 		echo "</fieldset>";
 
+		if ( ! is_serialized( $value ) ) {
+			$value = serialize( $value );
+		}
 
 		printf( "<input type='hidden' value='%s' name='%s' class='large-text'/>",
-			esc_attr( serialize( $value ) ),
+			esc_attr( $value ),
 			esc_attr( $this->getID() )
 		);
 
