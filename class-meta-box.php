@@ -11,7 +11,7 @@ class TitanFrameworkMetaBox {
 		// 'capability' => 'manage_options', // User role
 		// 'icon' => 'dashicons-admin-generic', // Menu icon for top level menus only
 		// 'position' => 100.01 // Menu position for top level menus only
-		'post_type' => 'page', // Post type
+		'post_type' => 'page', // Post type, can be an array of post types
 		'context' => 'normal', // normal, advanced, or side
 		'hide_custom_fields' => true, // If true, the custom fields box will not be shown
 	);
@@ -44,18 +44,29 @@ class TitanFrameworkMetaBox {
 	}
 
 	public function register() {
-		// Hide the custom fields
-		if ( $this->settings['hide_custom_fields']) {
-			remove_meta_box( 'postcustom' , $this->settings['post_type'] , 'normal' );
+		$postTypes = array();
+
+		// accomodate multiple post types
+		if ( is_array( $this->settings['post_type'] ) ) {
+			$postTypes = $this->settings['post_type'];
+		} else {
+			$postTypes[] = $this->settings['post_type'];
 		}
 
-		add_meta_box(
-			$this->settings['id'],
-			$this->settings['name'],
-			array( $this, 'display' ),
-			$this->settings['post_type'],
-			$this->settings['context'],
-			'high' );
+		foreach ( $postTypes as $postType ) {
+			// Hide the custom fields
+			if ( $this->settings['hide_custom_fields']) {
+				remove_meta_box( 'postcustom' , $postType , 'normal' );
+			}
+
+			add_meta_box(
+				$this->settings['id'],
+				$this->settings['name'],
+				array( $this, 'display' ),
+				$postType,
+				$this->settings['context'],
+				'high' );
+		}
 	}
 
 	public function display( $post ) {
@@ -118,11 +129,20 @@ class TitanFrameworkMetaBox {
 		}
 
 		// Verify that we are editing the correct post type
-		if ( $_POST['post_type'] != $this->settings['post_type'] ) {
-			return false;
-		}
-		if ( $post->post_type != $this->settings['post_type'] ) {
-			return false;
+		if ( is_array( $this->settings['post_type'] ) ) {
+			if ( ! in_array( $_POST['post_type'], $this->settings['post_type'] ) ) {
+				return false;
+			}
+			if ( ! in_array( $post->post_type, $this->settings['post_type'] ) ) {
+				return false;
+			}
+		} else {
+			if ( $_POST['post_type'] != $this->settings['post_type'] ) {
+				return false;
+			}
+			if ( $post->post_type != $this->settings['post_type'] ) {
+				return false;
+			}
 		}
 
 		// Verify our nonce
@@ -131,12 +151,22 @@ class TitanFrameworkMetaBox {
 		}
 
 		// Check permissions
-		if ( $this->settings['post_type'] == 'page' ) {
-			if ( ! current_user_can( 'edit_page', $postID ) ) {
+		if ( is_array( $this->settings['post_type'] ) ) {
+			if ( in_array( 'page', $this->settings['post_type'] ) ) {
+				if ( ! current_user_can( 'edit_page', $postID ) ) {
+					return false;
+				}
+			} else if ( ! current_user_can( 'edit_post', $postID ) ) {
 				return false;
 			}
-		} else if ( ! current_user_can( 'edit_post', $postID ) ) {
-			return false;
+		} else {
+			if ( $this->settings['post_type'] == 'page' ) {
+				if ( ! current_user_can( 'edit_page', $postID ) ) {
+					return false;
+				}
+			} else if ( ! current_user_can( 'edit_post', $postID ) ) {
+				return false;
+			}
 		}
 
 		return true;
