@@ -50,7 +50,7 @@ before_script:
     # - echo $PLUGIN_SLUG
     - cd ..
     - mv $PLUGIN_SLUG "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
-	# - mv "gambitph/Titan-Framework" "/tmp/wordpress/wp-content/plugins"
+    # - mv "gambitph/Titan-Framework" "/tmp/wordpress/wp-content/plugins"
     - cd /tmp/wordpress
     - git checkout $WP_VERSION
     - mysql -e "CREATE DATABASE wordpress_tests;" -uroot
