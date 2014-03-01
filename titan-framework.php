@@ -61,77 +61,77 @@ require_once( TF_PATH . 'functions-googlefonts.php' );
 class TitanFrameworkPlugin {
 
 
-    /**
-     * Constructor, add hooks
-     *
-     * @since   1.0
-     */
-    function __construct() {
-        add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
-        add_action( 'activated_plugin', array( $this, 'forceLoadFirst' ) );
-        // add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
-    }
+	/**
+	 * Constructor, add hooks
+	 *
+	 * @since   1.0
+	 */
+	function __construct() {
+		add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
+		add_action( 'activated_plugin', array( $this, 'forceLoadFirst' ) );
+		// add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
+	}
 
 
-    /**
-     * Load plugin translations
-     *
-     * @access  public
-     * @return  void
-     * @since   1.0
-     */
-    public function loadTextDomain() {
-        load_plugin_textdomain( TF_I18NDOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages/' );
-    }
+	/**
+	 * Load plugin translations
+	 *
+	 * @access  public
+	 * @return  void
+	 * @since   1.0
+	 */
+	public function loadTextDomain() {
+		load_plugin_textdomain( TF_I18NDOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages/' );
+	}
 
 
-    /**
-     * Forces our plugin to be loaded first. This is to ensure that plugins that use the framework have access to
-     * this class.
-     *
-     * @access  public
-     * @return  void
-     * @since   1.0
-     * @see     http://snippets.khromov.se/modify-wordpress-plugin-load-order/
-     */
-    public function forceLoadFirst() {
-        $path = str_replace( WP_PLUGIN_DIR . '/', '', __FILE__ );
-        if ( $plugins = get_option( 'active_plugins' ) ) {
-            if ( $key = array_search( $path, $plugins ) ) {
-                array_splice( $plugins, $key, 1 );
-                array_unshift( $plugins, $path );
-                update_option( 'active_plugins', $plugins );
-            }
-        }
-    }
+	/**
+	 * Forces our plugin to be loaded first. This is to ensure that plugins that use the framework have access to
+	 * this class.
+	 *
+	 * @access  public
+	 * @return  void
+	 * @since   1.0
+	 * @see	 http://snippets.khromov.se/modify-wordpress-plugin-load-order/
+	 */
+	public function forceLoadFirst() {
+		$path = str_replace( WP_PLUGIN_DIR . '/', '', __FILE__ );
+		if ( $plugins = get_option( 'active_plugins' ) ) {
+			if ( $key = array_search( $path, $plugins ) ) {
+				array_splice( $plugins, $key, 1 );
+				array_unshift( $plugins, $path );
+				update_option( 'active_plugins', $plugins );
+			}
+		}
+	}
 
 
-    /**
-     * Adds links to the docs and GitHub
-     *
-     * @access  public
-     * @param   array $plugin_meta The current array of links
-     * @param   string $plugin_file The plugin file
-     * @return  array The current array of links together with our additions
-     * @since   1.1.1
-     **/
-    public function pluginLinks( $plugin_meta, $plugin_file ) {
-        if ( $plugin_file == plugin_basename( __FILE__ ) ) {
-            $plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-                "http://www.titanframework.net/docs",
-                __( "Documentation", TF_I18NDOMAIN )
-            );
-            $plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-                "https://github.com/gambitph/Titan-Framework",
-                __( "GitHub Repo", TF_I18NDOMAIN )
-            );
-            $plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-                "https://github.com/gambitph/Titan-Framework/issues",
-                __( "Issue Tracker", TF_I18NDOMAIN )
-            );
-        }
-        return $plugin_meta;
-    }
+	/**
+	 * Adds links to the docs and GitHub
+	 *
+	 * @access  public
+	 * @param   array $plugin_meta The current array of links
+	 * @param   string $plugin_file The plugin file
+	 * @return  array The current array of links together with our additions
+	 * @since   1.1.1
+	 **/
+	public function pluginLinks( $plugin_meta, $plugin_file ) {
+		if ( $plugin_file == plugin_basename( __FILE__ ) ) {
+			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
+				"http://www.titanframework.net/docs",
+				__( "Documentation", TF_I18NDOMAIN )
+			);
+			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
+				"https://github.com/gambitph/Titan-Framework",
+				__( "GitHub Repo", TF_I18NDOMAIN )
+			);
+			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
+				"https://github.com/gambitph/Titan-Framework/issues",
+				__( "Issue Tracker", TF_I18NDOMAIN )
+			);
+		}
+		return $plugin_meta;
+	}
 }
 
 
