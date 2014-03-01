@@ -5,11 +5,20 @@ language: php
 
 # PHP version used in first build configuration.
 php:
-    - "5.5"
+    - "5.2"
+    - "5.3"
+    - "5.4"
 
 # WordPress version used in first build configuration.
 env:
-    - WP_VERSION=master
+    - WP_VERSION=master WP_MULTISITE=0
+    - WP_VERSION=3.4.2 WP_MULTISITE=0
+    - WP_VERSION=3.3.3 WP_MULTISITE=0
+    - WP_VERSION=3.2.1 WP_MULTISITE=0
+    - WP_VERSION=master WP_MULTISITE=1
+    - WP_VERSION=3.4.2 WP_MULTISITE=1
+    - WP_VERSION=3.3.3 WP_MULTISITE=1
+    - WP_VERSION=3.2.1 WP_MULTISITE=1
 
 # Next we define our matrix of additional build configurations to test against.
 # The versions listed above will automatically create our first configuration,
@@ -24,14 +33,14 @@ env:
 # along with 2 versions of WordPress (which would build 8 configs otherwise).
 # This takes half as long to run while still providing adequate coverage.
 
-matrix:
-  include:
-    - php: "5.3"
-      env: WP_VERSION=master
-    - php: "5.4"
-      env: WP_VERSION=3.8
-    - php: "5.2"
-      env: WP_VERSION=3.8
+# matrix:
+#   include:
+#     - php: "5.3"
+#       env: WP_VERSION=master
+#     - php: "5.4"
+#       env: WP_VERSION=3.8
+#     - php: "5.2"
+#       env: WP_VERSION=3.8
 
 # Clones WordPress and configures our testing environment.
 before_script:
