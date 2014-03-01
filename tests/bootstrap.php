@@ -9,7 +9,7 @@
 
 // Activates this plugin in WordPress so it can be tested.
 $GLOBALS['wp_tests_options'] = array(
-	'active_plugins' => array( 'titan-framework/titan-framework.php' ),
+	'active_plugins' => array( 'Titan-Framework/titan-framework.php' ),
 );
 
 // If the develop repo location is defined (as WP_DEVELOP_DIR), use that

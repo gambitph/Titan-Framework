@@ -45,7 +45,7 @@ class WP_Test_WordPress_Plugin_Tests extends WP_UnitTestCase {
 	 */
 	function test_plugin_activated() {
 
-		$this->assertTrue( is_plugin_active( 'titan-framework/titan-framework.php' ) );
+		$this->assertTrue( is_plugin_active( 'Titan-Framework/titan-framework.php' ) );
 
 	}
 
