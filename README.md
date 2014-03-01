@@ -1,6 +1,8 @@
 Titan Framework
 =======
 
+[![Build Status](https://travis-ci.org/gambitph/Titan-Framework.png?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
+
 *The easiest to use WordPress options framework.*
 
 Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
