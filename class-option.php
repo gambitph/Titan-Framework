@@ -118,16 +118,34 @@ class TitanFrameworkOption {
 		return false;
 	}
 
-	protected function getOptionNamespace() {
+
+	/**
+	 * Gets the framework instance currently used
+	 *
+	 * @return	TitanFramework
+	 * @since	1.3
+	 */
+	protected function getFramework() {
 		if ( is_a( $this->owner, 'TitanFrameworkAdminTab' ) ) {
 			// a tab's parent is an admin panel
-			return $this->owner->owner->owner->optionNamespace;
+			return $this->owner->owner->owner;
 		} else {
 			// an admin panel's parent is the framework
 			// a meta panel's parent is the framework
 			// a theme customizer's parent is the framework
-			return $this->owner->owner->optionNamespace;
+			return $this->owner->owner;
 		}
+	}
+
+
+	/**
+	 * Gets the option namespace used in the framework instance currently used
+	 *
+	 * @return	string The option namespace
+	 * @since	1.0
+	 */
+	protected function getOptionNamespace() {
+		return $this->getFramework()->optionNamespace;
 	}
 
 	public function getID() {
