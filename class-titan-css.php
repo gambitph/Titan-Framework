@@ -186,11 +186,14 @@ class TitanFrameworkCSS {
 
 		// These are the option types which are not allowed:
 		$noCSSOptionTypes = array(
-			'code',
 			'text',
 			'textarea',
 			'editor',
 		);
+
+		// Compile as SCSS & minify
+		require_once( trailingslashit( dirname( __FILE__ ) ) . "inc/scssphp/scss.inc.php" );
+		$scss = new scssc();
 
 		// Get all the CSS
 		foreach ( $this->allOptionsWithIDs as $option ) {
@@ -199,15 +202,46 @@ class TitanFrameworkCSS {
 				continue;
 			}
 
+			// Decide whether or not we should continue to generate CSS for this option
+			if ( ! apply_filters( 'tf_continue_generate_css_' . $option->settings['type'], true, $option ) ) {
+				continue;
+			}
+
+			// Custom generated CSS
+			$generatedCSS = apply_filters( 'tf_generate_css_' . $option->settings['type'], '', $option );
+			if ( $generatedCSS ) {
+				try {
+					$testerForValidCSS = $scss->compile( $generatedCSS );
+					$cssString .= $generatedCSS;
+				} catch (Exception $e) {
+				}
+				continue;
+			}
+
 			// Add the values as SaSS variables
-			$cssString .= $this->formCSSVariables( $option->settings['id'], $this->frameworkInstance->getOption( $option->settings['id'] ) );
+			$generatedCSS = $this->formCSSVariables(
+				$option->settings['id'],
+				$this->frameworkInstance->getOption( $option->settings['id'] )
+			);
+
+			try {
+				$testerForValidCSS = $scss->compile( $generatedCSS );
+				$cssString .= $generatedCSS;
+			} catch (Exception $e) {
+			}
 
 			// Add the custom CSS
 			if ( ! empty( $option->settings['css'] ) ) {
 
 				// In the css parameter, we accept the term `value` as our current value,
 				// translate it into the SaSS variable for the current option
-				$cssString .= str_replace( 'value', '$' . $option->settings['id'], $option->settings['css'] );
+				$generatedCSS = str_replace( 'value', '$' . $option->settings['id'], $option->settings['css'] );
+
+				try {
+					$testerForValidCSS = $scss->compile( $generatedCSS );
+					$cssString .= $generatedCSS;
+				} catch (Exception $e) {
+				}
 			}
 		}
 
@@ -217,8 +251,6 @@ class TitanFrameworkCSS {
 		}
 
 		// Compile as SCSS & minify
-		require_once( trailingslashit( dirname( __FILE__ ) ) . "inc/scssphp/scss.inc.php" );
-		$scss = new scssc();
 		$scss->setFormatter( self::SCSS_COMPRESSION );
 		$cssString = $scss->compile( $cssString );
 

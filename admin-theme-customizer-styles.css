@@ -58,3 +58,14 @@
 .tf-radio-image input[type=radio] {
 	margin-top: 0;
 }
+/* code */
+.tf-code {
+	border-radius: 3px;
+	border: 1px solid #DDD;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	font-size: 14px;
+}
