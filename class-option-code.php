@@ -202,6 +202,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 			editor.setShowPrintMargin(false);
 			editor.setHighlightActiveLine(false);
 			editor.gotoLine(1);
+			editor.session.setUseWorker(false);
 
 			editor.getSession().on('change', function(e) {
 				$(editor.container).siblings('textarea').val(editor.getValue());
@@ -296,6 +297,7 @@ function registerTitanFrameworkOptionCodeControl() {
 				editor.setShowPrintMargin(false);
 				editor.setHighlightActiveLine(false);
 				editor.gotoLine(1);
+				editor.session.setUseWorker(false);
 
 				editor.getSession().on('change', function(e) {
 					$(editor.container).siblings('textarea').val(editor.getValue()).trigger('change');
