@@ -391,6 +391,10 @@ function registerTitanFrameworkOptionSelectGooglefontControl() {
 				}
 				echo "</fieldset>";
 
+				if ( ! is_serialized( $value ) ) {
+					$value = serialize( $value );
+				}
+
 				?>
 				<input type='hidden' <?php $this->link() ?> value='<?php echo esc_attr( $value ) ?>'/>
 			</label>
