@@ -49,6 +49,7 @@ class TitanFrameworkAdminPanel {
 				$prefix = str_replace( ' ', '-', trim( strtolower( $this->settings['parent'] ) ) ) . '-';
 			}
 			$this->settings['id'] = $prefix . str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
+			$this->settings['id'] = str_replace( '&', '-', $this->settings['id'] );
 		}
 
 		// make sure all our IDs are unique
