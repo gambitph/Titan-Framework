@@ -38,8 +38,8 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		add_filter( 'wp_print_scripts', array( $this, "printCSSForPagesAndPosts" ) );
 
 		// JS inclusion for Javascript code langs
-		add_filter( 'wp_print_scripts', array( $this, "printJS" ) );
-		add_filter( 'wp_print_scripts', array( $this, "printJSForPagesAndPosts" ) );
+		add_filter( 'wp_print_scripts', array( $this, "printJS" ), array( 'jquery' ) );
+		add_filter( 'wp_print_scripts', array( $this, "printJSForPagesAndPosts" ), array( 'jquery' ) );
 
 		parent::__construct( $settings, $owner );
 	}
