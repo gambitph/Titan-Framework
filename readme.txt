@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 1.2.1
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,10 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 * [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
 * [Issue Tracker](https://github.com/gambitph/Titan-Framework/issues)
 
+= Try it Out First =
+
+Want to see what Titan Framework can do? [Check out our live demo, no need to install anything!](http://demo.titanframework.net/wp-admin/)
+
 = Features =
 
 * Makes development unbelievably easy
@@ -30,6 +34,7 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 * Integrates with your project seamlessly
 * Theme customizer live preview integration
 * Supports child themes
+* Automatic CSS generation with SCSS support
 
 = Easy creation of: =
 
@@ -38,11 +43,12 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 * Admin options and tabs
 * Meta boxes and options
 * Theme customizer sections and options
-* Automatic CSS generation
+* Shortcodes with TinyMCE and Visual Composer auto-integration ([Shortcode Extension](http://codecanyon.net/item/titan-framework-shortcode-extension/7009811?ref=bfintal))
 
 = Options available in admin pages, meta boxes and theme customizer: =
 
 * Checkbox
+* Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
 * Editor (WYSIWYG)
 * Heading
@@ -74,6 +80,10 @@ Titan is super new, so far the framework has been getting good feedback from the
 = Help Translate =
 
 We want Titan Framework to be used by everyone, and since not everyone speaks or reads english, we would appreciate it if you can [help translate the framework to your language](https://www.transifex.com/projects/p/titan-framework/).
+
+Currently translated to:
+* French (thanks @PunKeel)
+* Spanish (thanks @maperezotero)
 
 = Donate to the Development =
 
@@ -187,6 +197,14 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.3 =
+* Added Spanish translations (thanks @maperezotero)
+* Added Code option that uses Ace
+* No need to use the post ID when getting getOption
+* createMetaBox can now accept an array in the post_type parameter
+* Now using Travis CI
+* Tons of bug fixes
 
 = 1.2.1 =
 * Added French translations (thanks @PunKeel)

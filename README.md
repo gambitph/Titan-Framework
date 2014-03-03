@@ -13,8 +13,15 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Does NOT clutter the database
 * Integrates with your project seamlessly
 * Theme customizer live preview integration
-* Automatic CSS generation
+* Supports child themes
+* Automatic CSS generation with SCSS support
 
+#### Extensions
+* [Shortcode Extension - Easy creation of shortcodes with TinyMCE and Visual Composer auto-integration](http://codecanyon.net/item/titan-framework-shortcode-extension/7009811?ref=bfintal)
+
+## Try it Out First
+
+Want to see what Titan Framework can do? [Check out our live demo, no need to install anything!](http://demo.titanframework.net/wp-admin/)
 
 ## Getting Started With Titan Framework
 
@@ -39,6 +46,13 @@ Titan is super new, so far the framework has been getting good feedback from the
 
 Let us know so we can showcase it in the site! Send me an email at bf.intal@gambit.ph, send the name, a screenshot, a link and a short description of your project.
 
+## Translations
+
+We want Titan Framework to be used by everyone, and since not everyone speaks or reads english, we would appreciate it if you can [help translate the framework to your language](https://www.transifex.com/projects/p/titan-framework/).
+
+#### Current Translations
+* French (thanks @PunKeel)
+* Spanish (thanks @maperezotero)
 
 ## Important Links
 
@@ -46,6 +60,7 @@ Let us know so we can showcase it in the site! Send me an email at bf.intal@gamb
 * [Titan Framework main site](http://www.titanframework.net)
 * [Documentation & tutorials](http://www.titanframework.net/docs)
 * [Demo Theme with Titan Framework](https://github.com/gambitph/Titan-Framework-Demo-Theme)
+* [Transifex project page](https://www.transifex.com/projects/p/titan-framework/)
 
 
 
