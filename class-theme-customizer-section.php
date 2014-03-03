@@ -18,6 +18,9 @@ class TitanFrameworkThemeCustomizerSection {
 	public $options = array();
 	public $owner;
 
+	// Makes sure we only load live previewing CSS only once
+	private $generatedHeadCSSPreview = false;
+
 	function __construct( $settings, $owner ) {
 		$this->owner = $owner;
 
@@ -76,7 +79,24 @@ class TitanFrameworkThemeCustomizerSection {
 		<?php
 	}
 
+
+	/**
+	 * Prints out CSS styles for refresh previewing
+	 *
+	 * @return	void
+	 * @since	1.3
+	 */
+	public function printPreviewCSS() {
+		if ( $this->generatedHeadCSSPreview ) {
+			return;
+		}
+		$this->generatedHeadCSSPreview = true;
+		echo "<style>" . $this->owner->cssInstance->generateCSS() . "</style>";
+	}
+
 	public function register( $wp_customize ) {
+		add_action( 'wp_head', array( $this, 'printPreviewCSS' ), 1000 );
+
 		$wp_customize->add_section( $this->settings['id'], array(
 			'title' => $this->settings['name'],
 			'priority' => $this->settings['position'],

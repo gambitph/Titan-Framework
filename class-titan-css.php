@@ -39,9 +39,9 @@ class TitanFrameworkCSS {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueCSS' ) );
 
 		// Trigger new compile when theme customizer settings were saved
-		add_action( 'customize_save_after', array( $this, 'generateCSS' ) );
+		add_action( 'customize_save_after', array( $this, 'generateSaveCSS' ) );
 		// Trigger new compile when admin option settings were saved
-		add_action( 'tf_admin_options_saved', array( $this, 'generateCSS' ) );
+		add_action( 'tf_admin_options_saved', array( $this, 'generateSaveCSS' ) );
 	}
 
 
@@ -175,10 +175,9 @@ class TitanFrameworkCSS {
 
 
 	/**
-	 * Generates a the CSS file containing all the rules assigned to options, or created using
-	 * the TitanFramework->createCSS( '...' ) function.
+	 * Generates a CSS string of all the options
 	 *
-	 * @return  void
+	 * @return  string A CSS string of all the values
 	 * @since   1.2
 	 */
 	public function generateCSS() {
@@ -253,6 +252,20 @@ class TitanFrameworkCSS {
 		// Compile as SCSS & minify
 		$scss->setFormatter( self::SCSS_COMPRESSION );
 		$cssString = $scss->compile( $cssString );
+
+		return $cssString;
+	}
+
+
+	/**
+	 * Generates a the CSS file containing all the rules assigned to options, or created using
+	 * the TitanFramework->createCSS( '...' ) function.
+	 *
+	 * @return	void
+	 * @since	1.3
+	 */
+	public function generateSaveCSS() {
+		$cssString = $this->generateCSS();
 
 		// Save our css
 		if ( $this->writeCSS( $cssString, $this->getCSSFilePath() ) ) {

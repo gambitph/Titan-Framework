@@ -19,7 +19,7 @@ class TitanFramework {
 	private static $allOptionIDs = array();
 	private static $allOptions;
 
-	private $cssInstance;
+	public $cssInstance;
 
 	// We store the options (with IDs) here, used for ensuring our serialized option
 	// value doesn't get cluttered with unused options
