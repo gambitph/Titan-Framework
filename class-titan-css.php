@@ -35,7 +35,7 @@ class TitanFrameworkCSS {
 		add_action( 'tf_create_option', array( $this, 'getOptionsWithCSS' ) );
 
 		// display our CSS
-		add_action( 'wp_head', array( $this, 'printCSS' ) );
+		add_action( 'wp_head', array( $this, 'printCSS' ), 99 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueCSS' ) );
 
 		// Trigger new compile when theme customizer settings were saved

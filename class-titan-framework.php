@@ -114,7 +114,7 @@ class TitanFramework {
 
 	public function loadFrontEndScripts() {
 		foreach ( $this->googleFontsOptions as $googleFontOption ) {
-			$font = $googleFontOption->getValue();
+			$font = $this->getOption( $googleFontOption->settings['id'] );
 			if ( empty( $font ) ) {
 				continue;
 			}

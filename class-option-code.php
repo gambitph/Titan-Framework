@@ -35,11 +35,11 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 
 		// CSS generation for CSS code langs
 		add_filter( 'tf_generate_css_code', array( $this, "generateCSSCode" ), 10, 2 );
-		add_filter( 'wp_print_scripts', array( $this, "printCSSForPagesAndPosts" ) );
+		add_filter( 'wp_head', array( $this, "printCSSForPagesAndPosts" ), 100 );
 
 		// JS inclusion for Javascript code langs
-		add_filter( 'wp_print_scripts', array( $this, "printJS" ), array( 'jquery' ) );
-		add_filter( 'wp_print_scripts', array( $this, "printJSForPagesAndPosts" ), array( 'jquery' ) );
+		add_filter( 'wp_footer', array( $this, "printJS" ), 100 );
+		add_filter( 'wp_footer', array( $this, "printJSForPagesAndPosts" ), 101 );
 
 		parent::__construct( $settings, $owner );
 	}
