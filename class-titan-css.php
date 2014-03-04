@@ -145,7 +145,7 @@ class TitanFrameworkCSS {
 	 * @return  string CSS rules of SaSS variables
 	 * @since   1.2
 	 */
-	private function formCSSVariables( $id, $value, $key = false, $cssString = '' ) {
+	private function formCSSVariables( $id, $type, $value, $key = false, $cssString = '' ) {
 		if ( is_serialized( $value ) ) {
 			$value = unserialize( stripslashes( $value ) );
 		}
@@ -154,13 +154,20 @@ class TitanFrameworkCSS {
 				if ( $key !== false ) {
 					$subKey = $key . '-' . $subKey;
 				}
-				$cssString = $this->formCSSVariables( $id, $subValue, $subKey, $cssString );
+				$cssString = $this->formCSSVariables( $id, $type, $subValue, $subKey, $cssString );
 			}
 		} else {
+			$value = esc_attr( $value );
+
+			// If the value is a file address, wrap it in quotes
+			if ( $type === 'upload' ) {
+				$value = "'" . $value . "'";
+			}
+
 			if ( false === $key  ) {
-				$cssString .= "\$" . esc_attr( $id ) . ": " . esc_attr( $value ) . ";\n";
+				$cssString .= "\$" . esc_attr( $id ) . ": " . $value . ";\n";
 			} else {
-				$cssString .= "\$" . esc_attr( $id ) . "-" . esc_attr( $key ) . ": " . esc_attr( $value ) . ";\n";
+				$cssString .= "\$" . esc_attr( $id ) . "-" . esc_attr( $key ) . ": " . $value . ";\n";
 			}
 		}
 		return $cssString;
@@ -213,6 +220,7 @@ class TitanFrameworkCSS {
 			// Add the values as SaSS variables
 			$generatedCSS = $this->formCSSVariables(
 				$option->settings['id'],
+				$option->settings['type'],
 				$this->frameworkInstance->getOption( $option->settings['id'] )
 			);
 
