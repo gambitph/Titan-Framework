@@ -44,6 +44,7 @@ require_once( TF_PATH . 'class-option-select-googlefont.php' );
 require_once( TF_PATH . 'class-option-select-pages.php' );
 require_once( TF_PATH . 'class-option-select-posts.php' );
 require_once( TF_PATH . 'class-option-select.php' );
+require_once( TF_PATH . 'class-option-sortable.php' );
 require_once( TF_PATH . 'class-option-text.php' );
 require_once( TF_PATH . 'class-option-textarea.php' );
 require_once( TF_PATH . 'class-option-upload.php' );

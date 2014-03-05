@@ -69,3 +69,43 @@
 	position: relative;
 	font-size: 14px;
 }
+/* sortable */
+.tf-sortable li {
+	cursor: move;
+	background: #fafafa;
+	padding: 0 0 0 15px;
+	border: 1px solid #DDD;
+	position: relative;
+	line-height: 40px;
+}
+.tf-sortable ul {
+	margin-top: 0;
+	background: rgba(0, 0, 0, 0);
+	border: 1px solid #EEE;
+	padding: 5px;
+	display: inline-block;
+}
+.tf-sortable ul li:last-of-type {
+	margin-bottom: 0;
+}
+.tf-sortable ul li i {
+	float: right;
+	background: #fcfcfc;
+	display: inline-block;
+	border-left: 1px solid #ddd;
+	border-bottom: 1px solid #DDD;
+	width: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: #777;
+}
+.tf-sortable ul li i.visibility {
+	cursor: pointer;
+}
+.tf-sortable ul li i:last-of-type {
+	margin-left: 50px;
+}
+.tf-sortable li.invisible {
+	color: #ccc;
+	background: transparent;
+}
