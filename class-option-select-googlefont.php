@@ -10,6 +10,41 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
 
 	public static $firstLoad = true;
 
+
+	/**
+	 * Constructor
+	 *
+	 * @since	1.4
+	 */
+	function __construct( $settings, $owner ) {
+		parent::__construct( $settings, $owner );
+
+		add_filter( 'tf_generate_css_select-googlefont', array( $this, 'generateCSS' ), 10, 2 );
+	}
+
+
+	/**
+	 * Generates CSS for the font, this is used in TitanFrameworkCSS
+	 *
+	 * @param	string $css The CSS generated
+	 * @param	TitanFrameworkOption $option The current option being processed
+	 * @return	string The CSS generated
+	 * @since	1.4
+	 */
+	public function generateCSS( $css, $option ) {
+		$value = $this->getFramework()->getOption( $option->settings['id'] );
+
+		$css .= "\$" . $option->settings['id'] . "-name: " . $value['fontFamily'] . ";";
+		$css .= "\$" . $option->settings['id'] . ": " . $value['fontFamily'] . ";";
+
+		if ( ! empty( $option->settings['css'] ) ) {
+			$css .= str_replace( 'value', '$' . $option->settings['id'], $option->settings['css'] );
+		}
+
+		return $css;
+	}
+
+
 	public static function formScript( $value ) {
 		if ( empty( $value ) ) {
 			return '';
