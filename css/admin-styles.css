@@ -262,3 +262,37 @@
 	color: #ccc;
 	background: transparent;
 }
+/* number slider */
+.tf-number .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+	border-radius: 3px;
+    cursor: move;
+	margin-left: -6px;
+	pointer-events: none;
+	outline: none;
+	top: -5px;
+	background: #EEE;
+	border: 1px solid #CCC;
+	height: 23px;
+	width: 12px;
+}
+.tf-number .ui-slider a:focus {
+	outline: none;
+}
+.tf-number .ui-slider-range {
+    background: #eee;
+    height: 100%;
+}
+.tf-number .number-slider {
+	position: relative;
+	background: #fcfcfc;
+    border: 1px solid #ddd;
+	border-radius: 3px;
+	width: 250px;
+	height: 15px;
+	margin-right: 20px;
+	display: inline-block;
+	vertical-align: bottom;
+	margin-bottom: 6px;
+}
