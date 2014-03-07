@@ -28,6 +28,7 @@ require_once( TF_PATH . 'class-option-checkbox.php' );
 require_once( TF_PATH . 'class-option-code.php' );
 require_once( TF_PATH . 'class-option-color.php' );
 require_once( TF_PATH . 'class-option-editor.php' );
+require_once( TF_PATH . 'class-option-font.php' );
 require_once( TF_PATH . 'class-option-heading.php' );
 require_once( TF_PATH . 'class-option-multicheck.php' );
 require_once( TF_PATH . 'class-option-multicheck-categories.php' );
@@ -53,6 +54,7 @@ require_once( TF_PATH . 'class-titan-css.php' );
 require_once( TF_PATH . 'class-titan-framework.php' );
 require_once( TF_PATH . 'class-wp-customize-control.php' );
 require_once( TF_PATH . 'functions-googlefonts.php' );
+require_once( TF_PATH . 'functions-utils.php' );
 
 
 /**

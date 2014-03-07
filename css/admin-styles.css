@@ -296,3 +296,56 @@
 	vertical-align: bottom;
 	margin-bottom: 6px;
 }
+/* google webfont new */
+.tf-font label {
+	border: 1px solid #DDD;
+	vertical-align: middle;
+	display: inline-block;
+	padding: 4px 4px 4px 13px;
+	margin-right: 10px;
+	background: #fcfcfc;
+	margin-bottom: 10px;
+}
+.tf-font select {
+	margin-left: 10px;
+}
+.tf-font .wp-picker-container {
+	line-height: 28px;
+	height: 28px;
+	margin: 1px;
+}
+.tf-font .wp-picker-container > a {
+	margin: 2px 7px 2px 10px;
+}
+.tf-font .wp-picker-container .wp-picker-default {
+	margin: 2px 2px 2px 7px;
+}
+.tf-font iframe {
+	width: 100%;
+	height: 200px;
+	background: #FCFCFC;
+	border: 1px solid #DDD;
+}
+.tf-font div {
+	position: relative;
+}
+.tf-font i {
+	position: absolute;
+	top: 0;
+	left: 0;
+	line-height: 30px !important;
+	width: 30px;
+	background: #EEE;
+	text-align: center;
+	border: 1px solid #DDD;
+	cursor: pointer;
+}
+.tf-font i:hover {
+	background: #333;
+	color: #FFF;
+	border-bottom: 1px solid #333;
+	border-right: 1px solid #333;
+}
+.tf-font .wp-picker-container {
+	z-index: 9;
+}

@@ -141,3 +141,73 @@
 	margin: 15px 0;
 	display: block;
 }
+/* google webfont new */
+.tf-font label {
+	border: 1px solid #DDD;
+	vertical-align: middle;
+	padding: 4px 4px 4px 13px;
+	background: #fcfcfc;
+	margin-bottom: 4px;
+	display: block;
+	text-align: right;
+	white-space: nowrap;
+	margin-right: 0;
+	font-size: 12px;
+	line-height: 28px;
+}
+.tf-font label.tf-picker-open {
+	color: #fcfcfc;
+}
+.tf-font label.tf-picker-open .wp-picker-container {
+	position: absolute;
+	left: 0px;
+}
+.tf-font label.tf-picker-open .wp-picker-container .wp-color-result {
+	margin-left: 0;
+}
+.tf-font select {
+	margin-left: 10px;
+}
+.tf-font .wp-picker-container {
+	line-height: 28px;
+	height: 28px;
+	margin: 1px;
+}
+.tf-font .wp-picker-container > a {
+	margin: 2px 7px 2px 10px;
+}
+.tf-font .wp-picker-container .wp-picker-default {
+	margin: 2px 2px 2px 7px;
+}
+.tf-font iframe {
+	width: 100%;
+	height: 200px;
+	background: #FCFCFC;
+	border: 1px solid #DDD;
+}
+.tf-font div {
+	position: relative;
+}
+.tf-font i {
+	position: absolute;
+	top: 0;
+	left: 0;
+	line-height: 30px !important;
+	width: 30px;
+	background: #EEE;
+	text-align: center;
+	border: 1px solid #DDD;
+	cursor: pointer;
+}
+.tf-font i:hover {
+	background: #333;
+	color: #FFF;
+	border-bottom: 1px solid #333;
+	border-right: 1px solid #333;
+}
+.tf-font .wp-picker-container {
+	z-index: 9;
+}
+.tf-font .tf-font-sel-family {
+	width: 150px;
+}

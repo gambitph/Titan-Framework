@@ -1,4 +1,6 @@
 <?php
+// TODO: Remove in version 1.5
+
 /*
  * Create a preview of a font
  */
