@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,7 @@ Want to see what Titan Framework can do? [Check out our live demo, no need to in
 * Theme customizer live preview integration
 * Supports child themes
 * Automatic CSS generation with SCSS support
+* Full font style fields
 
 = Easy creation of: =
 
@@ -51,6 +52,7 @@ Want to see what Titan Framework can do? [Check out our live demo, no need to in
 * Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
 * Editor (WYSIWYG)
+* Font Style (Web safe fonts and Google WebFonts)
 * Heading
 * Media uploader
 * Multicheck
@@ -66,6 +68,7 @@ Want to see what Titan Framework can do? [Check out our live demo, no need to in
 * Select Google WebFont
 * Select categories and taxonomies
 * Select pages and posts
+* Sortable
 * Text
 * Textarea
 
@@ -81,7 +84,8 @@ Titan is super new, so far the framework has been getting good feedback from the
 
 We want Titan Framework to be used by everyone, and since not everyone speaks or reads english, we would appreciate it if you can [help translate the framework to your language](https://www.transifex.com/projects/p/titan-framework/).
 
-Currently translated to:
+= Currently translated to =
+
 * French (thanks @PunKeel)
 * Spanish (thanks @maperezotero)
 
@@ -197,6 +201,11 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.4 =
+* Added new Font option
+* Added new Sortable option
+* Fixed bug where generated CSS values aren't showing up (thanks @ardalann)
 
 = 1.3 =
 * Added Spanish translations (thanks @maperezotero)
