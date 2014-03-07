@@ -412,7 +412,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public function display() {
-		$this->echoOptionHeader();
+		$this->echoOptionHeader( true );
 
 		// Get the current value and merge with defaults
 		$value = $this->getValue();
@@ -738,7 +738,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			esc_attr( $value )
 		);
 
-		$this->echoOptionFooter();
+		$this->echoOptionFooter( false );
 	}
 
 
