@@ -83,6 +83,8 @@ if ( $_GET['text-shadow-location'] != 'none' ) {
 			);
 
 			$_GET['font-family'] = '"' . $_GET['font-family'] . '"';
+		} else {
+			$_GET['font-family'] = stripslashes( $_GET['font-family'] );
 		}
 		?>
 		<style>
