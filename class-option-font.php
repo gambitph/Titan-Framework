@@ -336,7 +336,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				}, 1 );
 			});
 
-			$('body').on('click', function() {
+			$('body').on('click', function(e) {
+				e.preventDefault();
 				$('.tf-font .wp-color-result').each(function() {
 					if ( $(this).hasClass('wp-picker-open') ) {
 						$(this).parents('label:eq(0)').addClass('tf-picker-open');
