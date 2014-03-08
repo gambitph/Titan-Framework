@@ -336,13 +336,15 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				}, 1 );
 			});
 
-			$('body').on('click', function(e) {
+			$('body.wp-customizer').on('click', function(e) {
 				e.preventDefault();
 				$('.tf-font .wp-color-result').each(function() {
 					if ( $(this).hasClass('wp-picker-open') ) {
 						$(this).parents('label:eq(0)').addClass('tf-picker-open');
 					} else {
-						$(this).parents('label:eq(0)').removeClass('tf-picker-open');
+						if ( $(this).parents('label:eq(0)').hasClass('tf-picker-open') ) {
+							$(this).parents('label:eq(0)').removeClass('tf-picker-open');
+						}
 					}
 				});
 			});
