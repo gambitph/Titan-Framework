@@ -336,7 +336,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			});
 
 			$('body.wp-customizer').on('click', function(e) {
-				e.preventDefault();
 				$('.tf-font .wp-color-result').each(function() {
 					if ( $(this).hasClass('wp-picker-open') ) {
 						$(this).parents('label:eq(0)').addClass('tf-picker-open');
@@ -821,7 +820,7 @@ function registerTitanFrameworkOptionFontControl() {
 			TitanFrameworkOptionFont::createFontScript();
 
 			?>
-			<label class='tf-font'>
+			<div class='tf-font'>
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 			<?php
 
@@ -1145,7 +1144,7 @@ function registerTitanFrameworkOptionFontControl() {
 
 			?>
 			<input type='hidden' class='tf-for-saving' <?php $this->link() ?> value='<?php echo esc_attr( $value ) ?>'/>
-			</label>
+			</div>
 			<?php
 			echo "<p class='description'>{$this->description}</p>";
 		}
