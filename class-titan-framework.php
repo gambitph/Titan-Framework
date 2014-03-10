@@ -26,6 +26,9 @@ class TitanFramework {
 	public $optionsUsed = array();
 
 	public static function getInstance( $optionNamespace ) {
+		// Clean namespace
+		$optionNamespace = str_replace( ' ', '-', trim( strtolower( $optionNamespace ) ) );
+
 		foreach ( self::$instances as $instance ) {
 			if ( $instance->optionNamespace == $optionNamespace ) {
 				return $instance;
