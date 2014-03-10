@@ -150,6 +150,11 @@ class TitanFramework {
 		// Check if we have options saved already
 		$currentOptions = get_option( $this->optionNamespace . '_options' );
 
+		// First time run, this action hook can be used to trigger something
+		if ( $currentOptions === false ) {
+			do_action( 'tf_init_no_options' );
+		}
+
 		// Put all the available options in our global variable for future checking
 		if ( ! empty( $currentOptions ) && ! count( self::$allOptions[$this->optionNamespace] ) ) {
 			self::$allOptions[$this->optionNamespace] = unserialize( $currentOptions );

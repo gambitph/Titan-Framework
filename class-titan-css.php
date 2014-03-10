@@ -42,6 +42,8 @@ class TitanFrameworkCSS {
 		add_action( 'customize_save_after', array( $this, 'generateSaveCSS' ) );
 		// Trigger new compile when admin option settings were saved
 		add_action( 'tf_admin_options_saved', array( $this, 'generateSaveCSS' ) );
+		// Trigger compile when there are no default options saved yet
+		add_action( 'tf_init_no_options', array( $this, 'generateMissingCSS' ) );
 	}
 
 
@@ -277,6 +279,51 @@ class TitanFrameworkCSS {
 			// as an option, we'll load that in wp_head in a hook
 			update_option( $this->getCSSSlug(), $cssString );
 		}
+	}
+
+
+	/**
+	 * When the no options are saved yet (e.g. new install) create a CSS
+	 *
+	 * @return	void
+	 * @since	1.4.1
+	 */
+	public function generateMissingCSS() {
+		add_action( 'admin_init', array( $this, '_generateMissingCSS' ), 1000 );
+	}
+
+
+	/**
+	 * When the no options are saved yet (e.g. new install) create a CSS, called internally
+	 *
+	 * @return	void
+	 * @since	1.4.1
+	 */
+	public function _generateMissingCSS() {
+		// WP_Filesystem is only available in the admin
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$cssFilename = $this->getCSSFilePath();
+
+		WP_Filesystem();
+		global $wp_filesystem;
+
+		// Check if the file exists
+		if ( $wp_filesystem->exists( $cssFilename ) ) {
+			return;
+		}
+
+		// Verify directory
+		if ( ! $wp_filesystem->is_dir( dirname( $cssFilename ) ) ) {
+			return;
+		}
+		if ( ! $wp_filesystem->is_writable( dirname( $cssFilename ) ) ) {
+			return;
+		}
+
+		$this->generateSaveCSS();
 	}
 
 
