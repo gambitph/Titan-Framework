@@ -240,8 +240,9 @@ class TitanFrameworkAdminPanel {
 	}
 
 	public function createAdminPage() {
-		do_action( 'tf_admin_page_before' ); ?>
+		do_action( 'tf_admin_page_before' );
 
+		?>
 		<div class='wrap titan-framework-panel-wrap'>
 		<?php
 
@@ -349,8 +350,9 @@ class TitanFrameworkAdminPanel {
 		</div>
 		</div>
 		</div>
+		<?php
 
-		<?php do_action( 'tf_admin_page_after' );
+		do_action( 'tf_admin_page_after' );
 	}
 
 	public function createTab( $settings ) {
