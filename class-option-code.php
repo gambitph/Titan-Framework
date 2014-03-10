@@ -231,7 +231,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function cleanValueForGetting( $value ) {
-		if ( $this->settings['wpautop'] ) {
+		if ( isset($this->settings['wpautop']) && $this->settings['wpautop'] ) {
 			return wpautop( stripslashes( $value ) );
 		}
 		return stripslashes( $value );
