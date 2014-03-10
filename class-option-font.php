@@ -234,7 +234,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		 * Using `value` will print out the entire font CSS
 		 */
 
-		// Create the entire CSS for the font
+		// Create the entire CSS for the font, this should just be used to replace the `value` variable
 		$cssVariables = '';
 		$cssVariableArray = array( 'font-family', 'color', 'font-size', 'font-weight', 'font-style', 'line-height', 'letter-spacing',
 		'text-transform', 'font-variant', 'text-shadow' );
@@ -252,7 +252,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			$modifiedCss = str_replace( 'value-', '$' . $option->settings['id'] . '-', $modifiedCss );
 		}
 
-		$css .= $cssVariables;
 		$css .= $modifiedCss;
 
 		return $css;
