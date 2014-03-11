@@ -30,6 +30,8 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	function __construct( $settings, $owner ) {
+		parent::__construct( $settings, $owner );
+		
 		add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 
@@ -40,8 +42,6 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		// JS inclusion for Javascript code langs
 		add_filter( 'wp_footer', array( $this, "printJS" ), 100 );
 		add_filter( 'wp_footer', array( $this, "printJSForPagesAndPosts" ), 101 );
-
-		parent::__construct( $settings, $owner );
 	}
 
 
