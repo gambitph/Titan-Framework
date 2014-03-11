@@ -65,7 +65,7 @@ class TitanFrameworkThemeCustomizerSection {
 
 						// Some options may want to insert custom jQuery code before manipulation of live preview
 						if ( ! empty( $option->settings['id'] ) ) {
-							do_action( 'tf_livepreview_pre', $option->settings['id'], $option->settings['type'], $option );
+							do_action( 'tf_livepreview_pre_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
 						}
 
 						echo $option->settings['livepreview'];
@@ -123,14 +123,14 @@ class TitanFrameworkThemeCustomizerSection {
 	}
 
 	public function createOption( $settings ) {
-		if ( ! apply_filters( 'tf_create_option_continue', true, $settings ) ) {
+		if ( ! apply_filters( 'tf_create_option_continue_' . $this->owner->optionNamespace, true, $settings ) ) {
 			return null;
 		}
 
 		$obj = TitanFrameworkOption::factory( $settings, $this );
 		$this->options[] = $obj;
 
-		do_action( 'tf_create_option', $obj );
+		do_action( 'tf_create_option_' . $this->owner->optionNamespace, $obj );
 
 		return $obj;
 	}

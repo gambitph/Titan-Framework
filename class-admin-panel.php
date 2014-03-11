@@ -192,7 +192,7 @@ class TitanFrameworkAdminPanel {
 		$args .= empty( $activeTab ) ? '' : '&tab=' . urlencode( $activeTab->settings['id'] );
 		$args .= empty( $message ) ? '' : '&message=' . $message;
 
-		do_action( 'tf_admin_options_saved' );
+		do_action( 'tf_admin_options_saved_' . $this->getOptionNamespace() );
 
 		wp_redirect( admin_url( 'admin.php' . $args ) );
 	}
@@ -241,12 +241,14 @@ class TitanFrameworkAdminPanel {
 
 	public function createAdminPage() {
 		do_action( 'tf_admin_page_before' );
+		do_action( 'tf_admin_page_before_' . $this->getOptionNamespace() );
 
 		?>
 		<div class='wrap titan-framework-panel-wrap'>
 		<?php
 
 		do_action( 'tf_admin_page_start' );
+		do_action( 'tf_admin_page_start_' . $this->getOptionNamespace() );
 
 		if ( count( $this->tabs ) ):
 			?>
@@ -254,12 +256,14 @@ class TitanFrameworkAdminPanel {
 			<?php
 
 			do_action( 'tf_admin_page_tab_start' );
+			do_action( 'tf_admin_page_tab_start_' . $this->getOptionNamespace() );
 
 			foreach ( $this->tabs as $tab ) {
 				$tab->displayTab();
 			}
 
 			do_action( 'tf_admin_page_tab_end' );
+			do_action( 'tf_admin_page_tab_end_' . $this->getOptionNamespace() );
 
 			?>
 			</h2>
@@ -306,6 +310,7 @@ class TitanFrameworkAdminPanel {
 		<?php
 
 		do_action( 'tf_admin_page_table_start' );
+		do_action( 'tf_admin_page_table_start_' . $this->getOptionNamespace() );
 
 		$activeTab = $this->getActiveTab();
 		if ( ! empty( $activeTab ) ) {
@@ -317,6 +322,7 @@ class TitanFrameworkAdminPanel {
 		}
 
 		do_action( 'tf_admin_page_table_end' );
+		do_action( 'tf_admin_page_table_end_' . $this->getOptionNamespace() );
 
 		?>
 			</tbody>
@@ -344,6 +350,7 @@ class TitanFrameworkAdminPanel {
 		endif;
 
 		do_action( 'tf_admin_page_end' );
+		do_action( 'tf_admin_page_end_' . $this->getOptionNamespace() );
 
 		?>
 		<div class='options-container'>
@@ -353,6 +360,7 @@ class TitanFrameworkAdminPanel {
 		<?php
 
 		do_action( 'tf_admin_page_after' );
+		do_action( 'tf_admin_page_after_' . $this->getOptionNamespace() );
 	}
 
 	public function createTab( $settings ) {
@@ -362,14 +370,14 @@ class TitanFrameworkAdminPanel {
 	}
 
 	public function createOption( $settings ) {
-		if ( ! apply_filters( 'tf_create_option_continue', true, $settings ) ) {
+		if ( ! apply_filters( 'tf_create_option_continue_' . $this->getOptionNamespace(), true, $settings ) ) {
 			return null;
 		}
 
 		$obj = TitanFrameworkOption::factory( $settings, $this );
 		$this->options[] = $obj;
 
-		do_action( 'tf_create_option', $obj );
+		do_action( 'tf_create_option_' . $this->getOptionNamespace(), $obj );
 
 		return $obj;
 	}

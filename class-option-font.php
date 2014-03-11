@@ -63,14 +63,14 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	function __construct( $settings, $owner ) {
+		parent::__construct( $settings, $owner );
+
 		add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 		add_action( 'admin_head', array( __CLASS__, 'createFontScript' ) );
-		add_action( 'tf_create_option', array( $this, "rememberGoogleFonts" ) );
+		add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, "rememberGoogleFonts" ) );
 		add_action( 'wp_enqueue_scripts', array( $this, "enqueueGooglefonts" ) );
-		add_filter( 'tf_generate_css_font', array( $this, 'generateCSS' ), 10, 2 );
-
-		parent::__construct( $settings, $owner );
+		add_filter( 'tf_generate_css_font_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
 	}
 
 
@@ -140,7 +140,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 
 		// Font subsets, allow others to change this
-		$subsets = apply_filters( 'tf_google_font_subsets', array( 'latin', 'latin-ext', ) );
+		$subsets = apply_filters( 'tf_google_font_subsets_' . $this->getOptionNamespace(), array( 'latin', 'latin-ext', ) );
 
 		// Enqueue the Google Font
 		foreach ( $fontsToLoad as $fontName => $variants ) {

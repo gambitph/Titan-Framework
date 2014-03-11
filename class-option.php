@@ -165,8 +165,10 @@ class TitanFrameworkOption {
 		// Allow overriding for custom styling
 		$useCustom = false;
 		$useCustom = apply_filters( 'tf_use_custom_option_header', $useCustom );
+		$useCustom = apply_filters( 'tf_use_custom_option_header_' . $this->getOptionNamespace(), $useCustom );
 		if ( $useCustom ) {
 			do_action( 'tf_custom_option_header', $this );
+			do_action( 'tf_custom_option_header_' . $this->getOptionNamespace(), $this );
 			return;
 		}
 
@@ -192,8 +194,10 @@ class TitanFrameworkOption {
 		// Allow overriding for custom styling
 		$useCustom = false;
 		$useCustom = apply_filters( 'tf_use_custom_option_footer', $useCustom );
+		$useCustom = apply_filters( 'tf_use_custom_option_footer_' . $this->getOptionNamespace(), $useCustom );
 		if ( $useCustom ) {
 			do_action( 'tf_custom_option_footer', $this );
+			do_action( 'tf_custom_option_footer_' . $this->getOptionNamespace(), $this );
 			return;
 		}
 

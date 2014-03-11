@@ -11,7 +11,7 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
-		add_action( 'tf_livepreview_pre', array( $this, 'preLivePreview' ), 10, 3 );
+		add_action( 'tf_livepreview_pre_' . $this->getOptionNamespace(), array( $this, 'preLivePreview' ), 10, 3 );
 	}
 
 	/*

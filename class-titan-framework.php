@@ -46,7 +46,7 @@ class TitanFramework {
 
 		$this->optionNamespace = $optionNamespace;
 
-		do_action( 'tf_init', $this );
+		do_action( 'tf_init_' . $this->optionNamespace, $this );
 
 		$this->cssInstance = new TitanFrameworkCSS( $this );
 
@@ -56,14 +56,14 @@ class TitanFramework {
 		if ( is_admin() ) {
 			add_action( 'after_setup_theme', array( $this, 'updateThemeModListing' ) );
 			add_action( 'after_setup_theme', array( $this, 'updateMetaDbListing' ) );
-			add_action( 'tf_create_option', array( $this, "verifyUniqueIDs" ) );
+			add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "verifyUniqueIDs" ) );
 		}
 
 		add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
 		add_action( 'wp_enqueue_scripts', array( $this, "loadFrontEndScripts" ) );
-		add_action( 'tf_create_option', array( $this, "rememberGoogleFonts" ) );
-		add_action( 'tf_create_option', array( $this, "rememberAllOptions" ) );
-		add_filter( 'tf_create_option_continue', array( $this, "removeChildThemeOptions" ), 10, 2 );
+		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "rememberGoogleFonts" ) );
+		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "rememberAllOptions" ) );
+		add_filter( 'tf_create_option_continue_' . $this->optionNamespace, array( $this, "removeChildThemeOptions" ), 10, 2 );
 	}
 
 	/**
@@ -152,7 +152,7 @@ class TitanFramework {
 
 		// First time run, this action hook can be used to trigger something
 		if ( $currentOptions === false ) {
-			do_action( 'tf_init_no_options' );
+			do_action( 'tf_init_no_options_' . $this->optionNamespace );
 		}
 
 		// Put all the available options in our global variable for future checking
@@ -414,7 +414,7 @@ class TitanFramework {
 	}
 
 	public function createShortcode( $settings ) {
-		do_action( 'tf_create_shortcode', $settings );
+		do_action( 'tf_create_shortcode_' . $this->optionNamespace, $settings );
 	}
 
 	public static function displayFrameworkError( $message, $errorObject = null ) {
