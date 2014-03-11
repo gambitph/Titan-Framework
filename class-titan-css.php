@@ -32,7 +32,7 @@ class TitanFrameworkCSS {
 		$this->frameworkInstance = $frameworkInstance;
 
 		// Gather all the options
-		add_action( 'tf_create_option', array( $this, 'getOptionsWithCSS' ) );
+		add_action( 'tf_create_option_' . $frameworkInstance->optionNamespace, array( $this, 'getOptionsWithCSS' ) );
 
 		// display our CSS
 		add_action( 'wp_head', array( $this, 'printCSS' ), 99 );
@@ -41,9 +41,9 @@ class TitanFrameworkCSS {
 		// Trigger new compile when theme customizer settings were saved
 		add_action( 'customize_save_after', array( $this, 'generateSaveCSS' ) );
 		// Trigger new compile when admin option settings were saved
-		add_action( 'tf_admin_options_saved', array( $this, 'generateSaveCSS' ) );
+		add_action( 'tf_admin_options_saved_' . $frameworkInstance->optionNamespace, array( $this, 'generateSaveCSS' ) );
 		// Trigger compile when there are no default options saved yet
-		add_action( 'tf_init_no_options', array( $this, 'generateMissingCSS' ) );
+		add_action( 'tf_init_no_options_' . $frameworkInstance->optionNamespace, array( $this, 'generateMissingCSS' ) );
 	}
 
 
@@ -204,12 +204,12 @@ class TitanFrameworkCSS {
 			}
 
 			// Decide whether or not we should continue to generate CSS for this option
-			if ( ! apply_filters( 'tf_continue_generate_css_' . $option->settings['type'], true, $option ) ) {
+			if ( ! apply_filters( 'tf_continue_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), true, $option ) ) {
 				continue;
 			}
 
 			// Custom generated CSS
-			$generatedCSS = apply_filters( 'tf_generate_css_' . $option->settings['type'], '', $option );
+			$generatedCSS = apply_filters( 'tf_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), '', $option );
 			if ( $generatedCSS ) {
 				try {
 					$testerForValidCSS = $scss->compile( $generatedCSS );

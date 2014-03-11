@@ -32,7 +32,7 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
 
 		parent::__construct( $settings, $owner );
 
-		add_filter( 'tf_generate_css_select-googlefont', array( $this, 'generateCSS' ), 10, 2 );
+		add_filter( 'tf_generate_css_select-googlefont_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
 	}
 
 

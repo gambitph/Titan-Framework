@@ -34,7 +34,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 
 		// CSS generation for CSS code langs
-		add_filter( 'tf_generate_css_code', array( $this, "generateCSSCode" ), 10, 2 );
+		add_filter( 'tf_generate_css_code_' . $this->getOptionNamespace(), array( $this, "generateCSSCode" ), 10, 2 );
 		add_filter( 'wp_head', array( $this, "printCSSForPagesAndPosts" ), 100 );
 
 		// JS inclusion for Javascript code langs
