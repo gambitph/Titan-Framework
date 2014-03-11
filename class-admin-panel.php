@@ -102,7 +102,7 @@ class TitanFrameworkAdminPanel {
 		add_action( 'load-' . $this->panelID, array( $this, 'saveOptions' ) );
 	}
 
-	protected function getOptionNamespace() {
+	public function getOptionNamespace() {
 		return $this->owner->optionNamespace;
 	}
 

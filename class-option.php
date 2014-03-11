@@ -144,7 +144,7 @@ class TitanFrameworkOption {
 	 * @return	string The option namespace
 	 * @since	1.0
 	 */
-	protected function getOptionNamespace() {
+	public function getOptionNamespace() {
 		return $this->getFramework()->optionNamespace;
 	}
 
