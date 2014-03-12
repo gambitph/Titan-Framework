@@ -19,7 +19,7 @@ class TitanFrameworkThemeCustomizerSection {
 	public $owner;
 
 	// Makes sure we only load live previewing CSS only once
-	private $generatedHeadCSSPreview = false;
+	private static $generatedHeadCSSPreview = false;
 
 	function __construct( $settings, $owner ) {
 		$this->owner = $owner;
@@ -88,10 +88,10 @@ class TitanFrameworkThemeCustomizerSection {
 	 * @since	1.3
 	 */
 	public function printPreviewCSS() {
-		if ( $this->generatedHeadCSSPreview ) {
+		if ( self::$generatedHeadCSSPreview ) {
 			return;
 		}
-		$this->generatedHeadCSSPreview = true;
+		self::$generatedHeadCSSPreview = true;
 		echo "<style>" . $this->owner->cssInstance->generateCSS() . "</style>";
 	}
 
