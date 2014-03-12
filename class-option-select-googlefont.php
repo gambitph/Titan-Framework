@@ -45,6 +45,10 @@ class TitanFrameworkOptionSelectGooglefont extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public function generateCSS( $css, $option ) {
+		if ( $this->settings['id'] != $option->settings['id'] ) {
+			return $css;
+		}
+
 		$value = $this->getFramework()->getOption( $option->settings['id'] );
 
 		if ( ! empty( $value['fontFamily'] ) ) {

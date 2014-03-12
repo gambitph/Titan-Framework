@@ -31,7 +31,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 */
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
-		
+
 		add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 
@@ -151,6 +151,9 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function generateCSSCode( $css, $option ) {
+		if ( $this->settings['id'] != $option->settings['id'] ) {
+			return $css;
+		}
 		if ( TitanFrameworkOption::TYPE_META != $option->type ) {
 			$css = $this->getFramework()->getOption( $option->settings['id'] );
 		}
