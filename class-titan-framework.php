@@ -79,14 +79,14 @@ class TitanFramework {
 			return;
 		}
 
-		if ( in_array( $option->settings['id'], self::$this->allOptionIDs ) ) {
+		if ( in_array( $option->settings['id'], $this->allOptionIDs ) ) {
 			self::displayFrameworkError(
 				sprintf( __( 'All option IDs must be unique. The id %s has been used multiple times.', TF_I18NDOMAIN ),
 					'<code>' . $option->settings['id'] . '</code>'
 				)
 			);
 		} else {
-			self::$this->allOptionIDs[] = $option->settings['id'];
+			$this->allOptionIDs[] = $option->settings['id'];
 		}
 	}
 

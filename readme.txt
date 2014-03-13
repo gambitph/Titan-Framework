@@ -206,6 +206,9 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 
 == Changelog ==
 
+= 1.4.2 =
+* Fixed a typo
+
 = 1.4.1 =
 * Added some new hooks
 * Added namespaces to all hooks
