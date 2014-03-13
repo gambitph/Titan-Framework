@@ -73,7 +73,7 @@ class TitanFrameworkPlugin {
 	function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
 		add_action( 'activated_plugin', array( $this, 'forceLoadFirst' ) );
-		// add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
 	}
 
 
