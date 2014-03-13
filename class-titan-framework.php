@@ -16,8 +16,8 @@ class TitanFramework {
 	private $optionsToRemove = array();
 
 	private static $instances = array();
-	private static $allOptionIDs = array();
-	private static $allOptions;
+	private $allOptionIDs = array();
+	private $allOptions;
 
 	public $cssInstance;
 
@@ -79,14 +79,14 @@ class TitanFramework {
 			return;
 		}
 
-		if ( in_array( $option->settings['id'], self::$allOptionIDs ) ) {
+		if ( in_array( $option->settings['id'], self::$this->allOptionIDs ) ) {
 			self::displayFrameworkError(
 				sprintf( __( 'All option IDs must be unique. The id %s has been used multiple times.', TF_I18NDOMAIN ),
 					'<code>' . $option->settings['id'] . '</code>'
 				)
 			);
 		} else {
-			self::$allOptionIDs[] = $option->settings['id'];
+			self::$this->allOptionIDs[] = $option->settings['id'];
 		}
 	}
 
@@ -137,14 +137,14 @@ class TitanFramework {
 	}
 
 	public function getAllOptions() {
-		if ( empty( self::$allOptions ) ) {
-			self::$allOptions = array();
+		if ( empty( $this->allOptions ) ) {
+			$this->allOptions = array();
 		}
 
-		if ( empty( self::$allOptions[$this->optionNamespace] ) ) {
-			self::$allOptions[$this->optionNamespace] = array();
+		if ( empty( $this->allOptions[$this->optionNamespace] ) ) {
+			$this->allOptions[$this->optionNamespace] = array();
 		} else {
-			return self::$allOptions[$this->optionNamespace];
+			return $this->allOptions[$this->optionNamespace];
 		}
 
 		// Check if we have options saved already
@@ -156,16 +156,16 @@ class TitanFramework {
 		}
 
 		// Put all the available options in our global variable for future checking
-		if ( ! empty( $currentOptions ) && ! count( self::$allOptions[$this->optionNamespace] ) ) {
-			self::$allOptions[$this->optionNamespace] = unserialize( $currentOptions );
+		if ( ! empty( $currentOptions ) && ! count( $this->allOptions[$this->optionNamespace] ) ) {
+			$this->allOptions[$this->optionNamespace] = unserialize( $currentOptions );
 		}
 
-		return self::$allOptions[$this->optionNamespace];
+		return $this->allOptions[$this->optionNamespace];
 	}
 
 	public function saveOptions() {
-		update_option( $this->optionNamespace . '_options', serialize( self::$allOptions[$this->optionNamespace] ) );
-		return self::$allOptions[$this->optionNamespace];
+		update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[$this->optionNamespace] ) );
+		return $this->allOptions[$this->optionNamespace];
 	}
 
 	/*
@@ -218,7 +218,7 @@ class TitanFramework {
 	 */
 	public function updateOptionDBListing() {
 		// Get also a list of all option keys
-		$allOptionKeys = array_fill_keys( array_keys( self::$allOptions[$this->optionNamespace] ), null );
+		$allOptionKeys = array_fill_keys( array_keys( $this->allOptions[$this->optionNamespace] ), null );
 
 		// Check whether options have changed / added
 		$changed = false;
@@ -228,15 +228,15 @@ class TitanFramework {
 				if ( empty( $option->settings['id'] ) ) {
 					continue;
 				}
-				if ( ! isset( self::$allOptions[$this->optionNamespace][$option->settings['id']] ) ) {
-					self::$allOptions[$this->optionNamespace][$option->settings['id']] = $option->settings['default'];
+				if ( ! isset( $this->allOptions[$this->optionNamespace][$option->settings['id']] ) ) {
+					$this->allOptions[$this->optionNamespace][$option->settings['id']] = $option->settings['default'];
 					$changed = true;
 				}
 				unset( $allOptionKeys[$option->settings['id']] );
 
 				// Clean the value for retrieval
-				self::$allOptions[$this->optionNamespace][$option->settings['id']] =
-					$option->cleanValueForGetting( self::$allOptions[$this->optionNamespace][$option->settings['id']] );
+				$this->allOptions[$this->optionNamespace][$option->settings['id']] =
+					$option->cleanValueForGetting( $this->allOptions[$this->optionNamespace][$option->settings['id']] );
 			}
 			// Check existing options
 			foreach ( $panel->tabs as $tab ) {
@@ -244,15 +244,15 @@ class TitanFramework {
 					if ( empty( $option->settings['id'] ) ) {
 						continue;
 					}
-					if ( ! isset( self::$allOptions[$this->optionNamespace][$option->settings['id']] ) ) {
-						self::$allOptions[$this->optionNamespace][$option->settings['id']] = $option->settings['default'];
+					if ( ! isset( $this->allOptions[$this->optionNamespace][$option->settings['id']] ) ) {
+						$this->allOptions[$this->optionNamespace][$option->settings['id']] = $option->settings['default'];
 						$changed = true;
 					}
 					unset( $allOptionKeys[$option->settings['id']] );
 
 					// Clean the value for retrieval
-					self::$allOptions[$this->optionNamespace][$option->settings['id']] =
-						$option->cleanValueForGetting( self::$allOptions[$this->optionNamespace][$option->settings['id']] );
+					$this->allOptions[$this->optionNamespace][$option->settings['id']] =
+						$option->cleanValueForGetting( $this->allOptions[$this->optionNamespace][$option->settings['id']] );
 				}
 			}
 		}
@@ -260,14 +260,14 @@ class TitanFramework {
 		// Remove all unused keys
 		if ( count( $allOptionKeys ) ) {
 			foreach ( $allOptionKeys as $optionName => $dummy ) {
-				unset( self::$allOptions[$this->optionNamespace][$optionName] );
+				unset( $this->allOptions[$this->optionNamespace][$optionName] );
 			}
 			$changed = true;
 		}
 
 		// New options have been added, save the default values
 		if ( $changed ) {
-			update_option( $this->optionNamespace . '_options', serialize( self::$allOptions[$this->optionNamespace] ) );
+			update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[$this->optionNamespace] ) );
 		}
 	}
 
@@ -338,12 +338,12 @@ class TitanFramework {
 			if ( $option->type == TitanFrameworkOption::TYPE_ADMIN ) {
 
 				// this is blank if called too early. getOption should be called inside a hook or template
-				if ( ! is_array( self::$allOptions ) ) {
+				if ( ! is_array( $this->allOptions ) ) {
 					self::displayFrameworkError( sprintf( __( 'Wrong usage of %s, this should be called inside a hook or from within a theme file.', TF_I18NDOMAIN ), '<code>getOption</code>' ) );
 					return null;
 				}
 
-				$value = self::$allOptions[ $this->optionNamespace ][ $optionName ];
+				$value = $this->allOptions[ $this->optionNamespace ][ $optionName ];
 
 
 			// Meta box options
@@ -384,14 +384,14 @@ class TitanFramework {
 		if ( empty( $postID ) ) {
 			// option
 
-			if ( ! is_array( self::$allOptions ) ) {
+			if ( ! is_array( $this->allOptions ) ) {
 				// this is blank if called too early. getOption should be called inside a hook or template
 				self::displayFrameworkError( sprintf( __( 'Wrong usage of %s, this should be called inside a hook or from within a theme file.', TF_I18NDOMAIN ), '<code>setOption</code>' ) );
 				return '';
 			}
 
-			if ( array_key_exists( $optionName, self::$allOptions[$this->optionNamespace] ) ) {
-				self::$allOptions[$this->optionNamespace][$optionName] = $value;
+			if ( array_key_exists( $optionName, $this->allOptions[$this->optionNamespace] ) ) {
+				$this->allOptions[$this->optionNamespace][$optionName] = $value;
 			} else {
 				// customizer
 				set_theme_mod( $this->optionNamespace . '_' . $optionName, $value );
