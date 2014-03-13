@@ -737,7 +737,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			$value = serialize( $value );
 		}
 
-		printf("<input type='hidden' class='tf-for-saving' name='%s' id='%s' value='%s'\>",
+		printf("<input type='hidden' class='tf-for-saving' name='%s' id='%s' value='%s' />",
 			$this->getID(),
 			$this->getID(),
 			esc_attr( $value )

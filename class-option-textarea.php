@@ -14,7 +14,7 @@ class TitanFrameworkOptionTextarea extends TitanFrameworkOption {
 	 */
 	public function display() {
 		$this->echoOptionHeader( true );
-		printf("<textarea class='large-text %s' name=\"%s\" placeholder=\"%s\" id=\"%s\" rows='10' cols='50'\>%s</textarea>",
+		printf("<textarea class='large-text %s' name=\"%s\" placeholder=\"%s\" id=\"%s\" rows='10' cols='50'>%s</textarea>",
 			$this->settings['is_code'] ? 'code' : '',
 			$this->getID(),
 			$this->settings['placeholder'],

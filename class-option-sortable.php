@@ -180,7 +180,7 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 			$values = serialize( $values );
 		}
 
-		printf( "<input type='hidden' name=\"%s\" id=\"%s\" value=\"%s\"\>",
+		printf( "<input type='hidden' name=\"%s\" id=\"%s\" value=\"%s\" />",
 			$this->getID(),
 			$this->getID(),
 			esc_attr( $values )

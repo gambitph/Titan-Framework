@@ -26,7 +26,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		}
 		echo "<div class='thumbnail tf-image-preview'>" . $previewImage . "</div>";
 
-		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"text\" value=\"%s\"\> &nbsp; <button class='button-secondary upload tf-upload-image'>%s</button>",
+		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"text\" value=\"%s\" /> &nbsp; <button class='button-secondary upload tf-upload-image'>%s</button>",
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->getID(),
