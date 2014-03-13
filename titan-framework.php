@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Titan Framework
-Plugin URI: http://titanframework.net/
+Plugin URI: http://www.titanframework.net/
 Description: Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 Author: Benjamin Intal, Gambit
 Version: 1.4

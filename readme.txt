@@ -16,9 +16,9 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 = The Goal =
 
-Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. Read our guide on how to [Get Started with Titan Framework](https://www.titanframework.net/get-started/)
+Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/get-started/)
 
-* [Documentation and Tutorials for Developers](http://titanframework.net)
+* [Documentation and Tutorials for Developers](http://www.titanframework.net/docs)
 * [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
 * [Issue Tracker](https://github.com/gambitph/Titan-Framework/issues)
 
@@ -99,11 +99,11 @@ If Titan Framework has helped you in any way, we would appreciate any amount of 
 
 1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Use the provided classes and functions in your theme or plugin. Read our guide on how to [Get Started with Titan Framework](https://www.titanframework.net/get-started/)
+3. Use the provided classes and functions in your theme or plugin. Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/get-started/)
 
 == Frequently Asked Questions ==
 
-* [Site FAQs](https://www.titanframework.net/faqs/)
+* [Site FAQs](http://www.titanframework.net/faqs/)
 * [Documentation and Tutorials for Developers](http://titanframework.net)
 * [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
 * [Issue Tracker](https://github.com/gambitph/Titan-Framework/issues)
