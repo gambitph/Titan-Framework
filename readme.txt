@@ -95,6 +95,10 @@ If Titan Framework has helped you in any way, we would appreciate any amount of 
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9X7HJBGJ37VH6)
 
+= Special Thanks to all the Contributors =
+
+@ardallan, @BrazenlyGeek, @davidossahdez, and @dovy
+
 == Installation ==
 
 1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
