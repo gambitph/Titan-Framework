@@ -206,6 +206,18 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 
 == Changelog ==
 
+= 1.4.1 =
+* Added some new hooks
+* Added namespaces to all hooks
+* Added meta links
+* Fixed bug where font drop downs closed immediately in Firefox
+* Fixed bug where getInstance did not return the same instance sometimes
+* Fixed bug where the font option did not generate CSS correctly
+* Fixed bug where only one Titan instance generated CSS files
+* Fixed bug where CSS were being generated multiple times
+* Fixed bug where option IDs in different instances caused an error
+* Fixed bug where the live preview lagged a lot
+
 = 1.4 =
 * Added new Font option
 * Added new Sortable option
