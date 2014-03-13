@@ -131,7 +131,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 	public function display() {
 		$this->echoOptionHeader();
 		echo "<div class='number-slider'></div>";
-		printf("<input class=\"%s-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"number\" value=\"%s\" min=\"%s\" max=\"%s\" step=\"%s\"\> %s",
+		printf("<input class=\"%s-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"number\" value=\"%s\" min=\"%s\" max=\"%s\" step=\"%s\" /> %s",
 			$this->settings['size'],
 			$this->getID(),
 			$this->settings['placeholder'],

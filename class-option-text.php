@@ -14,7 +14,7 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 	 */
 	public function display() {
 		$this->echoOptionHeader();
-		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"%s\" value=\"%s\"\>",
+		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"%s\" value=\"%s\" />",
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->getID(),
