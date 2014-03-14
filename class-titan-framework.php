@@ -46,6 +46,7 @@ class TitanFramework {
 
 		$this->optionNamespace = $optionNamespace;
 
+		do_action( 'tf_init', $this );
 		do_action( 'tf_init_' . $this->optionNamespace, $this );
 
 		$this->cssInstance = new TitanFrameworkCSS( $this );
@@ -414,6 +415,7 @@ class TitanFramework {
 	}
 
 	public function createShortcode( $settings ) {
+		do_action( 'tf_create_shortcode', $settings );
 		do_action( 'tf_create_shortcode_' . $this->optionNamespace, $settings );
 	}
 
