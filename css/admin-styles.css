@@ -56,6 +56,13 @@
 	max-width:100%;
 }
 
+#side-sortables .tf-radio-image label:first-child,
+#side-sortables .tf-radio-image label {
+	display: inline-block;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
 /*
  * Base styling for admin pages
  */
