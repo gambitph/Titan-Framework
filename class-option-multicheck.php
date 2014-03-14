@@ -16,7 +16,7 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 
 		echo "<fieldset>";
 
-		$savedValue = $this->getValue();
+		$savedValue = unserialize( $this->getValue() );
 		if ( empty( $savedValue ) ) {
 			$savedValue = array();
 		}
