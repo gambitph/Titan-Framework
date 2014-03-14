@@ -34,6 +34,29 @@
 }
 
 /*
+ * Styles for metaboxes in the sidebar
+ */
+#side-sortables .tf-form-table,
+#side-sortables .tf-form-table tbody,
+#side-sortables .tf-form-table tr,
+#side-sortables .tf-form-table th,
+#side-sortables .tf-form-table td {
+	display:block;
+}
+
+#side-sortables .tf-form-table th {
+	padding: 10px 0px 0px;
+}
+
+#side-sortables .tf-form-table td {
+	padding: 5px 0px;
+}
+
+#side-sortables .tf-form-table td input {
+	max-width:100%;
+}
+
+/*
  * Base styling for admin pages
  */
 
