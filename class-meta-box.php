@@ -75,7 +75,7 @@ class TitanFrameworkMetaBox {
 		wp_nonce_field( $this->settings['id'], TF . '_' . $this->settings['id'] . '_nonce' );
 
 		?>
-		<table class="form-table">
+		<table class="form-table tf-form-table">
 		<tbody>
 		<?php
 		foreach ( $this->options as $option ) {
