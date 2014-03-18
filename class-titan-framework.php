@@ -458,6 +458,12 @@ class TitanFramework {
 		$childTheme = trailingslashit( get_stylesheet_directory() );
 		$plugin = trailingslashit( dirname( $file ) );
 
+		// Windows sometimes mixes up forward and back slashes, ensure forward slash for
+		// correct URL output
+		$parentTheme = str_replace( '\\', '/', $parentTheme );
+		$childTheme = str_replace( '\\', '/', $childTheme );
+		$file = str_replace( '\\', '/', $file );
+
 		// framework is in a parent theme
 		if ( stripos( $file, $parentTheme ) !== false ) {
 			$dir = trailingslashit( dirname( str_replace( $parentTheme, '', $file ) ) );
