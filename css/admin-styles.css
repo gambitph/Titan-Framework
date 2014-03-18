@@ -229,11 +229,10 @@
 }
 /* radio images */
 .tf-radio-image label {
-	margin-left: 30px;
 	white-space: nowrap;
-}
-.tf-radio-image label:first-child {
-	margin-left: 0;
+	display: inline-block;
+	margin-right: 30px;
+	margin-bottom: 10px;
 }
 .form-table .tf-radio-image input[type=radio] {
 	margin-top: 0;
