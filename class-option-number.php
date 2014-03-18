@@ -142,7 +142,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 			$this->settings['step'],
 			$this->settings['desc']
 		);
-		$this->echoOptionFooter( false );
+		$this->echoOptionFooter();
 	}
 
 
