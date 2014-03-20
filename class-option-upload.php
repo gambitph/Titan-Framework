@@ -20,13 +20,23 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 		// display the preview image
 		$value = $this->getValue();
+		if ( is_numeric( $value ) ) {
+			// gives us an array with the first element as the src or false on fail
+			$value = wp_get_attachment_image_src( $value, array( 150, 150 ) );
+		}
+		if ( ! is_array( $value ) ) {
+			$value = $this->getValue();
+		} else {
+			$value = $value[0];
+		}
+
 		$previewImage = '';
 		if ( ! empty( $value ) ) {
 			$previewImage = "<img src='" . esc_attr( $value ) . "'/>";
 		}
 		echo "<div class='thumbnail tf-image-preview'>" . $previewImage . "</div>";
 
-		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"text\" value=\"%s\" /> &nbsp; <button class='button-secondary upload tf-upload-image'>%s</button>",
+		printf("<input name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"hidden\" value=\"%s\" /><button class='button-secondary upload tf-upload-image'>%s</button>",
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->getID(),
@@ -70,10 +80,10 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			// remove the image when the remove link is clicked
 			$('.tf-upload-image-remove').click(function(event) {
 				event.preventDefault();
-				var _input = $(this).siblings('input[type="text"]');
+				var _input = $(this).siblings('input');
 				if ( _input.length == 0 ) {
 					// be careful with this since different placements of the input may render this invalid
-					_input = $(this).parent().siblings('input[type="text"]');
+					_input = $(this).parent().siblings('input');
 				}
 				var _preview = $(this).siblings('div.thumbnail');
 				if ( _preview.length == 0 ) {
@@ -93,10 +103,10 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			// open the upload media lightbox when the upload button is clicked
 			$('button.tf-upload-image').click(function(event) {
 				event.preventDefault();
-				var _input = $(this).siblings('input[type="text"]');
+				var _input = $(this).siblings('input');
 				if ( _input.length == 0 ) {
 					// be careful with this since different placements of the input may render this invalid
-					_input = $(this).parent().siblings('input[type="text"]');
+					_input = $(this).parent().siblings('input');
 				}
 				var _preview = $(this).siblings('div.thumbnail');
 				if ( _preview.length == 0 ) {
@@ -117,11 +127,10 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 					var selection = frame.state().get('selection');
 					selection.each(function(attachment) {
 						if ( _input.length > 0 ) {
-							_input.val(attachment.attributes.url);
+							_input.val(attachment.id);
 						}
 						if ( _preview.length > 0 ) {
-							_preview.html("<img src='" + attachment.attributes.url + "'/>")
-							// _preview.html("<img src='" + attachment.attributes.sizes.thumbnail.url + "'/>")
+							_preview.html("<img src='" + attachment.attributes.sizes.thumbnail.url + "'/>")
 						}
 						// we need to trigger a change so that WP would detect that we changed the value
 						// or else the save button won't be enabled
