@@ -483,4 +483,3 @@ class TitanFramework {
 		return plugins_url( $script, $file );
 	}
 }
-?>

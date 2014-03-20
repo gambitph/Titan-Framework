@@ -62,5 +62,3 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
 		) ) );
 	}
 }
-
-?>

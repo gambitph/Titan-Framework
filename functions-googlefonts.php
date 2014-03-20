@@ -712,5 +712,3 @@ if ( ! class_exists( 'titan_get_googlefonts' ) ) {
 		return $fonts;
 	}
 }
-
-?>

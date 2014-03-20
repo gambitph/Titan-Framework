@@ -57,5 +57,3 @@ class TitanFrameworkOptionSelectPages extends TitanFrameworkOption {
 		) ) );
 	}
 }
-
-?>
