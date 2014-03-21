@@ -185,4 +185,3 @@ class TitanFrameworkMetaBox {
 		return $obj;
 	}
 }
-?>

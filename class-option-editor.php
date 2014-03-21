@@ -46,5 +46,3 @@ class TitanFrameworkOptionEditor extends TitanFrameworkOption {
 		) ) );
 	}
 }
-
-?>

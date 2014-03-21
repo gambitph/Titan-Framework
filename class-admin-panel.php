@@ -382,4 +382,3 @@ class TitanFrameworkAdminPanel {
 		return $obj;
 	}
 }
-?>

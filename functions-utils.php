@@ -19,4 +19,3 @@ if ( ! function_exists( 'tf_hex2rgb' ) ) {
 	   return $rgb; // returns an array with the rgb values
 	}
 }
-?>
