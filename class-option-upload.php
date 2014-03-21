@@ -32,16 +32,15 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 		$previewImage = '';
 		if ( ! empty( $value ) ) {
-			$previewImage = "<img src='" . esc_attr( $value ) . "'/>";
+			$previewImage = "<i class='fa fa-times remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>";
 		}
 		echo "<div class='thumbnail tf-image-preview'>" . $previewImage . "</div>";
 
-		printf("<input name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"hidden\" value=\"%s\" /><button class='button-secondary upload tf-upload-image'>%s</button>",
+		printf("<input name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"hidden\" value=\"%s\" />",
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->getID(),
-			esc_attr( $this->getValue() ),
-			__( "Upload", TF_I18NDOMAIN )
+			esc_attr( $this->getValue() )
 		);
 		$this->echoOptionFooter();
 	}
@@ -70,56 +69,89 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		jQuery(document).ready(function($){
 			"use strict";
 
-			// open the upload media when the image is clicked
-			$('body').on('click', '.tf-theme-customizer.thumbnail img, .tf-image-preview.thumbnail img', function(event) {
-				event.preventDefault();
-				$(this).parent().siblings('p').find('button.tf-upload-image, button.tf-upload-image').trigger('click');
-				$(this).parent().siblings('button.tf-upload-image').trigger('click');
+			function tfUploadOptionCenterImage($this) {
+				// console.log('preview image loaded');
+				var _preview = $this.parents('.tf-upload').find('.thumbnail');
+				$this.css({
+					'marginTop': ( _preview.height() - $this.height() ) / 2,
+					'marginLeft': ( _preview.width() - $this.width() ) / 2
+				}).show();
+			}
+
+
+			// Calculate display offset of preview image on load
+			$('.tf-upload .thumbnail img').load(function() {
+				tfUploadOptionCenterImage($(this));
+			}).each(function(){
+				// Sometimes the load event might not trigger due to cache
+				if(this.complete) {
+					$(this).trigger('load');
+				};
 			});
 
-			// remove the image when the remove link is clicked
-			$('.tf-upload-image-remove').click(function(event) {
-				event.preventDefault();
-				var _input = $(this).siblings('input');
-				if ( _input.length == 0 ) {
-					// be careful with this since different placements of the input may render this invalid
-					_input = $(this).parent().siblings('input');
-				}
-				var _preview = $(this).siblings('div.thumbnail');
-				if ( _preview.length == 0 ) {
-					_preview = $(this).parent().siblings('div.thumbnail');
-				}
 
-				_input.val('');
-				_preview.html('');
-				// we need to trigger a change so that WP would detect that we changed the value
-				// or else the save button won't be enabled
-				_input.trigger('change');
-				$(this).hide();
+			// In the theme customizer, the load event above doesn't work because of the accordion,
+			// the image's height & width are detected as 0. We bind to the opening of an accordion
+			// and adjust the image placement from there.
+			var tfUploadAccordionSections = [];
+			$('.tf-upload').each(function() {
+				var $accordion = $(this).parents('.control-section.accordion-section');
+				if ( $accordion.length > 0 ) {
+					if ( $.inArray( $accordion, tfUploadAccordionSections ) == -1 ) {
+						tfUploadAccordionSections.push($accordion);
+					}
+				}
+			});
+			$.each( tfUploadAccordionSections, function() {
+				var $title = $(this).find('.accordion-section-title:eq(0)'); // just opening the section
+				$title.click(function() {
+					var $accordion = $(this).parents('.control-section.accordion-section');
+					if ( ! $accordion.is('.open') ) {
+						$accordion.find('.tf-upload .thumbnail img').each(function() {
+							var $this = $(this);
+							setTimeout(function() {
+								tfUploadOptionCenterImage($this);
+							}, 1);
+						});
+					}
+				});
+			});
+
+
+			// remove the image when the remove link is clicked
+			$('body').on('click', '.tf-upload i.remove', function(event) {
+				event.preventDefault();
+				var _input = $(this).parents('.tf-upload').find('input');
+				var _preview = $(this).parents('.tf-upload').find('div.thumbnail');
+
+				_preview.find('img').remove().end().find('i').remove();
+				_input.val('').trigger('change');
 
 				return false;
 			});
 
+
 			// open the upload media lightbox when the upload button is clicked
-			$('button.tf-upload-image').click(function(event) {
+			$('body').on('click', '.tf-upload .thumbnail, .tf-upload img', function(event) {
 				event.preventDefault();
-				var _input = $(this).siblings('input');
-				if ( _input.length == 0 ) {
-					// be careful with this since different placements of the input may render this invalid
-					_input = $(this).parent().siblings('input');
+				// If we have a smaller image, users can click on the thumbnail
+				if ( $(this).is('.thumbnail') ) {
+					if ( $(this).parents('.tf-upload').find('img').length != 0 ) {
+						$(this).parents('.tf-upload').find('img').trigger('click');
+						return true;
+					}
 				}
-				var _preview = $(this).siblings('div.thumbnail');
-				if ( _preview.length == 0 ) {
-					_preview = $(this).parent().siblings('div.thumbnail');
-				}
+
+				var _input = $(this).parents('.tf-upload').find('input');
+				var _preview = $(this).parents('.tf-upload').find('div.thumbnail');
 				var _remove = $(this).siblings('.tf-upload-image-remove');
 
 				// uploader frame properties
 				var frame = wp.media({
-					title: "Select Image",
+					title: '<?php _e( 'Select Image', TF_I18NDOMAIN ) ?>',
 					multiple: false,
 					library: { type: 'image' },
-					button : { text : 'Use image' }
+					button : { text : '<?php _e( 'Use image', TF_I18NDOMAIN ) ?>' }
 				});
 
 				// get the url when done
@@ -129,8 +161,30 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 						if ( _input.length > 0 ) {
 							_input.val(attachment.id);
 						}
+
 						if ( _preview.length > 0 ) {
-							_preview.html("<img src='" + attachment.attributes.sizes.thumbnail.url + "'/>")
+							// remove current preview
+							if ( _preview.find('img').length > 0 ) {
+								_preview.find('img').remove();
+							}
+							if ( _preview.find('i.remove').length > 0 ) {
+								_preview.find('i.remove').remove();
+							}
+
+							// Get the preview image
+							var image = attachment.attributes.sizes.full;
+							if ( typeof attachment.attributes.sizes.thumbnail != 'undefined' ) {
+								image = attachment.attributes.sizes.thumbnail;
+							}
+							var url = image.url;
+							var marginTop = ( _preview.height() - image.height ) / 2;
+							var marginLeft = ( _preview.width() - image.width ) / 2;
+
+							$("<img src='" + url + "'/>")
+								.css('marginTop', marginTop)
+								.css('marginLeft', marginLeft)
+								.appendTo(_preview);
+							$("<i class='fa fa-times remove'></i>").prependTo(_preview);
 						}
 						// we need to trigger a change so that WP would detect that we changed the value
 						// or else the save button won't be enabled
@@ -165,19 +219,31 @@ function registerTitanFrameworkOptionUploadControl() {
 
 			$previewImage = '';
 			$value = $this->value();
+			if ( is_numeric( $value ) ) {
+				// gives us an array with the first element as the src or false on fail
+				$value = wp_get_attachment_image_src( $value, array( 150, 150 ) );
+			}
+			if ( ! is_array( $value ) ) {
+				$value = $this->value();
+			} else {
+				$value = $value[0];
+			}
+
 			if ( ! empty( $value ) ) {
-				$previewImage = "<img src='" . esc_attr( $this->value() ) . "'/>";
+				$previewImage = "<i class='fa fa-times remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>";
 			}
 
 			?>
-			<label>
+			<div class='tf-upload'>
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-				<div class='thumbnail tf-theme-customizer'><?php echo $previewImage ?></div>
-				<input class='tf-theme-customizer-input' type='text' value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?>/>
-				<p class='description'><button class='button-secondary upload tf-upload-image'>Upload</button> &nbsp; <a href="#" class="remove tf-upload-image-remove" style='<?php echo empty( $value ) ? "display: none" : '' ?>'>Remove</a></p>
-			</label>
+				<div class='thumbnail tf-image-preview'><?php echo $previewImage ?></div>
+				<input type='hidden' value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?>/>
+			</div>
 			<?php
-			echo "<p class='description'>{$this->description}</p>";
+
+			if ( ! empty( $this->description ) ) {
+				echo "<p class='description'>{$this->description}</p>";
+			}
 		}
 	}
 }
