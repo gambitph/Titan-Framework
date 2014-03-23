@@ -763,6 +763,9 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public function cleanValueForSaving( $value ) {
+		if ( is_array( $value ) ) {
+			$value = serialize( $value );
+		}
 		return stripslashes( $value );
 	}
 
