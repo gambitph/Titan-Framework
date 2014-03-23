@@ -28,6 +28,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		'show_text_shadow' => true,
 		'show_preview' => true,
 		'enqueue' => true,
+		'preview_text' => '',
 	);
 
 	// Default style options
@@ -391,7 +392,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				'text-shadow-blur': $container.find(".tf-font-sel-blur").val(),
 				'text-shadow-color': $container.find(".tf-font-sel-shadow-color").val(),
 				'text-shadow-opacity': $container.find(".tf-font-sel-opacity").val(),
-				'dark': $container.find(".tf-font-sel-dark").val()
+				'dark': $container.find(".tf-font-sel-dark").val(),
+				'text': $container.find("iframe").attr('data-preview-text')
 			}
 
 			// Update preview
@@ -735,7 +737,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 		?>
 		<div <?php echo $visibilityAttrs ?>>
-			<iframe></iframe>
+			<iframe data-preview-text='<?php echo esc_attr( $this->settings['preview_text'] ) ?>'></iframe>
 			<i class='fa fa-adjust btn-dark'></i>
 			<input type='hidden' class='tf-font-sel-dark' value='<?php echo esc_attr( $value['dark'] ? 'dark' : '' ) ?>'/>
 		</div>

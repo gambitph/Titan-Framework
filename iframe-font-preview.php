@@ -134,9 +134,15 @@ if ( $_GET['text-shadow-location'] != 'none' ) {
 		</script>
 	</head>
 	<body class='<?php echo $_GET['dark'] ?>'>
-		<p>Grumpy wizards make toxic brew for the evil Queen and Jack</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at dolor non purus adipiscing rhoncus. Nullam vitae turpis pharetra odio feugiat gravida sed ac velit. Nullam luctus ultrices suscipit. Fusce condimentum laoreet cursus. Suspendisse sed accumsan tortor. Quisque pharetra pulvinar ante, feugiat varius nibh sodales nec. Fusce vel mattis lectus. Vivamus magna felis, pharetra in lacinia sed, condimentum quis nisi. Ut at rutrum urna. Vivamus convallis posuere metus vel ullamcorper.</p>
-
-
+		<?php
+		if ( empty( $_GET['text'] ) ):
+			?>
+			<p>Grumpy wizards make toxic brew for the evil Queen and Jack</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at dolor non purus adipiscing rhoncus. Nullam vitae turpis pharetra odio feugiat gravida sed ac velit. Nullam luctus ultrices suscipit. Fusce condimentum laoreet cursus. Suspendisse sed accumsan tortor. Quisque pharetra pulvinar ante, feugiat varius nibh sodales nec. Fusce vel mattis lectus. Vivamus magna felis, pharetra in lacinia sed, condimentum quis nisi. Ut at rutrum urna. Vivamus convallis posuere metus vel ullamcorper.</p>
+			<?php
+		else:
+			echo "<p>" . str_replace( "\n", "</p><p>", $_GET['text'] ) . "</p>";
+		endif;
+		?>
 	</body>
 </html>
