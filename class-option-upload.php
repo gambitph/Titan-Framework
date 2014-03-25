@@ -10,6 +10,51 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		'placeholder' => '', // show this when blank
 	);
 
+
+	/**
+	 * Constructor
+	 *
+	 * @return	void
+	 * @since	1.5
+	 */
+	function __construct( $settings, $owner ) {
+		parent::__construct( $settings, $owner );
+
+		add_filter( 'tf_generate_css_upload_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
+	}
+
+
+	/**
+	 * Generates CSS for the font, this is used in TitanFrameworkCSS
+	 *
+	 * @param	string $css The CSS generated
+	 * @param	TitanFrameworkOption $option The current option being processed
+	 * @return	string The CSS generated
+	 * @since	1.5
+	 */
+	public function generateCSS( $css, $option ) {
+		if ( $this->settings['id'] != $option->settings['id'] ) {
+			return $css;
+		}
+
+		$value = $this->getFramework()->getOption( $option->settings['id'] );
+
+		if ( is_numeric( $value ) ) {
+			$attachment = wp_get_attachment_image_src( $value );
+			$value = $attachment[0];
+		}
+
+		$css .= "\$" . $option->settings['id'] . ": url(" . $value . ");";
+
+		if ( ! empty( $option->settings['css'] ) ) {
+			// In the css parameter, we accept the term `value` as our current value,
+			// translate it into the SaSS variable for the current option
+			$css .= str_replace( 'value', '#{$' . $option->settings['id'] . '}', $option->settings['css'] );
+		}
+
+		return $css;
+	}
+
 	/*
 	 * Display for options and meta
 	 */
