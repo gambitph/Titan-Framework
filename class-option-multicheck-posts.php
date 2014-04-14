@@ -64,5 +64,3 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
 		) ) );
 	}
 }
-
-?>

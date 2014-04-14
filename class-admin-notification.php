@@ -28,5 +28,3 @@ class TitanFrameworkAdminNotification {
 		return "<div class='$type $location'><p>{$message}</p></div>";
 	}
 }
-
-?>

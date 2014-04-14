@@ -1,0 +1,60 @@
+.tf-upload .tf-image-preview, .tf-upload .tf-image-preview:before {
+	-webkit-transition: all .3s;
+	   -moz-transition: all .3s;
+	    -ms-transition: all .3s;
+	     -o-transition: all .3s;
+	        transition: all .3s;
+}
+.tf-upload .tf-image-preview {
+	line-height: 0;
+	position: relative;
+	display: inline-block;
+	min-width: 150px;
+	min-height: 150px;
+	background: #FAFAFA;
+	box-shadow: inset 0 0 0 1px #EEE;
+	cursor: pointer;
+}
+.tf-upload .tf-image-preview:hover {
+	box-shadow: inset 0 0 0 4px #EEE;
+}
+.tf-upload .tf-image-preview:before {
+	content: '\f067';
+	font-family: 'FontAwesome';
+	position: absolute;
+	top: 60px;
+	left: 60px;
+	width: 30px;
+	text-align: center;
+	line-height: 30px;
+	font-size: 30px;
+	color: #ddd;
+}
+.tf-upload .tf-image-preview:hover:before {
+	color: #bbb;
+}
+.tf-upload .tf-image-preview i.remove {
+	opacity: 1;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 2;
+	cursor: pointer;
+	background: #FAFAFA;
+	width: 30px;
+	text-align: center;
+	font-size: 20px;
+	line-height: 30px;
+	color: #444;
+	top: 0;
+	border: 1px solid #DDD;
+	right: 0;
+}
+.tf-upload .tf-image-preview img {
+	max-width: 100%;
+	max-height: 200px;
+	position: relative;
+	z-index: 1;
+	display: block;
+	cursor: pointer;
+}

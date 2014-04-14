@@ -47,5 +47,3 @@ class TitanFrameworkOptionRadio extends TitanFrameworkOption {
 		) ) );
 	}
 }
-
-?>

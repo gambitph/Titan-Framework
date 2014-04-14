@@ -1,17 +1,8 @@
-/* Styles for the preview image option */
-.tf-image-preview img {
-	max-width: 100%;
-	max-height: 200px;
-	padding: 2px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-o-box-sizing: border-box;
-	box-sizing: border-box;
-	background: #666;
-}
-.tf-image-preview img:hover {
-	cursor: pointer;
-}
+/*
+ * TODO: separate styles into multiple imports
+ */
+
+@import "class-option-font.css";
 
 /* note option padding issue */
 .tf-note .updated p {

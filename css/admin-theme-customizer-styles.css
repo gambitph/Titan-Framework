@@ -1,17 +1,8 @@
-/* Styles for the preview image option */
-.tf-theme-customizer.thumbnail img {
-	max-width: 100%;
-	height: auto;
-	padding: 2px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-o-box-sizing: border-box;
-	box-sizing: border-box;
-	background: #666;
-}
-.tf-upload-image + .remove {
-	line-height: 28px;
-}
+/*
+ * TODO: separate styles into multiple imports
+ */
+
+@import "class-option-font.css";
 
 .tf-googlefont-area label {
 	display: block;

@@ -327,5 +327,3 @@ function registerTitanFrameworkOptionCodeControl() {
 		}
 	}
 }
-
-?>

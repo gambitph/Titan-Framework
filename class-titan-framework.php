@@ -219,7 +219,10 @@ class TitanFramework {
 	 */
 	public function updateOptionDBListing() {
 		// Get also a list of all option keys
-		$allOptionKeys = array_fill_keys( array_keys( $this->allOptions[$this->optionNamespace] ), null );
+		$allOptionKeys = array();
+		if ( ! empty( $this->allOptions[$this->optionNamespace] ) ) {
+			$allOptionKeys = array_fill_keys( array_keys( $this->allOptions[ $this->optionNamespace ] ), null );
+		}
 
 		// Check whether options have changed / added
 		$changed = false;
@@ -483,4 +486,3 @@ class TitanFramework {
 		return plugins_url( $script, $file );
 	}
 }
-?>

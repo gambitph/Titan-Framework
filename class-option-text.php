@@ -48,5 +48,3 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		) ) );
 	}
 }
-
-?>
