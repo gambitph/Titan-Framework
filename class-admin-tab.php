@@ -48,8 +48,13 @@ class TitanFrameworkAdminTab {
 	}
 
 	public function displayTab() {
+		$url = add_query_arg( array(
+				'page' => $this->owner->settings['id'],
+				'tab' => $this->settings['id'],
+			)
+		);
 		?>
-		<a href="?page=<?php echo $this->owner->settings['id'] ?>&tab=<?php echo $this->settings['id'] ?>" class="nav-tab <?php echo $this->isActiveTab() ? "nav-tab-active" : '' ?>"><?php echo $this->settings['name'] ?></a>
+		<a href="<?php echo $url; ?>" class="nav-tab <?php echo $this->isActiveTab() ? "nav-tab-active" : '' ?>"><?php echo $this->settings['name'] ?></a>
 		<?php
 	}
 
