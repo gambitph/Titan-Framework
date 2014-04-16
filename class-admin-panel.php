@@ -187,14 +187,19 @@ class TitanFrameworkAdminPanel {
 		 */
 
 		// urlencode to allow special characters in the url
+		$url = wp_get_referer();
 		$activeTab = $this->getActiveTab();
-		$args = '?page=' . urlencode( $this->settings['id'] );
-		$args .= empty( $activeTab ) ? '' : '&tab=' . urlencode( $activeTab->settings['id'] );
-		$args .= empty( $message ) ? '' : '&message=' . $message;
+		$url = add_query_arg( 'page', urlencode( $this->settings['id'] ), $url );
+		if ( ! empty( $activeTab ) ) {
+			$url = add_query_arg( 'tab', urlencode( $activeTab->settings['id'] ), $url );
+		}
+		if ( ! empty( $message ) ) {
+			$url = add_query_arg( 'message', $message, $url );
+		}
 
 		do_action( 'tf_admin_options_saved_' . $this->getOptionNamespace() );
 
-		wp_redirect( admin_url( 'admin.php' . $args ) );
+		wp_redirect( $url );
 	}
 
 	private function verifySecurity() {
