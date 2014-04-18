@@ -7,15 +7,17 @@ language: php
 php:
     - "5.2"
     - "5.3"
-    - "5.4"
-    - "5.5"
+    # - "5.4"
+    # - "5.5"
 
 # WordPress version used in first build configuration.
 env:
     - WP_VERSION=latest WP_MULTISITE=0
-    - WP_VERSION=3.7 WP_MULTISITE=0
+    - WP_VERSION=3.8 WP_MULTISITE=0
+    # - WP_VERSION=3.7 WP_MULTISITE=0
     - WP_VERSION=latest WP_MULTISITE=1
-    - WP_VERSION=3.7 WP_MULTISITE=1
+    - WP_VERSION=3.8 WP_MULTISITE=1
+    # - WP_VERSION=3.7 WP_MULTISITE=1
 
 # Clones WordPress and configures our testing environment.
 before_script:
