@@ -99,7 +99,7 @@ if ( $_GET['text-shadow-location'] != 'none' ) {
 				line-height: <?php echo $_GET['line-height'] ?>;
 				letter-spacing: <?php echo $_GET['letter-spacing'] ?>;
 				text-transform: <?php echo $_GET['text-transform'] ?>;
-				font-variant: <?php echo $_GET['font-faviant'] ?>;
+				font-variant: <?php echo $_GET['font-variant'] ?>;
 				text-shadow: <?php echo $textShadow ?>;
 			}
 			body {
