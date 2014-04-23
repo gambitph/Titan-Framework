@@ -81,7 +81,9 @@ class TitanFrameworkCSS {
 	 */
 	public function enqueueCSS() {
 		$css = get_option( $this->getCSSSlug() );
-		if ( ! empty( $css ) ) {
+		$generatedCss = $this->generateCSS();
+
+		if ( ! empty( $generatedCss ) && empty( $css ) ) {
 			wp_enqueue_style( 'tf-compiled-options-' . $this->frameworkInstance->optionNamespace, $this->getCSSFileURL(), __FILE__ );
 		}
 	}
