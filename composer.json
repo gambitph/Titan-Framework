@@ -1,0 +1,16 @@
+{
+    "name": "gambitph/Titan-Framework",
+    "description": "Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.",
+    "keywords": ["wordpress", "Titan Framework"],
+    "license": "GPLv2+",
+    "authors": [
+        {
+            "name": "Gambit Technologies",
+            "email" : "info@gambit.ph"
+        }
+    ],
+    "type": "library",
+    "autoload": {
+        "files": ["titan-framework.php"]
+    }
+}
