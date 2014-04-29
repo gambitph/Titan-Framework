@@ -61,12 +61,12 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		if ( TitanFrameworkOption::TYPE_META == $this->type ) {
 			return;
 		}
-
-		?>
-		<script>
-		<?php echo $this->getFramework()->getOption( $this->settings['id'] ) ?>
-		</script>
-		<?php
+		
+		$js = $this->getFramework()->getOption( $this->settings['id'] );
+		
+		if ( ! empty( $js ) ) {
+			printf( "<script type=\"text/javascript\">\n%s\n</script>\n", $js );
+		}
 	}
 
 
