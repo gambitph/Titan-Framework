@@ -59,12 +59,13 @@
  */
 
 /* main wrapper */
-.titan-framework-panel-wrap.wrap {
+.titan-framework-panel-wrap {
 	background: #FFF;
 	border: 1px solid #eaeaea;
 }
+
 /* title */
-.titan-framework-panel-wrap.wrap h2 {
+.titan-framework-panel-wrap h2 {
 	padding: 20px 15px;
 	border-bottom: 1px solid #EEE;
 	font-weight: normal;
@@ -72,7 +73,7 @@
 	background: #333;
 	color: #FFF;
 }
-.titan-framework-panel-wrap.wrap .nav-tab-wrapper + h2 {
+.titan-framework-panel-wrap .nav-tab-wrapper + h2 {
 	background: #333;
 	color: #FFF;
 	border: 0;
