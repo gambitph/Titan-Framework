@@ -249,7 +249,15 @@ class TitanFrameworkAdminPanel {
 		do_action( 'tf_admin_page_before_' . $this->getOptionNamespace() );
 
 		?>
-		<div class='wrap titan-framework-panel-wrap'>
+		<div class="wrap">
+		<?php 
+			if ( ! count( $this->tabs ) ):
+				?>
+				<h2><?php echo $this->settings['title'] ?></h2>
+				<?php
+			endif;
+		?>
+		<div class='titan-framework-panel-wrap'>
 		<?php
 
 		do_action( 'tf_admin_page_start' );
@@ -278,16 +286,6 @@ class TitanFrameworkAdminPanel {
 		?>
 		<div class='options-container'>
 		<?php
-
-		if ( count( $this->tabs ) ):
-			echo "<h2>" . $this->getActiveTab()->settings['title'] . "</h2>";
-		endif;
-
-		if ( ! count( $this->tabs ) ):
-			?>
-			<h2><?php echo $this->settings['title'] ?></h2>
-			<?php
-		endif;
 
 		// Display notification if we did something
 		if ( ! empty( $_GET['message'] ) ) {
@@ -359,6 +357,7 @@ class TitanFrameworkAdminPanel {
 
 		?>
 		<div class='options-container'>
+		</div>
 		</div>
 		</div>
 		</div>
