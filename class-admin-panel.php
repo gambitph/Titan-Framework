@@ -250,13 +250,7 @@ class TitanFrameworkAdminPanel {
 
 		?>
 		<div class="wrap">
-		<?php 
-			if ( ! count( $this->tabs ) ):
-				?>
-				<h2><?php echo $this->settings['title'] ?></h2>
-				<?php
-			endif;
-		?>
+		<h2><?php echo $this->settings['title'] ?></h2>
 		<div class='titan-framework-panel-wrap'>
 		<?php
 
