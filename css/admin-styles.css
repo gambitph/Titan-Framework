@@ -59,8 +59,11 @@
  */
 
 /* main wrapper */
-.titan-framework-panel-wrap {
+.titan-framework-panel-wrap.wrap {
+	background: #FFF;
+	border: 1px solid #eaeaea;
 }
+
 /* title */
 .titan-framework-panel-wrap h2 {
 	padding: 20px 15px;
