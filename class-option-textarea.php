@@ -7,6 +7,7 @@ class TitanFrameworkOptionTextarea extends TitanFrameworkOption {
 	public $defaultSecondarySettings = array(
 		'placeholder' => '', // show this when blank
 		'is_code' => false, // if true, a more code-like font will be used
+		'sanitize_callbacks' => array()
 	);
 
 	/*
@@ -22,6 +23,16 @@ class TitanFrameworkOptionTextarea extends TitanFrameworkOption {
 			esc_textarea( stripslashes( $this->getValue() ) )
 		);
 		$this->echoOptionFooter( false );
+	}
+
+	public function cleanValueForSaving( $value ){
+		if( !empty( $this->settings['sanitize_callbacks'] ) ){
+			foreach( $this->settings['sanitize_callbacks'] as $callback ){
+				$value = call_user_func_array( $callback, array( $value, $this ) );
+			}
+		}
+
+		return $value;
 	}
 
 	/*

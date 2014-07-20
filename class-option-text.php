@@ -7,6 +7,7 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 	public $defaultSecondarySettings = array(
 		'placeholder' => '', // show this when blank
 		'is_password' => false,
+		'sanitize_callbacks' => array()
 	);
 
 	/*
@@ -21,6 +22,17 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 			$this->settings['is_password'] ? 'password' : 'text',
 			esc_attr( $this->getValue() ) );
 		$this->echoOptionFooter();
+	}
+
+	public function cleanValueForSaving( $value ){
+		$value = sanitize_text_field( $value );
+		if( !empty( $this->settings['sanitize_callbacks'] ) ){
+			foreach( $this->settings['sanitize_callbacks'] as $callback ){
+				$value = call_user_func_array( $callback, array( $value, $this ) );
+			}
+		}
+
+		return $value;
 	}
 
 	/*
