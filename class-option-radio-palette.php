@@ -111,7 +111,9 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 			return;
 		}
 		?>
-		var options = JSON.parse('<?php echo json_encode( $this->settings['options'] ) ?>');
+		var options = JSON.parse('<?php echo json_encode( $this->settings['options'] ) ?>'),
+		key = value;
+
 		value = options[value];
 		<?php
 	}
