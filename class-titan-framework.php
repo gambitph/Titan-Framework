@@ -129,12 +129,21 @@ class TitanFramework {
 		}
 	}
 
-	public function loadAdminScripts() {
-		wp_enqueue_media();
-		wp_enqueue_script( 'tf-serialize', TitanFramework::getURL( 'js/serialize.js', __FILE__ ) );
-		wp_enqueue_script( 'tf-styling', TitanFramework::getURL( 'js/admin-styling.js', __FILE__ ) );
-		wp_enqueue_style( 'tf-admin-styles', TitanFramework::getURL( 'css/admin-styles.css', __FILE__ ) );
-		wp_enqueue_style( 'tf-font-awesome', TitanFramework::getURL( 'css/font-awesome/css/font-awesome.min.css', __FILE__ ) );
+	public function loadAdminScripts( $hook ) {
+		// Get all options panel IDs
+		$panel_ids = array();
+		foreach ( $this->adminPanels as $admin_panel ) {
+			$panel_ids[] = $admin_panel->panelID;
+		}
+
+		// Only enqueue scripts if we're on a Titan options page
+		if ( in_array( $hook, $panel_ids ) ) {
+			wp_enqueue_media();
+			wp_enqueue_script( 'tf-serialize', TitanFramework::getURL( 'js/serialize.js', __FILE__ ) );
+			wp_enqueue_script( 'tf-styling', TitanFramework::getURL( 'js/admin-styling.js', __FILE__ ) );
+			wp_enqueue_style( 'tf-admin-styles', TitanFramework::getURL( 'css/admin-styles.css', __FILE__ ) );
+			wp_enqueue_style( 'tf-font-awesome', TitanFramework::getURL( 'css/font-awesome/css/font-awesome.min.css', __FILE__ ) );
+		}
 	}
 
 	public function getAllOptions() {
