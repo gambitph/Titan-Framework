@@ -242,6 +242,9 @@ class TitanFrameworkAdminPanel {
 				return $this->activeTab;
 			}
 		}
+		
+		$this->activeTab = $this->tabs[0];
+		return $this->activeTab;
 	}
 
 	public function createAdminPage() {
