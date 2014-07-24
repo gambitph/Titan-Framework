@@ -13,6 +13,7 @@ class TitanFrameworkMetaBox {
 		// 'position' => 100.01 // Menu position for top level menus only
 		'post_type' => 'page', // Post type, can be an array of post types
 		'context' => 'normal', // normal, advanced, or side
+		'priority' => 'high', // 'high', 'core', 'default' or 'low'
 		'hide_custom_fields' => true, // If true, the custom fields box will not be shown
 	);
 
@@ -65,7 +66,7 @@ class TitanFrameworkMetaBox {
 				array( $this, 'display' ),
 				$postType,
 				$this->settings['context'],
-				'high' );
+				$this->settings['priority'] );
 		}
 	}
 
