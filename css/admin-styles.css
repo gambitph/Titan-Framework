@@ -170,8 +170,8 @@
 }
 
 .tf-radio-palette label {
-	margin-left: 30px;
-	white-space: nowrap;
+	margin: 0 30px 10px 0;
+	display: inline-block;
 }
 
 .tf-radio-palette label:first-child {
