@@ -181,6 +181,18 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		$skip = array( 'dark', 'font-type', 'text-shadow-distance', 'text-shadow-blur', 'text-shadow-color', 'text-shadow-opacity' );
 
+        // If the value is blank, use the defaults
+        if ( empty( $value ) ) {
+    		$value = $this->getValue();
+    		if ( is_serialized( $value ) ) {
+    			$value = unserialize( $value );
+    		}
+    		if ( ! is_array( $value ) ) {
+    			$value = array();
+    		}
+    		$value = array_merge( self::$defaultStyling, $value );
+        }
+
 		foreach ( $value as $key => $val ) {
 			if ( in_array( $key, $skip ) ) {
 				continue;
