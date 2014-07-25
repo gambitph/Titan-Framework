@@ -68,11 +68,11 @@ class TitanFrameworkPlugin {
 	/**
 	 * Constructor, add hooks
 	 *
-	 * @since   1.0
+	 * @since	1.0
 	 */
 	function __construct() {
 		add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
-		add_action( 'activated_plugin', array( $this, 'forceLoadFirst' ) );
+		add_action( 'plugins_loaded', array( $this, 'forceLoadFirst' ), 10, 1 );
 		add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
 	}
 
@@ -80,9 +80,9 @@ class TitanFrameworkPlugin {
 	/**
 	 * Load plugin translations
 	 *
-	 * @access  public
-	 * @return  void
-	 * @since   1.0
+	 * @access	public
+	 * @return	void
+	 * @since	1.0
 	 */
 	public function loadTextDomain() {
 		load_plugin_textdomain( TF_I18NDOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages/' );
@@ -93,18 +93,25 @@ class TitanFrameworkPlugin {
 	 * Forces our plugin to be loaded first. This is to ensure that plugins that use the framework have access to
 	 * this class.
 	 *
-	 * @access  public
-	 * @return  void
-	 * @since   1.0
-	 * @see	 http://snippets.khromov.se/modify-wordpress-plugin-load-order/
+	 * @access	public
+	 * @return	void
+	 * @since	1.0
+	 * @see		loosly based on http://snippets.khromov.se/modify-wordpress-plugin-load-order/
 	 */
 	public function forceLoadFirst() {
-		$path = str_replace( WP_PLUGIN_DIR . '/', '', __FILE__ );
+		$tfFileName = basename( __FILE__ );
 		if ( $plugins = get_option( 'active_plugins' ) ) {
-			if ( $key = array_search( $path, $plugins ) ) {
-				array_splice( $plugins, $key, 1 );
-				array_unshift( $plugins, $path );
-				update_option( 'active_plugins', $plugins );
+			foreach ( $plugins as $key => $pluginPath ) {
+				// If we are the first one to load already, don't do anything
+				if ( strpos( $pluginPath, $tfFileName ) !== false && $key == 0 ) {
+					break;
+				// If we aren't the first one, force it!
+				} else if ( strpos( $pluginPath, $tfFileName ) !== false ) {
+					array_splice( $plugins, $key, 1 );
+					array_unshift( $plugins, $pluginPath );
+					update_option( 'active_plugins', $plugins );
+					break;
+				}
 			}
 		}
 	}
@@ -113,11 +120,11 @@ class TitanFrameworkPlugin {
 	/**
 	 * Adds links to the docs and GitHub
 	 *
-	 * @access  public
-	 * @param   array $plugin_meta The current array of links
-	 * @param   string $plugin_file The plugin file
-	 * @return  array The current array of links together with our additions
-	 * @since   1.1.1
+	 * @access	public
+	 * @param	array $plugin_meta The current array of links
+	 * @param	string $plugin_file The plugin file
+	 * @return	array The current array of links together with our additions
+	 * @since	1.1.1
 	 **/
 	public function pluginLinks( $plugin_meta, $plugin_file ) {
 		if ( $plugin_file == plugin_basename( __FILE__ ) ) {
