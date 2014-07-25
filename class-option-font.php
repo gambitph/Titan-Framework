@@ -920,7 +920,7 @@ function registerTitanFrameworkOptionFontControl() {
 
 
 			$visibilityAttrs = '';
-			if ( ! $this->params['show_color'] ) {
+			if ( ! $this->params['show_font_size'] ) {
 				$visibilityAttrs = "data-visible='false' style='display: none'";
 			}
 			?>
