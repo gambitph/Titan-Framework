@@ -29,7 +29,7 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 			<script>
 			jQuery(document).ready(function($) {
 				"use strict";
-				$('.tf-colorpicker').wpColorPicker({palettes: false});
+				$('.tf-colorpicker').wpColorPicker();
 			});
 			</script>
 			<?php

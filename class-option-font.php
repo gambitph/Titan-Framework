@@ -308,7 +308,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 			// Initialize color pickers
 			$('.tf-font .tf-font-sel-color, .tf-font .tf-font-sel-shadow-color').wpColorPicker({
-				palettes: false,
 				change: function ( event, ui ) {
 					// update the preview, but throttle it to prevent fast loading
 					if ( _tf_select_font_throttle != null ) {
