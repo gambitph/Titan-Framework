@@ -17,6 +17,8 @@ class TitanFrameworkOption {
 	public $type; // One of the TYPE_* constants above
 	public $owner;
 
+	private static $rowIndex = 0;
+
 	private static $defaultSettings = array(
 		'name' => '', // Name of the option
 		'desc' => '', // Description of the option
@@ -174,12 +176,13 @@ class TitanFrameworkOption {
 
 		$id = $this->getID();
 		$name = $this->getName();
+		$evenOdd = self::$rowIndex++ % 2 == 0 ? 'odd' : 'even';
 		?>
-		<tr valign="top" class="even first">
-		<th scope="row" class="first last">
+		<tr valign="top" class="row-<?php echo self::$rowIndex ?> <?php echo $evenOdd ?>">
+		<th scope="row" class="first">
 			<label for="<?php echo !empty( $id ) ? $id : '' ?>"><?php echo !empty( $name ) ? $name : '' ?></label>
 		</th>
-		<td class="first last second tf-<?php echo $this->settings['type'] ?>">
+		<td class="second tf-<?php echo $this->settings['type'] ?>">
 		<?php
 
 		$desc = $this->getDesc();
