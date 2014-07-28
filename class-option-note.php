@@ -6,6 +6,8 @@ class TitanFrameworkOptionNote extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
 		'color' => 'green', // The color of the note's border
+		'notification' => false,
+		'paragraph' => true,
 	);
 
 	/*
@@ -15,9 +17,24 @@ class TitanFrameworkOptionNote extends TitanFrameworkOption {
 		$this->echoOptionHeader();
 
 		$color = $this->settings['color'] == 'green' ? '' : 'error';
-		?>
-		<div class='updated below-h2 <?php echo $color ?>'><p><?php echo $this->settings['desc'] ?></p></div>
-		<?php
+
+		if ( $this->settings['notification'] ) {
+			?><div class='updated below-h2 <?php echo $color ?>'><?php
+		}
+
+		if ( $this->settings['paragraph'] ) {
+			echo "<p class='description'>";
+		}
+
+		echo $this->settings['desc'];
+
+		if ( $this->settings['paragraph'] ) {
+			echo "</p>";
+		}
+
+		if ( $this->settings['notification'] ) {
+			?></div><?php
+		}
 
 		$this->echoOptionFooter( false );
 	}
