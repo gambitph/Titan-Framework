@@ -29,6 +29,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		'show_preview' => true,
 		'enqueue' => true,
 		'preview_text' => '',
+        'include_fonts' => '', // A regex string or array of regex strings to match font names to include.
 	);
 
 	// Default style options
@@ -485,6 +486,32 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					<?php
 					$allFonts = titan_get_googlefonts();
 					foreach ( $allFonts as $key => $fontStuff ) {
+
+                        // Show only the include_fonts (font names) if provided, uses regex
+                        if ( ! empty( $this->settings['include_fonts'] ) ) {
+                            if ( is_array( $this->settings['include_fonts'] ) ) {
+                                $fontNameMatch = false;
+                                foreach ( $this->settings['include_fonts'] as $fontNamePattern ) {
+                                    if ( ! is_string( $fontNamePattern ) ) {
+                                        continue;
+                                    }
+                                    $fontNamePattern = '/' . trim( $fontNamePattern, '/' ) . '/';
+                                    if ( preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+                                        $fontNameMatch = true;
+                                        break;
+                                    }
+                                }
+                                if ( ! $fontNameMatch ) {
+                                    continue;
+                                }
+                            } else if ( is_string( $this->settings['include_fonts'] ) ) {
+                                $fontNamePattern = '/' . trim( $this->settings['include_fonts'], '/' ) . '/';
+                                if ( ! preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+                                    continue;
+                                }
+                            }
+                        }
+
 						printf( "<option value='%s'%s>%s</option>",
 							esc_attr( $fontStuff['name'] ),
 							selected( $value['font-family'], $fontStuff['name'], false ),
