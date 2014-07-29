@@ -97,7 +97,9 @@ If Titan Framework has helped you in any way, we would appreciate any amount of 
 
 = Special Thanks to all the Contributors =
 
-@ardallan, @BrazenlyGeek, @davidossahdez, and @dovy
+@ardallan, @BrazenlyGeek, @csloisel, @DavideVogliotti, @davidossahdez, @desaiuditd, @dovy, @kevinlangleyjr, @manishsongirkar, @mendezcode, @MickeyKay, @sagarjadhav, and @smccafferty
+
+and to everyone else in the GitHub repo!
 
 == Installation ==
 
@@ -205,6 +207,16 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.5 =
+* Added German, Portuguese, Turkish and updated Italian translations
+* Added `notification` and `paragraph` paramaters to the note option
+* Added `include_fonts` parameter to the font option for specifying the selectable fonts
+* Added `show_websafe_fonts` and `show_google_fonts` parameters to the font option
+* Added `maxlength` parameter to the the text option
+* Fixed Titan plugin detection code
+* New more WordPress-centric styling of admin panels (special thanks to @sagarjadhav)
+* A Lot of stabilization bug fixes
 
 = 1.4.3 =
 * Added a few global hooks
