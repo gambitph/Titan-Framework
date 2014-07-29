@@ -8,10 +8,7 @@ Titan Framework
 Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 
 #### Updates
-* Lots of fixes including for fonts, and Titan Framework detection! Grab a copy here if you encountered problems before! See the commit logs for details!
-* Added the abiility to set priority to metabox elements, as per suggestion/push from https://github.com/gambitph/Titan-Framework/pull/152 (note: documentation will be updated to reflect this)
-* Lots of pending updates processed, so some problems should be addressed. Too many to mention, thanks to those that contributed! If you're having problems with the Titan Framework, grab a copy here and see if the newer build solves it.
-* The Titan awakens again! We apologize for not updating as of late, and our apologies as well to those that contributed but has not had their contributions integrated into the system! We are in the process of sifting through issues, backlogs and requests.
+* Version 1.5 has been pushed out to the WP.org plugin repository!
 
 #### Features
 * Makes development unbelievably easy
