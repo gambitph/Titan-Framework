@@ -255,8 +255,10 @@ class TitanFrameworkCSS {
 		}
 
 		// Compile as SCSS & minify
-		$scss->setFormatter( self::SCSS_COMPRESSION );
-		$cssString = $scss->compile( $cssString );
+		if ( ! empty( $cssString ) ) {
+			$scss->setFormatter( self::SCSS_COMPRESSION );
+			$cssString = $scss->compile( $cssString );
+		}
 
 		return $cssString;
 	}
@@ -271,6 +273,10 @@ class TitanFrameworkCSS {
 	 */
 	public function generateSaveCSS() {
 		$cssString = $this->generateCSS();
+
+		if ( ! empty( $cssString ) ) {
+			return;
+		}
 
 		// Save our css
 		if ( $this->writeCSS( $cssString, $this->getCSSFilePath() ) ) {
