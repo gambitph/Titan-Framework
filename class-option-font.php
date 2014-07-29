@@ -30,6 +30,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		'enqueue' => true,
 		'preview_text' => '',
         'include_fonts' => '', // A regex string or array of regex strings to match font names to include.
+		'show_websafe_fonts' => true,
+		'show_google_fonts' => true,
 	);
 
 	// Default style options
@@ -456,70 +458,81 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		<label <?php echo $visibilityAttrs ?>>
 			Font Family
 			<select class='tf-font-sel-family'>
-			    <optgroup label="Web Safe Fonts" class='safe'>
-					<?php
-					$options = array(
-						'Arial, Helvetica, sans-serif' => 'Arial',
-						'"Arial Black", Gadget, sans-serif' => 'Arial Black',
-						'"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
-						'"Courier New", Courier, monospace' => 'Courier New',
-						'Georgia, serif' => 'Geogia',
-						'Impact, Charcoal, sans-serif' => 'Impact',
-						'"Lucida Console", Monaco, monospace' => 'Lucida Console',
- 						'"Lucida Sans Unicode", "Lucida Grande", sans-serif' => 'Lucida Sans',
-						'"Palatino Linotype", "Book Antiqua", Palatino, serif' => 'Palatino',
-						'Tahoma, Geneva, sans-serif' => 'Tahoma',
-						'"Times New Roman", Times, serif' => 'Times New Roman',
-						'"Trebuchet MS", Helvetica, sans-serif' => 'Trebuchet',
-						'Verdana, Geneva, sans-serif' => 'Verdana',
-					);
-					foreach ( $options as $family => $label ) {
-						printf( "<option value='%s'%s>%s</option>",
-							$family,
-							selected( $value['font-family'], $family, false ),
-							$label
-						);
-					}
+				<?php
+				if ( $this->settings['show_websafe_fonts'] ) {
 					?>
-				</optgroup>
-			    <optgroup label="Google WebFonts" class='google'>
-					<?php
-					$allFonts = titan_get_googlefonts();
-					foreach ( $allFonts as $key => $fontStuff ) {
-
-                        // Show only the include_fonts (font names) if provided, uses regex
-                        if ( ! empty( $this->settings['include_fonts'] ) ) {
-                            if ( is_array( $this->settings['include_fonts'] ) ) {
-                                $fontNameMatch = false;
-                                foreach ( $this->settings['include_fonts'] as $fontNamePattern ) {
-                                    if ( ! is_string( $fontNamePattern ) ) {
-                                        continue;
-                                    }
-                                    $fontNamePattern = '/' . trim( $fontNamePattern, '/' ) . '/';
-                                    if ( preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
-                                        $fontNameMatch = true;
-                                        break;
-                                    }
-                                }
-                                if ( ! $fontNameMatch ) {
-                                    continue;
-                                }
-                            } else if ( is_string( $this->settings['include_fonts'] ) ) {
-                                $fontNamePattern = '/' . trim( $this->settings['include_fonts'], '/' ) . '/';
-                                if ( ! preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
-                                    continue;
-                                }
-                            }
-                        }
-
-						printf( "<option value='%s'%s>%s</option>",
-							esc_attr( $fontStuff['name'] ),
-							selected( $value['font-family'], $fontStuff['name'], false ),
-							$fontStuff['name']
+				    <optgroup label="Web Safe Fonts" class='safe'>
+						<?php
+						$options = array(
+							'Arial, Helvetica, sans-serif' => 'Arial',
+							'"Arial Black", Gadget, sans-serif' => 'Arial Black',
+							'"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
+							'"Courier New", Courier, monospace' => 'Courier New',
+							'Georgia, serif' => 'Geogia',
+							'Impact, Charcoal, sans-serif' => 'Impact',
+							'"Lucida Console", Monaco, monospace' => 'Lucida Console',
+	 						'"Lucida Sans Unicode", "Lucida Grande", sans-serif' => 'Lucida Sans',
+							'"Palatino Linotype", "Book Antiqua", Palatino, serif' => 'Palatino',
+							'Tahoma, Geneva, sans-serif' => 'Tahoma',
+							'"Times New Roman", Times, serif' => 'Times New Roman',
+							'"Trebuchet MS", Helvetica, sans-serif' => 'Trebuchet',
+							'Verdana, Geneva, sans-serif' => 'Verdana',
 						);
-					}
+						foreach ( $options as $family => $label ) {
+							printf( "<option value='%s'%s>%s</option>",
+								$family,
+								selected( $value['font-family'], $family, false ),
+								$label
+							);
+						}
+						?>
+					</optgroup>
+					<?php
+				}
+
+				if ( $this->settings['show_google_fonts'] ) {
 					?>
-				</optgroup>
+				    <optgroup label="Google WebFonts" class='google'>
+						<?php
+						$allFonts = titan_get_googlefonts();
+						foreach ( $allFonts as $key => $fontStuff ) {
+
+	                        // Show only the include_fonts (font names) if provided, uses regex
+	                        if ( ! empty( $this->settings['include_fonts'] ) ) {
+	                            if ( is_array( $this->settings['include_fonts'] ) ) {
+	                                $fontNameMatch = false;
+	                                foreach ( $this->settings['include_fonts'] as $fontNamePattern ) {
+	                                    if ( ! is_string( $fontNamePattern ) ) {
+	                                        continue;
+	                                    }
+	                                    $fontNamePattern = '/' . trim( $fontNamePattern, '/' ) . '/';
+	                                    if ( preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+	                                        $fontNameMatch = true;
+	                                        break;
+	                                    }
+	                                }
+	                                if ( ! $fontNameMatch ) {
+	                                    continue;
+	                                }
+	                            } else if ( is_string( $this->settings['include_fonts'] ) ) {
+	                                $fontNamePattern = '/' . trim( $this->settings['include_fonts'], '/' ) . '/';
+	                                if ( ! preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+	                                    continue;
+	                                }
+	                            }
+	                        }
+
+							printf( "<option value='%s'%s>%s</option>",
+								esc_attr( $fontStuff['name'] ),
+								selected( $value['font-family'], $fontStuff['name'], false ),
+								$fontStuff['name']
+							);
+						}
+						?>
+					</optgroup>
+					<?php
+				}
+				?>
 			</select>
 		</label>
 		<?php
