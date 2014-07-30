@@ -274,7 +274,7 @@ class TitanFrameworkCSS {
 	public function generateSaveCSS() {
 		$cssString = $this->generateCSS();
 
-		if ( ! empty( $cssString ) ) {
+		if ( empty( $cssString ) ) {
 			return;
 		}
 
