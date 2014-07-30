@@ -8,7 +8,8 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		'placeholder' => '', // show this when blank
 		'is_password' => false,
 		'sanitize_callbacks' => array(),
-		'maxlength' => ''
+		'maxlength' => '',
+		'unit' => ''
 	);
 
 	/*
@@ -16,13 +17,15 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 	 */
 	public function display() {
 		$this->echoOptionHeader();
-		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" maxlength=\"%s\" id=\"%s\" type=\"%s\" value=\"%s\"\>",
+		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" maxlength=\"%s\" id=\"%s\" type=\"%s\" value=\"%s\"\> %s",
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->settings['maxlength'],
 			$this->getID(),
 			$this->settings['is_password'] ? 'password' : 'text',
-			esc_attr( $this->getValue() ) );
+			esc_attr( $this->getValue() ), 
+			$this->settings['unit'] 
+		);
 		$this->echoOptionFooter();
 	}
 
