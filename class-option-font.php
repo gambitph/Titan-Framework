@@ -197,7 +197,13 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
         }
 
 		foreach ( $value as $key => $val ) {
+			// Force skip other keys, those are processed under another key, e.g. text-shadow-distance is
+			// used by text-shadow-location
 			if ( in_array( $key, $skip ) ) {
+				continue;
+			}
+			// Don't include keys which are not in the default styles
+			if ( ! in_array( $key, array_keys( self::$defaultStyling ) ) ) {
 				continue;
 			}
 
