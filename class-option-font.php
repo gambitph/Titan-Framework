@@ -262,12 +262,20 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		// Create the entire CSS for the font, this should just be used to replace the `value` variable
 		$cssVariables = '';
-		$cssVariableArray = array( 'font-family', 'color', 'font-size', 'font-weight', 'font-style', 'line-height', 'letter-spacing',
-		'text-transform', 'font-variant', 'text-shadow' );
+		$cssChecking = array( 'font_family', 'color', 'font_size', 'font_weight', 'font_style', 'line_height', 'letter_spacing', 'text_transform', 'font_variant', 'text_shadow' );
+		
+		//Enter values that are not marked as false.
+		foreach ( $cssChecking as $subject ) {
+			if ( $option->settings['show_'.$subject] ) {
+				$cssVariableArray[] = str_replace( "_", "-", $subject );
+			}
+		}
+
+		//Now, integrate these values with their corresponding keys
 		foreach ( $cssVariableArray as $param ) {
 			$cssVariables .= $param . ": \$" . $option->settings['id'] . "-" . $param . ";\n";
 		}
-
+		
 		// Replace the `value` parameters in the given css
 		$modifiedCss = '';
 		if ( ! empty( $option->settings['css'] ) ) {
