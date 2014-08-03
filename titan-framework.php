@@ -74,6 +74,19 @@ class TitanFrameworkPlugin {
 		add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'forceLoadFirst' ), 10, 1 );
 		add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
+		add_action( 'after_setup_theme', array( $this, 'triggerOptionCreation' ), 9999 );
+	}
+
+
+	/**
+	 * This will trigger the loading of all the options
+	 *
+	 * @access	public
+	 * @return	void
+	 * @since	1.0
+	 */
+	public function triggerOptionCreation() {
+		do_action( 'tf_create_options' );
 	}
 
 
