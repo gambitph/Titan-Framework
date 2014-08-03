@@ -51,12 +51,12 @@ class TitanFramework {
 
 		$this->cssInstance = new TitanFrameworkCSS( $this );
 
-		add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 1 );
-		add_action( 'after_setup_theme', array( $this, 'updateOptionDBListing' ) );
+		add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 6 );
+		add_action( 'after_setup_theme', array( $this, 'updateOptionDBListing' ), 7 );
 
 		if ( is_admin() ) {
-			add_action( 'after_setup_theme', array( $this, 'updateThemeModListing' ) );
-			add_action( 'after_setup_theme', array( $this, 'updateMetaDbListing' ) );
+			add_action( 'after_setup_theme', array( $this, 'updateThemeModListing' ), 7 );
+			add_action( 'after_setup_theme', array( $this, 'updateMetaDbListing' ), 7 );
 			add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "verifyUniqueIDs" ) );
 		}
 
@@ -72,7 +72,7 @@ class TitanFramework {
 	 * This is to ensure that there won't be any option conflicts
 	 *
 	 * @param   TitanFrameworkOption $option The object just created
-	 * @return  null
+	 * @return  void
 	 * @since   1.1.1
 	 */
 	public function verifyUniqueIDs( $option ) {

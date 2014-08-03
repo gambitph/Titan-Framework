@@ -74,7 +74,7 @@ class TitanFrameworkPlugin {
 		add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'forceLoadFirst' ), 10, 1 );
 		add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
-		add_action( 'after_setup_theme', array( $this, 'triggerOptionCreation' ), 9999 );
+		add_action( 'after_setup_theme', array( $this, 'triggerOptionCreation' ), 5 );
 	}
 
 
@@ -83,7 +83,7 @@ class TitanFrameworkPlugin {
 	 *
 	 * @access	public
 	 * @return	void
-	 * @since	1.0
+	 * @since	1.6
 	 */
 	public function triggerOptionCreation() {
 		do_action( 'tf_create_options' );
