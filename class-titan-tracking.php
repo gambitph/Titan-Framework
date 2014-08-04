@@ -182,11 +182,41 @@ class TitanFrameworkTracker {
 		if ( defined( 'TF_VERSION' ) ) {
 			$data['titan']['version'] = TF_VERSION;
 		}
+		// Get option & container stats
 		if ( ! empty( $this->frameworkInstance->optionsUsed ) ) {
 			$data['titan']['num_options'] = count( $this->frameworkInstance->optionsUsed );
+			$data['titan']['option_count'] = array();
+			$data['titan']['container_count'] = array();
+			$data['titan']['container_option_count'] = array();
+			foreach ( $this->frameworkInstance->optionsUsed as $option ) {
+				if ( ! empty( $option->settings['type'] ) ) {
+					if ( empty( $data['titan']['option_count'][ $option->settings['type'] ] ) ) {
+						$data['titan']['option_count'][ $option->settings['type'] ] = 0;
+					}
+					$data['titan']['option_count'][ $option->settings['type'] ]++;
+				}
+
+				if ( empty( $data['titan']['container_count'][ get_class( $option->owner ) ] ) ) {
+					$data['titan']['container_count'][ get_class( $option->owner ) ] = 0;
+				}
+				$data['titan']['container_count'][ get_class( $option->owner ) ]++;
+
+				if ( empty( $data['titan']['container_option_count'][ get_class( $option->owner ) ] ) ) {
+					$data['titan']['container_option_count'][ get_class( $option->owner ) ] = array();
+				}
+				$data['titan']['container_option_count'][ get_class( $option->owner ) ][] = count( $option->owner->options );
+			}
 		}
-		// TODO: Track more titan related stuff:
-		// var_dump($this->frameworkInstance->optionsUsed);
+		// Average the number of options per container
+		if ( ! empty( $data['titan']['container_option_count'] ) ) {
+			foreach ( $data['titan']['container_option_count'] as $key => $countArr ) {
+				$runningTotal = 0;
+				foreach ( $countArr as $count ) {
+					$runningTotal += $count;
+				}
+				$data['titan']['container_option_count'][ $key ] = $runningTotal / count( $countArr );
+			}
+		}
 
 		// Current theme details
 		$theme = wp_get_theme();
