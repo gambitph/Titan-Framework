@@ -10,6 +10,8 @@ Author URI: http://gambit.ph
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+// Used for tracking the version used
+defined( 'TF_VERSION' ) or define( 'TF_VERSION', '1.6-dev' );
 // Used for text domains
 defined( 'TF_I18NDOMAIN' ) or define( 'TF_I18NDOMAIN', 'titan-framework' );
 // Used for general naming, e.g. nonces
@@ -52,6 +54,7 @@ require_once( TF_PATH . 'class-option-upload.php' );
 require_once( TF_PATH . 'class-theme-customizer-section.php' );
 require_once( TF_PATH . 'class-titan-css.php' );
 require_once( TF_PATH . 'class-titan-framework.php' );
+require_once( TF_PATH . 'class-titan-tracking.php' );
 require_once( TF_PATH . 'class-wp-customize-control.php' );
 require_once( TF_PATH . 'functions-googlefonts.php' );
 require_once( TF_PATH . 'functions-utils.php' );

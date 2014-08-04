@@ -11,6 +11,7 @@ class TitanFramework {
 	private $themeCustomizerSections = array();
 	private $widgetAreas = array();
 	private $googleFontsOptions = array();
+	public $settings = array();
 
 	// We store option ids which should not be created here (see removeOption)
 	private $optionsToRemove = array();
@@ -20,10 +21,15 @@ class TitanFramework {
 	private $allOptions;
 
 	public $cssInstance;
+	public $trackerInstance;
 
 	// We store the options (with IDs) here, used for ensuring our serialized option
 	// value doesn't get cluttered with unused options
 	public $optionsUsed = array();
+
+	private $defaultSettings = array(
+		'tracking' => false, // TODO: Turn to true, when code is finalized for 1.6
+	);
 
 	public static function getInstance( $optionNamespace ) {
 		// Clean namespace
@@ -45,11 +51,13 @@ class TitanFramework {
 		$optionNamespace = str_replace( ' ', '-', trim( strtolower( $optionNamespace ) ) );
 
 		$this->optionNamespace = $optionNamespace;
+		$this->settings = $this->defaultSettings;
 
 		do_action( 'tf_init', $this );
 		do_action( 'tf_init_' . $this->optionNamespace, $this );
 
 		$this->cssInstance = new TitanFrameworkCSS( $this );
+		$this->trackerInstance = new TitanFrameworkTracker( $this );
 
 		add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 6 );
 		add_action( 'after_setup_theme', array( $this, 'updateOptionDBListing' ), 7 );
@@ -287,18 +295,27 @@ class TitanFramework {
 	public function createAdminPanel( $settings ) {
 		$obj = new TitanFrameworkAdminPanel( $settings, $this );
 		$this->adminPanels[] = $obj;
+
+		do_action( 'tf_admin_panel_created_' . $this->optionNamespace, $obj );
+
 		return $obj;
 	}
 
 	public function createMetaBox( $settings ) {
 		$obj = new TitanFrameworkMetaBox( $settings, $this );
 		$this->metaBoxes[] = $obj;
+
+		do_action( 'tf_meta_box_created_' . $this->optionNamespace, $obj );
+
 		return $obj;
 	}
 
 	public function createThemeCustomizerSection( $settings ) {
 		$obj = new TitanFrameworkThemeCustomizerSection( $settings, $this );
 		$this->themeCustomizerSections[] = $obj;
+
+		do_action( 'tf_theme_customizer_created_' . $this->optionNamespace, $obj );
+
 		return $obj;
 	}
 
@@ -456,6 +473,7 @@ class TitanFramework {
 		<?php
 	}
 
+
 	/**
 	 * Acts the same way as plugins_url( 'script', __FILE__ ) but returns then correct url
 	 * when called from inside a theme.
@@ -493,5 +511,21 @@ class TitanFramework {
 		}
 		// framework is a or in a plugin
 		return plugins_url( $script, $file );
+	}
+
+
+	/**
+	 * Sets a value in the $setting class variable
+	 *
+	 * @param   string $setting The name of the setting
+	 * @param   string $value The value to set
+	 * @return  void
+	 * @since   1.6
+	 */
+	public function set( $setting, $value ) {
+		$oldValue = $this->settings[ $setting ];
+		$this->settings[ $setting ] = $value;
+
+		do_action( 'tf_setting_' . $setting . '_changed_' . $this->optionNamespace, $value, $oldValue );
 	}
 }
