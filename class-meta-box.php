@@ -14,6 +14,7 @@ class TitanFrameworkMetaBox {
 		'post_type' => 'page', // Post type, can be an array of post types
 		'context' => 'normal', // normal, advanced, or side
 		'hide_custom_fields' => true, // If true, the custom fields box will not be shown
+        'priority' => 'high', //  high, core, default, low
 	);
 
 	public $settings;
@@ -65,7 +66,8 @@ class TitanFrameworkMetaBox {
 				array( $this, 'display' ),
 				$postType,
 				$this->settings['context'],
-				'high' );
+				$this->settings['priority']
+            );
 		}
 	}
 
