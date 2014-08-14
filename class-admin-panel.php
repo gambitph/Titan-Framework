@@ -13,6 +13,7 @@ class TitanFrameworkAdminPanel {
 		'icon' => 'dashicons-admin-generic', // Menu icon for top level menus only http://melchoyce.github.io/dashicons/
 		'position' => null, // Menu position. Can be used for both top and sub level menus
 		'use_form' => true, // If false, options will not be wrapped in a form
+		'desc' => '', // Description displayed below the title
 	);
 
 	public $settings;
@@ -242,7 +243,7 @@ class TitanFrameworkAdminPanel {
 				return $this->activeTab;
 			}
 		}
-		
+
 		$this->activeTab = $this->tabs[0];
 		return $this->activeTab;
 	}
@@ -254,6 +255,12 @@ class TitanFrameworkAdminPanel {
 		?>
 		<div class="wrap">
 		<h2><?php echo $this->settings['title'] ?></h2>
+		<?php
+		if ( ! empty( $this->settings['desc'] ) ) {
+			?><p class='description'><?php echo $this->settings['desc'] ?></p><?php
+		}
+		?>
+
 		<div class='titan-framework-panel-wrap'>
 		<?php
 
@@ -314,6 +321,11 @@ class TitanFrameworkAdminPanel {
 
 		$activeTab = $this->getActiveTab();
 		if ( ! empty( $activeTab ) ) {
+
+			if ( ! empty( $activeTab->settings['desc'] ) ) {
+				?><p class='description'><?php echo $activeTab->settings['desc'] ?></p><?php
+			}
+
 			$activeTab->displayOptions();
 		}
 

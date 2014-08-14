@@ -8,6 +8,7 @@ class TitanFrameworkAdminTab {
 		'name' => '', // Name of the tab
 		'id' => '', // Unique ID of the tab
 		'title' => '', // Title to display in the admin panel when tab is active
+		'desc' => '', // Description shown just below the tab when open
 	);
 
 	public $options = array();
