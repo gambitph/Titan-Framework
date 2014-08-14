@@ -77,6 +77,9 @@
 	padding: 0;
 }
 
+.titan-framework-panel-wrap .form-table {
+	margin-top: 0;
+}
 .titan-framework-panel-wrap .form-table tr {
 	background: white;
 	border-bottom: 1px solid #eee;
@@ -85,6 +88,16 @@
 .titan-framework-panel-wrap .form-table .wp_themeSkin .mceStatusbar { padding: 0 0 0 8px; }
 .titan-framework-panel-wrap .form-table .wp_themeSkin .mceToolbar { padding: 1px; }
 
+.titan-framework-panel-wrap p.submit {
+	background: #FFF;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 15px 20px;
+	border-bottom: 1px solid #eee;
+}
+.titan-framework-panel-wrap .form-table+p.submit {
+	padding: 15px 20px;
+}
 
 /* This line is for font options description */
 .titan-framework-panel-wrap .tf-font p.description,
