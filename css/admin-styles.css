@@ -70,7 +70,7 @@
 /* option tables */
 .titan-framework-panel-wrap .form-table th,
 .titan-framework-panel-wrap .form-table td {
-	padding: 30px 20px;
+	padding: 20px 20px;
 }
 
 .titan-framework-panel-wrap .wp_themeSkin table td {
@@ -85,9 +85,6 @@
 .titan-framework-panel-wrap .form-table .wp_themeSkin .mceStatusbar { padding: 0 0 0 8px; }
 .titan-framework-panel-wrap .form-table .wp_themeSkin .mceToolbar { padding: 1px; }
 
-.titan-framework-panel-wrap table.form-table + p.submit + table.form-table {
-	margin-top: -10px;
-}
 
 /* This line is for font options description */
 .titan-framework-panel-wrap .tf-font p.description,
