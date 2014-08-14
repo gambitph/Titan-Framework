@@ -113,7 +113,6 @@
 }
 
 .titan-framework-panel-wrap h2 + div.error {
-	
 }
 
 /* notes */
@@ -352,4 +351,13 @@
 
 .tf-font .wp-picker-container {
 	z-index: 9;
+}
+
+.dashicons-visibility-faint:before {
+	opacity: .2;
+}
+
+/* We're using dashicons instead of font-awesome, this fixed the incompatibility */
+[class*=tf-] i.dashicons {
+	height: auto;
 }

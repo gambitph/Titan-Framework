@@ -19,8 +19,8 @@
 	box-shadow: inset 0 0 0 4px #EEE;
 }
 .tf-upload .tf-image-preview:before {
-	content: '\f067';
-	font-family: 'FontAwesome';
+	content: '\f132';
+	font-family: 'dashicons';
 	position: absolute;
 	top: 60px;
 	left: 60px;
@@ -32,6 +32,9 @@
 }
 .tf-upload .tf-image-preview:hover:before {
 	color: #bbb;
+}
+.tf-upload .tf-image-preview i.remove:hover {
+	border-color: #999;
 }
 .tf-upload .tf-image-preview i.remove {
 	opacity: 1;

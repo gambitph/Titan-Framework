@@ -78,7 +78,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 		$previewImage = '';
 		if ( ! empty( $value ) ) {
-			$previewImage = "<i class='fa fa-times remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>";
+			$previewImage = "<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>";
 		}
 		echo "<div class='thumbnail tf-image-preview'>" . $previewImage . "</div>";
 
@@ -230,7 +230,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 								.css('marginTop', marginTop)
 								.css('marginLeft', marginLeft)
 								.appendTo(_preview);
-							$("<i class='fa fa-times remove'></i>").prependTo(_preview);
+							$("<i class='dashicons dashicons-no-alt remove'></i>").prependTo(_preview);
 						}
 						// we need to trigger a change so that WP would detect that we changed the value
 						// or else the save button won't be enabled
@@ -276,7 +276,7 @@ function registerTitanFrameworkOptionUploadControl() {
 			}
 
 			if ( ! empty( $value ) ) {
-				$previewImage = "<i class='fa fa-times remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>";
+				$previewImage = "<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>";
 			}
 
 			?>

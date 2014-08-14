@@ -263,7 +263,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		// Create the entire CSS for the font, this should just be used to replace the `value` variable
 		$cssVariables = '';
 		$cssChecking = array( 'font_family', 'color', 'font_size', 'font_weight', 'font_style', 'line_height', 'letter_spacing', 'text_transform', 'font_variant', 'text_shadow' );
-		
+
 		//Enter values that are not marked as false.
 		foreach ( $cssChecking as $subject ) {
 			if ( $option->settings['show_'.$subject] ) {
@@ -275,7 +275,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		foreach ( $cssVariableArray as $param ) {
 			$cssVariables .= $param . ": \$" . $option->settings['id'] . "-" . $param . ";\n";
 		}
-		
+
 		// Replace the `value` parameters in the given css
 		$modifiedCss = '';
 		if ( ! empty( $option->settings['css'] ) ) {
@@ -803,7 +803,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		?>
 		<div <?php echo $visibilityAttrs ?>>
 			<iframe data-preview-text='<?php echo esc_attr( $this->settings['preview_text'] ) ?>'></iframe>
-			<i class='fa fa-adjust btn-dark'></i>
+			<i class='dashicons dashicons-admin-appearance btn-dark'></i>
 			<input type='hidden' class='tf-font-sel-dark' value='<?php echo esc_attr( $value['dark'] ? 'dark' : '' ) ?>'/>
 		</div>
 		<?php
@@ -1215,7 +1215,7 @@ function registerTitanFrameworkOptionFontControl() {
 			?>
 			<div <?php echo $visibilityAttrs ?>>
 				<iframe></iframe>
-				<i class='fa fa-adjust btn-dark'></i>
+				<i class='dashicons dashicons-admin-appearance btn-dark'></i>
 				<input type='hidden' class='tf-font-sel-dark' value='<?php echo esc_attr( $value['dark'] ? 'dark' : '' ) ?>'/>
 			</div>
 			<?php
