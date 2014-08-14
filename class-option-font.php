@@ -425,7 +425,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			}
 
 			// Update preview
-			if ( $container.find('iframe').is(':visible') ) {
+			if ( $container.find('iframe').is(':not([data-visible=false])') ) {
 				$container.find('iframe').attr('src', '<?php echo TitanFramework::getURL( 'iframe-font-preview.php?', __FILE__ ) ?>' + $.param(params) );
 			}
 
