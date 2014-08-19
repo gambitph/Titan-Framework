@@ -55,7 +55,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	);
 
 	// The list of web safe fonts
-	private $webSafeFonts = array(
+	public static $webSafeFonts = array(
 		'Arial, Helvetica, sans-serif' => 'Arial',
 		'"Arial Black", Gadget, sans-serif' => 'Arial Black',
 		'"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
@@ -494,7 +494,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					?>
 				    <optgroup label="Web Safe Fonts" class='safe'>
 						<?php
-						foreach ( $this->webSafeFonts as $family => $label ) {
+						foreach ( self::$webSafeFonts as $family => $label ) {
 							printf( "<option value='%s'%s>%s</option>",
 								$family,
 								selected( $value['font-family'], $family, false ),
@@ -856,7 +856,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			$value = array_merge( self::$defaultStyling, $value );
 		}
 		if ( ! empty( $value['font-family'] ) ) {
-			$value['font-type'] = in_array( $value['font-family'], array_keys( $this->webSafeFonts ) ) ? 'websafe' : 'google';
+			$value['font-type'] = in_array( $value['font-family'], array_keys( self::$webSafeFonts ) ) ? 'websafe' : 'google';
 		}
 		return $value;
 	}
@@ -936,22 +936,7 @@ function registerTitanFrameworkOptionFontControl() {
 				<select class='tf-font-sel-family'>
 				    <optgroup label="Web Safe Fonts" class='safe'>
 						<?php
-						$options = array(
-							'Arial, Helvetica, sans-serif' => 'Arial',
-							'"Arial Black", Gadget, sans-serif' => 'Arial Black',
-							'"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
-							'"Courier New", Courier, monospace' => 'Courier New',
-							'Georgia, serif' => 'Geogia',
-							'Impact, Charcoal, sans-serif' => 'Impact',
-							'"Lucida Console", Monaco, monospace' => 'Lucida Console',
-	 						'"Lucida Sans Unicode", "Lucida Grande", sans-serif' => 'Lucida Sans',
-							'"Palatino Linotype", "Book Antiqua", Palatino, serif' => 'Palatino',
-							'Tahoma, Geneva, sans-serif' => 'Tahoma',
-							'"Times New Roman", Times, serif' => 'Times New Roman',
-							'"Trebuchet MS", Helvetica, sans-serif' => 'Trebuchet',
-							'Verdana, Geneva, sans-serif' => 'Verdana',
-						);
-						foreach ( $options as $family => $label ) {
+						foreach ( TitanFrameworkOptionFont::$webSafeFonts as $family => $label ) {
 							printf( "<option value='%s'%s>%s</option>",
 								$family,
 								selected( $value['font-family'], $family, false ),
