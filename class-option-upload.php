@@ -7,6 +7,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 	private static $firstLoad = true;
 
 	public $defaultSecondarySettings = array(
+		'size' => 'full', // The size of the image to use in the generated CSS
 		'placeholder' => '', // show this when blank
 	);
 
@@ -40,8 +41,8 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		$value = $this->getFramework()->getOption( $option->settings['id'] );
 
 		if ( is_numeric( $value ) ) {
-			$thumb_size = !empty( $option->settings['thumb_size'] ) ? $option->settings['thumb_size'] : 'thumbnail';
-			$attachment = wp_get_attachment_image_src( $value, $thumb_size );
+			$size = ! empty( $option->settings['size'] ) ? $option->settings['size'] : 'thumbnail';
+			$attachment = wp_get_attachment_image_src( $value, $size );
 			$value = $attachment[0];
 		}
 
