@@ -40,6 +40,10 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 		$value = $this->getFramework()->getOption( $option->settings['id'] );
 
+		if ( empty( $value ) ) {
+			return $css;
+		}
+
 		if ( is_numeric( $value ) ) {
 			$size = ! empty( $option->settings['size'] ) ? $option->settings['size'] : 'thumbnail';
 			$attachment = wp_get_attachment_image_src( $value, $size );

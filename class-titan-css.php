@@ -221,11 +221,17 @@ class TitanFrameworkCSS {
 				continue;
 			}
 
+			// Don't render CSS for this option if it doesn't have a value
+			$optionValue = $this->frameworkInstance->getOption( $option->settings['id'] );
+			if ( empty( $optionValue ) ) {
+				continue;
+			}
+
 			// Add the values as SaSS variables
 			$generatedCSS = $this->formCSSVariables(
 				$option->settings['id'],
 				$option->settings['type'],
-				$this->frameworkInstance->getOption( $option->settings['id'] )
+				$optionValue
 			);
 
 			try {
