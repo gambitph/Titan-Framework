@@ -54,6 +54,23 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		'dark' => '', // only used to toggle the preview background
 	);
 
+	// The list of web safe fonts
+	private $webSafeFonts = array(
+		'Arial, Helvetica, sans-serif' => 'Arial',
+		'"Arial Black", Gadget, sans-serif' => 'Arial Black',
+		'"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
+		'"Courier New", Courier, monospace' => 'Courier New',
+		'Georgia, serif' => 'Geogia',
+		'Impact, Charcoal, sans-serif' => 'Impact',
+		'"Lucida Console", Monaco, monospace' => 'Lucida Console',
+		'"Lucida Sans Unicode", "Lucida Grande", sans-serif' => 'Lucida Sans',
+		'"Palatino Linotype", "Book Antiqua", Palatino, serif' => 'Palatino',
+		'Tahoma, Geneva, sans-serif' => 'Tahoma',
+		'"Times New Roman", Times, serif' => 'Times New Roman',
+		'"Trebuchet MS", Helvetica, sans-serif' => 'Trebuchet',
+		'Verdana, Geneva, sans-serif' => 'Verdana',
+	);
+
 	// Holds all the Google Fonts for enqueuing
 	private static $googleFontsOptions = array();
 
@@ -111,7 +128,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		foreach ( self::$googleFontsOptions as $option ) {
 			$fontValue = $option->getFramework()->getOption( $option->settings['id'] );
 
-			if ( empty( $fontValue['font-type'] ) ) {
+			if ( empty( $fontValue['font-family'] ) ) {
 				continue;
 			}
 
@@ -477,22 +494,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					?>
 				    <optgroup label="Web Safe Fonts" class='safe'>
 						<?php
-						$options = array(
-							'Arial, Helvetica, sans-serif' => 'Arial',
-							'"Arial Black", Gadget, sans-serif' => 'Arial Black',
-							'"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
-							'"Courier New", Courier, monospace' => 'Courier New',
-							'Georgia, serif' => 'Geogia',
-							'Impact, Charcoal, sans-serif' => 'Impact',
-							'"Lucida Console", Monaco, monospace' => 'Lucida Console',
-	 						'"Lucida Sans Unicode", "Lucida Grande", sans-serif' => 'Lucida Sans',
-							'"Palatino Linotype", "Book Antiqua", Palatino, serif' => 'Palatino',
-							'Tahoma, Geneva, sans-serif' => 'Tahoma',
-							'"Times New Roman", Times, serif' => 'Times New Roman',
-							'"Trebuchet MS", Helvetica, sans-serif' => 'Trebuchet',
-							'Verdana, Geneva, sans-serif' => 'Verdana',
-						);
-						foreach ( $options as $family => $label ) {
+						foreach ( $this->webSafeFonts as $family => $label ) {
 							printf( "<option value='%s'%s>%s</option>",
 								$family,
 								selected( $value['font-family'], $family, false ),
@@ -852,6 +854,9 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 		if ( is_array( $value ) ) {
 			$value = array_merge( self::$defaultStyling, $value );
+		}
+		if ( ! empty( $value['font-family'] ) ) {
+			$value['font-type'] = in_array( $value['font-family'], array_keys( $this->webSafeFonts ) ) ? 'websafe' : 'google';
 		}
 		return $value;
 	}
