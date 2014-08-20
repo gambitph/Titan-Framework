@@ -93,15 +93,15 @@ class TitanFrameworkCSS {
 	public function enqueueCSS() {
 
 		// Only enqueue the generated css if we have the settings for it
-		if ( $this->frameworkInstance->settings['css'] != 'generate' ) {
-			return;
-		}
+		if ( $this->frameworkInstance->settings['css'] == 'generate' ) {
 
-		$css = get_option( $this->getCSSSlug() );
-		$generatedCss = $this->generateCSS();
+			$css = get_option( $this->getCSSSlug() );
+			$generatedCss = $this->generateCSS();
 
-		if ( ! empty( $generatedCss ) && empty( $css ) ) {
-			wp_enqueue_style( 'tf-compiled-options-' . $this->frameworkInstance->optionNamespace, $this->getCSSFileURL(), __FILE__ );
+			if ( ! empty( $generatedCss ) && empty( $css ) ) {
+				wp_enqueue_style( 'tf-compiled-options-' . $this->frameworkInstance->optionNamespace, $this->getCSSFileURL(), __FILE__ );
+			}
+
 		}
 	}
 
