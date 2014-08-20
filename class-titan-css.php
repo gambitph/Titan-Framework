@@ -66,9 +66,20 @@ class TitanFrameworkCSS {
 	 * @since   1.2
 	 */
 	public function printCSS() {
-		$css = get_option( $this->getCSSSlug() );
-		if ( ! empty( $css ) ) {
-			print "<style>{$css}</style>";
+
+		// If the setting is 'generate css' and we can't just echo it out
+		if ( $this->frameworkInstance->settings['css'] == 'generate' ) {
+			$css = get_option( $this->getCSSSlug() );
+			if ( ! empty( $css ) ) {
+				echo "<style>{$css}</style>";
+			}
+
+		// If the setting is 'print inline css', print it out if we have any
+		} else if ( $this->frameworkInstance->settings['css'] == 'inline' ) {
+			$css = $this->generateCSS();
+			if ( ! empty( $css ) ) {
+				echo "<style>{$css}</style>";
+			}
 		}
 	}
 
@@ -80,6 +91,12 @@ class TitanFrameworkCSS {
 	 * @since   1.2
 	 */
 	public function enqueueCSS() {
+
+		// Only enqueue the generated css if we have the settings for it
+		if ( $this->frameworkInstance->settings['css'] != 'generate' ) {
+			return;
+		}
+
 		$css = get_option( $this->getCSSSlug() );
 		$generatedCss = $this->generateCSS();
 

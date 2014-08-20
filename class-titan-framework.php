@@ -28,7 +28,9 @@ class TitanFramework {
 	public $optionsUsed = array();
 
 	private $defaultSettings = array(
-		'tracking' => false, // TODO: Turn to true, when code is finalized for 1.6
+		'css' => 'generate', 	// If 'generate', Titan will try and generate a cacheable CSS file (or inline if it can't).
+			 					// If 'inline', CSS will be printed out in the head tag
+		'tracking' => false, 	// TODO: Turn to true, when code is finalized for 1.6
 	);
 
 	public static function getInstance( $optionNamespace ) {
