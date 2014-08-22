@@ -136,10 +136,6 @@
     padding: 0;
 }
 
-.titan-framework-panel-wrap .tf-heading th * {
-	color: #fff;
-	font-weight: normal;
-}
 
 .titan-framework-panel-wrap .options-container h2,
 .titan-framework-panel-wrap .tf-heading h3 {
