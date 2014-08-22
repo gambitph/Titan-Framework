@@ -18,7 +18,7 @@ msgid "Settings saved."
 msgstr ""
 
 #: ../class-admin-panel.php:270
-msgid "Settings reset to default."
+msgid "Settings reset to defaults."
 msgstr ""
 
 #: ../class-meta-box.php:35 ../class-theme-customizer-section.php:27
@@ -30,7 +30,15 @@ msgid "Save Changes"
 msgstr ""
 
 #: ../class-option-save.php:23
-msgid "Reset to Default"
+msgid "Reset to Defaults"
+msgstr ""
+
+#: ../class-option-save.php:27
+msgid "Save changes now?"
+msgstr ""
+
+#: ../class-option-save.php:31
+msgid "Reset all fields to defaults now?"
 msgstr ""
 
 #: ../class-option-select-categories.php:37
