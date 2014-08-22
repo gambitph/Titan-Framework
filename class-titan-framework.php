@@ -28,7 +28,10 @@ class TitanFramework {
 	public $optionsUsed = array();
 
 	private $defaultSettings = array(
-		'tracking' => false, // TODO: Turn to true, when code is finalized for 1.6
+		'css' => 'generate', 	// If 'generate', Titan will try and generate a cacheable CSS file (or inline if it can't).
+			 					// If 'inline', CSS will be printed out in the head tag,
+								// If false, CSS will not be generated nor printed
+		'tracking' => false, 	// TODO: Turn to true, when code is finalized for 1.6
 	);
 
 	public static function getInstance( $optionNamespace ) {
@@ -527,5 +530,16 @@ class TitanFramework {
 		$this->settings[ $setting ] = $value;
 
 		do_action( 'tf_setting_' . $setting . '_changed_' . $this->optionNamespace, $value, $oldValue );
+	}
+
+
+	/**
+	 * Gets the CSS generated
+	 *
+	 * @return  string The generated CSS
+	 * @since   1.6
+	 */
+	public function generateCSS() {
+		return $this->cssInstance->generateCSS();
 	}
 }
