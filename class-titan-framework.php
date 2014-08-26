@@ -152,7 +152,6 @@ class TitanFramework {
 			wp_enqueue_media();
 			wp_enqueue_script( 'tf-serialize', TitanFramework::getURL( 'js/serialize.js', __FILE__ ) );
 			wp_enqueue_script( 'tf-styling', TitanFramework::getURL( 'js/admin-styling.js', __FILE__ ) );
-			wp_enqueue_script( 'tf-admin-scripts', TitanFramework::getURL( 'js/admin-scripts.js', __FILE__ ) );
 			wp_enqueue_style( 'tf-admin-styles', TitanFramework::getURL( 'css/admin-styles.css', __FILE__ ) );
 		}
 	}
