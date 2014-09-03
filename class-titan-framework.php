@@ -62,12 +62,12 @@ class TitanFramework {
 		$this->cssInstance = new TitanFrameworkCSS( $this );
 		$this->trackerInstance = new TitanFrameworkTracker( $this );
 
-		add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 6 );
-		add_action( 'after_setup_theme', array( $this, 'updateOptionDBListing' ), 7 );
+		add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 7 );
+		add_action( 'after_setup_theme', array( $this, 'updateOptionDBListing' ), 8 );
 
 		if ( is_admin() ) {
-			add_action( 'after_setup_theme', array( $this, 'updateThemeModListing' ), 7 );
-			add_action( 'after_setup_theme', array( $this, 'updateMetaDbListing' ), 7 );
+			add_action( 'after_setup_theme', array( $this, 'updateThemeModListing' ), 8 );
+			add_action( 'after_setup_theme', array( $this, 'updateMetaDbListing' ), 8 );
 			add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "verifyUniqueIDs" ) );
 		}
 
