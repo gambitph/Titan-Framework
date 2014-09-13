@@ -36,7 +36,7 @@
                     });
                 }
 
-                if ($("#" + did).val() != dv) {
+                if ($(id).val() != dv) {
                     $(that).parent().parent().hide();
                 }
             }
