@@ -14,7 +14,7 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 	public function display() {
 		$this->echoOptionHeader();
 
-		?><select name="<?php echo $this->getID(); ?>"><?php
+		?><select name="<?php echo $this->getID(); ?>" id="<?php echo $this->getID(); ?>" data-did="<?php echo $this->settings['dependency']['id']; ?>" data-dvalue="<?php echo $this->settings['dependency']['value']; ?>" ><?php
 		foreach ( $this->settings['options'] as $value => $label ) {
 
 			// this is if we have option groupings
