@@ -16,7 +16,7 @@ class TitanFrameworkMetaBox {
 		'hide_custom_fields' => true, // If true, the custom fields box will not be shown
         'priority' => 'high', //  high, core, default, low
 		'desc' => '', // Description displayed below the title
-        'post_format'=>array('standard','aside','chat','link','gallery','image','audio','video','status')
+        'post_format'=>array('standard','aside','chat','link','gallery','image','audio','video','status','quote')
 	);
 
 	public $settings;
