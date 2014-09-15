@@ -14,7 +14,7 @@ class TitanFrameworkOptionRadio extends TitanFrameworkOption {
 	public function display() {
 		$this->echoOptionHeader( true );
 
-		echo "<fieldset>";
+		echo "<fieldset data-did='{$this->settings['dependency']['id']}' data-dvalue='{$this->settings['dependency']['value']}' >";
 
 		foreach ( $this->settings['options'] as $value => $label ) {
 			printf('<label for="%s"><input id="%s" type="radio" name="%s" value="%s" %s/> %s</label><br>',
