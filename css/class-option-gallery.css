@@ -1,0 +1,18 @@
+ul.gallery-ph{
+    list-style: none;
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+
+ul.gallery-ph li{
+    display: inline;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 10px;
+}
+
+ul.gallery-ph li {
+    width:150px;
+    height:150px;
+}

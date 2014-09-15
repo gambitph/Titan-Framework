@@ -1,65 +1,86 @@
-(function($){
-    var file_frame,data,ats;
-    ats = [];
-    $(document).ready(function(){
-        alert("hi");
-    });
+(function ($) {
+    var file_frame;
 
+    $(document).ready(function () {
+        var query = wp.media.query();
 
+        query.filterWithIds = function (ids) {
+            return _(this.models.filter(function (c) {
+                return _.contains(ids, c.id);
+            }));
+        };
 
-    $("#galgal").on("click",function(){
-
-        if ( file_frame ) {
-            file_frame.open();
-            return;
-        }
-
-        file_frame = wp.media.frames.file_frame = wp.media({
-            frame:    'post',
-            state:    'insert',
-            multiple: true
-        });
-
-        /**
-         * Setup an event handler for what to do when an image has been
-         * selected.
-         *
-         * Since we're using the 'view' state when initializing
-         * the file_frame, we need to make sure that the handler is attached
-         * to the insert event.
-         */
-        file_frame.on( 'insert', function() {
-            /**
-             * We'll cover this in the next version.
-             */
-            var data = file_frame.state().get( 'selection' );
-            alert("ss");
-            data.map( function( attachment ) {
-
-                //console.log(attachment);
-                ats.push(attachment.id);
-                console.log(attachment.attributes);
-                attachment = attachment.toJSON();
-
-                // Do something with attachment.id and/or attachment.url here
-            });
-            var jdata = data.toJSON();
-
-            console.log(jdata);
-
-        });
-
-        file_frame.on('open', function(){
-            var selection = file_frame.state().get('selection');
-
-            if (ats.length>0) {
-                for(i in ats)
-                selection.add(wp.media.attachment(ats[i]));
+        $(".galgal").each(function () {
+            var container = $(this).siblings("ul");
+            var selected_ids = $(this).prev("input").val().split(",");
+            if (selected_ids.length > 0) {
+                $(this).val("Customize This Gallery");
+                $(this).css("marginTop", "10px");
             }
+            for (i = 0; i < selected_ids.length; i++) {
+                if (selected_ids[i] > 0) {
+                    var attachment = new wp.media.model.Attachment.get(selected_ids[i]);
+                    attachment.fetch({success: function (att) {
+                        container.append("<li><img src='" + att.attributes.sizes.thumbnail.url + "'</li>");
+                    }});
+                }
+            }
+
         });
+    })
 
-        // Now display the actual file_frame
-        file_frame.open();
+    $(".galgal").each(function () {
+        $(this).on("click", function () {
 
+            var that = this;
+
+            if (file_frame) {
+                file_frame.open();
+                return;
+            }
+
+            file_frame = wp.media.frames.file_frame = wp.media({
+                frame: 'post',
+                state: 'insert',
+                multiple: true
+            });
+
+            file_frame.on('insert', function () {
+
+                var data = file_frame.state().get('selection');
+                var jdata = data.toJSON();
+                var selected_ids = _.pluck(jdata, "id");
+                var container = $(that).siblings("ul");
+
+                if (selected_ids.length > 0) {
+                    $(that).css("marginTop", "10px");
+                    $(that).val("Customize This Gallery");
+                }
+                $(that).prev('input').val(selected_ids.join(","));
+                container.html("");
+
+                data.map(function (attachment) {
+                    if (attachment.attributes.subtype == "png" || attachment.attributes.subtype == "jpeg" || attachment.attributes.subtype == "jpg") {
+                        try {
+                            container.append("<li><img src='" + attachment.attributes.sizes.thumbnail.url + "'</li>");
+                        } catch (e) {
+                        }
+                    }
+                });
+            });
+
+            file_frame.on('open', function () {
+                var selection = file_frame.state().get('selection');
+                var ats = $(that).prev("input").val().split(",");
+
+                for (i = 0; i < ats.length; i++) {
+                    if (ats[i] > 0)
+                        selection.add(wp.media.attachment(ats[i]));
+                }
+            });
+
+            file_frame.open();
+
+        })
     })
 })(jQuery);

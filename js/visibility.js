@@ -1,3 +1,4 @@
+;
 (function ($) {
     $(document).ready(function () {
         $(".tf-text input, .tf-select select").each(function () {
@@ -40,6 +41,6 @@
                     $(that).parent().parent().hide();
                 }
             }
-        })
+        });
     });
-})(jQuery)
+})(jQuery);

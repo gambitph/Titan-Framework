@@ -1,57 +1,36 @@
-/*
- * TODO: separate styles into multiple imports
- */
-
-@import "class-option-font.css";
+/* Styles for the preview image option */
+.tf-image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    padding: 2px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #666;
+}
+.tf-image-preview img:hover {
+    cursor: pointer;
+}
 
 /* note option padding issue */
 .tf-note .updated p {
-	margin-bottom: 4px;
+    margin-bottom: 4px;
 }
 
 @media screen and (min-width: 783px) {
-	.tf-select-googlefont iframe {
-		width: 100%;
-		height: 120px;
-		background: #FFF;
-		background: rgba(255, 255, 255, .7);
-		margin-top: 4px;
-	}
-	.form-table td.tf-select-googlefont fieldset label {
-		display: inline-block;
-		padding-left: 20px;
-		width: 200px;
-	}
-}
-
-/*
- * Styles for metaboxes in the sidebar
- */
-#side-sortables .tf-form-table,
-#side-sortables .tf-form-table tbody,
-#side-sortables .tf-form-table tr,
-#side-sortables .tf-form-table th,
-#side-sortables .tf-form-table td {
-	display:block;
-}
-
-#side-sortables .tf-form-table th {
-	padding: 10px 0px 0px;
-}
-
-#side-sortables .tf-form-table td {
-	padding: 5px 0px;
-}
-
-#side-sortables .tf-form-table td input {
-	max-width:100%;
-}
-
-#side-sortables .tf-radio-image label:first-child,
-#side-sortables .tf-radio-image label {
-	display: inline-block;
-	margin-left: 10px;
-	margin-top: 10px;
+    .tf-select-googlefont iframe {
+        width: 100%;
+        height: 120px;
+        background: #FFF;
+        background: rgba(255, 255, 255, .7);
+        margin-top: 4px;
+    }
+    .form-table td.tf-select-googlefont fieldset label {
+        display: inline-block;
+        padding-left: 20px;
+        width: 200px;
+    }
 }
 
 /*
@@ -59,357 +38,314 @@
  */
 
 /* main wrapper */
-.titan-framework-panel-wrap {
-	border-bottom: 1px solid #DDD;
-    margin-bottom: 20px;
+.titan-framework-panel-wrap.wrap {
+    background: #FFF;
+    border: 1px solid #eaeaea;
 }
-
-/* Tabs */
-.titan-framework-panel-wrap .nav-tab-wrapper { margin-bottom: 20px; }
-
+/* title */
+.titan-framework-panel-wrap.wrap h2 {
+    padding: 20px 15px;
+    border-bottom: 1px solid #EEE;
+    font-weight: normal;
+    font-size: 21px;
+    background: #333;
+    color: #FFF;
+}
+.titan-framework-panel-wrap.wrap .nav-tab-wrapper + h2 {
+    background: #333;
+    color: #FFF;
+    border: 0;
+}
+/* tabs */
+.titan-framework-panel-wrap h2.nav-tab-wrapper, .titan-framework-panel-wrap h3.nav-tab-wrapper {
+    border: 0;
+    padding: 0;
+    background: #1E8CBE;
+}
+.titan-framework-panel-wrap h2 .nav-tab {
+    border: 0;
+    margin: 0;
+    background: transparent;
+    padding: 10px 15px;
+    color: #FFF;
+    font-weight: normal;
+    margin-right: 5px;
+}
+.titan-framework-panel-wrap h2 .nav-tab:hover {
+    background: rgba(255, 255, 255, .2);
+}
+.titan-framework-panel-wrap h2 .nav-tab.nav-tab-active, .titan-framework-panel-wrap h2 .nav-tab.nav-tab-active:hover {
+    background: rgba(0, 0, 0, .3);
+}
 /* option tables */
-.titan-framework-panel-wrap .form-table th,
-.titan-framework-panel-wrap .form-table td {
-	padding: 20px 20px;
-}
-
-.titan-framework-panel-wrap .wp_themeSkin table td {
-	padding: 0;
-}
-
-.titan-framework-panel-wrap .form-table {
-	margin-top: 0;
+.titan-framework-panel-wrap .form-table th {
+    padding-left: 15px;
 }
 .titan-framework-panel-wrap .form-table tr {
-	background: white;
-	border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 }
-
-.titan-framework-panel-wrap .form-table .wp_themeSkin .mceStatusbar { padding: 0 0 0 8px; }
-.titan-framework-panel-wrap .form-table .wp_themeSkin .mceToolbar { padding: 1px; }
-
-.titan-framework-panel-wrap p.submit {
-	background: #FFF;
-	margin-top: 0;
-	margin-bottom: 0;
-	padding: 15px 20px;
-	border-bottom: 1px solid #eee;
+/* submit buttons */
+.titan-framework-panel-wrap table.form-table+p.submit {
+    padding: 15px;
+    /*	margin-top: 5px;*/
+    background: #333;
+    margin: 0;
+    /*	border-bottom: 1px solid #EEE;*/
+    border-radius: 0;
 }
-.titan-framework-panel-wrap .form-table+p.submit {
-	padding: 15px 20px;
+.titan-framework-panel-wrap table.form-table+p.submit+table.form-table {
+    margin-top: 0;
 }
-
-/* This line is for font options description */
-.titan-framework-panel-wrap .tf-font p.description,
-.titan-framework-panel-wrap .tf-radio p.description,
-.titan-framework-panel-wrap .tf-multicheck p.description {
-	margin-bottom: 8px;
+.titan-framework-panel-wrap table.form-table+p.submit+table.form-table tbody tr.tf-heading:first-child th {
+    padding-top: 30px;
+    position: relative;
 }
-
+.titan-framework-panel-wrap table.form-table+p.submit+table.form-table tbody tr.tf-heading:first-child th h3 {
+    font-size: 21px;
+}
+.titan-framework-panel-wrap table.form-table+p.submit+table.form-table tbody tr.tf-heading:first-child th:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: -1px;
+    right: -1px;
+    height: 30px;
+    z-index: 9;
+    background: #F1F1F1;
+}
+.titan-framework-panel-wrap form p.submit:nth-last-of-type(1) {
+    border-bottom: 0;
+}
+.titan-framework-panel-wrap .submit .button-primary, .titan-framework-panel-wrap .submit .button-secondary {
+    background: #1E8CBE;
+    border: 0;
+    box-shadow: none;
+    border-radius: 2px;
+    height: auto;
+    line-height: 36px;
+    padding: 0 15px;
+    margin-right: 10px;
+}
+.titan-framework-panel-wrap .submit .button-secondary {
+    background: #777;
+    color: #fff;
+}
+.titan-framework-panel-wrap .submit .button-primary:hover {
+    background: #2980b9;
+}
+.titan-framework-panel-wrap .submit .button-secondary:hover {
+    background: #666;
+}
 /* google font iframe */
 .tf-select-googlefont iframe {
-	background: #fafafa;
+    background: #fafafa;
 }
-
 /* notifications */
-.titan-framework-panel-wrap div.updated,
-.titan-framework-panel-wrap div.error {
-
+.titan-framework-panel-wrap div.updated, .titan-framework-panel-wrap div.error {
+    margin: 15px;
+    box-shadow: none;
+    border-top: 1px solid #EEE;
+    border-right: 1px solid #EEE;
+    border-bottom: 1px solid #EEE;
 }
-
-.titan-framework-panel-wrap h2 + div.updated,
+.titan-framework-panel-wrap h2 + div.updated, .titan-framework-panel-wrap h2 + div.error {
+    background: #2ECC71;
+    border: 0;
+    color: #FFF;
+    margin: 0;
+}
 .titan-framework-panel-wrap h2 + div.error {
-
+    background: #e74c3c;
 }
-
-.titan-framework-panel-wrap h2 + div.error {
-}
-
 /* notes */
 .titan-framework-panel-wrap .tf-note .updated {
-
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-style: italic;
+    color: #999;
 }
-
 /* heading */
 .titan-framework-panel-wrap .tf-heading th {
-    background: #F1F1F1;
-    padding: 0;
+    padding: 0 15px;
+    background: #333;
 }
-
-
-.titan-framework-panel-wrap .options-container h2,
-.titan-framework-panel-wrap .tf-heading h3 {
-    background: none repeat scroll 0 0 #F5F5F5;
-	border-left: 1px solid #DFDFDF;
-	border-top: 1px solid #DFDFDF;
-    border-right: 1px solid #DFDFDF;
-	border-bottom: 1px solid #DFDFDF;
-    color: #222222;
-	font-size: 14px;
-	font-weight: 600;
-    line-height: 1.4;
-    margin: 20px 0 0;
-    padding: 10px 20px;
+.titan-framework-panel-wrap .tf-heading th * {
+    color: #fff;
+    font-weight: normal;
 }
-
-.titan-framework-panel-wrap .options-container h2 { margin-bottom: -6px; }
-
 /* radio-palette */
 .tf-radio-palette span {
-	display: inline-block;
-	height: 40px;
+    display: inline-block;
+    height: 40px;
 }
-
 .tf-radio-palette span span {
-	width: 15px;
+    width: 15px;
 }
-
 .tf-radio-palette > label > span {
-	padding: 2px;
-	border: 1px solid #ddd;
+    padding: 2px;
+    border: 1px solid #ddd;
 }
-
 .tf-radio-palette input[type=radio] {
-	vertical-align: top;
-	margin-top: 17px;
+    vertical-align: top;
+    margin-top: 17px;
 }
-
 .tf-radio-palette label {
-	margin: 0 30px 10px 0;
-	display: inline-block;
+    margin-left: 30px;
+    white-space: nowrap;
 }
-
 .tf-radio-palette label:first-child {
-	margin-left: 0
+    margin-left: 0
 }
-
 /* radio images */
 .tf-radio-image label {
-	white-space: nowrap;
-	display: inline-block;
-	margin-right: 30px;
-	margin-bottom: 10px;
+    margin-left: 30px;
+    white-space: nowrap;
 }
-
+.tf-radio-image label:first-child {
+    margin-left: 0;
+}
 .form-table .tf-radio-image input[type=radio] {
-	margin-top: 0;
+    margin-top: 0;
 }
-
 .tf-radio-image img {
-	vertical-align: middle;
+    vertical-align: middle;
 }
-
 /* code */
 .tf-code > div:first-of-type {
-	border-radius: 3px;
-	border: 1px solid #DDD;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-o-box-sizing: border-box;
-	box-sizing: border-box;
-	position: relative;
-	font-size: 14px;
+    border-radius: 3px;
+    border: 1px solid #DDD;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    font-size: 14px;
 }
-
 /* sortable */
 .tf-sortable li {
-	cursor: move;
-	background: #fafafa;
-	padding: 0 0 0 15px;
-	border: 1px solid #DDD;
-	position: relative;
-	line-height: 40px;
+    cursor: move;
+    background: #fafafa;
+    padding: 0 0 0 15px;
+    border: 1px solid #DDD;
+    position: relative;
+    line-height: 40px;
 }
-
 .tf-sortable ul {
-	margin-top: 0;
-	background: rgba(0, 0, 0, 0);
-	border: 1px solid #EEE;
-	padding: 5px;
-	display: inline-block;
+    margin-top: 0;
+    background: rgba(0, 0, 0, 0);
+    border: 1px solid #EEE;
+    padding: 5px;
+    display: inline-block;
 }
-
 .tf-sortable ul li:last-of-type {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
-
 .tf-sortable ul li i {
-	float: right;
-	background: #fcfcfc;
-	display: inline-block;
-	border-left: 1px solid #ddd;
-	border-bottom: 1px solid #DDD;
-	width: 40px;
-	line-height: 40px;
-	text-align: center;
-	color: #777;
+    float: right;
+    background: #fcfcfc;
+    display: inline-block;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #DDD;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #777;
 }
-
 .tf-sortable ul li i.visibility {
-	cursor: pointer;
+    cursor: pointer;
 }
-
 .tf-sortable ul li i:last-of-type {
-	margin-left: 50px;
+    margin-left: 50px;
 }
-
 .tf-sortable li.invisible {
-	color: #ccc;
-	background: transparent;
+    color: #ccc;
+    background: transparent;
 }
-
 /* number slider */
 .tf-number .ui-slider-handle {
     position: absolute;
     z-index: 2;
-	border-radius: 3px;
+    border-radius: 3px;
     cursor: move;
-	margin-left: -6px;
-	pointer-events: none;
-	outline: none;
-	top: -5px;
-	background: #EEE;
-	border: 1px solid #CCC;
-	height: 23px;
-	width: 12px;
+    margin-left: -6px;
+    pointer-events: none;
+    outline: none;
+    top: -5px;
+    background: #EEE;
+    border: 1px solid #CCC;
+    height: 23px;
+    width: 12px;
 }
-
 .tf-number .ui-slider a:focus {
-	outline: none;
+    outline: none;
 }
-
 .tf-number .ui-slider-range {
     background: #eee;
     height: 100%;
 }
-
 .tf-number .number-slider {
-	position: relative;
-	background: #fcfcfc;
+    position: relative;
+    background: #fcfcfc;
     border: 1px solid #ddd;
-	border-radius: 3px;
-	width: 250px;
-	height: 15px;
-	margin-right: 20px;
-	display: inline-block;
-	vertical-align: bottom;
-	margin-bottom: 6px;
+    border-radius: 3px;
+    width: 250px;
+    height: 15px;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: 6px;
 }
-
 /* google webfont new */
 .tf-font label {
-	border: 1px solid #DDD;
-	vertical-align: middle;
-	display: inline-block;
-	padding: 4px 4px 4px 13px;
-	margin-right: 10px;
-	background: #fcfcfc;
-	margin-bottom: 10px;
+    border: 1px solid #DDD;
+    vertical-align: middle;
+    display: inline-block;
+    padding: 4px 4px 4px 13px;
+    margin-right: 10px;
+    background: #fcfcfc;
+    margin-bottom: 10px;
 }
-
 .tf-font select {
-	margin-left: 10px;
+    margin-left: 10px;
 }
-
 .tf-font .wp-picker-container {
-	line-height: 28px;
-	height: 28px;
-	margin: 1px;
+    line-height: 28px;
+    height: 28px;
+    margin: 1px;
 }
-
 .tf-font .wp-picker-container > a {
-	margin: 2px 7px 2px 10px;
+    margin: 2px 7px 2px 10px;
 }
-
 .tf-font .wp-picker-container .wp-picker-default {
-	margin: 2px 2px 2px 7px;
+    margin: 2px 2px 2px 7px;
 }
-
 .tf-font iframe {
-	width: 100%;
-	height: 200px;
-	background: #FCFCFC;
-	border: 1px solid #DDD;
+    width: 100%;
+    height: 200px;
+    background: #FCFCFC;
+    border: 1px solid #DDD;
 }
-
 .tf-font div {
-	position: relative;
+    position: relative;
 }
-
 .tf-font i {
-	position: absolute;
-	top: 0;
-	left: 0;
-	line-height: 30px !important;
-	width: 30px;
-	background: #EEE;
-	text-align: center;
-	border: 1px solid #DDD;
-	cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 30px !important;
+    width: 30px;
+    background: #EEE;
+    text-align: center;
+    border: 1px solid #DDD;
+    cursor: pointer;
 }
-
 .tf-font i:hover {
-	background: #333;
-	color: #FFF;
-	border-bottom: 1px solid #333;
-	border-right: 1px solid #333;
+    background: #333;
+    color: #FFF;
+    border-bottom: 1px solid #333;
+    border-right: 1px solid #333;
 }
-
 .tf-font .wp-picker-container {
-	z-index: 9;
-}
-
-.dashicons-visibility-faint:before {
-	opacity: .2;
-}
-
-/* We're using dashicons instead of font-awesome, this fixed the incompatibility */
-[class*=tf-] i.dashicons {
-	height: auto;
-}
-
-
-/*
- * Enable option styles
- */
-
-
-.tf-enable input {
-	width: 0;
-	height: 0;
-	overflow: hidden;
-	float: right;
-	z-index: -9999;
-	position: absolute;
-}
-.tf-enable .button {
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
-}
-.tf-enable .button + .button-primary {
-	background: #6C7A89;
-	border-color: #56606B;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	color: #fff;
-	pointer-events: none;
-}
-.tf-enable .button-primary:first-of-type {
-	pointer-events: none;
-}
-.tf-enable .button:first-of-type {
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-}
-.tf-enable .button-secondary:first-of-type {
-	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
-	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
-}
-.tf-enable .button + .button {
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
-	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
+    z-index: 9;
 }
