@@ -27,6 +27,7 @@ class TitanFrameworkOption {
 		'default' => '', // Menu icon for top level menus only
 		'example' => '', // An example value for this field, will be displayed in a <code>
 		'livepreview' => '', // jQuery script to update something in the site. For theme customizer only
+        'dependency' =>array('id'=>'','value'=>'')
 	);
 
 	public $defaultSecondarySettings = array();

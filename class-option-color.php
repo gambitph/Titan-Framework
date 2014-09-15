@@ -20,7 +20,7 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 		$this->echoOptionHeader();
 
 		?>
-		<input class="tf-colorpicker" type="text" name="<?php echo $this->getID() ?>" id="<?php echo $this->getID() ?>" value="<?php echo $this->getValue() ?>"  data-default-color="<?php echo $this->getValue() ?>"/>
+		<input  class="tf-colorpicker" type="text" name="<?php echo $this->getID() ?>" id="<?php echo $this->getID() ?>" value="<?php echo $this->getValue() ?>"  data-default-color="<?php echo $this->getValue() ?>" data-did="<?php echo $this->settings['dependency']['id']; ?>" data-dvalue="<?php echo $this->settings['dependency']['value']; ?>" />
 		<?php
 
 		// load the javascript to init the colorpicker

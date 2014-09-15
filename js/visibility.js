@@ -1,7 +1,7 @@
 ;
 (function ($) {
     $(document).ready(function () {
-        $(".tf-text input, .tf-select select").each(function () {
+        $(".tf-text input, .tf-select select, .tf-color input.tf-colorpicker").each(function () {
             var that = this;
             var did = ($(this).data("did")); //dependency id
             var dv = ($(this).data("dvalue")); //dependency value
@@ -14,31 +14,31 @@
                 if ($(id).prop("tagName") == "INPUT") {
                     $(id).on("blur", function () {
                         if ($(this).val() != dv) {
-                            $(that).parent().parent().hide();
+                            $(that).parents(".odd, .even").hide();
                         } else {
-                            $(that).parent().parent().show();
+                            $(that).parents(".odd, .even").show();
                         }
                     });
                     $(id).on("keyup", function () {
                         if ($(this).val() != dv) {
-                            $(that).parent().parent().hide();
+                            $(that).parents(".odd, .even").hide();
                         } else {
-                            $(that).parent().parent().show();
+                            $(that).parents(".odd, .even").show();
                         }
                     });
                 } else if ($(id).prop("tagName") == "SELECT") {
                     $(id).on("change", function () {
 //                        console.log($(this).val());
                         if ($(this).val() != dv) {
-                            $(that).parent().parent().hide();
+                            $(that).parents(".odd, .even").hide();
                         } else {
-                            $(that).parent().parent().show();
+                            $(that).parents(".odd, .even").show();
                         }
                     });
                 }
 
                 if ($(id).val() != dv) {
-                    $(that).parent().parent().hide();
+                    $(that).parents(".odd, .even").hide();
                 }
             }
         });
