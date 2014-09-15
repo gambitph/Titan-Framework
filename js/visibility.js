@@ -44,20 +44,23 @@
         });
 
         //metabox display depenedency on post format
-        function resetmetaBox(){
-            $(".postbox table.tf-form-table").each(function(){
+        function resetmetaBox() {
+            $(".postbox table.tf-form-table").each(function () {
                 var dependency = $(this).data("post-format");
                 var selected_post_type = $("#post-formats-select input:checked").attr("id");
-                if(selected_post_type=="post-format-0") selected_post_type = "post-format-standard";
-                if(dependency.indexOf(selected_post_type.replace("post-format-",""))==-1){
-                    $(this).parent().parent().hide();
-                }else{
-                    $(this).parent().parent().show();
+                if (selected_post_type) {
+                    if (selected_post_type == "post-format-0") selected_post_type = "post-format-standard";
+                    if (dependency.indexOf(selected_post_type.replace("post-format-", "")) == -1) {
+                        $(this).parent().parent().hide();
+                    } else {
+                        $(this).parent().parent().show();
+                    }
                 }
 
             });
         }
-        $("#post-formats-select input").on("change",resetmetaBox);
+
+        $("#post-formats-select input").on("change", resetmetaBox);
         resetmetaBox();
     });
 })(jQuery);
