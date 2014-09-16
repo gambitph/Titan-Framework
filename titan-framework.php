@@ -44,7 +44,6 @@ require_once( TF_PATH . 'class-option-radio-image.php' );
 require_once( TF_PATH . 'class-option-radio-palette.php' );
 require_once( TF_PATH . 'class-option-save.php' );
 require_once( TF_PATH . 'class-option-select-categories.php' );
-require_once( TF_PATH . 'class-option-select-googlefont.php' );
 require_once( TF_PATH . 'class-option-select-pages.php' );
 require_once( TF_PATH . 'class-option-select-posts.php' );
 require_once( TF_PATH . 'class-option-select.php' );
