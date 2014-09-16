@@ -1,5 +1,5 @@
 (function ($) {
-    var file_frame;
+    //var file_frame;
 
     $(document).ready(function () {
         var query = wp.media.query();
@@ -12,11 +12,13 @@
 
         $(".galgal").each(function () {
             var container = $(this).siblings("ul");
-            var selected_ids = $(this).prev("input").val().split(",");
-            if (selected_ids.length > 0) {
+            var selected_ids = $(this).prev("input").val();
+            if (selected_ids && selected_ids.length > 0) {
                 $(this).val("Customize This Gallery");
                 $(this).css("marginTop", "10px");
             }
+
+            selected_ids = selected_ids.split(",");
             for (i = 0; i < selected_ids.length; i++) {
                 if (selected_ids[i] > 0) {
                     var attachment = new wp.media.model.Attachment.get(selected_ids[i]);
@@ -34,15 +36,19 @@
 
             var that = this;
 
+            var multiple = $(this).data("multiple");
+            if(multiple == undefined) multiple = true;
+
+
             if (file_frame) {
                 file_frame.open();
                 return;
             }
 
-            file_frame = wp.media.frames.file_frame = wp.media({
+            var file_frame = wp.media.frames.file_frame = wp.media({
                 frame: 'post',
                 state: 'insert',
-                multiple: true
+                multiple: multiple
             });
 
             file_frame.on('insert', function () {
@@ -54,7 +60,10 @@
 
                 if (selected_ids.length > 0) {
                     $(that).css("marginTop", "10px");
-                    $(that).val("Customize This Gallery");
+                    if(multiple)
+                        $(that).val("Customize This Gallery");
+                    else
+                        $(that).val("Change Image");
                 }
                 $(that).prev('input').val(selected_ids.join(","));
                 container.html("");
@@ -71,7 +80,7 @@
 
             file_frame.on('open', function () {
                 var selection = file_frame.state().get('selection');
-                var ats = $(that).prev("input").val().split(",");
+                var ats = $(that).prev(".galleryinfo").val().split(",");
 
                 for (i = 0; i < ats.length; i++) {
                     if (ats[i] > 0)
