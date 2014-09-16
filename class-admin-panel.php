@@ -294,9 +294,9 @@ class TitanFrameworkAdminPanel {
 		// Display notification if we did something
 		if ( ! empty( $_GET['message'] ) ) {
 			if ( $_GET['message'] == 'saved' ) {
-				echo TitanFrameworkAdminNotification::formNotification( __( 'Settings saved.', TF_I18NDOMAIN ), $_GET['message'] );
+				echo TitanFrameworkAdminNotification::formNotification( __( 'Settings saved.', TF_I18NDOMAIN ), esc_html( $_GET['message'] ) );
 			} else if ( $_GET['message'] == 'reset' ) {
-				echo TitanFrameworkAdminNotification::formNotification( __( 'Settings reset to default.', TF_I18NDOMAIN ), $_GET['message'] );
+				echo TitanFrameworkAdminNotification::formNotification( __( 'Settings reset to default.', TF_I18NDOMAIN ), esc_html( $_GET['message'] ) );
 			}
 		}
 

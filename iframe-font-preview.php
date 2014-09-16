@@ -7,6 +7,11 @@ if ( empty( $_GET ) ) {
 	return;
 }
 
+// Sanitize the inputs
+foreach ( $_GET as $key => $value ) {
+	$_GET[ $key ] = htmlspecialchars( $value );
+}
+
 // @see	http://bavotasan.com/2011/convert-hex-color-to-rgb-using-php/
 function hex2rgb($hex) {
    $hex = str_replace("#", "", $hex);
