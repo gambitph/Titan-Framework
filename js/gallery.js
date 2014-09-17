@@ -17,7 +17,7 @@
                 $(this).val("Customize This Gallery");
                 $(this).css("marginTop", "10px");
             }
-
+            container.html("");
             selected_ids = selected_ids.split(",");
             for (i = 0; i < selected_ids.length; i++) {
                 if (selected_ids[i] > 0) {
@@ -81,7 +81,6 @@
             file_frame.on('open', function () {
                 var selection = file_frame.state().get('selection');
                 var ats = $(that).prev(".galleryinfo").val().split(",");
-
                 for (i = 0; i < ats.length; i++) {
                     if (ats[i] > 0)
                         selection.add(wp.media.attachment(ats[i]));
