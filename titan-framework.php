@@ -58,7 +58,7 @@ require_once( TF_PATH . 'class-titan-framework.php' );
 require_once( TF_PATH . 'class-titan-tracking.php' );
 require_once( TF_PATH . 'class-wp-customize-control.php' );
 require_once( TF_PATH . 'functions-googlefonts.php' );
-require_once( TF_PATH . 'class-option-repeatabletext.php');
+require_once( TF_PATH . 'class-option-multitext.php');
 require_once( TF_PATH . 'functions-utils.php' );
 
 

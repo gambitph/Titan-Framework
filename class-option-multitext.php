@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class TitanFrameworkOptionRepeatableText extends TitanFrameworkOption {
+class TitanFrameworkOptionMultitext extends TitanFrameworkOption {
 
     function __construct($settings, $owner){
         parent::__construct($settings,$owner);
@@ -14,7 +14,7 @@ class TitanFrameworkOptionRepeatableText extends TitanFrameworkOption {
     public function display() {
         if(!isset($this->settings['dependency'])) $this->settings['dependency']=array("id"=>"","value"=>"");
         $this->echoOptionHeader();
-        echo "<input name='".$this->getID()."' type='hidden' class='repeaterjson' id='{$this->getID()}' value='".$this->getValue()."' >";
+        echo "<input name='".$this->getID()."' type='hidden' class='repeaterjson' id='{$this->getID()}' value='".join("|||",$this->getValue())."' >";
         echo "<div class='repeaterplaceholder'></div>";
         echo "<div class='repeater' style='margin-top:10px;'><input type='button' class='repeaterbtn button button-primary' value='Add More'/> </div>";
         $this->echoOptionFooter();
