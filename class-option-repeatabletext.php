@@ -24,4 +24,15 @@ class TitanFrameworkOptionRepeatableText extends TitanFrameworkOption {
         wp_enqueue_script("tf-repeatable",get_template_directory_uri()."/libs/titan-framework/js/repeatable.js","jquery","1.0",true);
     }
 
+    function cleanValueForGetting($value){
+
+        if( !is_array($value)){
+            $parts = explode("|||",$value);
+            return $parts;
+        }else{
+            return $value;
+        }
+
+    }
+
 }
