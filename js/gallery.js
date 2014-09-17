@@ -23,7 +23,7 @@
                 if (selected_ids[i] > 0) {
                     var attachment = new wp.media.model.Attachment.get(selected_ids[i]);
                     attachment.fetch({success: function (att) {
-                        container.append("<li><img src='" + att.attributes.sizes.thumbnail.url + "'</li>");
+                        container.append("<li><img src='" + att.attributes.sizes.thumbnail.url + "'/></li>");
                     }});
                 }
             }
@@ -71,7 +71,7 @@
                 data.map(function (attachment) {
                     if (attachment.attributes.subtype == "png" || attachment.attributes.subtype == "jpeg" || attachment.attributes.subtype == "jpg") {
                         try {
-                            container.append("<li><img src='" + attachment.attributes.sizes.thumbnail.url + "'</li>");
+                            container.append("<li><img src='" + attachment.attributes.sizes.thumbnail.url + "'/></li>");
                         } catch (e) {
                         }
                     }
