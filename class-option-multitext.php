@@ -12,9 +12,19 @@ class TitanFrameworkOptionMultitext extends TitanFrameworkOption {
      * Display for options and meta
      */
     public function display() {
+        $value = $this->getValue();
+        if(empty($value))
+            $value = $this->settings['default'];
+
+        if(is_array($value))
+            $value=join("|||",$value);
+
+        echo $value;
+
+
         if(!isset($this->settings['dependency'])) $this->settings['dependency']=array("id"=>"","value"=>"");
         $this->echoOptionHeader();
-        echo "<input name='".$this->getID()."' type='hidden' class='repeaterjson' id='{$this->getID()}' value='".join("|||",$this->getValue())."' >";
+        echo "<input name='".$this->getID()."' type='hidden' class='repeaterjson' id='{$this->getID()}' value='".$value."' >";
         echo "<div class='repeaterplaceholder'></div>";
         echo "<div class='repeater' style='margin-top:10px;'><input type='button' class='repeaterbtn button button-primary' value='Add More'/> </div>";
         $this->echoOptionFooter();

@@ -11,6 +11,7 @@
             }else{
                 parts = [""];
             }
+            var i=0;
             for (i in parts) {
                 $("<input>").attr("type", "text").addClass("repeatable").val(parts[i]).appendTo($(container));
                 $("<input>").attr("type", "button").addClass("button removert").val("Remove").appendTo($(container));
