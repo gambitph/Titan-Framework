@@ -19,7 +19,6 @@ class TitanFrameworkOptionMultitext extends TitanFrameworkOption {
         if(is_array($value))
             $value=join("|||",$value);
 
-        echo $value;
 
 
         if(!isset($this->settings['dependency'])) $this->settings['dependency']=array("id"=>"","value"=>"");
