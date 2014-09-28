@@ -16,7 +16,7 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
         if(!isset($this->settings['dependency'])) $this->settings['dependency']=array("id"=>"","value"=>"");
         $this->echoOptionHeader();
         echo "<ul class='gallery-ph'></ul>";
-        echo "<input class='galleryinfo' name='".$this->getID()."'  type='hidden' value='".$this->getValue()."'/>";
+        echo "<input class='galleryinfo' data-did='{$this->settings['dependency']['id']}' data-dvalue='{$this->settings['dependency']['value']}'  name='".$this->getID()."'  type='hidden' value='".$this->getValue()."'/>";
         echo "<input type='button' value='Add Images To Gallery' class='galgal button button-primary button-large'>";
         $this->echoOptionFooter();
     }
