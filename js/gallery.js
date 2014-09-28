@@ -16,6 +16,7 @@
                 var valcontainer = $(this).siblings(".galleryinfo");
                 container.html("");
                 valcontainer.val("");
+                $(this).hide();
             });
         });
 
