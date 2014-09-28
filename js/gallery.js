@@ -10,8 +10,8 @@
             }));
         };
 
-        $(".galgalremove").each(function(){
-            $(this).on("click",function(){
+        $(".galgalremove").each(function () {
+            $(this).on("click", function () {
                 var container = $(this).siblings("ul");
                 var valcontainer = $(this).siblings(".galleryinfo");
                 container.html("");
@@ -21,10 +21,27 @@
         });
 
         $(".galgal").each(function () {
+            var that = this;
             var container = $(this).siblings("ul");
+            $(container).sortable({
+                    items: "> li",
+                    cursor: "move",
+                    refreshPositions: true,
+                    opacity: 0.6,
+                    scroll: true,
+                    placeholder: 'placeholder',
+                    dropOnEmpty: true,
+
+                    tolerance: 'intersect',
+                    update: function () {
+                        var _items = $(container).sortable("toArray");
+                        $(that).prev("input").val(_items.join(","));
+                    }
+                }
+            ).disableSelection();
             var selected_ids = $(this).prev("input").val();
             if (selected_ids && selected_ids.length > 0) {
-                if($(this).data("multiple"))
+                if ($(this).data("multiple"))
                     $(this).val("Customize This Gallery");
                 else
                     $(this).val("Change Image");
@@ -33,7 +50,7 @@
                 $(this).css("marginTop", "10px");
                 $(this).next().css("marginTop", "10px");
 
-            }else{
+            } else {
                 $(this).next().hide();
             }
             container.html("");
@@ -41,14 +58,17 @@
             for (i = 0; i < selected_ids.length; i++) {
                 if (selected_ids[i] > 0) {
                     var attachment = new wp.media.model.Attachment.get(selected_ids[i]);
-                    attachment.fetch({success: function (att) {
-                        container.append("<li><img src='" + att.attributes.sizes.thumbnail.url + "'/></li>");
-                    }});
+                    attachment.fetch({
+                        success: function (att) {
+                            var _id = att.get("id");
+                            container.append("<li id='"+_id+"'><img src='" + att.attributes.sizes.thumbnail.url + "'/></li>");
+                        }
+                    });
                 }
             }
 
         });
-    })
+    });
 
     $(".galgal").each(function () {
         $(this).on("click", function () {
@@ -56,7 +76,7 @@
             var that = this;
 
             var multiple = $(this).data("multiple");
-            if(multiple == undefined) multiple = true;
+            if (multiple == undefined) multiple = true;
 
 
             if (file_frame) {
@@ -81,7 +101,7 @@
                     $(that).css("marginTop", "10px");
                     $(that).next().css("marginTop", "10px");
                     $(that).next().show();
-                    if(multiple)
+                    if (multiple)
                         $(that).val("Customize This Gallery");
                     else
                         $(that).val("Change Image");
@@ -90,15 +110,17 @@
                 container.html("");
 
                 data.map(function (attachment) {
-                    if (_.contains(['png','jpg','gif','jpeg'],attachment.get('subtype'))) {
+                    if (_.contains(['png', 'jpg', 'gif', 'jpeg'], attachment.get('subtype'))) {
                         try {
-                            container.append("<li><img src='" + attachment.attributes.sizes.thumbnail.url + "'/></li>");
+                            var _id = attachment.get("id");
+                            container.append("<li id='"+_id+"'><img src='" + attachment.attributes.sizes.thumbnail.url + "'/></li>");
                         } catch (e) {
                             console.log(e);
                         }
                     }
                 });
             });
+
 
             file_frame.on('open', function () {
                 var selection = file_frame.state().get('selection');
@@ -111,6 +133,6 @@
 
             file_frame.open();
 
-        })
-    })
+        });
+    });
 })(jQuery);
