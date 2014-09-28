@@ -84,7 +84,7 @@ class TitanFrameworkMetaBox {
 		}
 
 		?>
-		<table class="form-table tf-form-table " data-post-format="<?php echo join(",",$this->settings['post_format']);?>">
+		<table class="form-table tf-form-table " data-post-format="<?php echo join(",",$this->settings['post_format']);?>" data-page-template="<?php echo join(",",$this->settings['page_template']);?>">
 		<tbody>
 		<?php
 		foreach ( $this->options as $option ) {
