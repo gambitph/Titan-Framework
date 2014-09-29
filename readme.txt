@@ -3,8 +3,8 @@ Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
 Requires at least: 3.8
-Tested up to: 3.9.1
-Stable tag: 1.5.2
+Tested up to: 4.0
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,7 @@ Want to see what Titan Framework can do? [Check out our live demo, no need to in
 * Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
 * Editor (WYSIWYG)
+* Enable
 * Font Style (Web safe fonts and Google WebFonts)
 * Heading
 * Media uploader
