@@ -52,6 +52,7 @@ Want to see what Titan Framework can do? [Check out our live demo, no need to in
 * Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
 * Editor (WYSIWYG)
+* Enable
 * Font Style (Web safe fonts and Google WebFonts)
 * Heading
 * Media uploader
