@@ -16,8 +16,21 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Supports child themes
 * Automatic CSS generation with SCSS support
 
-#### Extensions
-* [Shortcode Extension - Easy creation of shortcodes with TinyMCE and Visual Composer auto-integration](http://codecanyon.net/item/titan-framework-shortcode-extension/7009811?ref=bfintal)
+## Recent Changelog
+
+#### Version 1.6.1
+* Added missing files in the SVN
+
+#### Version 1.6
+* New embed method (check the getting started section)
+* New tf_create_options hook for creating options
+* New number unit parameter
+* Removed font awesome, now uses dashicons
+* Added desc params to panels, tabs and meta boxes
+* Added size attribute for the upload option
+* Deleted Uncommon Ace Extensions
+* Improve load script to meta boxes
+* Lots of bug fixes
 
 ## Try it Out First
 
