@@ -15,9 +15,10 @@ ul.gallery-ph li{
 }
 
 ul.gallery-ph li img{
-    width:150px;
-    height:150px;
+    /*width:150px;*/
+    /*height:150px;*/
     display: block;
+    cursor: move;
 }
 
 .placeholder {

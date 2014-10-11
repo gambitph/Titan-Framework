@@ -1,7 +1,7 @@
 ;
 (function ($) {
     $(document).ready(function () {
-        $(".tf-text input, .tf-select select, .tf-color input.tf-colorpicker, .tf-checkbox input, .tf-radio fieldset, .tf-image .galleryinfo").each(function () {
+        $(".tf-text input, .tf-select select, .tf-color input.tf-colorpicker, .tf-checkbox input, .tf-radio fieldset, .tf-image .galleryinfo, .tf-radio-palette .dep").each(function () {
             var that = this;
             var did = ($(this).data("did")); //dependency id
             var dv = ($(this).data("dvalue")); //dependency value

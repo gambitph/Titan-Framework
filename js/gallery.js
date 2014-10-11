@@ -2,13 +2,7 @@
     //var file_frame;
 
     $(document).ready(function () {
-        var query = wp.media.query();
-
-        query.filterWithIds = function (ids) {
-            return _(this.models.filter(function (c) {
-                return _.contains(ids, c.id);
-            }));
-        };
+        
 
         $(".galgalremove").each(function () {
             $(this).on("click", function () {
@@ -61,7 +55,12 @@
                     attachment.fetch({
                         success: function (att) {
                             var _id = att.get("id");
-                            container.append("<li id='"+_id+"'><img src='" + att.attributes.sizes.thumbnail.url + "'/></li>");
+                            try {
+                                container.append("<li id='" + _id + "'><img src='" + att.attributes.sizes.thumbnail.url + "'/></li>");
+                            } catch (e){
+                                container.append("<li id='" + _id + "'><img src='" + att.attributes.sizes.full.url + "'/></li>");
+
+                            }
                         }
                     });
                 }
@@ -115,7 +114,7 @@
                             var _id = attachment.get("id");
                             container.append("<li id='"+_id+"'><img src='" + attachment.attributes.sizes.thumbnail.url + "'/></li>");
                         } catch (e) {
-                            console.log(e);
+                            container.append("<li id='"+_id+"'><img src='" + attachment.attributes.sizes.full.url + "'/></li>");
                         }
                     }
                 });
