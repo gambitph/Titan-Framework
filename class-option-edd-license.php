@@ -64,7 +64,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 					$status = get_transient( "tf_edd_license_status_$key" );
 				}
 
-				/* If no transien is found or it is expired to check the license again. */
+				/* If no transient is found or it is expired to check the license again. */
 				if ( false === $status ) {
 					$status = $this->check( $license );
 				}
