@@ -4,7 +4,8 @@
  *
  * This class is meant to handle Easy Digital Downloads licenses.
  * When a license is entered, it's checked with the server through
- * the EDD API and the result is saved as a transient.
+ * the EDD API. If the license is valid it is actiavted and
+ * the actionvation result is saved as a transient.
  *
  * As the licensed can be deactivated directly from the server,
  * a regular check needs to be done on the license in order to make sure
