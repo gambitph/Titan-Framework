@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 1.6
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,7 @@ Want to see what Titan Framework can do? [Check out our live demo, no need to in
 * Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
 * Editor (WYSIWYG)
+* Enable
 * Font Style (Web safe fonts and Google WebFonts)
 * Heading
 * Media uploader
@@ -211,6 +212,20 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.6.1 =
+* Added missing files in the SVN
+
+= 1.6 =
+* New embed method (check the getting started section)
+* New tf_create_options hook for creating options
+* New number unit parameter
+* Removed font awesome, now uses dashicons
+* Added desc params to panels, tabs and meta boxes
+* Added size attribute for the upload option
+* Deleted Uncommon Ace Extensions
+* Improve load script to meta boxes
+* Lots of bug fixes
 
 = 1.5 =
 * Added German, Portuguese, Turkish and updated Italian translations
