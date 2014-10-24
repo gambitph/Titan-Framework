@@ -6,7 +6,9 @@
     "authors": [
         {
             "name": "Gambit Technologies",
-            "email" : "info@gambit.ph"
+            "email" : "info@gambit.ph",
+            "homepage" : "http://www.titanframework.net/",
+            "role" : "Developer"
         }
     ],
     "type": "library",
