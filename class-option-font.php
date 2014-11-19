@@ -963,7 +963,7 @@ function registerTitanFrameworkOptionFontControl() {
 
 
 			$visibilityAttrs = '';
-			if ( ! $this->params['show_font_size'] ) {
+			if ( ! $this->params['show_color'] ) {
 				$visibilityAttrs = "data-visible='false' style='display: none'";
 			}
 			?>
@@ -971,7 +971,15 @@ function registerTitanFrameworkOptionFontControl() {
 				Color
 				<input class='tf-font-sel-color' type="text" value="<?php echo esc_attr( $value['color'] ) ?>"  data-default-color="<?php echo esc_attr( $value['color'] ) ?>"/>
 			</label>
-			<label>
+            <?php
+
+
+			$visibilityAttrs = '';
+			if ( ! $this->params['show_font_size'] ) {
+				$visibilityAttrs = "data-visible='false' style='display: none'";
+			}
+			?>
+			<label <?php echo $visibilityAttrs ?>>
 				Font Size
 				<select class='tf-font-sel-size'>
 					<?php
