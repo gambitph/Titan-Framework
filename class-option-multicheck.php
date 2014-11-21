@@ -38,6 +38,9 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 	}
 
 	public function cleanValueForSaving( $value ) {
+		if ( empty( $value ) ) {
+			return array();
+		}
 		if ( is_serialized( $value ) ) {
 			return $value;
 		}
