@@ -152,5 +152,77 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 		);
 		$this->echoOptionFooter(false);
 	}
+
+
+	/**
+	 * Registers the theme customizer control, for displaying the option
+	 *
+	 * @param	WP_Customize $wp_enqueue_script The customize object
+	 * @param	TitanFrameworkCustomizerSection $section The section where this option will be placed
+	 * @param	int $priority The order of this control in the section
+	 * @return	void
+	 * @since	1.7
+	 */
+	public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
+		$wp_customize->add_control( new TitanFrameworkOptionDateControl( $wp_customize, $this->getID(), array(
+			'label' => $this->settings['name'],
+			'section' => $section->settings['id'],
+			'settings' => $this->getID(),
+			'description' => $this->settings['desc'],
+			'priority' => $priority,
+			'dateonly' => $this->settings['dateonly'],
+			'timeonly' => $this->settings['timeonly'],
+		) ) );
+	}
 }
 
+
+/*
+ * We create a new control for the theme customizer
+ */
+add_action( 'customize_register', 'registerTitanFrameworkOptionDateControl', 1 );
+
+
+/**
+ * Creates the option for the theme customizer
+ *
+ * @return	void
+ * @since	1.3
+ */
+function registerTitanFrameworkOptionDateControl() {
+	class TitanFrameworkOptionDateControl extends WP_Customize_Control {
+		public $description;
+		public $dateonly;
+		public $timeonly;
+
+		public function render_content() {
+
+			TitanFrameworkOptionDate::createCalendarScript();
+
+			$dateFormat = 'Y-m-d H:i';
+			$placeholder = 'YYYY-MM-DD HH:MM';
+			if ( $this->dateonly ) {
+				$dateFormat = 'Y-m-d';
+				$placeholder = 'YYYY-MM-DD';
+			} else if ( $this->timeonly ) {
+				$dateFormat = 'H:i';
+				$placeholder = 'HH:MM';
+			}
+
+			$class = $this->dateonly ? ' dateonly' : '';
+			$class .= $this->timeonly ? ' timeonly' : ''
+			?>
+			<label class='tf-date'>
+				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+				<input class="input-date<?php echo $class ?>" <?php $this->link(); ?> placeholder="<?php echo $placeholder ?>" type="text" value="<?php echo $this->value() ?>" />
+
+				<?php
+				if ( ! empty( $this->description ) ) {
+					echo "<p class='description'>{$this->description}</p>";
+				}
+				?>
+			</label>
+			<?php
+		}
+	}
+}

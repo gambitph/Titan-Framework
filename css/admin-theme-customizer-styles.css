@@ -3,6 +3,7 @@
  */
 
 @import "class-option-font.css";
+@import "class-option-date.css";
 
 .tf-googlefont-area label {
 	display: block;
@@ -247,4 +248,7 @@
 	border-bottom-left-radius: 0;
 	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
 	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
+}
+.tf-date-datepicker.ui-widget-content {
+	left: 270px !important;
 }

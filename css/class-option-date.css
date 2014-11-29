@@ -15,13 +15,14 @@
 	background: rgb(241, 241, 241);
 	color: #000;
 	width: 17em;
+	z-index: 500001 !important;
 }
 .tf-date-datepicker .ui-datepicker-header {
 	position: relative;
 	padding: .2em 0;
 	background-color: #e4e4e4;
 }
-.tf-date-datepicker .ui-datepicker-prev, 
+.tf-date-datepicker .ui-datepicker-prev,
 .tf-date-datepicker .ui-datepicker-next {
 	position: absolute;
 	top: 2px;
