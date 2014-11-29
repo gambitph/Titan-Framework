@@ -3,6 +3,7 @@
  */
 
 @import "class-option-font.css";
+@import "class-option-date.css";
 
 /* note option padding issue */
 .tf-note .updated p {
