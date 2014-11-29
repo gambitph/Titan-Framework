@@ -16,28 +16,66 @@
 	color: #000;
 	width: 17em;
 	z-index: 500001 !important;
+	padding: 10px;
 }
 .tf-date-datepicker .ui-datepicker-header {
 	position: relative;
 	padding: .2em 0;
 	background-color: #e4e4e4;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-top: -10px;
+	padding: 10px;
 }
 .tf-date-datepicker .ui-datepicker-prev,
 .tf-date-datepicker .ui-datepicker-next {
 	position: absolute;
-	top: 2px;
-	/*width: 1.8em;*/
-	/*height: 1.8em;*/
 	line-height: 1.8em;
-	cursor:pointer;
-	padding:0 0.2em;
-	border:0px solid transparent;
+	cursor: pointer;
+	padding: 0 0.2em;
+	border: 0px solid transparent;
+	top: 10px;
+}
+.tf-date-datepicker .ui-datepicker-prev span,
+.tf-date-datepicker .ui-datepicker-next span {
+	display: none;
+}
+.tf-date-datepicker .ui-datepicker-prev:before,
+.tf-date-datepicker .ui-datepicker-next:before {
+	content: "\f341";
+	position: absolute;
+	top: 0;
+	z-index: 99999999;
+	color: #555;
+	bottom: 0;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	line-height: 1;
+	font-family: dashicons;
+	text-decoration: inherit;
+	font-weight: 400;
+	font-style: normal;
+	vertical-align: top;
+	text-align: center;
+	-webkit-transition: color .1s ease-in 0;
+	transition: color .1s ease-in 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.tf-date-datepicker .ui-datepicker-prev:hover:before,
+.tf-date-datepicker .ui-datepicker-next:hover:before {
+	color: #000;
+}
+.tf-date-datepicker .ui-datepicker-next:before {
+	content: "\f345";
 }
 .tf-date-datepicker .ui-datepicker-prev {
-	left: 2px;
+	left: 10px;
 }
 .tf-date-datepicker .ui-datepicker-next {
-	right: 2px;
+	right: 30px;
 }
 .tf-date-datepicker .ui-datepicker-title {
 	margin: 0 3.3em;
@@ -139,6 +177,9 @@
 }
 .tf-date-datepicker .ui-datepicker-buttonpane {
 	border-top:1px solid rgb(204, 204, 204);
+	margin-left: -10px;
+	margin-right: -10px;
+	padding: 10px 10px 0;
 }
 .tf-date-datepicker .ui-datepicker-buttonpane .ui-priority-primary {
 	float:right;

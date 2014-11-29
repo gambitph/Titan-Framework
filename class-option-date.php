@@ -18,7 +18,6 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 
 	// Default settings specific to this option
 	public $defaultSecondarySettings = array(
-		'default' => 0,
 		'dateonly' => false,
 		'timeonly' => false
 	);
@@ -104,8 +103,25 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 
 			var datepickerSettings = {
 					dateFormat: 'yy-mm-dd',
+
 					beforeShow: function(input, inst) {
 						$('#ui-datepicker-div').addClass('tf-date-datepicker');
+
+						// Fix the button styles
+						setTimeout( function() {
+							jQuery('#ui-datepicker-div')
+							.find('[type=button]').addClass('button').end()
+							.find('.ui-datepicker-close[type=button]').addClass('button-primary');
+						}, 0);
+					},
+
+					// Fix the button styles
+					onChangeMonthYear: function() {
+						setTimeout( function() {
+							jQuery('#ui-datepicker-div')
+							.find('[type=button]').addClass('button').end()
+							.find('.ui-datepicker-close[type=button]').addClass('button-primary');
+						}, 0);
 					}
 				};
 			$('.tf-date input[type=text]').each(function() {
