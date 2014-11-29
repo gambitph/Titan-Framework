@@ -54,7 +54,6 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 			/* If the license is set, we display its status and check it if necessary. */
 			if ( strlen( $license ) > 0 ) {
-
 				/* First activation of the license. */
 				if ( false === get_transient( "tf_edd_license_try_$key" ) ) {
 					$status = $this->check( $license, 'activate_license' );
@@ -118,7 +117,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		 * stored as a transient, and if an activation was made, an activation
 		 * transient is also set in order to avoid activating when
 		 * checking only is required.
-		 * 
+		 *
 		 * @param  string $license License key
 		 * @param  string $action  Action to take (check_license or activate_license)
 		 * @return string          Current license status
@@ -135,11 +134,11 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			/* Set the transients lifetime. */
 			$status_lifetime     = apply_filters( 'tf_edd_license_status_lifetime', 48*60*60 );         // Default is set to two days
 			$activation_lifetime = apply_filters( 'tf_edd_license_activation_lifetime', 365*24*60*60 ); // Default is set to one year
-			
+
 			/* Prepare the data to send with the API request. */
-			$api_params = array( 
-				'edd_action' => $action, 
-				'license'    => $license, 
+			$api_params = array(
+				'edd_action' => $action,
+				'license'    => $license,
 				'item_name'  => urlencode( $this->settings['item_name'] ),
 				'url'        => home_url()
 			);
@@ -154,6 +153,11 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 			/* Decode license data. */
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+			// FIXME @julien731: what if $license_data is a non-object (error), what should the return be?
+			if ( empty( $license_data ) ) {
+				return false;
+			}
 
 			/* License ID */
 			$key = substr( md5( $license ), 0, 10 );
