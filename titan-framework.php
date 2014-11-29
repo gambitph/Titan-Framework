@@ -30,6 +30,7 @@ require_once( TF_PATH . 'class-option-checkbox.php' );
 require_once( TF_PATH . 'class-option-code.php' );
 require_once( TF_PATH . 'class-option-color.php' );
 require_once( TF_PATH . 'class-option-edd-license.php' );
+require_once( TF_PATH . 'class-option-date.php' );
 require_once( TF_PATH . 'class-option-enable.php' );
 require_once( TF_PATH . 'class-option-editor.php' );
 require_once( TF_PATH . 'class-option-font.php' );
