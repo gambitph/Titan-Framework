@@ -1,3 +1,11 @@
+
+/*
+ * TODO: separate styles into multiple imports
+ */
+
+@import "class-option-font.css";
+@import "class-option-date.css";
+
 /* Styles for the preview image option */
 .tf-image-preview img {
     max-width: 100%;
