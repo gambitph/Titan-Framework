@@ -185,6 +185,7 @@ class TitanFramework {
 
 	public function saveOptions() {
 		update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[$this->optionNamespace] ) );
+		do_action( 'tf_save_options_' . $this->optionNamespace );
 		return $this->allOptions[$this->optionNamespace];
 	}
 
