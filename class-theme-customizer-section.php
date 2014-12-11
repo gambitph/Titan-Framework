@@ -97,12 +97,16 @@ class TitanFrameworkThemeCustomizerSection {
 	public function register( $wp_customize ) {
 		add_action( 'wp_head', array( $this, 'printPreviewCSS' ), 1000 );
 
-		$wp_customize->add_section( $this->settings['id'], array(
-			'title' => $this->settings['name'],
-			'priority' => $this->settings['position'],
-			'description' => $this->settings['desc'],
-			'capability' => $this->settings['capability'],
-		) );
+		$existingSections = $wp_customize->sections();
+
+		if ( ! array_key_exists( $this->settings['id'], $existingSections ) ) {
+			$wp_customize->add_section( $this->settings['id'], array(
+				'title' => $this->settings['name'],
+				'priority' => $this->settings['position'],
+				'description' => $this->settings['desc'],
+				'capability' => $this->settings['capability'],
+			) );
+		}
 
 		// Unfortunately we have to call each option's register from here
 		foreach ( $this->options as $index => $option ) {
@@ -115,7 +119,7 @@ class TitanFrameworkThemeCustomizerSection {
 
 			// We add the index here, this will be used to order the controls because of this minor bug:
 			// https://core.trac.wordpress.org/ticket/20733
-			$option->registerCustomizerControl( $wp_customize, $this, $index + 1 );
+			$option->registerCustomizerControl( $wp_customize, $this, $index + 100 );
 		}
 
 		add_action( 'wp_footer', array( $this, 'livePreview' ) );
