@@ -54,6 +54,12 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 			/* If the license is set, we display its status and check it if necessary. */
 			if ( strlen( $license ) > 0 ) {
+
+				/* First of all we check if the user requested a manual activation */
+				if ( isset( $_GET['eddactivate'] ) && '1' == $_GET['eddactivate'] ) {
+					$status = $this->check( $license, 'activate_license' );
+				}
+
 				/* First activation of the license. */
 				if ( false === get_transient( "tf_edd_license_try_$key" ) ) {
 					$status = $this->check( $license, 'activate_license' );
@@ -80,7 +86,19 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 					break;
 
 					case 'inactive':
-						?><p class="description"><?php printf( __( 'Your license is valid but inactive. <a href="%s">Click here to activate it</a>.', TF_I18NDOMAIN ), '' ); ?></p><?php
+
+						global $pagenow;
+
+						if ( isset( $_GET ) ) {
+							$get = (array) $_GET;
+						}
+
+						$get['eddactivate'] = true;
+						$url                = esc_url( add_query_arg( $get, admin_url( $pagenow ) ) );
+						?>
+						<a href="<?php echo $url; ?>" class="button-secondary"><?php _e( 'Activate', TF_I18NDOMAIN ); ?></a>
+						<p class="description"><?php _e( 'Your license is valid but inactive. Click the button above to activate it.', TF_I18NDOMAIN ); ?></p><?php
+
 					break;
 
 					case 'no_response':
