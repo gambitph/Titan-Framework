@@ -72,21 +72,25 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				switch( $status ) {
 
 					case 'valid':
-						?><p class="description"><?php _e( 'Your license is valid and active.', 'wpmc' ); ?></p><?php
+						?><p class="description"><?php _e( 'Your license is valid and active.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 					case 'invalid':
-						?><p class="description"><?php _e( 'Your license is invalid.', 'wpmc' ); ?></p><?php
+						?><p class="description"><?php _e( 'Your license is invalid.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 					case 'inactive':
-						?><p class="description"><?php printf( __( 'Your license is valid but inactive. <a href="%s">Click here to activate it</a>.', 'wpmc' ), '' ); ?></p><?php
+						?><p class="description"><?php printf( __( 'Your license is valid but inactive. <a href="%s">Click here to activate it</a>.', TF_I18NDOMAIN ), '' ); ?></p><?php
+					break;
+
+					case 'no_response':
+						?><p class="description"><?php _e( 'The remote server did not return a valid response. You can retry by hitting the &laquo;Save&raquo; button again.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 				}
 
 			} else {
-				?><p class="description"><?php _e( 'Entering your license key is mandatory to get the product updates.', 'wpmc' ); ?></p><?php
+				?><p class="description"><?php _e( 'Entering your license key is mandatory to get the product updates.', TF_I18NDOMAIN ); ?></p><?php
 			}
 
 			$this->echoOptionFooter();
@@ -154,9 +158,9 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			/* Decode license data. */
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-			// FIXME @julien731: what if $license_data is a non-object (error), what should the return be?
-			if ( empty( $license_data ) ) {
-				return false;
+			/* If the remote server didn't return a valid response we just return an error and don't set any transients so that activation will be tried again next time the option is saved */
+			if ( !is_object( $license_data ) || empty( $license_data ) ) {
+				return 'no_response';
 			}
 
 			/* License ID */
