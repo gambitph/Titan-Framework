@@ -18,6 +18,11 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 ## Recent Changelog
 
+#### Version 1.7.1
+* Bug fixes for the Easy Digital Download License option
+* Enhanced date option parameters
+* New parameters for Theme Customizer for creating panels
+
 #### Version 1.7
 * New Easy Digital Download License option (thank you julien731)
 * New date option (thank you ardalann)
