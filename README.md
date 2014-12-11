@@ -18,6 +18,14 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 ## Recent Changelog
 
+#### Version 1.7
+* New Easy Digital Download License option (thank you julien731)
+* New date option (thank you ardalann)
+* Added new action tf_save_options_{namespace} which is called after saving options
+* Fixed display issue with the font option in the theme customizer
+* Fixed bug where empty multicheck returned an array
+* Fix: customizer show_font_size & show_color
+
 #### Version 1.6.1
 * Added missing files in the SVN
 
