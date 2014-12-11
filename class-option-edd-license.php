@@ -159,20 +159,46 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
 			/* If the remote server didn't return a valid response we just return an error and don't set any transients so that activation will be tried again next time the option is saved */
-			if ( !is_object( $license_data ) || empty( $license_data ) ) {
+			if ( !is_object( $license_data ) || empty( $license_data ) || !isset( $license_data->license ) ) {
 				return 'no_response';
 			}
 
 			/* License ID */
 			$key = substr( md5( $license ), 0, 10 );
 
-			/* Set the status transient. */
-			set_transient( "tf_edd_license_status_$key", $license_data->license, $status_lifetime );
-
 			if ( 'activate_license' == $action ) {
 
-				/* Set the activation transient */
-				set_transient( "tf_edd_license_try_$key", true, $activation_lifetime );
+				/**
+				 * If the license is invalid we can set all transients right away.
+				 * The user will need to modify its license anyways so there is no risk
+				 * of preventing further activation attempts.
+				 */
+				if ( 'invalid' === $license_data->license ) {
+					set_transient( "tf_edd_license_status_$key", 'invalid', $status_lifetime );
+					set_transient( "tf_edd_license_try_$key", true, $activation_lifetime );
+					return 'invalid';
+				}
+
+				/**
+				 * Because sometimes EDD returns a "success" status even though the license hasn't been activated,
+				 * we need to check the license status after activating it. Only then we can safely set the
+				 * transients and avoid further activation attempts issues.
+				 *
+				 * @link https://github.com/gambitph/Titan-Framework/issues/203
+				 */
+				$status = $this->check( $license );
+
+				if ( in_array( $status, array( 'valid', 'inactive' ) ) ) {
+					
+					/* We set the "try" transient only as the status will be set by the second instance of this method when we check the license status */
+					set_transient( "tf_edd_license_try_$key", true, $activation_lifetime );
+
+				}
+
+			} else {
+
+				/* Set the status transient. */
+				set_transient( "tf_edd_license_status_$key", $license_data->license, $status_lifetime );
 
 			}
 
