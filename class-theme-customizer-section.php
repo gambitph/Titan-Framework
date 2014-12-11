@@ -8,6 +8,8 @@ class TitanFrameworkThemeCustomizerSection {
 		'name' => '', // Name of the menu item
 		// 'parent' => null, // slug of parent, if blank, then this is a top level menu
 		'id' => '', // Unique ID of the menu item
+		'panel' => '', // The Name of the panel to create
+		'panel_id' => '', // The panel ID to create / add to. If this is blank & `panel` is given, this will be generated
 		'capability' => 'edit_theme_options', // User role
 		// 'icon' => 'dashicons-admin-generic', // Menu icon for top level menus only
 		'desc' => '', // Description
@@ -32,6 +34,10 @@ class TitanFrameworkThemeCustomizerSection {
 
 		if ( empty( $this->settings['id'] ) ) {
 			$this->settings['id'] = str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
+		}
+
+		if ( empty( $this->settings['panel_id'] ) ) {
+			$this->settings['panel_id'] = str_replace( ' ', '-', trim( strtolower( $this->settings['panel'] ) ) );
 		}
 
 		add_action( 'customize_register', array( $this, 'register' ) );
@@ -97,6 +103,20 @@ class TitanFrameworkThemeCustomizerSection {
 	public function register( $wp_customize ) {
 		add_action( 'wp_head', array( $this, 'printPreviewCSS' ), 1000 );
 
+		// Create the panel
+		if ( ! empty( $this->settings['panel_id'] ) ) {
+			$existingPanels = $wp_customize->panels();
+
+			if ( ! array_key_exists( $this->settings['panel_id'], $existingPanels ) ) {
+				$wp_customize->add_panel( $this->settings['panel_id'], array(
+					'title' => $this->settings['panel'],
+					'priority' => $this->settings['position'],
+					'capability' => $this->settings['capability'],
+				) );
+			}
+		}
+
+		// Create the section
 		$existingSections = $wp_customize->sections();
 
 		if ( ! array_key_exists( $this->settings['id'], $existingSections ) ) {
@@ -105,6 +125,7 @@ class TitanFrameworkThemeCustomizerSection {
 				'priority' => $this->settings['position'],
 				'description' => $this->settings['desc'],
 				'capability' => $this->settings['capability'],
+				'panel' => empty( $this->settings['panel_id'] ) ? '' : $this->settings['panel_id'],
 			) );
 		}
 
