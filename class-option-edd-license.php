@@ -41,6 +41,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		function __construct( $settings, $owner ) {
 			parent::__construct( $settings, $owner );
 
+			add_action( 'admin_init',                                      array( $this, 'checkUpdates' ), 10, 0 );
 			add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, "activateLicense" ) );
 		}
 
@@ -270,6 +271,114 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 			/* Return the license status. */
 			return $license_data->license;
+
+		}
+
+		/**
+		 * Check for plugin updates.
+		 *
+		 * This method is called throughout the entire WordPress admin
+		 * and uses the EDD plugin updater class to check for new updates.
+		 *
+		 * @since  1.7.2
+		 * @return [type] [description]
+		 */
+		public function checkUpdates() {
+
+			/* Check if we have all the required parameters. */
+			if ( !isset( $this->settings['server'] ) || !isset( $this->settings['name'] ) || !isset( $this->settings['file'] ) ) {
+				return false;
+			}
+
+			/* Make sure the file actually exists. */
+			if ( !file_exists( $this->settings['file'] ) ) {
+				return false;
+			}
+
+			/* Check what type of item the file is */
+			$item_is = $this->item_is( $this->settings['file'] );
+
+			/* Item name */
+			$item_name = sanitize_text_field( $this->settings['name'] );
+
+			/* Retrieve license key */
+			$license_key = trim( esc_attr( $this->getValue() ) );
+
+			/* Prepare updater arguments */
+			$args = array( 
+				'license' 	=> $license_key, // Item license key
+				'item_name' => $item_name,   // Item name (exactly the same as the item on the remote server)
+			);
+
+			/* Load the plugin updater class and add required parameters. */
+			if( 'plugin' === $item_is ) {
+
+				if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+					include( TF_PATH . 'inc/edd-licensing/EDD_SL_Plugin_Updater.php' );
+				}
+
+				$plugin          = get_plugin_data( $this->settings['file'] );
+				$args['version'] = $plugin['Version'];
+				$args['author']  = $plugin['Author'];
+
+			}
+
+			/* Load the theme updater class and add required parameters. */
+			elseif ( in_array( $item_is, array( 'theme-parent', 'theme-child' ) ) ) {
+				// Load the class
+			}
+
+			/* What the hell is this?? */
+			else {
+				return false;
+			}			
+
+			/* Update server URL */
+			$endpoint = esc_url( $this->settings['server'] );
+
+			/* Setup updater */
+			if( 'plugin' === $item_is ) {
+				$edd_updater = new EDD_SL_Plugin_Updater( $endpoint, $this->settings['file'], $args );
+			} else {
+				// Instanciate the theme updater
+			}
+
+		}
+
+		/**
+		 * Check if $file is a theme or a plugin.
+		 *
+		 * @since  1.7.2
+		 * @param  string $file Path to the file to check
+		 * @return string       What type of file this is (parent theme, child theme or plugin)
+		 */
+		public function item_is( $file ) {
+
+			$parentTheme = trailingslashit( get_template_directory() );
+			$childTheme  = trailingslashit( get_stylesheet_directory() );
+
+			/**
+			 * Windows sometimes mixes up forward and back slashes, ensure forward slash for
+			 * correct URL output.
+			 *
+			 * @see  TitanFramework::getURL()
+			 */
+			$parentTheme = str_replace( '\\', '/', $parentTheme );
+			$childTheme  = str_replace( '\\', '/', $childTheme );
+			$file        = str_replace( '\\', '/', $file );
+
+			/* The $file is in a parent theme */
+			if ( stripos( $file, $parentTheme ) !== false ) {
+				return 'theme-parent';
+			}
+			/* The $file is in a child theme */
+			else if ( stripos( $file, $childTheme ) !== false ) {
+				return 'theme-child';
+			}
+			/* The $file is in a plugin */
+			else {
+				return 'plugin';
+			}
 
 		}
 
