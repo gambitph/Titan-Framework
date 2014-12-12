@@ -79,7 +79,7 @@ class TitanFrameworkPlugin {
 		add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'forceLoadFirst' ), 10, 1 );
 		add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
-		add_action( 'after_setup_theme', array( $this, 'triggerOptionCreation' ), 5 );
+		add_action( 'init', array( $this, 'triggerOptionCreation' ), 11 );
 	}
 
 
