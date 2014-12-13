@@ -299,14 +299,14 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$item_is = $this->item_is( $this->settings['file'] );
 
 			/* Item name */
-			$item_name = sanitize_text_field( $this->settings['name'] );
+			$item_name = sanitize_text_field( $this->settings['item_name'] );
 
 			/* Retrieve license key */
 			$license_key = trim( esc_attr( $this->getValue() ) );
 
 			/* Prepare updater arguments */
 			$args = array( 
-				'license' 	=> $license_key, // Item license key
+				'license'   => $license_key, // Item license key
 				'item_name' => $item_name,   // Item name (exactly the same as the item on the remote server)
 			);
 
