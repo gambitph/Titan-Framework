@@ -281,7 +281,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		 * and uses the EDD plugin updater class to check for new updates.
 		 *
 		 * @since  1.7.2
-		 * @return [type] [description]
+		 * @return boolean True if an update check was done, false otherwise
 		 */
 		public function checkUpdates() {
 
@@ -325,7 +325,50 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 			/* Load the theme updater class and add required parameters. */
 			elseif ( in_array( $item_is, array( 'theme-parent', 'theme-child' ) ) ) {
-				// Load the class
+
+				if ( !class_exists( 'EDD_Theme_Updater' ) ) {
+					include( TF_PATH . 'inc/edd-licensing/theme-updater-class.php' );
+				}
+
+				add_filter( 'http_request_args', array( $this, 'disable_wporg_request' ), 5, 2 );
+
+				$theme_dir = explode( '/', substr( str_replace( get_theme_root(), '', $this->settings['file'] ), 1 ) );
+				$theme     = wp_get_theme( $theme_dir[0], get_theme_root() );
+
+				/* Make sure the theme exists. */
+				if ( !$theme->exists() ) {
+					return false;
+				}
+
+				$args['version']        = $theme->get( 'Version' );
+				$args['author']         = $theme->get( 'Author' );
+				$args['remote_api_url'] = esc_url( $this->settings['server'] );
+
+				/* Set the update messages. */
+				$strings = array(
+					'theme-license'             => __( 'Theme License', 'edd-theme-updater' ),
+					'enter-key'                 => __( 'Enter your theme license key.', 'edd-theme-updater' ),
+					'license-key'               => __( 'License Key', 'edd-theme-updater' ),
+					'license-action'            => __( 'License Action', 'edd-theme-updater' ),
+					'deactivate-license'        => __( 'Deactivate License', 'edd-theme-updater' ),
+					'activate-license'          => __( 'Activate License', 'edd-theme-updater' ),
+					'status-unknown'            => __( 'License status is unknown.', 'edd-theme-updater' ),
+					'renew'                     => __( 'Renew?', 'edd-theme-updater' ),
+					'unlimited'                 => __( 'unlimited', 'edd-theme-updater' ),
+					'license-key-is-active'     => __( 'License key is active.', 'edd-theme-updater' ),
+					'expires%s'                 => __( 'Expires %s.', 'edd-theme-updater' ),
+					'%1$s/%2$-sites'            => __( 'You have %1$s / %2$s sites activated.', 'edd-theme-updater' ),
+					'license-key-expired-%s'    => __( 'License key expired %s.', 'edd-theme-updater' ),
+					'license-key-expired'       => __( 'License key has expired.', 'edd-theme-updater' ),
+					'license-keys-do-not-match' => __( 'License keys do not match.', 'edd-theme-updater' ),
+					'license-is-inactive'       => __( 'License is inactive.', 'edd-theme-updater' ),
+					'license-key-is-disabled'   => __( 'License key is disabled.', 'edd-theme-updater' ),
+					'site-is-inactive'          => __( 'Site is inactive.', 'edd-theme-updater' ),
+					'license-status-unknown'    => __( 'License status is unknown.', 'edd-theme-updater' ),
+					'update-notice'             => __( "Updating this theme will lose any customizations you have made. 'Cancel' to stop, 'OK' to update.", 'edd-theme-updater' ),
+					'update-available'          => __('<strong>%1$s %2$s</strong> is available. <a href="%3$s" class="thickbox" title="%4s">Check out what\'s new</a> or <a href="%5$s"%6$s>update now</a>.', 'edd-theme-updater' )
+				);
+				
 			}
 
 			/* What the hell is this?? */
@@ -340,8 +383,10 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			if( 'plugin' === $item_is ) {
 				$edd_updater = new EDD_SL_Plugin_Updater( $endpoint, $this->settings['file'], $args );
 			} else {
-				// Instanciate the theme updater
+				new EDD_Theme_Updater( $args, $strings );
 			}
+
+			return true;
 
 		}
 
@@ -367,6 +412,11 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$childTheme  = str_replace( '\\', '/', $childTheme );
 			$file        = str_replace( '\\', '/', $file );
 
+			/* Make sure the file exists. */
+			if ( !file_exists( $file ) ) {
+				return false;
+			}
+
 			/* The $file is in a parent theme */
 			if ( stripos( $file, $parentTheme ) !== false ) {
 				return 'theme-parent';
@@ -380,6 +430,33 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				return 'plugin';
 			}
 
+		}
+
+		/**
+		 * Disable requests to wp.org repository for this theme.
+		 *
+		 * @since 1.7.2
+		 */
+		function disable_wporg_request( $r, $url ) {
+
+			// If it's not a theme update request, bail.
+			if ( 0 !== strpos( $url, 'https://api.wordpress.org/themes/update-check/1.1/' ) ) {
+	 			return $r;
+	 		}
+
+	 		// Decode the JSON response
+	 		$themes = json_decode( $r['body']['themes'] );
+
+	 		// Remove the active parent and child themes from the check
+	 		$parent = get_option( 'template' );
+	 		$child = get_option( 'stylesheet' );
+	 		unset( $themes->themes->$parent );
+	 		unset( $themes->themes->$child );
+
+	 		// Encode the updated JSON response
+	 		$r['body']['themes'] = json_encode( $themes );
+
+	 		return $r;
 		}
 
 	}
