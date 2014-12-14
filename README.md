@@ -72,6 +72,20 @@ Titan is super new, so far the framework has been getting good feedback from the
 
 Let us know so we can showcase it in the site! Send me an email at bf.intal@gambit.ph, send the name, a screenshot, a link and a short description of your project.
 
+
+## Contributing, Pull Requests Very Welcome
+
+Have an idea for a cool option, or do you have a bug fix you want to implement? Please don't hessitate to place a *PR* (Pull Request). 
+
+PRs on these are welcome:
+* Bug fixes
+* Cool new options
+* Cool new hooks
+* WordPress standardization
+* Code optimizations
+* Anything under the sun as long as it's helpful :)
+
+
 ## Translations
 
 We want Titan Framework to be used by everyone, and since not everyone speaks or reads english, we would appreciate it if you can [help translate the framework to your language](https://www.transifex.com/projects/p/titan-framework/).
