@@ -1,0 +1,29 @@
+ul.gallery-ph{
+    list-style: none;
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+
+ul.gallery-ph li{
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 10px;
+    height: 150px;
+    width: 150px;
+}
+
+ul.gallery-ph li img{
+    /*width:150px;*/
+    /*height:150px;*/
+    display: block;
+    cursor: move;
+}
+
+.placeholder {
+    background-color: #f3f3f3;
+    text-align:center;
+    width:150px;
+    height:150px;
+}

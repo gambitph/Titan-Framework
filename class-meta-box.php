@@ -16,6 +16,8 @@ class TitanFrameworkMetaBox {
 		'hide_custom_fields' => true, // If true, the custom fields box will not be shown
         'priority' => 'high', //  high, core, default, low
 		'desc' => '', // Description displayed below the title
+        'post_format'=>array('standard','aside','chat','link','gallery','image','audio','video','status','quote'),
+        'page_template'=>array()
 	);
 
 	public $settings;
@@ -82,7 +84,7 @@ class TitanFrameworkMetaBox {
 		}
 
 		?>
-		<table class="form-table tf-form-table">
+		<table class="form-table tf-form-table " data-post-format="<?php echo join(",",$this->settings['post_format']);?>" data-page-template="<?php echo join(",",$this->settings['page_template']);?>">
 		<tbody>
 		<?php
 		foreach ( $this->options as $option ) {

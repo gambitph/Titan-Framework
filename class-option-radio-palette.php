@@ -36,6 +36,8 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 			$value = $this->settings['options'][$value];
 		}
 
+        echo "<input type='hidden' class='dep' id='".$this->getID()."dep' data-did='{$this->settings['dependency']['id']}' data-dvalue='{$this->settings['dependency']['value']}'  />";
+
 		// print the palettes
 		foreach ( $this->settings['options'] as $key => $colorSet ) {
 			printf( '<label id="%s"><input id="%s" type="radio" name="%s" value="%s" %s/> <span>',

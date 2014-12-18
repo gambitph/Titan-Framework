@@ -16,15 +16,19 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 	 * Display for options and meta
 	 */
 	public function display() {
+        if(!isset($this->settings['dependency'])) $this->settings['dependency']=array("id"=>"","value"=>"");
 		$this->echoOptionHeader();
-		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" maxlength=\"%s\" id=\"%s\" type=\"%s\" value=\"%s\"\> %s",
+		printf("<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" maxlength=\"%s\" id=\"%s\" type=\"%s\" value=\"%s\"  data-did=\"%s\"   data-dvalue=\"%s\" \> %s",
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->settings['maxlength'],
 			$this->getID(),
 			$this->settings['is_password'] ? 'password' : 'text',
-			esc_attr( $this->getValue() ), 
-			$this->settings['unit'] 
+			esc_attr( $this->getValue() ),
+            $this->settings['dependency']['id'],
+            $this->settings['dependency']['value'],
+			$this->settings['unit']
+
 		);
 		$this->echoOptionFooter();
 	}

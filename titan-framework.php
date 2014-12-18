@@ -50,6 +50,8 @@ require_once( TF_PATH . 'class-option-select-pages.php' );
 require_once( TF_PATH . 'class-option-select-posts.php' );
 require_once( TF_PATH . 'class-option-select.php' );
 require_once( TF_PATH . 'class-option-sortable.php' );
+require_once( TF_PATH . 'class-option-gallery.php' );
+require_once( TF_PATH . 'class-option-image.php' );
 require_once( TF_PATH . 'class-option-text.php' );
 require_once( TF_PATH . 'class-option-textarea.php' );
 require_once( TF_PATH . 'class-option-upload.php' );
@@ -59,6 +61,7 @@ require_once( TF_PATH . 'class-titan-framework.php' );
 require_once( TF_PATH . 'class-titan-tracking.php' );
 require_once( TF_PATH . 'class-wp-customize-control.php' );
 require_once( TF_PATH . 'functions-googlefonts.php' );
+require_once( TF_PATH . 'class-option-multitext.php');
 require_once( TF_PATH . 'functions-utils.php' );
 
 
