@@ -128,10 +128,15 @@
 	background: #fcfcfc;
     border: 1px solid #ddd;
 	border-radius: 3px;
-	width: 100%;
 	height: 15px;
-	margin: 15px 0;
-	display: block;
+	width: 150px;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 15px 15px 15px 0;
+}
+.tf-number input.small-text {
+	width: 65px;
+	vertical-align: middle;
 }
 /* google webfont new */
 .tf-font label {

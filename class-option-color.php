@@ -44,30 +44,12 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 	 * Display for theme customizer
 	 */
 	public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
-		// $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $this->getID(), array(
-		$wp_customize->add_control( new TitanFrameworkOptionColorControl( $wp_customize, $this->getID(), array(
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $this->getID(), array(
 			'label' => $this->settings['name'],
 			'section' => $section->getID(),
 			'settings' => $this->getID(),
 			'description' => $this->settings['desc'],
 			'priority' => $priority,
 		) ) );
-	}
-}
-
-
-
-/*
- * We create a new control for the theme customizer
- */
-add_action( 'customize_register', 'registerTitanFrameworkOptionColorControl', 1 );
-function registerTitanFrameworkOptionColorControl() {
-	class TitanFrameworkOptionColorControl extends WP_Customize_Color_Control {
-		public $description;
-
-		public function render_content() {
-			parent::render_content();
-			echo $this->description;
-		}
 	}
 }

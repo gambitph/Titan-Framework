@@ -7,6 +7,8 @@ Titan Framework
 
 Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 
+[Get it in the WordPress plugin repo](https://wordpress.org/plugins/titan-framework/)
+
 #### Features
 * Makes development unbelievably easy
 * Built with optimization in mind
@@ -17,6 +19,24 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Automatic CSS generation with SCSS support
 
 ## Recent Changelog
+
+#### Version 1.7.2
+* EDD option can now check for updates all by itself (thank you julien731)
+* `get_post_types` function now callable from `tf_create_options`
+* Now passes theme-check (ignored `add_menu_page` error)
+
+#### Version 1.7.1
+* Bug fixes for the Easy Digital Download License option
+* Enhanced date option parameters
+* New parameters for Theme Customizer for creating panels
+
+#### Version 1.7
+* New Easy Digital Download License option (thank you julien731)
+* New date option (thank you ardalann)
+* Added new action tf_save_options_{namespace} which is called after saving options
+* Fixed display issue with the font option in the theme customizer
+* Fixed bug where empty multicheck returned an array
+* Fix: customizer show_font_size & show_color
 
 #### Version 1.6.1
 * Added missing files in the SVN
@@ -58,6 +78,20 @@ Titan is super new, so far the framework has been getting good feedback from the
 ## Are You Using Titan Framework in Your Project?
 
 Let us know so we can showcase it in the site! Send me an email at bf.intal@gambit.ph, send the name, a screenshot, a link and a short description of your project.
+
+
+## Contributing, Pull Requests Are Very Welcome
+
+Have an idea for a cool option, or do you have a bug fix you want to implement? Please don't hessitate to place a *PR* (Pull Request).
+
+PRs on these are welcome:
+* Bug fixes
+* Cool new options
+* Cool new hooks
+* WordPress standardization
+* Code optimizations
+* Anything under the sun as long as it's helpful :)
+
 
 ## Translations
 

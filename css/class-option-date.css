@@ -4,11 +4,14 @@
 .tf-date .input-date {
 	width:12em;
 }
-.tf-date .input-date.dateonly {
+.tf-date .input-date.date {
 	width:8em;
 }
-.tf-date .input-date.timeonly {
+.tf-date .input-date.time {
 	width:5em;
+}
+.tf-date .input-date.date.time {
+	width:12em;
 }
 .tf-date-datepicker.ui-widget-content {
 	border: 1px solid rgb(204, 204, 204);

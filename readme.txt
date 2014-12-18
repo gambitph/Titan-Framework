@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
-Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk
+Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.6.1
+Tested up to: 4.0.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,7 @@ Want to see what Titan Framework can do? [Check out our live demo, no need to in
 * Supports child themes
 * Automatic CSS generation with SCSS support
 * Full font style fields
+* Easy Digital Download activation integration
 
 = Easy creation of: =
 
@@ -51,6 +52,8 @@ Want to see what Titan Framework can do? [Check out our live demo, no need to in
 * Checkbox
 * Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
+* Date
+* EDD License (Easy Digital Downloads license)
 * Editor (WYSIWYG)
 * Enable
 * Font Style (Web safe fonts and Google WebFonts)
@@ -212,6 +215,24 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.7.2 =
+* EDD option can now check for updates all by itself (thank you julien731)
+* `get_post_types` function now callable from `tf_create_options`
+* Now passes theme-check (ignored `add_menu_page` error)
+
+= 1.7.1 =
+* Bug fixes for the Easy Digital Download License option
+* Enhanced date option parameters
+* New parameters for Theme Customizer for creating panels
+
+= 1.7 =
+* New Easy Digital Download License option (thank you julien731)
+* New date option (thank you ardalann)
+* Added new action tf_save_options_{namespace} which is called after saving options
+* Fixed display issue with the font option in the theme customizer
+* Fixed bug where empty multicheck returned an array
+* Fix: customizer show_font_size & show_color
 
 = 1.6.1 =
 * Added missing files in the SVN

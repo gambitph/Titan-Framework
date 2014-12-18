@@ -18,8 +18,8 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 
 	// Default settings specific to this option
 	public $defaultSecondarySettings = array(
-		'dateonly' => false,
-		'timeonly' => false
+		'date' => true,
+		'time' => false,
 	);
 
 	private static $date_epoch;
@@ -53,7 +53,7 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 		if ( $value == '' ) {
 			return 0;
 		}
-		if ( ! $this->settings['dateonly'] AND $this->settings['timeonly'] ) {
+		if ( ! $this->settings['date'] && $this->settings['time'] ) {
 			$value = self::$date_epoch . ' ' . $value;
 		}
 		return strtotime( $value );
@@ -126,9 +126,9 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 				};
 			$('.tf-date input[type=text]').each(function() {
 				var $this = $(this);
-				if ( $this.hasClass('dateonly') ) {
+				if ( $this.hasClass('date') && ! $this.hasClass('time') ) {
 					$this.datepicker( datepickerSettings );
-				} else if ( $this.hasClass('timeonly') ) {
+				} else if ( ! $this.hasClass('date') && $this.hasClass('time') ) {
 					$this.timepicker( datepickerSettings );
 				} else {
 					$this.datetimepicker( datepickerSettings );
@@ -150,16 +150,17 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 		$this->echoOptionHeader();
 		$dateFormat = 'Y-m-d H:i';
 		$placeholder = 'YYYY-MM-DD HH:MM';
-		if ( $this->settings['dateonly'] ) {
+		if ( $this->settings['date'] && ! $this->settings['time'] ) {
 			$dateFormat = 'Y-m-d';
 			$placeholder = 'YYYY-MM-DD';
-		} else if ( $this->settings['timeonly'] ) {
+		} else if ( ! $this->settings['date'] && $this->settings['time'] ) {
 			$dateFormat = 'H:i';
 			$placeholder = 'HH:MM';
 		}
+
 		printf("<input class=\"input-date%s%s\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"text\" value=\"%s\" /> <p class=\"description\">%s</p>",
-			( $this->settings['dateonly'] ? ' dateonly' : '' ),
-			( $this->settings['timeonly'] ? ' timeonly' : '' ),
+			( $this->settings['date'] ? ' date' : '' ),
+			( $this->settings['time'] ? ' time' : '' ),
 			$this->getID(),
 			$placeholder,
 			$this->getID(),
@@ -186,8 +187,8 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 			'settings' => $this->getID(),
 			'description' => $this->settings['desc'],
 			'priority' => $priority,
-			'dateonly' => $this->settings['dateonly'],
-			'timeonly' => $this->settings['timeonly'],
+			'date' => $this->settings['date'],
+			'time' => $this->settings['time'],
 		) ) );
 	}
 }
@@ -208,8 +209,8 @@ add_action( 'customize_register', 'registerTitanFrameworkOptionDateControl', 1 )
 function registerTitanFrameworkOptionDateControl() {
 	class TitanFrameworkOptionDateControl extends WP_Customize_Control {
 		public $description;
-		public $dateonly;
-		public $timeonly;
+		public $date;
+		public $time;
 
 		public function render_content() {
 
@@ -217,16 +218,16 @@ function registerTitanFrameworkOptionDateControl() {
 
 			$dateFormat = 'Y-m-d H:i';
 			$placeholder = 'YYYY-MM-DD HH:MM';
-			if ( $this->dateonly ) {
+			if ( $this->date && ! $this->time ) {
 				$dateFormat = 'Y-m-d';
 				$placeholder = 'YYYY-MM-DD';
-			} else if ( $this->timeonly ) {
+			} else if ( ! $this->date && $this->time ) {
 				$dateFormat = 'H:i';
 				$placeholder = 'HH:MM';
 			}
 
-			$class = $this->dateonly ? ' dateonly' : '';
-			$class .= $this->timeonly ? ' timeonly' : ''
+			$class = $this->date ? ' date' : '';
+			$class .= $this->time ? ' time' : ''
 			?>
 			<label class='tf-date'>
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
