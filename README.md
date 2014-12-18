@@ -20,6 +20,11 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 ## Recent Changelog
 
+#### Version 1.7.2
+* EDD option can now check for updates all by itself (thank you julien731)
+* `get_post_types` function now callable from `tf_create_options`
+* Now passes theme-check (ignored `add_menu_page` error)
+
 #### Version 1.7.1
 * Bug fixes for the Easy Digital Download License option
 * Enhanced date option parameters
@@ -77,7 +82,7 @@ Let us know so we can showcase it in the site! Send me an email at bf.intal@gamb
 
 ## Contributing, Pull Requests Are Very Welcome
 
-Have an idea for a cool option, or do you have a bug fix you want to implement? Please don't hessitate to place a *PR* (Pull Request). 
+Have an idea for a cool option, or do you have a bug fix you want to implement? Please don't hessitate to place a *PR* (Pull Request).
 
 PRs on these are welcome:
 * Bug fixes

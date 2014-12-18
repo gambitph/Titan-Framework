@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 3.8
 Tested up to: 4.0.1
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,6 +215,11 @@ $myValue = $titan->getOption( 'option_name', $post_id );`
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.7.2 =
+* EDD option can now check for updates all by itself (thank you julien731)
+* `get_post_types` function now callable from `tf_create_options`
+* Now passes theme-check (ignored `add_menu_page` error)
 
 = 1.7.1 =
 * Bug fixes for the Easy Digital Download License option
