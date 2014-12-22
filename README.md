@@ -20,6 +20,9 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 ## Recent Changelog
 
+#### Version 1.7.3
+* Fixed bug introduced in 1.7.2 where admin options sometimes were not being saved
+
 #### Version 1.7.2
 * EDD option can now check for updates all by itself (thank you julien731)
 * `get_post_types` function now callable from `tf_create_options`
