@@ -23,6 +23,10 @@ class TitanFramework {
 	public $cssInstance;
 	public $trackerInstance;
 
+	// We have an initialization phase where the options are just being gathered
+	// for processing, during this phase we need to stop certain steps when creat
+	public static $initializing = false;
+
 	// We store the options (with IDs) here, used for ensuring our serialized option
 	// value doesn't get cluttered with unused options
 	public $optionsUsed = array();
@@ -88,6 +92,11 @@ class TitanFramework {
 	 */
 	public function verifyUniqueIDs( $option ) {
 		if ( empty( $option->settings['id'] ) ) {
+			return;
+		}
+
+		// During initialization don't display ID errors
+		if ( self::$initializing ) {
 			return;
 		}
 

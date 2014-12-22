@@ -79,6 +79,11 @@ class TitanFrameworkPlugin {
 		add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'forceLoadFirst' ), 10, 1 );
 		add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
+
+		// Initialize options, but do not really create them yet
+		add_action( 'after_setup_theme', array( $this, 'triggerOptionCreation' ), 5 );
+
+		// Create the options
 		add_action( 'init', array( $this, 'triggerOptionCreation' ), 11 );
 	}
 
@@ -91,7 +96,14 @@ class TitanFrameworkPlugin {
 	 * @since	1.6
 	 */
 	public function triggerOptionCreation() {
+		// The after_setup_theme is the initialization stage
+		if ( current_filter() == 'after_setup_theme' ) {
+			TitanFramework::$initializing = true;
+		}
+
 		do_action( 'tf_create_options' );
+
+		TitanFramework::$initializing = false;
 	}
 
 
