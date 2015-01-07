@@ -34,11 +34,12 @@
 		    "type": "package",
 		    "package": {
 		        "name": "trentrichardson/jquery-timepicker-addon",
-		        "version": "dev-master",
-				"dist": {
-	                "url": "https://github.com/trentrichardson/jQuery-Timepicker-Addon/blob/master/dist/jquery-ui-timepicker-addon.js",
-	                "type": "file"
-	            }
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/trentrichardson/jQuery-Timepicker-Addon",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
 			}
 		},
 		{
@@ -60,9 +61,9 @@
 	},
 	"scripts": {
         "post-update-cmd": [
-        	"php -r \"copy('vendor/trentrichardson/jquery-timepicker-addon/jquery-ui-timepicker-addon.js', 'js/jquery-ui-timepicker-addon.js');\"",
+        	"php -r \"copy('vendor/trentrichardson/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js', 'js/jquery-ui-timepicker-addon.js');\"",
 			
-			"php -r \"mkdir('js/ace-min-noconflict/');\"",
+			"php -r \"@mkdir('js/ace-min-noconflict/');\"",
         	"php -r \"copy('vendor/ajaxorg/ace-builds/src-min-noconflict/ace.js', 'js/ace-min-noconflict/ace.js');\"",
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/theme-*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
 			
@@ -84,7 +85,7 @@
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-text.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-xml.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
 			
-			"php -r \"mkdir('js/ace-min-noconflict/snippets/');\"",
+			"php -r \"@mkdir('js/ace-min-noconflict/snippets/');\"",
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/css.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/html.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/javascript.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
