@@ -20,12 +20,16 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 ## Installing
 
-1. You can install the latest stable release from [wordpress.org plugin page](https://wordpress.org/plugins/titan-framework/)
+1. You can install the latest stable release from the [wordpress.org plugin page](https://wordpress.org/plugins/titan-framework/) straight from your WordPress plugin page;
 
-2. Or, you can install it via Composer:
+2. Or you can download the [master.zip file](https://github.com/gambitph/Titan-Framework/archive/master.zip) then install it as a WordPress plugin;
 
-    curl -sS https://getcomposer.org/installer | php
-	php composer.phar create-project gambitph/titan-framework titan-framework
+3. Alternatively, you can also install it via Composer into your wp-content/plugin folder:
+
+```
+curl -sS https://getcomposer.org/installer | php
+php composer.phar create-project gambitph/titan-framework titan-framework
+```
 
 ## Recent Changelog
 
