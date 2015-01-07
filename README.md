@@ -9,6 +9,8 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 [Get it in the WordPress plugin repo](https://wordpress.org/plugins/titan-framework/)
 
+[Generate your own Underscores + Titan Framework based WordPress theme](http://www.titanframework.net)
+
 #### Features
 * Makes development unbelievably easy
 * Built with optimization in mind
