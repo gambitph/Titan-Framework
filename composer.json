@@ -1,23 +1,23 @@
 {
-    "name": "gambitph/titan-framework",
-    "description": "Titan Framework allows theme and plugin developers to create admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.",
-    "keywords": ["wordpress", "titan", "framework", "options", "titan framework", "Titan Framework"],
-    "homepage" : "https://github.com/gambitph/Titan-Framework",
-    "license": "GPLv2+",
-    "authors": [
-        {
-            "name": "Gambit Technologies",
-            "email" : "info@gambit.ph",
-            "homepage" : "http://www.titanframework.net/",
-            "role" : "Developer"
-        }
-    ],
-    "type": "library",
-    "autoload": {
-        "files": ["titan-framework.php"]
-    },
+	"name": "gambitph/titan-framework",
+	"description": "Titan Framework allows theme and plugin developers to create admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.",
+	"keywords": ["wordpress", "titan", "framework", "options", "titan framework", "Titan Framework"],
+	"homepage" : "https://github.com/gambitph/Titan-Framework",
+	"license": "GPLv2+",
+	"authors": [
+		{
+			"name": "Gambit Technologies",
+			"email" : "info@gambit.ph",
+			"homepage" : "http://www.titanframework.net/",
+			"role" : "Developer"
+		}
+	],
+	"type": "library",
+	"autoload": {
+		"files": ["titan-framework.php"]
+	},
 	"archive": {
-        "exclude": [
+		"exclude": [
 			"/bin", 
 			"/vendor", 
 			"/tests",
@@ -28,31 +28,31 @@
 			"*.codekit",
 			"*.rb"
 		]
-    },
+	},
 	"repositories": [
 		{
-		    "type": "package",
-		    "package": {
-		        "name": "trentrichardson/jquery-timepicker-addon",
-                "version": "dev-master",
-                "source": {
-                    "url": "https://github.com/trentrichardson/jQuery-Timepicker-Addon",
-                    "type": "git",
-                    "reference": "origin/master"
-                }
+			"type": "package",
+			"package": {
+				"name": "trentrichardson/jquery-timepicker-addon",
+				"version": "dev-master",
+				"source": {
+					"url": "https://github.com/trentrichardson/jQuery-Timepicker-Addon",
+					"type": "git",
+					"reference": "origin/master"
+				}
 			}
 		},
 		{
 			"type": "package",
-            "package": {
-                "name": "ajaxorg/ace-builds",
-                "version": "dev-master",
-                "source": {
-                    "url": "https://github.com/ajaxorg/ace-builds",
-                    "type": "git",
-                    "reference": "origin/master"
-                }
-            }
+			"package": {
+				"name": "ajaxorg/ace-builds",
+				"version": "dev-master",
+				"source": {
+					"url": "https://github.com/ajaxorg/ace-builds",
+					"type": "git",
+					"reference": "origin/master"
+				}
+			}
 		}
 	],
 	"require": {
@@ -60,11 +60,11 @@
 		"ajaxorg/ace-builds": "dev-master"
 	},
 	"scripts": {
-        "post-update-cmd": [
-        	"php -r \"copy('vendor/trentrichardson/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js', 'js/jquery-ui-timepicker-addon.js');\"",
+		"post-update-cmd": [
+			"php -r \"copy('vendor/trentrichardson/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js', 'js/jquery-ui-timepicker-addon.js');\"",
 			
 			"php -r \"@mkdir('js/ace-min-noconflict/');\"",
-        	"php -r \"copy('vendor/ajaxorg/ace-builds/src-min-noconflict/ace.js', 'js/ace-min-noconflict/ace.js');\"",
+			"php -r \"copy('vendor/ajaxorg/ace-builds/src-min-noconflict/ace.js', 'js/ace-min-noconflict/ace.js');\"",
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/theme-*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
 			
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-css.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
@@ -104,5 +104,5 @@
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/text.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/xml.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\""
 		]
-    }
+	}
 }
