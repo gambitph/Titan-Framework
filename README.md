@@ -97,6 +97,14 @@ PRs on these are welcome:
 * Anything under the sun as long as it's helpful :)
 
 
+## Packaging
+
+Code cleanup can be performed by Composer with:
+
+```
+php composer.phar archive --format=zip
+```
+
 ## Translations
 
 We want Titan Framework to be used by everyone, and since not everyone speaks or reads english, we would appreciate it if you can [help translate the framework to your language](https://www.transifex.com/projects/p/titan-framework/).
