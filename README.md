@@ -56,9 +56,9 @@ php composer.phar create-project gambitph/titan-framework titan-framework
 * Fixed bug where empty multicheck returned an array
 * Fix: customizer show_font_size & show_color
 
-## Try it Out First
+## Creating a WordPress Theme?
 
-Want to see what Titan Framework can do? [Check out our live demo, no need to install anything!](http://demo.titanframework.net/wp-admin/)
+[Generate your own Underscores + Titan Framework based WordPress theme](http://www.titanframework.net)
 
 ## Getting Started With Titan Framework
 
