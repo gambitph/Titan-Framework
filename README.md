@@ -18,6 +18,15 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Supports child themes
 * Automatic CSS generation with SCSS support
 
+## Installing
+
+1. You can install the latest stable release from [wordpress.org plugin page](https://wordpress.org/plugins/titan-framework/)
+
+2. Or, you can install it via Composer:
+
+    curl -sS https://getcomposer.org/installer | php
+	php composer.phar create-project gambitph/titan-framework titan-framework
+
 ## Recent Changelog
 
 #### Version 1.7.3
@@ -40,20 +49,6 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 * Fixed display issue with the font option in the theme customizer
 * Fixed bug where empty multicheck returned an array
 * Fix: customizer show_font_size & show_color
-
-#### Version 1.6.1
-* Added missing files in the SVN
-
-#### Version 1.6
-* New embed method (check the getting started section)
-* New tf_create_options hook for creating options
-* New number unit parameter
-* Removed font awesome, now uses dashicons
-* Added desc params to panels, tabs and meta boxes
-* Added size attribute for the upload option
-* Deleted Uncommon Ace Extensions
-* Improve load script to meta boxes
-* Lots of bug fixes
 
 ## Try it Out First
 
