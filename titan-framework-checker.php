@@ -66,13 +66,13 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since 1.6
 		 */
 		public function displayAdminNotificationNotExist() {
-            echo "<div class='error'><p><strong>"
-                . __( "Titan Framework needs to be installed.", "default" )
-                . sprintf( " <a href='%s'>%s</a>",
-                    admin_url( "plugin-install.php?tab=search&type=term&s=titan+framework" ),
-                    __( "Click here to search for the plugin.", "default" ) )
-                . "</strong></p></div>";
-        }
+			echo "<div class='error'><p><strong>"
+				. __( "Titan Framework needs to be installed.", "default" )
+				. sprintf( " <a href='%s'>%s</a>",
+					admin_url( "plugin-install.php?tab=search&type=term&s=titan+framework" ),
+					__( "Click here to search for the plugin.", "default" ) )
+				. "</strong></p></div>";
+		}
 
 		
 		/**
@@ -81,13 +81,13 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since 1.6
 		 */
 		public function displayAdminNotificationInactive() {
-            echo "<div class='error'><p><strong>"
-                . __( "Titan Framework needs to be activated.", "default" )
-                . sprintf( " <a href='%s'>%s</a>",
-                    admin_url( "plugins.php" ),
-                    __( "Click here to go to the plugins page and activate it.", "default" ) )
-                . "</strong></p></div>";
-        }
+			echo "<div class='error'><p><strong>"
+				. __( "Titan Framework needs to be activated.", "default" )
+				. sprintf( " <a href='%s'>%s</a>",
+					admin_url( "plugins.php" ),
+					__( "Click here to go to the plugins page and activate it.", "default" ) )
+				. "</strong></p></div>";
+		}
 		
 		
 		/**
@@ -111,7 +111,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 			}
 			
 			return false;
-        }		
+		}		
 		
 	}
 
