@@ -15,7 +15,6 @@
 
 if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
-
 	/**
 	 * Titan Framework Checker
 	 *
@@ -24,6 +23,10 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 	class TitanFrameworkChecker {
 
 
+		const SEARCH_REGEX = '/titan-framework.php/i';
+		const TITAN_CLASS = 'TitanFramework';
+		
+		
 		/**
 		 * Constructor, add hooks for checking for Titan Framework
 		 *
@@ -40,22 +43,19 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since 1.6
 		 */
 		public function performCheck() {
-			// NOTE: if you use a directory name other than titan-framework, change this path!
-			// If the plugin does not exist, and the class doesn't exist either, then there's no plugin installed. Throw admin notice to install.
-			if ( !$this->is_plugin_exist ( 'titan-framework/titan-framework.php' ) && !class_exists( 'TitanFramework' ) ) {
-				if ( is_admin() ) {
-					add_filter( 'admin_notices', array( $this, 'displayAdminNotificationNotExist' ) );
-				}				
-			}
-			// If the plugin does exist but the class doesn't, the plugin is inactive. Throw admin notice to activate plugin.
-			elseif ( $this->is_plugin_exist ( 'titan-framework/titan-framework.php' ) && !class_exists( 'TitanFramework' ) ) {
-				if ( is_admin() ) {
-					add_filter( 'admin_notices', array( $this, 'displayAdminNotificationInactive' ) );
-				}			
-			}
-			// If the plugin exists and the class exists as well, or if the titan framework is embedded, as the class will exist from the start.
-			else {
+			
+			// Only show notifications in the admin
+			if ( ! is_admin() ) {
 				return;
+			}
+			
+			// If the plugin does not exist, throw admin notice to install.
+			if ( ! $this->pluginExists() ) {
+				add_filter( 'admin_notices', array( $this, 'displayAdminNotificationNotExist' ) );
+				
+			// If the class doesn't exist, the plugin is inactive. Throw admin notice to activate plugin.
+			} else if ( ! class_exists( self::TITAN_CLASS ) ) {
+				add_filter( 'admin_notices', array( $this, 'displayAdminNotificationInactive' ) );
 			}
 		}
 
@@ -91,22 +91,26 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		
 		
 		/**
-		 * Checks if the files for Titan Framework does exist in the path.
+		 * Checks the existence of Titan Framework in the list of plugins, 
+		 * uses the slug path of the plugin for checking.
 		 *
 		 * @since 1.6
 		 */
-		public function is_plugin_exist($needle) {
+		public function pluginExists() {
 			// Required function as it is only loaded in admin pages.
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			
 			// Get all plugins, activated or not.
-			$all_plugins = get_plugins();
+			$plugins = get_plugins();
+
 			// Check plugin existence by checking if the name is registered as an array key. get_plugins collects all plugin path into arrays.
-			if ( isset($all_plugins[$needle]) ) {
-				return true;
+			foreach ( $plugins as $slug => $plugin ) {
+				if ( preg_match( self::SEARCH_REGEX, $slug, $matches ) ) {
+					return true;
+				}
 			}
-			else {
-				return false;
-			}
+			
+			return false;
         }		
 		
 	}
