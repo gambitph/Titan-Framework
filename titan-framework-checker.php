@@ -25,6 +25,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 		const SEARCH_REGEX = '/titan-framework.php/i';
 		const TITAN_CLASS = 'TitanFramework';
+		const PLUGIN_SLUG = 'Titan-Framework/titan-framework.php';
 		
 		
 		/**
@@ -34,6 +35,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 */
 		function __construct() {
 			add_action( 'after_setup_theme', array( $this, 'performCheck' ), 2 );
+			add_action( 'tgmpa_register', array( $this, 'tgmPluginActivationInclude' ) );
 		}
 
 
@@ -130,30 +132,38 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		
 		
 		/**
-		 * Checks whether TGM Plugin Activation is being used, and checks
-		 * if Titan Framework was included in the plugin list there.
+		 * Checks whether TGM Plugin Activation is being used.
 		 *
 		 * @return	boolean True if the TF was used in TGM
 		 * @since	1.8
 		 * @see		http://tgmpluginactivation.com/
 		 */
 		public function tgmPluginActivationExists() {
-			if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
-				return false;
+			return class_exists( 'TGM_Plugin_Activation' );
+		}
+		
+		
+		/**
+		 * Includes Titan Framework in TGM Plugin Activation if it's
+		 * available.
+		 *
+		 * @return	void
+		 * @since	1.8
+		 * @see		http://tgmpluginactivation.com/
+		 */
+		public function tgmPluginActivationInclude() {
+			if ( ! class_exists( 'TGM_Plugin_Activation' ) 
+				 || ! function_exists( 'tgmpa' ) ) {
+					 return;
 			}
 			
-			$keyChecks = array( 'name', 'slug', 'file_path' );
-			foreach ( TGM_Plugin_Activation::$instance->plugins as $plugin ) {
-				foreach ( $keyChecks as $key ) {
-					if ( empty( $plugin[ $key ] ) ) {
-						continue;
-					}
-					if ( preg_match( self::SEARCH_REGEX, $plugin[ $key ], $matches ) ) {
-						return true;
-					}
-				}
-			}
-			return false;
+		    tgmpa( array(
+		        array(
+		            'name' => 'Titan Framework',
+		            'slug' => self::PLUGIN_SLUG,
+		            'required' => true,
+		        ),
+		    ) );
 		}
 		
 	}
