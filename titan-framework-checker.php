@@ -66,6 +66,13 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since 1.6
 		 */
 		public function displayAdminNotificationNotExist() {
+
+			// Check for TGM use, if used, let TGM do the notice.
+			// We do this here since performCheck() is too early
+			if ( $this->tgmPluginActivationExists() ) {
+				return;
+			}
+			
 			echo "<div class='error'><p><strong>"
 				. __( "Titan Framework needs to be installed.", "default" )
 				. sprintf( " <a href='%s'>%s</a>",
@@ -81,6 +88,13 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since 1.6
 		 */
 		public function displayAdminNotificationInactive() {
+
+			// Check for TGM use, if used, let TGM do the notice.
+			// We do this here since performCheck() is too early
+			if ( $this->tgmPluginActivationExists() ) {
+				return;
+			}
+			
 			echo "<div class='error'><p><strong>"
 				. __( "Titan Framework needs to be activated.", "default" )
 				. sprintf( " <a href='%s'>%s</a>",
@@ -94,7 +108,8 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * Checks the existence of Titan Framework in the list of plugins, 
 		 * uses the slug path of the plugin for checking.
 		 *
-		 * @since 1.6
+		 * @return	boolean True if the TF exists
+		 * @since	1.6
 		 */
 		public function pluginExists() {
 			// Required function as it is only loaded in admin pages.
@@ -111,7 +126,35 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 			}
 			
 			return false;
-		}		
+		}
+		
+		
+		/**
+		 * Checks whether TGM Plugin Activation is being used, and checks
+		 * if Titan Framework was included in the plugin list there.
+		 *
+		 * @return	boolean True if the TF was used in TGM
+		 * @since	1.8
+		 * @see		http://tgmpluginactivation.com/
+		 */
+		public function tgmPluginActivationExists() {
+			if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
+				return false;
+			}
+			
+			$keyChecks = array( 'name', 'slug', 'file_path' );
+			foreach ( TGM_Plugin_Activation::$instance->plugins as $plugin ) {
+				foreach ( $keyChecks as $key ) {
+					if ( empty( $plugin[ $key ] ) ) {
+						continue;
+					}
+					if ( preg_match( self::SEARCH_REGEX, $plugin[ $key ], $matches ) ) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 		
 	}
 
