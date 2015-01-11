@@ -25,7 +25,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 		const SEARCH_REGEX = '/titan-framework.php/i';
 		const TITAN_CLASS = 'TitanFramework';
-		const PLUGIN_SLUG = 'Titan-Framework/titan-framework.php';
+		const PLUGIN_SLUG = 'titan-framework';
 		
 		
 		/**
@@ -135,11 +135,12 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * Checks whether TGM Plugin Activation is being used.
 		 *
 		 * @return	boolean True if the TF was used in TGM
-		 * @since	1.8
+		 * @since	1.7.4
 		 * @see		http://tgmpluginactivation.com/
 		 */
 		public function tgmPluginActivationExists() {
-			return class_exists( 'TGM_Plugin_Activation' );
+			return class_exists( 'TGM_Plugin_Activation' ) 
+				&& function_exists( 'tgmpa' );
 		}
 		
 		
@@ -148,13 +149,12 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * available.
 		 *
 		 * @return	void
-		 * @since	1.8
+		 * @since	1.7.4
 		 * @see		http://tgmpluginactivation.com/
 		 */
 		public function tgmPluginActivationInclude() {
-			if ( ! class_exists( 'TGM_Plugin_Activation' ) 
-				 || ! function_exists( 'tgmpa' ) ) {
-					 return;
+			if ( ! $this->tgmPluginActivationExists() ) {
+				return;
 			}
 			
 		    tgmpa( array(
