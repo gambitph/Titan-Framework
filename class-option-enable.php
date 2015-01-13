@@ -100,6 +100,7 @@ function registerTitanFrameworkOptionEnableControl() {
 			}
 			?>
 			<div class='tf-enable'>
+				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 				<input type="checkbox" value="1" <?php $this->link(); ?>>
 				<span class="button button-<?php echo checked( $this->value(), 1, false ) ? 'primary' : 'secondary' ?>"><?php echo $this->options['enabled'] ?></span><span class="button button-<?php echo checked( $this->value(), 1, false ) ? 'secondary' : 'primary' ?>"><?php echo $this->options['disabled'] ?></span>
 			</div>

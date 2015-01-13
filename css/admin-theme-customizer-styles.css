@@ -237,14 +237,14 @@
 	color: #fff;
 	pointer-events: none;
 }
-.tf-enable .button-primary:first-of-type {
+.tf-enable .button-primary:nth-of-type(2) {
 	pointer-events: none;
 }
-.tf-enable .button:first-of-type {
+.tf-enable .button:nth-of-type(2) {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
-.tf-enable .button-secondary:first-of-type {
+.tf-enable .button-secondary:nth-of-type(2) {
 	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
 	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
 }
