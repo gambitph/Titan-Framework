@@ -252,7 +252,7 @@ class TitanFrameworkCSS {
 			);
 
 			try {
-				$testerForValidCSS = $scss->compile( $generatedCSS );
+				$testerForValidCSS = @$scss->compile( $generatedCSS );
 				$cssString .= $generatedCSS;
 			} catch (Exception $e) {
 			}
