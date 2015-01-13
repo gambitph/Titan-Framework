@@ -97,7 +97,6 @@ class TitanFrameworkCSS {
 
 			$css = get_option( $this->getCSSSlug() );
 			$generatedCss = $this->getCSSFilePath();
-			$generatedCss = true;
 
 			if ( file_exists( $generatedCss ) && empty( $css ) ) {
 				wp_enqueue_style( 'tf-compiled-options-' . $this->frameworkInstance->optionNamespace, $this->getCSSFileURL(), __FILE__ );
@@ -239,7 +238,6 @@ class TitanFrameworkCSS {
 				}
 				continue;
 			}
-			continue;
 
 			// Don't render CSS for this option if it doesn't have a value
 			$optionValue = $this->frameworkInstance->getOption( $option->settings['id'] );
@@ -275,7 +273,6 @@ class TitanFrameworkCSS {
 				}
 			}
 		}
-		return '';
 		
 		// Add additional CSS added via TitanFramework::createCSS()
 		foreach ( $this->additionalCSS as $css ) {
