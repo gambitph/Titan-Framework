@@ -252,7 +252,7 @@ class TitanFrameworkCSS {
 			);
 
 			try {
-				$testerForValidCSS = @$scss->compile( $generatedCSS );
+				$testerForValidCSS = $scss->compile( $generatedCSS );
 				$cssString .= $generatedCSS;
 			} catch (Exception $e) {
 			}
@@ -280,7 +280,10 @@ class TitanFrameworkCSS {
 		// Compile as SCSS & minify
 		if ( ! empty( $cssString ) ) {
 			$scss->setFormatter( self::SCSS_COMPRESSION );
-			$cssString = $scss->compile( $cssString );
+			try {
+				$cssString = $scss->compile( $cssString );
+			} catch ( Exception $e ) {
+			}
 		}
 
 		return $cssString;
