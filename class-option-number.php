@@ -210,7 +210,9 @@ function registerTitanFrameworkOptionNumberControl() {
 				<input class="<?php echo esc_attr( $this->size ) ?>-text" min="<?php echo esc_attr( $this->min ) ?>" max="<?php echo esc_attr( $this->max ) ?>" step="<?php echo esc_attr( $this->step ) ?>" type="number" value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
 			</label>
 			<?php
-			echo "<p class='description'>{$this->description}</p>";
+			if ( ! empty( $this->description ) ) {
+				echo "<p class='description'>{$this->description}</p>";
+			}
 		}
 	}
 }

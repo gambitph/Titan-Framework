@@ -257,3 +257,10 @@
 .tf-date-datepicker.ui-widget-content {
 	left: 270px !important;
 }
+
+p.description {
+	margin-bottom: 30px;
+}
+p.description:empty {
+	margin-bottom: 5px;
+}
