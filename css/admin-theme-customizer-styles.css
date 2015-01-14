@@ -154,6 +154,10 @@
 }
 .tf-font label.tf-picker-open {
 	color: #fcfcfc;
+	background: transparent;
+	border-color: transparent;
+	margin-left: -10px;
+	position: relative;
 }
 .tf-font label.tf-picker-open .wp-picker-container {
 	position: absolute;

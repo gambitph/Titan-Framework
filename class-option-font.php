@@ -384,17 +384,35 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					tf_select_font_update_preview( $this, false )
 				}, 1 );
 			});
-
-			$('body.wp-customizer').on('click', function(e) {
-				$('.tf-font .wp-color-result').each(function() {
-					if ( $(this).hasClass('wp-picker-open') ) {
-						$(this).parents('label:eq(0)').addClass('tf-picker-open');
+			
+			
+			/**
+			 * Theme Customizer scripts
+			 */
+			
+			// Check for font selector clicks, we need to adjust styles to make it look nice
+			$('body.wp-customizer .tf-font').on('mouseup', function(e) {
+				if ( $(e.target).is('.wp-color-result') ) {
+					if ( ! $(e.target).is('.wp-picker-open') ) {
+						$(e.target).parents('label:eq(0)').addClass('tf-picker-open');
 					} else {
-						if ( $(this).parents('label:eq(0)').hasClass('tf-picker-open') ) {
-							$(this).parents('label:eq(0)').removeClass('tf-picker-open');
-						}
+						$(e.target).parents('label:eq(0)').removeClass('tf-picker-open');
 					}
-				});
+				}
+			});
+			
+			// Check for close clicks (clicking outside while the picker is open)
+			$('body.wp-customizer').on('mouseup', '*', function(e) {
+				var $target = $(e.target);
+				if ( $target.is('.wp-color-result, .wp-color-picker, .wp-picker-default') ) { 
+					return;
+				}
+				if ( $target.parents('.wp-picker-holder').length > 0 ) {
+					return;
+				}
+				if ( $('.tf-picker-open').length > 0 ) {
+					$('.tf-picker-open').removeClass('tf-picker-open');
+				}
 			});
 		});
 
