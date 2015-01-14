@@ -168,6 +168,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 			'min' => $this->settings['min'],
 			'max' => $this->settings['max'],
 			'step' => $this->settings['step'],
+			'unit' => $this->settings['unit'],
 		) ) );
 	}
 }
@@ -193,6 +194,7 @@ function registerTitanFrameworkOptionNumberControl() {
 		public $min;
 		public $max;
 		public $step;
+		public $unit;
 
 		private static $firstLoad = true;
 
@@ -208,6 +210,7 @@ function registerTitanFrameworkOptionNumberControl() {
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 				<span class='number-slider'></span>
 				<input class="<?php echo esc_attr( $this->size ) ?>-text" min="<?php echo esc_attr( $this->min ) ?>" max="<?php echo esc_attr( $this->max ) ?>" step="<?php echo esc_attr( $this->step ) ?>" type="number" value="<?php echo esc_attr( $this->value() ); ?>" <?php $this->link(); ?> />
+				<?php echo esc_html( $this->unit ) ?>
 			</label>
 			<?php
 			if ( ! empty( $this->description ) ) {
