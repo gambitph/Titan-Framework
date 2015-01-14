@@ -231,7 +231,6 @@ class TitanFrameworkCSS {
 			$generatedCSS = apply_filters( 'tf_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), '', $option );
 			if ( $generatedCSS ) {
 				try {
-					echo "called\n";
 					$testerForValidCSS = $scss->compile( $generatedCSS );
 					$cssString .= $generatedCSS;
 				} catch (Exception $e) {
