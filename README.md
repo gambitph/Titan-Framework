@@ -35,6 +35,17 @@ php composer.phar create-project gambitph/titan-framework titan-framework
 
 ## Recent Changelog
 
+#### Version 1.7.4
+* Faster SCSS parsing
+* Faster loading time
+* Unit parameter for number options now supported in the Theme Customizer
+* Better font color option handling in Theme Customizer
+* Now prevents SCSS errors from showing up
+* Fixed name label issues with the enable option
+* Better plugin checking method
+* Plugin checker now integrates with TGM Plugin Activation
+* Updated Ace
+
 #### Version 1.7.3
 * Fixed bug introduced in 1.7.2 where admin options sometimes were not being saved
 
@@ -47,14 +58,6 @@ php composer.phar create-project gambitph/titan-framework titan-framework
 * Bug fixes for the Easy Digital Download License option
 * Enhanced date option parameters
 * New parameters for Theme Customizer for creating panels
-
-#### Version 1.7
-* New Easy Digital Download License option (thank you julien731)
-* New date option (thank you ardalann)
-* Added new action tf_save_options_{namespace} which is called after saving options
-* Fixed display issue with the font option in the theme customizer
-* Fixed bug where empty multicheck returned an array
-* Fix: customizer show_font_size & show_color
 
 ## Creating a WordPress Theme?
 
