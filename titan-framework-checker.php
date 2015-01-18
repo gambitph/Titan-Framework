@@ -192,6 +192,8 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
  * If Titan Framework isn't activated, our frontend will show a ton of errors,
  * not to mention live previews will not work correctly.
  * This dummy class will make calls to Titan Framework work, but return the default values.
+ *
+ * @since 1.7.5
  */
 function titan_framework_checker_dummy_class() {
 
@@ -208,6 +210,12 @@ function titan_framework_checker_dummy_class() {
 	// Create a dummy class of Titan Framework if the plugin isn't available.
 	// This is class just prevents errors and gives out default values.
 	if ( ! class_exists( 'TitanFramework' ) ) {
+		
+		/**
+		 * Dummy / Simulated Titan Framework for a more pleasing pre-Titan experience
+		 *
+		 * @since 1.7.5
+		 */
 		class TitanFramework {
 		
 			private static $instances = array();
@@ -220,6 +228,7 @@ function titan_framework_checker_dummy_class() {
 			/**
 			 * All the web safe fonts (do not enqueue these)
 			 * @see class-option-font.php
+			 * @since 1.7.5
 			 */
 			public static $webSafeFonts = array(
 				'Arial, Helvetica, sans-serif' => 'Arial',
@@ -239,6 +248,8 @@ function titan_framework_checker_dummy_class() {
 		
 			/**
 			 * Just memorize the option namespace
+			 *
+			 * @since 1.7.5
 			 */
 			function __construct( $optionNamespace ) {
 				$this->optionNamespace = $optionNamespace;
@@ -249,6 +260,8 @@ function titan_framework_checker_dummy_class() {
 			
 			/**
 			 * Simulation of a Titan Framework initialize
+			 *
+			 * @since 1.7.5
 			 */
 			public static function simulatedTFInit() {			
 				if ( ! self::$firstCall ) {
@@ -270,6 +283,7 @@ function titan_framework_checker_dummy_class() {
 			 * @param	$optionNamespace string The namespace to use
 			 * @return	TitanFramework (dummy) instance
 			 * @see 	TitanFramework::getInstance (the real class)
+			 * @since 1.7.5
 			 */
 			public static function getInstance( $optionNamespace ) {
 				// Clean namespace
@@ -293,6 +307,7 @@ function titan_framework_checker_dummy_class() {
 			 *
 			 * @param	$args array Normal option arguments
 			 * @return	TitanFramework (dummy) instance
+			 * @since 1.7.5
 			 */
 			public function createOption( $args ) {
 				if ( ! empty( $args['id'] ) ) {
@@ -310,6 +325,7 @@ function titan_framework_checker_dummy_class() {
 			 *
 			 * @param	$args array Normal option arguments
 			 * @see		TitanFrameworkOptionFont::enqueueGooglefonts()
+			 * @since 1.7.5
 			 */
 			protected function gatherGoogleFonts( $args ) {
 				if ( $args['type'] != 'font' ) {
@@ -363,6 +379,7 @@ function titan_framework_checker_dummy_class() {
 			 * Enqueues all the Google fonts
 			 *
 			 * @see	TitanFrameworkOptionFont::enqueueGooglefonts()
+			 * @since 1.7.5
 			 */
 			protected function enqueueGooglefonts() {
 				$subsets = array( 'latin', 'latin-ext', );
@@ -390,6 +407,7 @@ function titan_framework_checker_dummy_class() {
 			 *
 			 * @param	$args string The option ID
 			 * @return	mixed The default value of the option
+			 * @since 1.7.5
 			 */
 			public function getOption( $optionID ) {
 				return empty( $this->optionDefaults[ $optionID ] ) ? '' : $this->optionDefaults[ $optionID ];
@@ -401,6 +419,7 @@ function titan_framework_checker_dummy_class() {
 			 *
 			 * @param	$args string The option ID
 			 * @return	TitanFramework (dummy) instance
+			 * @since 1.7.5
 			 */
 			public function createThemeCustomizerSection( $args ) {
 				return $this;
@@ -412,6 +431,7 @@ function titan_framework_checker_dummy_class() {
 			 *
 			 * @param	$args string The option ID
 			 * @return	TitanFramework (dummy) instance
+			 * @since 1.7.5
 			 */
 			public function createAdminPanel( $args ) {
 				return $this;
@@ -423,6 +443,7 @@ function titan_framework_checker_dummy_class() {
 			 *
 			 * @param	$args string The option ID
 			 * @return	TitanFramework (dummy) instance
+			 * @since 1.7.5
 			 */
 			public function createTab( $args ) {
 				return $this;
@@ -434,6 +455,7 @@ function titan_framework_checker_dummy_class() {
 			 *
 			 * @param	$args string The option ID
 			 * @return	TitanFramework (dummy) instance
+			 * @since 1.7.5
 			 */
 			public function createMetaBox( $args ) {
 				return $this;
@@ -445,6 +467,7 @@ function titan_framework_checker_dummy_class() {
 			 *
 			 * @param	$args string CSS arguments
 			 * @return	TitanFramework (dummy) instance
+			 * @since 1.7.5
 			 */
 			public function createCSS( $args ) {
 				return $this;
@@ -465,6 +488,7 @@ function titan_framework_checker_dummy_class() {
  * @license http://opensource.org/licenses/MIT MIT
  *
  * @link http://leafo.net/scssphp
+ * @since Titan Framework 1.7.5
  */
 
 /**
