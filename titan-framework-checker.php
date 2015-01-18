@@ -20,7 +20,10 @@
  *			our own admin notice
  *
  * TODO:
- *		* Enqueue Google fonts if default values if TF plugin is inactive
+ *		* OK Enqueue Google fonts if default values if TF plugin is inactive
+ *		* Parse SCSS rules using default values
+ *		* Parse createCSS rules using default values
+ *		* Include parsed SCSS rules in wp_head
  */
 
 
@@ -208,14 +211,56 @@ function titan_framework_checker_dummy_class() {
 		class TitanFramework {
 		
 			private static $instances = array();
+			private static $firstCall = true;
 			public $optionNamespace;
 			private $optionDefaults = array();
+			
+			private static $fontsToLoad = array();
+			
+			/**
+			 * All the web safe fonts (do not enqueue these)
+			 * @see class-option-font.php
+			 */
+			public static $webSafeFonts = array(
+				'Arial, Helvetica, sans-serif' => 'Arial',
+				'"Arial Black", Gadget, sans-serif' => 'Arial Black',
+				'"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
+				'"Courier New", Courier, monospace' => 'Courier New',
+				'Georgia, serif' => 'Geogia',
+				'Impact, Charcoal, sans-serif' => 'Impact',
+				'"Lucida Console", Monaco, monospace' => 'Lucida Console',
+				'"Lucida Sans Unicode", "Lucida Grande", sans-serif' => 'Lucida Sans',
+				'"Palatino Linotype", "Book Antiqua", Palatino, serif' => 'Palatino',
+				'Tahoma, Geneva, sans-serif' => 'Tahoma',
+				'"Times New Roman", Times, serif' => 'Times New Roman',
+				'"Trebuchet MS", Helvetica, sans-serif' => 'Trebuchet',
+				'Verdana, Geneva, sans-serif' => 'Verdana',
+			);
 		
 			/**
 			 * Just memorize the option namespace
 			 */
 			function __construct( $optionNamespace ) {
 				$this->optionNamespace = $optionNamespace;
+
+				self::simulatedTFInit();
+			}
+			
+			
+			/**
+			 * Simulation of a Titan Framework initialize
+			 */
+			public static function simulatedTFInit() {			
+				if ( ! self::$firstCall ) {
+					return;
+				}
+				self::$firstCall = false;
+					
+				// Start create option simulation
+				do_action( 'tf_create_options' );
+				
+				// Enqueue all Google fonts
+				self::enqueueGooglefonts();
 			}
 		
 		
@@ -239,9 +284,6 @@ function titan_framework_checker_dummy_class() {
 				$newInstance = new TitanFramework( $optionNamespace );
 				self::$instances[] = $newInstance;
 			
-				// Start create option simulation
-				do_action( 'tf_create_options' );
-			
 				return $newInstance;
 			}
 		
@@ -256,9 +298,90 @@ function titan_framework_checker_dummy_class() {
 				if ( ! empty( $args['id'] ) ) {
 					$this->optionDefaults[ $args['id'] ] = empty( $args['default'] ) ? '' : $args['default'];
 					
-					// TODO: if the option being 'created' is a font option, enqueue the default font family
+					$this->gatherGoogleFonts( $args );
+					
 				}
 				return $this;
+			}
+			
+			
+			/**
+			 * Gathers all the Google fonts from font options
+			 *
+			 * @param	$args array Normal option arguments
+			 * @see		TitanFrameworkOptionFont::enqueueGooglefonts()
+			 */
+			protected function gatherGoogleFonts( $args ) {
+				if ( $args['type'] != 'font' ) {
+					return;
+				}
+				if ( ! empty( $args['show_google_fonts'] ) ) {
+					if ( ! $args['show_google_fonts'] ) {
+						return;
+					}
+				}
+				if ( ! is_array( $args['default'] ) ) {
+					return;
+				}
+				if ( empty( $args['default']['font-family'] ) ) {
+					return;
+				}
+				if ( in_array( $args['default']['font-family'], self::$webSafeFonts ) ) {
+					return;
+				}
+				
+				// Get the weight
+				$variant = '400';
+				if ( ! empty( $args['default']['font-weight'] ) ) {
+					$variant = $args['default']['font-weight'];
+					if ( $variant == 'normal' ) {
+						$variant = '400';
+					} else if ( $variant == 'bold' ) {
+						$variant = '500';
+					} else if ( $variant == 'bolder' ) {
+						$variant = '800';
+					} else if ( $variant == 'lighter' ) {
+						$variant = '100';
+					}
+				}
+				
+				if ( ! empty( $args['default']['font-style'] ) ) {
+					if ( $args['default']['font-style'] == 'italic' ) {
+						$variant .= 'italic';
+					}
+				}
+				
+				if ( ! array_key_exists( $args['default']['font-family'], self::$fontsToLoad ) ) {
+					self::$fontsToLoad[ $args['default']['font-family'] ] = array();
+				}
+				
+				self::$fontsToLoad[ $args['default']['font-family'] ][] = $variant;
+			}
+			
+			
+			/**
+			 * Enqueues all the Google fonts
+			 *
+			 * @see	TitanFrameworkOptionFont::enqueueGooglefonts()
+			 */
+			protected function enqueueGooglefonts() {
+				$subsets = array( 'latin', 'latin-ext', );
+				
+				foreach ( self::$fontsToLoad as $fontName => $variant ) {
+
+					// Always include the normal weight so that we don't error out
+					$variants[] = '400';
+					$variants = array_unique( $variants );
+
+					$fontUrl = sprintf( "http://fonts.googleapis.com/css?family=%s:%s&subset=%s",
+						str_replace( ' ', '+', $fontName ),
+						implode( ',', $variants ),
+						implode( ',', $subsets )
+					);
+
+					wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $fontUrl );
+				}
+				
 			}
 		
 		
