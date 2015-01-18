@@ -10,6 +10,17 @@
  *
  * To use this script, just copy it into your theme/plugin directory and do a
  * require_once( 'titan-framework-checker.php' );
+ *
+ * Changelog:
+ * v1.7.5
+ *		* Includes a dummy TitanFramework class so that no errors would occur
+ *			and the default values will still be shown if TF plugin is inactive
+ * v1.7.4
+ *		* Now integrates with TGM Plugin Activation - uses TGM instead of displaying
+ *			our own admin notice
+ *
+ * TODO:
+ *		* Enqueue Google fonts if default values if TF plugin is inactive
  */
 
 
@@ -36,6 +47,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		function __construct() {
 			add_action( 'after_setup_theme', array( $this, 'performCheck' ), 2 );
 			add_action( 'tgmpa_register', array( $this, 'tgmPluginActivationInclude' ) );
+			add_action( 'after_setup_theme', 'titan_framework_checker_dummy_class', 1 );
 		}
 
 
@@ -170,4 +182,150 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 	new TitanFrameworkChecker();
 
+}
+
+
+/**
+ * If Titan Framework isn't activated, our frontend will show a ton of errors,
+ * not to mention live previews will not work correctly.
+ * This dummy class will make calls to Titan Framework work, but return the default values.
+ */
+function titan_framework_checker_dummy_class() {
+
+	// Don't do anything when we're activating a plugin to prevent errors
+	// on redeclaring Titan classes
+	if ( is_admin() ) {
+		if ( ! empty( $_GET['action'] ) && ! empty( $_GET['plugin'] ) ) {
+		    if ( $_GET['action'] == 'activate' ) {
+		        return;
+		    }
+		}
+	}
+	
+	// Create a dummy class of Titan Framework if the plugin isn't available.
+	// This is class just prevents errors and gives out default values.
+	if ( ! class_exists( 'TitanFramework' ) ) {
+		class TitanFramework {
+		
+			private static $instances = array();
+			public $optionNamespace;
+			private $optionDefaults = array();
+		
+			/**
+			 * Just memorize the option namespace
+			 */
+			function __construct( $optionNamespace ) {
+				$this->optionNamespace = $optionNamespace;
+			}
+		
+		
+			/**
+			 * Gets the instance of our dummy class, also makes sure we perform tf_create_options
+			 *
+			 * @param	$optionNamespace string The namespace to use
+			 * @return	TitanFramework (dummy) instance
+			 * @see 	TitanFramework::getInstance (the real class)
+			 */
+			public static function getInstance( $optionNamespace ) {
+				// Clean namespace
+				$optionNamespace = str_replace( ' ', '-', trim( strtolower( $optionNamespace ) ) );
+
+				foreach ( self::$instances as $instance ) {
+					if ( $instance->optionNamespace == $optionNamespace ) {
+						return $instance;
+					}
+				}
+
+				$newInstance = new TitanFramework( $optionNamespace );
+				self::$instances[] = $newInstance;
+			
+				// Start create option simulation
+				do_action( 'tf_create_options' );
+			
+				return $newInstance;
+			}
+		
+		
+			/**
+			 * Don't create the option and just memorize the default values
+			 *
+			 * @param	$args array Normal option arguments
+			 * @return	TitanFramework (dummy) instance
+			 */
+			public function createOption( $args ) {
+				if ( ! empty( $args['id'] ) ) {
+					$this->optionDefaults[ $args['id'] ] = empty( $args['default'] ) ? '' : $args['default'];
+					
+					// TODO: if the option being 'created' is a font option, enqueue the default font family
+				}
+				return $this;
+			}
+		
+		
+			/**
+			 * Don't get the actual option value and just get the default value
+			 *
+			 * @param	$args string The option ID
+			 * @return	mixed The default value of the option
+			 */
+			public function getOption( $optionID ) {
+				return empty( $this->optionDefaults[ $optionID ] ) ? '' : $this->optionDefaults[ $optionID ];
+			}
+		
+		
+			/**
+			 * Don't get the actual option value and just get the default value
+			 *
+			 * @param	$args string The option ID
+			 * @return	TitanFramework (dummy) instance
+			 */
+			public function createThemeCustomizerSection( $args ) {
+				return $this;
+			}
+		
+		
+			/**
+			 * Don't get the actual option value and just get the default value
+			 *
+			 * @param	$args string The option ID
+			 * @return	TitanFramework (dummy) instance
+			 */
+			public function createAdminPanel( $args ) {
+				return $this;
+			}
+		
+		
+			/**
+			 * Don't get the actual option value and just get the default value
+			 *
+			 * @param	$args string The option ID
+			 * @return	TitanFramework (dummy) instance
+			 */
+			public function createTab( $args ) {
+				return $this;
+			}
+		
+		
+			/**
+			 * Don't get the actual option value and just get the default value
+			 *
+			 * @param	$args string The option ID
+			 * @return	TitanFramework (dummy) instance
+			 */
+			public function createMetaBox( $args ) {
+				return $this;
+			}
+		
+		
+			/**
+			 * Don't get the actual option value and just get the default value
+			 *
+			 * @param	$args string CSS arguments
+			 * @return	TitanFramework (dummy) instance
+			 */
+			public function createCSS( $args ) {
+				return $this;
+			}
+		}
+	}
 }
