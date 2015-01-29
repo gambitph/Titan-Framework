@@ -18,7 +18,7 @@ This means faster theme & plugin creation for everyone.
 
 = The Goal =
 
-Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/get-started/)
+Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/how/)
 
 * [Documentation and Tutorials for Developers](http://www.titanframework.net/docs)
 * [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
@@ -116,7 +116,7 @@ and to everyone else in the GitHub repo!
 
 1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Use the provided classes and functions in your theme or plugin. Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/get-started/)
+3. Use the provided classes and functions in your theme or plugin. Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/how/)
 
 == Frequently Asked Questions ==
 
