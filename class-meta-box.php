@@ -99,6 +99,9 @@ class TitanFrameworkMetaBox {
 		if ( ! $this->verifySecurity( $postID, $post ) ) {
 			return;
 		}
+		
+		// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
+		do_action( 'tf_pre_save_options_' . $this->owner->optionNamespace, $this );
 
 		// Save the options one by one
 		foreach ( $this->options as $option ) {

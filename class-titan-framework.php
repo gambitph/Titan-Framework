@@ -594,6 +594,9 @@ class TitanFramework {
 			return $value;
 		}
 		
+		// Checks whether a Titan customizer is in place
+		$customizerUsed = false;
+		
 		// Go through all our customizer options and filter them for saving
 		$optionIDs = array();
 		foreach ( $this->themeCustomizerSections as $customizer ) {
@@ -605,6 +608,8 @@ class TitanFramework {
 					if ( ! in_array( $themeModName, $value ) ) {
 						continue;
 					}
+					
+					$customizerUsed = true;
 					
 					// Try and unserialize if possible
 					$tempValue = $value[ $themeModName ];
@@ -629,6 +634,11 @@ class TitanFramework {
 					}
 				}
 			}
+		}
+		
+		// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
+		if ( $customizerUsed ) {
+			do_action( 'tf_pre_save_options_' . $this->optionNamespace, $this->themeCustomizerSections );
 		}
 		
 		return $value;
