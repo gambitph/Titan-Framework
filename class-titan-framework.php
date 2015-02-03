@@ -80,6 +80,9 @@ class TitanFramework {
 		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "rememberGoogleFonts" ) );
 		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "rememberAllOptions" ) );
 		add_filter( 'tf_create_option_continue_' . $this->optionNamespace, array( $this, "removeChildThemeOptions" ), 10, 2 );
+		
+		// Create a save option filter for customizer options
+		add_filter( 'pre_update_option', array( $this, 'addCustomizerSaveFilter' ), 10, 3 );
 	}
 
 	/**
@@ -423,6 +426,10 @@ class TitanFramework {
 			$value = $this->optionsUsed[$optionName]->cleanValueForSaving( $value );
 		}
 
+		// Call to 'tf_save_option_{namespace}_{optionID}', $value contains the current value about to be saved
+		// This is for admin panel & post meta options. Customizer settings are filtered by addCustomizerSaveFilter() below
+		$value = apply_filters( 'tf_save_option_' . $this->optionNamespace . '_' . $optionName, $value );
+
 		if ( empty( $postID ) ) {
 			// option
 
@@ -550,5 +557,73 @@ class TitanFramework {
 	 */
 	public function generateCSS() {
 		return $this->cssInstance->generateCSS();
+	}
+	
+
+
+	/**
+	 * Adds a 'tf_save_option_{namespace}_{optionID}' filter to all Customizer options
+	 * which are just about to be saved
+	 * 
+	 * This uses the `pre_update_option` filter to check all the options being saved if it's
+	 * a theme_mod option. It further checks whether these are Titan customizer options,
+	 * then attaches the new hook into those.
+	 *
+	 * @param	$value mixed The value to be saved in the options
+	 * @param	$optionName string The option name
+	 * @param	$oldValue mixed The previously stored value
+	 * @return	mixed The modified value to save
+	 * @since   1.8
+	 * @see		pre_update_option filter
+	 */
+	public function addCustomizerSaveFilter( $value, $optionName, $oldValue ) {
+		
+		$theme = get_option( 'stylesheet' );
+
+		// Intercept theme mods only
+		if ( ! preg_match( '/^theme_mods_' . $theme . '/', $optionName ) ) {
+			return $value;
+		}
+		
+		// We expect theme mods to be an array
+		if ( ! is_array( $value ) ) {
+			return $value;
+		}
+		
+		// Go through all our customizer options and filter them for saving
+		$optionIDs = array();
+		foreach ( $this->themeCustomizerSections as $customizer ) {
+			foreach ( $customizer->options as $option ) {
+				if ( ! empty( $option->settings['id'] ) ) {
+					$optionID = $option->settings['id'];
+					$themeModName = $this->optionNamespace . '_' . $option->settings['id'];
+					
+					if ( ! in_array( $themeModName, $value ) ) {
+						continue;
+					}
+					
+					// Try and unserialize if possible
+					$tempValue = $value[ $themeModName ];
+					if ( is_serialized( $tempValue ) ) {
+						$tempValue = unserialize( $tempValue );
+					}
+					
+					// Hook 'tf_save_option_{namespace}_{optionID}'
+					$newValue = apply_filters( 'tf_save_option_' . $themeModName, $tempValue );
+					
+					// We mainly check for equality here so that we won't have to serialize IF the value
+					// wasn't touched anyway.
+					if ( $newValue != $tempValue ) {
+						if ( is_array( $newValue ) ) {
+							$newValue = serialize( $newValue );
+						}
+					
+						$value[ $themeModName ] = $newValue;
+					}
+				}
+			}
+		}
+		
+		return $value;
 	}
 }
