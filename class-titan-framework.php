@@ -426,6 +426,10 @@ class TitanFramework {
 			$value = $this->optionsUsed[$optionName]->cleanValueForSaving( $value );
 		}
 
+		// Call to 'tf_save_option_{namespace}', $value contains the current value about to be saved
+		// This is for admin panel & post meta options. Customizer settings are filtered by addCustomizerSaveFilter() below
+		$value = apply_filters( 'tf_save_option_' . $this->optionNamespace, $value, $optionName );
+
 		// Call to 'tf_save_option_{namespace}_{optionID}', $value contains the current value about to be saved
 		// This is for admin panel & post meta options. Customizer settings are filtered by addCustomizerSaveFilter() below
 		$value = apply_filters( 'tf_save_option_' . $this->optionNamespace . '_' . $optionName, $value );
@@ -607,6 +611,9 @@ class TitanFramework {
 					if ( is_serialized( $tempValue ) ) {
 						$tempValue = unserialize( $tempValue );
 					}
+					
+					// Hook 'tf_save_option_{namespace}'
+					$newValue = apply_filters( 'tf_save_option_' . $this->optionNamespace, $tempValue, $option->settings['id'] );
 					
 					// Hook 'tf_save_option_{namespace}_{optionID}'
 					$newValue = apply_filters( 'tf_save_option_' . $themeModName, $tempValue );
