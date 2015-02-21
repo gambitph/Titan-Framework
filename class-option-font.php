@@ -32,6 +32,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
         'include_fonts' => '', // A regex string or array of regex strings to match font names to include.
 		'show_websafe_fonts' => true,
 		'show_google_fonts' => true,
+		'fonts' => array(),
 	);
 
 	// Default style options
@@ -508,6 +509,23 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			Font Family
 			<select class='tf-font-sel-family'>
 				<?php
+				if(count($this->settings['fonts'])){
+					?>
+						<optgroup label="Custom Fonts" class='customf-fonts'>
+							<?php
+
+							foreach ( $this->settings['fonts'] as $family => $label ) {
+								printf( "<option value='%s'%s>%s</option>",
+									$family,
+									selected( $value['font-family'], $family, false ),
+									$label
+								);
+							}
+
+							?>
+						</optgroup>
+					<?php
+				}
 				if ( $this->settings['show_websafe_fonts'] ) {
 					?>
 				    <optgroup label="Web Safe Fonts" class='safe'>
@@ -566,6 +584,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					</optgroup>
 					<?php
 				}
+				
+
 				?>
 			</select>
 		</label>
