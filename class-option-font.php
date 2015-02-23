@@ -106,6 +106,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	public function rememberGoogleFonts( $option ) {
 		if ( is_a( $option, __CLASS__ ) ) {
 			if ( $option->settings['enqueue'] ) {
+
 				self::$googleFontsOptions[] = $option;
 			}
 		}
@@ -122,6 +123,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		if ( ! count( self::$googleFontsOptions ) ) {
 			return;
 		}
+		//echo '<pre>';
+		//print_r($option);
+		//print_r($this->settings['fonts']);
+		//print_r(self::$googleFontsOptions);
+		//echo '</pre>';
 
 		// Gather all the fonts that we need to load, some may be repeated so we need to
 		// load them once after gathering them
@@ -134,6 +140,10 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			}
 
 			if ( $fontValue['font-type'] != 'google' ) {
+				continue;
+			}
+			// Stop load Custom Fonts
+			if ( in_array($fontValue['font-family'],$this->settings['fonts']) ) {
 				continue;
 			}
 
