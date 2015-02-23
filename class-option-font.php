@@ -123,11 +123,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		if ( ! count( self::$googleFontsOptions ) ) {
 			return;
 		}
-		//echo '<pre>';
-		//print_r($option);
-		//print_r($this->settings['fonts']);
-		//print_r(self::$googleFontsOptions);
-		//echo '</pre>';
 
 		// Gather all the fonts that we need to load, some may be repeated so we need to
 		// load them once after gathering them
