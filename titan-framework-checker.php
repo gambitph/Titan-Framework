@@ -376,7 +376,7 @@ function titan_framework_checker_dummy_class() {
 			 * @see	TitanFrameworkOptionFont::enqueueGooglefonts()
 			 * @since 1.7.5
 			 */
-			protected function enqueueGooglefonts() {
+			protected static function enqueueGooglefonts() {
 				$subsets = array( 'latin', 'latin-ext', );
 				
 				foreach ( self::$fontsToLoad as $fontName => $variant ) {
