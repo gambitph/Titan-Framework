@@ -169,10 +169,6 @@ class TitanFrameworkAdminPanel {
 
 				$this->owner->setOption( $option->settings['id'], $value );
 			}
-		
-			// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
-			do_action( 'tf_pre_save_options_' . $this->getOptionNamespace(), $this );
-				
 			$this->owner->saveOptions();
 
 			$message = 'saved';
@@ -201,10 +197,6 @@ class TitanFrameworkAdminPanel {
 
 				$this->owner->setOption( $option->settings['id'], $option->settings['default'] );
 			}
-		
-			// Hook 'tf_pre_reset_options_{namespace}' - action pre-saving
-			do_action( 'tf_pre_reset_options_' . $this->getOptionNamespace(), $this );
-			
 			$this->owner->saveOptions();
 
 			$message = 'reset';

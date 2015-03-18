@@ -175,12 +175,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				implode( ',', $variants ),
 				implode( ',', $subsets )
 			);
-			
-			$fontUrl = apply_filters( 'tf_enqueue_google_webfont_' . $this->getOptionNamespace(), $fontUrl, $fontName );
 
-			if ( $fontUrl !== false ) {
-				wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $fontUrl );
-			}
+			wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $fontUrl );
 		}
 
 		// Don't repeat
