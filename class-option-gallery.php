@@ -50,8 +50,12 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
             $previewImage = '';
             if ( ! empty( $v ) ) {
                 $size = ! empty( $option->settings['size'] ) ? $option->settings['size'] : 'thumbnail';
-                $attachment = wp_get_attachment_image_src( $v, $size );
-                $v = $attachment[0];
+                
+                if ( is_numeric($v) ) {
+                    $attachment = wp_get_attachment_image_src( $v, $size );
+                    $v = $attachment[0];
+                } 
+                
                 $previewImage = "<i class='dashicons dashicons-no-alt remove'></i><img style='max-width: 150px; max-height: 150px; margin-top: 0px; margin-left: 0px;' src='" . esc_url( $v ) . "' style='display: none'/>";
                 echo "<div class='thumbnail used-thumbnail tf-image-preview'>" . $previewImage . "</div>";
             }
