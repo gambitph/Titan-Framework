@@ -52,6 +52,7 @@
 	top: 0;
 	border: 1px solid #DDD;
 	right: 0;
+	height: auto;
 }
 .tf-upload .tf-image-preview img {
 	max-width: 100%;
