@@ -27,6 +27,7 @@ class TitanFrameworkOption {
 		'default' => '', // Menu icon for top level menus only
 		'example' => '', // An example value for this field, will be displayed in a <code>
 		'livepreview' => '', // jQuery script to update something in the site. For theme customizer only
+		'hidden' => false, 
 	);
 
 	public $defaultSecondarySettings = array();
@@ -177,8 +178,11 @@ class TitanFrameworkOption {
 		$id = $this->getID();
 		$name = $this->getName();
 		$evenOdd = self::$rowIndex++ % 2 == 0 ? 'odd' : 'even';
+		
+		$style = $this->getHidden() === true ? 'style="display: none"' : '';
+		
 		?>
-		<tr valign="top" class="row-<?php echo self::$rowIndex ?> <?php echo $evenOdd ?>">
+		<tr valign="top" class="row-<?php echo self::$rowIndex ?> <?php echo $evenOdd ?>" <?php echo $style ?>>
 		<th scope="row" class="first">
 			<label for="<?php echo !empty( $id ) ? $id : '' ?>"><?php echo !empty( $name ) ? $name : '' ?></label>
 		</th>
