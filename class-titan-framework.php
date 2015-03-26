@@ -605,7 +605,7 @@ class TitanFramework {
 					$optionID = $option->settings['id'];
 					$themeModName = $this->optionNamespace . '_' . $option->settings['id'];
 					
-					if ( ! in_array( $themeModName, $value ) ) {
+					if ( ! array_key_exists( $themeModName, $value ) ) {
 						continue;
 					}
 					
