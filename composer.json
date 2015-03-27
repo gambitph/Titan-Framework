@@ -60,6 +60,10 @@
 		"ajaxorg/ace-builds": "dev-master"
 	},
 	"scripts": {
+		"post-archive-cmd": [
+			"php -r \"\\$withVersion = false; \\$finalZip = basename( getcwd() ) . '.zip'; foreach ( array_merge(glob('*.php'), glob('*.css')) as \\$zipFile ) { \\$f = file_get_contents( \\$zipFile ); preg_match('/Plugin Name\\\\s*:\\\\s*([a-zA-Z\\\\s]*)\\\\n/i', \\$f, \\$matches ); if (count(\\$matches) < 2) { preg_match('/Theme Name\\\\s*:\\\\s*([a-zA-Z\\\\s]*)\\\\n/i', \\$f, \\$matches ); if (count(\\$matches) < 2) {continue;} } \\$name = \\$matches[1]; \\$zipName = trim(strtolower(str_replace(' ', '-', \\$name))); preg_match('/Version\\\\s*:\\\\s*([0-1a-zA-Z\\\\-.]*)\\\\n/i', \\$f, \\$matches); if ( count(\\$matches) < 2 ){ continue;} \\$version = \\$matches[1]; \\$finalZip = \\$zipName . '-' . \\$version . '.zip'; if ( ! \\$withVersion ) { \\$finalZip = \\$zipName . '.zip'; } } foreach ( glob('*.zip') as \\$zipFile ) { rename( \\$zipFile, \\$finalZip ); break; }\"",
+			"php -r \"foreach ( glob('*.zip') as \\$zipFile ) { \\$dir = basename(\\$zipFile, '.zip'); exec( 'mkdir _tmp && mv ' . \\$zipFile . ' _tmp && cd _tmp && unzip ' . \\$zipFile . ' -d ' . \\$dir . ' && rm ' . \\$zipFile . ' && zip -r9 ' . \\$zipFile . ' ' . \\$dir . ' && mv *.zip .. && cd .. && rm -R _tmp' ); exec( 'mv ' . \\$zipFile . ' ..' ); } echo 'Created: ' . \\$zipFile . \\\"\\n\\\";\""
+		],
 		"post-update-cmd": [
 			"php -r \"copy('vendor/trentrichardson/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js', 'js/jquery-ui-timepicker-addon.js');\"",
 			
