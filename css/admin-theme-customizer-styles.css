@@ -39,7 +39,7 @@
 }
 
 /* radio image */
-.tf-radio-image img {
+.tf-radio-image img, .tf-radio-image-font-icon {
 	vertical-align: middle;
 }
 .tf-radio-image {

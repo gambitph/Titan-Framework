@@ -6,6 +6,7 @@ class TitanFrameworkOptionRadioImage extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
 		'options' => array(),
+		'is_font_icon' => false
 	);
 
 	function __construct( $settings, $owner ) {
@@ -27,13 +28,18 @@ class TitanFrameworkOptionRadioImage extends TitanFrameworkOption {
 
 		// Get the correct value, since we are accepting indices in the default setting
 		$value = $this->getValue();
+		if ($this->settings['is_font_icon']){
+			$template = '<label id="%s"><input id="%s" type="radio" name="%s" value="%s" %s/> <span class="tf-radio-image-font-icon %s"></span></label>';
+		} else {
+			$template = '<label id="%s"><input id="%s" type="radio" name="%s" value="%s" %s/> <img src="%s" /></label>';
+		}
 
 		// print the images
 		foreach ( $this->settings['options'] as $key => $imageURL ) {
 			if ( $value == '' ) {
 				$value = $key;
 			}
-			printf( '<label id="%s"><input id="%s" type="radio" name="%s" value="%s" %s/> <img src="%s" /></label>',
+			printf( $template,
 				$this->getID() . $key,
 				$this->getID() . $key,
 				$this->getID(),
@@ -80,6 +86,7 @@ class TitanFrameworkOptionRadioImage extends TitanFrameworkOption {
 			'settings' => $this->getID(),
 			'description' => $this->settings['desc'],
 			'priority' => $priority,
+			'is_font_icon' => $this->settings['is_font_icon']
 		) ) );
 	}
 }
@@ -92,6 +99,7 @@ add_action( 'customize_register', 'registerTitanFrameworkOptionRadioImageControl
 function registerTitanFrameworkOptionRadioImageControl() {
 	class TitanFrameworkOptionRadioImageControl extends WP_Customize_Control {
 		public $description;
+		public $is_font_icon;
 
 		public function render_content() {
 
@@ -112,7 +120,11 @@ function registerTitanFrameworkOptionRadioImageControl() {
 				<span class='tf-radio-image'>
 					<label>
 						<input type="radio" name="<?php echo esc_attr( $this->id ) ?>" value="<?php echo esc_attr( $key ) ?>" <?php $this->link(); checked( $value, $key ); ?>/>
-							<img src="<?php echo esc_attr( $imageURL ) ?>"/>
+							<?php if ($this->is_font_icon){ ?>
+								<span class="tf-radio-image-font-icon <?php echo  esc_attr( $imageURL ) ?>"></span>
+							<?php } else { ?>
+								<img src="<?php echo esc_attr( $imageURL ) ?>"/>
+							<?php } ?>
 						</input>
 					</label>
 				</span>
