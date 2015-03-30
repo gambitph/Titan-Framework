@@ -170,7 +170,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			$variants[] = '400';
 			$variants = array_unique( $variants );
 
-			$fontUrl = sprintf( "http://fonts.googleapis.com/css?family=%s:%s&subset=%s",
+			$fontUrl = sprintf( "//fonts.googleapis.com/css?family=%s:%s&subset=%s",
 				str_replace( ' ', '+', $fontName ),
 				implode( ',', $variants ),
 				implode( ',', $subsets )
