@@ -227,7 +227,7 @@ class TitanFrameworkAdminPanel {
 
 		do_action( 'tf_admin_options_saved_' . $this->getOptionNamespace() );
 
-		wp_redirect( $url );
+		wp_redirect( esc_url_raw( $url ) );
 	}
 
 	private function verifySecurity() {

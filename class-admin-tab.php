@@ -57,7 +57,7 @@ class TitanFrameworkAdminTab {
 			remove_query_arg( 'message' )
 		);
 		?>
-		<a href="<?php echo $url; ?>" class="nav-tab <?php echo $this->isActiveTab() ? "nav-tab-active" : '' ?>"><?php echo $this->settings['name'] ?></a>
+		<a href="<?php echo esc_url( $url ) ?>" class="nav-tab <?php echo $this->isActiveTab() ? "nav-tab-active" : '' ?>"><?php echo $this->settings['name'] ?></a>
 		<?php
 	}
 
