@@ -9,6 +9,7 @@ class TitanFrameworkThemeCustomizerSection {
 		// 'parent' => null, // slug of parent, if blank, then this is a top level menu
 		'id' => '', // Unique ID of the menu item
 		'panel' => '', // The Name of the panel to create
+		'panel_desc' => '', // The description to display on the panel
 		'panel_id' => '', // The panel ID to create / add to. If this is blank & `panel` is given, this will be generated
 		'capability' => 'edit_theme_options', // User role
 		// 'icon' => 'dashicons-admin-generic', // Menu icon for top level menus only
@@ -112,6 +113,7 @@ class TitanFrameworkThemeCustomizerSection {
 					'title' => $this->settings['panel'],
 					'priority' => $this->settings['position'],
 					'capability' => $this->settings['capability'],
+					'description' => ! empty( $this->settings['panel_desc'] ) ? $this->settings['panel_desc'] : '',
 				) );
 			}
 		}
