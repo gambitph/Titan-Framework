@@ -12,7 +12,7 @@ function registerTitanFrameworkCustomizeControl() {
 
 		public function render_content() {
 			parent::render_content();
-			echo "<p class='description'>{$this->description}</p>";
+			// echo "<p class='description'>{$this->description}</p>";
 		}
 	}
 }
