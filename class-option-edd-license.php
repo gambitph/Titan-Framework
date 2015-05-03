@@ -313,7 +313,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			/* Load the plugin updater class and add required parameters. */
 			if( 'plugin' === $item_is ) {
 
-				if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+				if ( !class_exists( 'TITAN_EDD_SL_Plugin_Updater' ) ) {
 					include( TF_PATH . 'inc/edd-licensing/EDD_SL_Plugin_Updater.php' );
 				}
 
@@ -326,7 +326,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			/* Load the theme updater class and add required parameters. */
 			elseif ( in_array( $item_is, array( 'theme-parent', 'theme-child' ) ) ) {
 
-				if ( !class_exists( 'EDD_Theme_Updater' ) ) {
+				if ( !class_exists( 'TITAN_EDD_Theme_Updater' ) ) {
 					include( TF_PATH . 'inc/edd-licensing/theme-updater-class.php' );
 				}
 
@@ -381,9 +381,9 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 			/* Setup updater */
 			if( 'plugin' === $item_is ) {
-				$edd_updater = new EDD_SL_Plugin_Updater( $endpoint, $this->settings['file'], $args );
+				$edd_updater = new TITAN_EDD_SL_Plugin_Updater( $endpoint, $this->settings['file'], $args );
 			} else {
-				new EDD_Theme_Updater( $args, $strings );
+				new TITAN_EDD_Theme_Updater( $args, $strings );
 			}
 
 			return true;

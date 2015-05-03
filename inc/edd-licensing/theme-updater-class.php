@@ -5,7 +5,7 @@
  * @package EDD Sample Theme
  */
 
-class EDD_Theme_Updater {
+class TITAN_EDD_Theme_Updater {
 
 	private $remote_api_url;
 	private $request_data;
