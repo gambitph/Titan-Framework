@@ -81,7 +81,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 					$status = $this->check( $license, 'activate_license' );
 
 					/* Redirect to the settings page without the eddactivate parameter (otherwise it's used in all tabs links) */
-					wp_redirect( wp_sanitize_redirect( esc_url_raw( add_query_arg( $get, admin_url( $pagenow ) ) ) ) );
+					wp_redirect( wp_sanitize_redirect( add_query_arg( $get, admin_url( $pagenow ) ) ) );
 				}
 
 				/* First activation of the license. */
@@ -215,7 +215,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			);
 
 			/* Call the API. */
-			$response = wp_remote_get( esc_url_raw( add_query_arg( $api_params, $this->settings['server'] ) ), array( 'timeout' => 15, 'sslverify' => false ) );
+			$response = wp_remote_get( add_query_arg( $api_params, $this->settings['server'] ), array( 'timeout' => 15, 'sslverify' => false ) );
 
 			/* Check for request error. */
 			if ( is_wp_error( $response ) ) {
