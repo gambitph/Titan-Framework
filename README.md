@@ -35,6 +35,20 @@ php composer.phar create-project gambitph/titan-framework titan-framework
 
 ## Recent Changelog
 
+#### Version 1.7.6
+* The Note option can now be placed in the Customizer
+* Prefixing a select value with `!` now displays the drop down value as disabled
+* Added new argument `panel_desc` for panel descriptions
+* Updated & namespaced EDD updater files
+* Fixed bug where options with the value 0 were not properly returned
+* Fixed bug where double descriptions showed up in the Customizer
+* Minor XSS security fixes, shouldn't be affected really, but it's better to be safe
+
+#### Version 1.7.5
+* Added `hidden` parameter for all options
+* Fixed 4.1 display issues with the upload option
+* Fixed an undefined notice that sometimes appears
+
 #### Version 1.7.4
 * Faster SCSS parsing
 * Faster loading time
@@ -48,16 +62,6 @@ php composer.phar create-project gambitph/titan-framework titan-framework
 
 #### Version 1.7.3
 * Fixed bug introduced in 1.7.2 where admin options sometimes were not being saved
-
-#### Version 1.7.2
-* EDD option can now check for updates all by itself (thank you julien731)
-* `get_post_types` function now callable from `tf_create_options`
-* Now passes theme-check (ignored `add_menu_page` error)
-
-#### Version 1.7.1
-* Bug fixes for the Easy Digital Download License option
-* Enhanced date option parameters
-* New parameters for Theme Customizer for creating panels
 
 ## Creating a WordPress Theme?
 

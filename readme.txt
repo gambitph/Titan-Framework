@@ -3,8 +3,8 @@ Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 1.7.5
+Tested up to: 4.2
+Stable tag: 1.7.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,15 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.7.6 =
+* The Note option can now be placed in the Customizer
+* Prefixing a select value with `!` now displays the drop down value as disabled
+* Added new argument `panel_desc` for panel descriptions
+* Updated & namespaced EDD updater files
+* Fixed bug where options with the value 0 were not properly returned
+* Fixed bug where double descriptions showed up in the Customizer
+* Minor XSS security fixes, shouldn't be affected really, but it's better to be safe
 
 = 1.7.5 =
 * Added `hidden` parameter for all options
