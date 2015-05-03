@@ -22,11 +22,21 @@
 			"/vendor", 
 			"/tests",
 			"*/composer.*",
+			"/preview",
 			"*/.*", 
 			"*.dist",
 			"*.md",
 			"*.codekit",
-			"*.rb"
+			"*.rb",
+			"*.pot",
+			"*.psd",
+			"/languages/readme.txt",
+			"*/_*.js",
+			"/scss",
+			"*/_*.scss",
+			"*.sh",
+			"*.py",
+			"phpunit.xml"
 		]
 	},
 	"repositories": [
