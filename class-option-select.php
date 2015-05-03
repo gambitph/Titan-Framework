@@ -21,9 +21,12 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 			if ( is_array( $label ) ) {
 				?><optgroup label="<?php echo $value ?>"><?php
 				foreach ( $label as $subValue => $subLabel ) {
-					printf("<option value=\"%s\" %s>%s</option>",
+					
+					printf("<option value=\"%s\" %s %s>%s</option>",
 						$subValue,
 						selected( $this->getValue(), $subValue, false ),
+						disabled( stripos( $subValue, '!' ), 0, false ),
+						$disabled,
 						$subLabel
 						);
 				}
@@ -31,9 +34,10 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 
 			// this is for normal list of options
 			} else {
-				printf("<option value=\"%s\" %s>%s</option>",
+				printf("<option value=\"%s\" %s %s>%s</option>",
 					$value,
 					selected( $this->getValue(), $value, false ),
+					disabled( stripos( $value, '!' ), 0, false ),
 					$label
 					);
 			}
@@ -56,13 +60,13 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 		}
 
 		// Not associative array, do normal control
-		if ( ! $isAssociativeArray ) {
-			$class = "TitanFrameworkCustomizeControl";
-
-		// Associative array, custom make the control
-		} else {
+		// if ( ! $isAssociativeArray ) {
+		// 	$class = "TitanFrameworkCustomizeControl";
+		//
+		// // Associative array, custom make the control
+		// } else {
 			$class = "TitanFrameworkOptionSelectControl";
-		}
+		// }
 
 		$wp_customize->add_control( new $class( $wp_customize, $this->getID(), array(
 			'label' => $this->settings['name'],
@@ -92,15 +96,28 @@ function registerTitanFrameworkOptionSelectControl() {
 				<select <?php $this->link(); ?>>
 					<?php
 					foreach ( $this->choices as $value => $label ):
-						?><optgroup label="<?php echo $value ?>"><?php
-						foreach ( $label as $subValue => $subLabel ) {
-							printf("<option value=\"%s\" %s>%s</option>",
-								esc_attr( $subValue ),
-								selected( $this->value(), $subValue, false ),
-								$subLabel
+						if ( is_array( $label ) ):
+							
+							?><optgroup label="<?php echo $value ?>"><?php
+							foreach ( $label as $subValue => $subLabel ) {
+								printf("<option value=\"%s\" %s %s>%s</option>",
+									esc_attr( $subValue ),
+									selected( $this->value(), $subValue, false ),
+									disabled( stripos( $subValue, '!' ), 0, false ),
+									$subLabel
+									);
+							}
+							?></optgroup><?php
+							
+						else:
+							printf("<option value=\"%s\" %s %s>%s</option>",
+								$value,
+								selected( $this->value(), $value, false ),
+								disabled( stripos( $value, '!' ), 0, false ),
+								$label
 								);
-						}
-						?></optgroup><?php
+							
+						endif;
 					endforeach;
 					?>
 				</select>
