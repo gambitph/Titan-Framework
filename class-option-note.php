@@ -38,4 +38,33 @@ class TitanFrameworkOptionNote extends TitanFrameworkOption {
 
 		$this->echoOptionFooter( false );
 	}
+
+	/*
+	 * Display for theme customizer
+	 */
+	public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
+		$wp_customize->add_control( new TitanFrameworkOptionNoteControl( $wp_customize, $this->getID(), array(
+			'label' => $this->settings['name'],
+			'section' => $section->getID(),
+			'settings' => $this->getID(),
+			'description' => $this->settings['desc'],
+			'priority' => $priority,
+		) ) );
+	}
+}
+
+/*
+ * WP_Customize_Control with description
+ */
+add_action( 'customize_register', 'registerTitanFrameworkOptionNoteControl', 1 );
+function registerTitanFrameworkOptionNoteControl() {
+	class TitanFrameworkOptionNoteControl extends WP_Customize_Control {
+		public $description;
+
+		public function render_content() {
+			if ( ! empty( $this->description ) ) {
+				echo "<p class='description'>" . $this->description . "</p>";
+			}
+		}
+	}
 }
