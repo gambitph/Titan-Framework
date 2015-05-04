@@ -2,7 +2,7 @@
  * TODO: separate styles into multiple imports
  */
 
-@import "class-option-font.css";
+@import "class-option-upload.css";
 @import "class-option-date.css";
 
 /* note option padding issue */
