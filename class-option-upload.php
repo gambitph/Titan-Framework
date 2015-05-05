@@ -94,9 +94,16 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		}
 
 		if ( ! empty( $value ) ) {
-			printf("<div class='thumbnail tf-image-preview has-value'>%s</div>",
-				"<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>"
-			);
+			if ( $type == 'image' ) {
+				printf("<div class='thumbnail tf-image-preview has-value'>%s</div>",
+					"<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>"
+				);
+			} else {
+				printf("<div class='thumbnail tf-image-preview has-value'>%s%s</div>",
+					"<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>",
+					"<div class='filename'>" . wp_basename( $attachment->guid ) . "</div>"
+				);
+			}
 		} else {
 			echo "<div class='thumbnail tf-image-preview'></div>";
 		}
@@ -190,7 +197,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 				var _input = $(this).parents('.tf-upload').find('input');
 				var _preview = $(this).parents('.tf-upload').find('div.thumbnail');
 
-				_preview.removeClass('has-value').find('img').remove().end().find('i').remove();
+				_preview.removeClass('has-value').find('img').remove().end().find('i').remove().end().find('.filename').remove();
 				_input.val('').trigger('change');
 
 				return false;
@@ -236,6 +243,9 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 							if ( _preview.find('i.remove').length > 0 ) {
 								_preview.find('i.remove').remove();
 							}
+							if ( _preview.find('.filename').length > 0 ) {
+								_preview.find('.filename').remove();
+							}
 
 							// Get the preview image
 							if ( typeof attachment.attributes.sizes != 'undefined' ) {
@@ -246,10 +256,12 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 								var url = image.url;
 								var marginTop = ( _preview.height() - image.height ) / 2;
 								var marginLeft = ( _preview.width() - image.width ) / 2;
+								var filename = '';
 							} else {
 								var url = attachment.attributes.icon;
 								var marginTop = ( _preview.height() - 64 ) / 2;
 								var marginLeft = ( _preview.width() - 48 ) / 2;
+								var filename = attachment.attributes.filename;
 							}
 
 							$("<img src='" + url + "'/>")
@@ -257,6 +269,9 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 								.css('marginLeft', marginLeft)
 								.appendTo(_preview);
 							$("<i class='dashicons dashicons-no-alt remove'></i>").prependTo(_preview);
+							if ( filename.length > 0 ) {
+								$("<div class='filename'>" + filename + "</div>").appendTo(_preview);
+							}
 							_preview.addClass('has-value');
 						}
 						// we need to trigger a change so that WP would detect that we changed the value
