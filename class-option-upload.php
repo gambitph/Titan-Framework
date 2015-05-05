@@ -224,7 +224,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 					title: '<?php _e( 'Select Image', TF_I18NDOMAIN ) ?>',
 					multiple: false,
 					library: { type: _input.data('mime-type') },
-					button : { text : '<?php _e( 'Use image', TF_I18NDOMAIN ) ?>' }
+					button : { text : ( _input.data('mime-type') == 'image' ) ? '<?php _e( 'Use image', TF_I18NDOMAIN ) ?>' : '<?php _e( 'Use file', TF_I18NDOMAIN ) ?>' }
 				});
 
 				// get the url when done
