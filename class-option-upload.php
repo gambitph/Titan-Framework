@@ -101,7 +101,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			} else {
 				printf("<div class='thumbnail tf-image-preview has-value'>%s%s</div>",
 					"<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>",
-					"<div class='filename'>" . wp_basename( $attachment->guid ) . "</div>"
+					"<div class='filename'><div>" . wp_basename( $attachment->guid ) . "</div></div>"
 				);
 			}
 		} else {
@@ -270,7 +270,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 								.appendTo(_preview);
 							$("<i class='dashicons dashicons-no-alt remove'></i>").prependTo(_preview);
 							if ( filename.length > 0 ) {
-								$("<div class='filename'>" + filename + "</div>").appendTo(_preview);
+								$("<div class='filename'><div>" + filename + "</div></div>").appendTo(_preview);
 							}
 							_preview.addClass('has-value');
 						}
