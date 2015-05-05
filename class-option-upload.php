@@ -9,6 +9,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 	public $defaultSecondarySettings = array(
 		'size' => 'full', // The size of the image to use in the generated CSS
 		'placeholder' => '', // show this when blank
+		'mime_type' => 'image', // accepted mime type
 	);
 
 
@@ -72,8 +73,19 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		// display the preview image
 		$value = $this->getValue();
 		if ( is_numeric( $value ) ) {
-			// gives us an array with the first element as the src or false on fail
-			$value = wp_get_attachment_image_src( $value, array( 150, 150 ) );
+			$attachment = get_post( $value );
+
+			if ( false !== strpos( $attachment->post_mime_type, '/' ) )
+				list( $type, $subtype ) = explode( '/', $attachment->post_mime_type );
+			else
+				list( $type, $subtype ) = array( $attachment->post_mime_type, '' );
+
+			if ( $type == 'image' ) {
+				// gives us an array with the first element as the src or false on fail
+				$value = wp_get_attachment_image_src( $value, array( 150, 150 ) );
+			} else {
+				$value = array( wp_mime_type_icon( $attachment->ID ) );
+			}
 		}
 		if ( ! is_array( $value ) ) {
 			$value = $this->getValue();
@@ -81,17 +93,20 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			$value = $value[0];
 		}
 
-		$previewImage = '';
 		if ( ! empty( $value ) ) {
-			$previewImage = "<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>";
+			printf("<div class='thumbnail tf-image-preview has-value'>%s</div>",
+				"<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>"
+			);
+		} else {
+			echo "<div class='thumbnail tf-image-preview'></div>";
 		}
-		echo "<div class='thumbnail tf-image-preview'>" . $previewImage . "</div>";
 
-		printf("<input name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"hidden\" value=\"%s\" />",
+		printf("<input name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"hidden\" value=\"%s\" data-mime-type=\"%s\" />",
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->getID(),
-			esc_attr( $this->getValue() )
+			esc_attr( $this->getValue() ),
+			esc_attr( $this->settings['mime_type'] )
 		);
 		$this->echoOptionFooter();
 	}
@@ -175,7 +190,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 				var _input = $(this).parents('.tf-upload').find('input');
 				var _preview = $(this).parents('.tf-upload').find('div.thumbnail');
 
-				_preview.find('img').remove().end().find('i').remove();
+				_preview.removeClass('has-value').find('img').remove().end().find('i').remove();
 				_input.val('').trigger('change');
 
 				return false;
@@ -201,7 +216,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 				var frame = wp.media({
 					title: '<?php _e( 'Select Image', TF_I18NDOMAIN ) ?>',
 					multiple: false,
-					library: { type: 'image' },
+					library: { type: _input.data('mime-type') },
 					button : { text : '<?php _e( 'Use image', TF_I18NDOMAIN ) ?>' }
 				});
 
@@ -223,19 +238,26 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 							}
 
 							// Get the preview image
-							var image = attachment.attributes.sizes.full;
-							if ( typeof attachment.attributes.sizes.thumbnail != 'undefined' ) {
-								image = attachment.attributes.sizes.thumbnail;
+							if ( typeof attachment.attributes.sizes != 'undefined' ) {
+								var image = attachment.attributes.sizes.full;
+								if ( typeof attachment.attributes.sizes.thumbnail != 'undefined' ) {
+									image = attachment.attributes.sizes.thumbnail;
+								}
+								var url = image.url;
+								var marginTop = ( _preview.height() - image.height ) / 2;
+								var marginLeft = ( _preview.width() - image.width ) / 2;
+							} else {
+								var url = attachment.attributes.icon;
+								var marginTop = ( _preview.height() - 64 ) / 2;
+								var marginLeft = ( _preview.width() - 48 ) / 2;
 							}
-							var url = image.url;
-							var marginTop = ( _preview.height() - image.height ) / 2;
-							var marginLeft = ( _preview.width() - image.width ) / 2;
 
 							$("<img src='" + url + "'/>")
 								.css('marginTop', marginTop)
 								.css('marginLeft', marginLeft)
 								.appendTo(_preview);
 							$("<i class='dashicons dashicons-no-alt remove'></i>").prependTo(_preview);
+							_preview.addClass('has-value');
 						}
 						// we need to trigger a change so that WP would detect that we changed the value
 						// or else the save button won't be enabled
