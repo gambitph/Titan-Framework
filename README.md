@@ -35,6 +35,12 @@ php composer.phar create-project gambitph/titan-framework titan-framework
 
 ## Recent Changelog
 
+#### Version 1.8
+* Added two new Meta options; Gallery and Separator. Functionality provided by @tojibon
+  Gallery is the multiple version of uploads while separator is, well, you know what that is.
+* Changed schema part of Google Fonts API url, so it can be used on http and https sites without "Blocking non https content" issues in browsers; fix provided by @nemke.
+* Fixes an error that occurs when array value is no present but option is set, fix provided by @ahansson89  
+
 #### Version 1.7.6
 * The Note option can now be placed in the Customizer
 * Prefixing a select value with `!` now displays the drop down value as disabled
