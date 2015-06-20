@@ -156,7 +156,7 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 		<ul>
 			<?php
 			foreach ( $values as $dummy => $value ) {
-				if(isset($this->settings['options'][ $value ])) {
+				if( isset( $this->settings['options'][ $value ] ) ) {
 					printf( "<li data-value='%s'><i class='dashicons dashicons-menu'></i>%s%s</li>",
 						esc_attr( $value ),
 						$visibleButton,
@@ -167,7 +167,7 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 
 			$invisibleKeys = array_diff( array_keys( $this->settings['options'] ), $values );
 			foreach ( $invisibleKeys as $dummy => $value ) {
-				if(isset($this->settings['options'][ $value ])) {
+				if( isset( $this->settings['options'][ $value ] ) ) {
 					printf( "<li data-value='%s'><i class='dashicons dashicons-menu'></i>%s%s</li>",
 						esc_attr( $value ),
 						$visibleButton,
