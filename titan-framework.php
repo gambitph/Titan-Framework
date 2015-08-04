@@ -106,6 +106,10 @@ class TitanFrameworkPlugin {
 		do_action( 'tf_create_options' );
 
 		TitanFramework::$initializing = false;
+		
+		if ( current_filter() == 'init' ) {
+			do_action( 'tf_done' );
+		}
 	}
 
 
