@@ -146,7 +146,7 @@ class TitanFrameworkAdminPanel {
 						continue;
 					}
 
-					if ( ! empty( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
+					if ( isset( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
 						$value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
 					} else {
 						$value = '';
@@ -161,15 +161,14 @@ class TitanFrameworkAdminPanel {
 					continue;
 				}
 
-				if ( ! empty( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
+				if ( isset( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
 					$value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
 				} else {
 					$value = '';
 				}
-
 				$this->owner->setOption( $option->settings['id'], $value );
 			}
-		
+
 			// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
 			do_action( 'tf_pre_save_options_' . $this->getOptionNamespace(), $this );
 				
