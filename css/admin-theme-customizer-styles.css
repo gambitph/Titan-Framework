@@ -140,9 +140,11 @@
 }
 /* google webfont new */
 .tf-font label {
-	border: 1px solid #DDD;
+	border: none;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
 	vertical-align: middle;
-	padding: 4px 4px 4px 13px;
+	padding: 5px 0px;
 	background: #fcfcfc;
 	margin-bottom: 4px;
 	display: block;
@@ -160,7 +162,7 @@
 	position: relative;
 }
 .tf-font label.tf-picker-open .wp-picker-container {
-	position: absolute;
+	position: relative;
 	left: 0px;
 }
 .tf-font label.tf-picker-open .wp-picker-container .wp-color-result {
@@ -172,7 +174,7 @@
 .tf-font .wp-picker-container {
 	line-height: 28px;
 	height: 28px;
-	margin: 1px;
+	margin-left: -18px;
 }
 .tf-font .wp-picker-container > a {
 	margin: 2px 7px 2px 10px;
@@ -209,6 +211,9 @@
 .tf-font .wp-picker-container {
 	z-index: 9;
 }
+.tf-font .wp-picker-container .iris-picker {
+    display: inline-block;
+}
 .tf-font .tf-font-sel-family {
 	width: 150px;
 }
@@ -217,7 +222,6 @@
 /*
  * Enable option styles
  */
-
 
 .tf-enable input {
 	width: 0;
@@ -261,9 +265,10 @@
 .tf-date-datepicker.ui-widget-content {
 	left: 270px !important;
 }
-
 p.description {
-	margin-bottom: 30px;
+	margin-bottom: 20px;
+    display: inline-block;
+    vertical-align: text-top;
 }
 p.description:empty {
 	margin-bottom: 5px;
