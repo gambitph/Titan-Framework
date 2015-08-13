@@ -61,7 +61,6 @@
 
 /* main wrapper */
 .titan-framework-panel-wrap {
-	border-bottom: 1px solid #DDD;
     margin-bottom: 20px;
 }
 
@@ -74,12 +73,21 @@
 	padding: 20px 20px;
 }
 
+.titan-framework-panel-wrap .form-table tbody:first-child tr th:first-child,
+.titan-framework-panel-wrap .form-table tbody:first-child tr td:first-child {
+	border-left: 1px solid #DFDFDF;
+}
+.titan-framework-panel-wrap .form-table tbody:first-child tr th:last-child,
+.titan-framework-panel-wrap .form-table tbody:first-child tr td:last-child {
+	border-right: 1px solid #DFDFDF;
+}
+
 .titan-framework-panel-wrap .wp_themeSkin table td {
 	padding: 0;
 }
 
 .titan-framework-panel-wrap .form-table {
-	margin-top: 0;
+	margin: 20px 0 0;
 }
 .titan-framework-panel-wrap .form-table tr {
 	background: white;
@@ -96,8 +104,11 @@
 	padding: 15px 20px;
 	border-bottom: 1px solid #eee;
 }
-.titan-framework-panel-wrap .form-table+p.submit {
+.titan-framework-panel-wrap .form-table + p.submit {
 	padding: 15px 20px;
+	border-left: 1px solid #DFDFDF;
+	border-right: 1px solid #DFDFDF;
+	border-bottom: 1px solid #DFDFDF;
 }
 
 /* This line is for font options description */
@@ -134,12 +145,29 @@
 /* heading */
 .titan-framework-panel-wrap .tf-heading th {
     background: #F1F1F1;
-    padding: 0;
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-left: 1px solid #DFDFDF;
+    border-top: 1px solid #DFDFDF;
+    border-right: 1px solid #DFDFDF;
+    border-bottom: 1px solid #DFDFDF;
+    color: #222222;
+    padding: 10px 20px;
+}
+.titan-framework-panel-wrap .tf-heading h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.titan-framework-panel-wrap .tf-heading p {
+	font-weight: normal;
+	margin-top: 5px;
+}
+.titan-framework-panel-wrap .tf-heading p:last-child {
+	margin-bottom: 0;
 }
 
-
-.titan-framework-panel-wrap .options-container h2,
-.titan-framework-panel-wrap .tf-heading h3 {
+.titan-framework-panel-wrap .options-container h2 {
     background: none repeat scroll 0 0 #F5F5F5;
 	border-left: 1px solid #DFDFDF;
 	border-top: 1px solid #DFDFDF;
