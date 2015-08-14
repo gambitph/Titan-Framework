@@ -212,6 +212,10 @@
 	margin-left: 0
 }
 
+.tf-ajax-button .button + .button {
+	margin-left: 5px;
+}
+
 /* radio images */
 .tf-radio-image label {
 	white-space: nowrap;
