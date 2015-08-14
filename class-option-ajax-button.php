@@ -17,6 +17,13 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		'error_callback' => '',
 	);
 	
+	
+	/**
+	 * This is first called when an ajax button is clicked. This checks whether the nonce
+	 * is valid and if we should continue;
+	 *
+	 * @return	void
+	 */
 	public function ajaxSecurityChecker() {
 		if ( empty( $_POST['nonce'] ) ) {
 			wp_send_json_error( __( 'Security check failed, please refresh the page and try again.', TF_I18NDOMAIN ) );
@@ -26,10 +33,25 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		}
 	}
 	
+	
+	/**
+	 * This is last called when an ajax button is clicked. This just exist with a successful state,
+	 * since doing nothing reads as an error with wp.ajax
+	 *
+	 * @return	void
+	 */
 	public function ajaxLastSuccess() {
 		wp_send_json_success();
 	}
 	
+	
+	/**
+	 * Constructor, fixes the settings to allow for multiple ajax buttons in a single option
+	 *
+	 * @param	$settings	Array	Option settings
+	 * @param	$owner		Object	The container of the option
+	 * @return	void
+	 */
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
@@ -96,7 +118,13 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		}
 		
 	}
-
+	
+	
+	/**
+	 * Renders the option
+	 *
+	 * @return	void
+	 */
 	public function display() {
 		$this->echoOptionHeader();
 		
@@ -118,6 +146,12 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		$this->echoOptionFooter();
 	}
 	
+	
+	/**
+	 * Prints the Javascript needed by ajax buttons. The script is only echoed once
+	 *
+	 * @return	void
+	 */
 	public static function createAjaxScript() {
 		if ( ! self::$firstLoad ) {
 			return;
