@@ -70,6 +70,11 @@ class TitanFrameworkOption {
 
 		$this->type = is_a( $owner, 'TitanFrameworkMetaBox' ) ? self::TYPE_META : self::TYPE_ADMIN;
 		$this->type = is_a( $owner, 'TitanFrameworkThemeCustomizerSection' ) ? self::TYPE_CUSTOMIZER : $this->type;
+		
+		// Generate a unique ID depending on the settings for those without IDs
+		if ( empty( $this->settings['id'] ) && $this->settings['type'] !== 'save' ) {
+			$this->settings['id'] = substr( md5( serialize( $this->settings ) . serialize( $this->owner->settings ) ), 0, 16 );
+		}
 	}
 
 	/**
