@@ -175,6 +175,15 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 				}
 				this.doingAjax = true;
 				
+				// Form the data to send, we send the nonce and the post ID if possible
+				var data = { nonce: $(this).attr('data-nonce') };
+				<?php
+				global $post;
+				if ( ! empty( $post ) ) {
+					?>data['id'] = <?php echo esc_attr( $post->ID ) ?>;<?php
+				}
+				?>
+				
 				// Perform the ajax call
 				wp.ajax.send( $(this).attr('data-action'), {
 					
@@ -216,11 +225,9 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 						this.doingAjax = false;
 						
 					}.bind(this),
-					
-					// Just pass the nonce
-					data: {
-						nonce: $(this).attr('data-nonce')
-					}
+				
+					// Pass the data
+					data: data
 					
 				});
 				
