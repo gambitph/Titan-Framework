@@ -163,8 +163,8 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		jQuery(document).ready(function($) {
 			"use strict";
 			
-			$('.form-table').on( 'click', '.tf-ajax-button .button', function( e ) {
-				
+			$('.form-table, .customize-control').on( 'click', '.tf-ajax-button .button', function( e ) {
+
 				// Only perform one ajax at a time
 				if ( typeof this.doingAjax === 'undefined' ) {
 					this.doingAjax = false;
@@ -243,5 +243,60 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		});
 		</script>
 		<?php
+	}
+
+	/*
+	 * Display for theme customizer
+	 */
+	public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
+		// var_dump($section->getID());
+		$wp_customize->add_control( new TitanFrameworkOptionAjaxButtonControl( $wp_customize, '', array(
+			'label' => $this->settings['name'],
+			'section' => $section->getID(),
+			'settings' => $this->getID(),
+			'description' => $this->settings['desc'],
+			'priority' => $priority,
+			'options' => $this->settings,
+		) ) );
+	}
+}
+
+/*
+ * WP_Customize_Control with description
+ */
+add_action( 'customize_register', 'registerTitanFrameworkOptionAjaxButtonControl', 1 );
+function registerTitanFrameworkOptionAjaxButtonControl() {
+	class TitanFrameworkOptionAjaxButtonControl extends WP_Customize_Control {
+		public $description;
+		public $options;
+
+		public function render_content() {
+			TitanFrameworkOptionAjaxButton::createAjaxScript();
+
+			?>
+			<label class='tf-ajax-button'>
+				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span><?php
+			
+			foreach ( $this->options['action'] as $i => $action ) {
+				printf( '<button class="button %s" data-action="%s" data-label="%s" data-wait-label="%s" data-error-label="%s" data-success-label="%s" data-nonce="%s" data-success-callback="%s" data-error-callback="%s">%s</button>',
+					$this->options['class'][ $i ],
+					esc_attr( $action ),
+					esc_attr( $this->options['label'][ $i ] ),
+					esc_attr( $this->options['wait_label'][ $i ] ),
+					esc_attr( $this->options['error_label'][ $i ] ),
+					esc_attr( $this->options['success_label'][ $i ] ),
+					esc_attr( wp_create_nonce( 'tf-ajax-button' ) ),
+					esc_attr( $this->options['success_callback'][ $i ] ),
+					esc_attr( $this->options['error_callback'][ $i ] ),
+					esc_attr( $this->options['label'][ $i ] )
+				);
+			}
+
+			if ( ! empty( $this->description ) ) {
+				echo "<p class='description'>" . $this->description . "</p>";
+			}
+			
+			?></label><?php
+		}
 	}
 }

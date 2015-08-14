@@ -262,6 +262,15 @@
 	left: 270px !important;
 }
 
+
+.tf-ajax-button .button {
+	display: block;
+    width: 100%;
+}
+.tf-ajax-button .button + .button {
+    margin-top: 5px;
+}
+
 p.description {
 	margin-bottom: 30px;
 }
