@@ -12,6 +12,25 @@ foreach ( $_GET as $key => $value ) {
 	$_GET[ $key ] = htmlspecialchars( $value );
 }
 
+// Set the defaults
+$textShadowLocation = ! empty( $_GET['text-shadow-location'] ) ? $_GET['text-shadow-location'] : 'none';
+$textShadowDistance = ! empty( $_GET['text-shadow-distance'] ) ? $_GET['text-shadow-distance'] : '0px';
+$textShadowBlur = ! empty( $_GET['text-shadow-blur'] ) ? $_GET['text-shadow-blur'] : '0px';
+$textShadowColor = ! empty( $_GET['text-shadow-color'] ) ? $_GET['text-shadow-color'] : '#333333';
+$textShadowOpacity = ! empty( $_GET['text-shadow-opacity'] ) ? $_GET['text-shadow-opacity'] : '1';
+$fontFamily = ! empty( $_GET['font-family'] ) ? $_GET['font-family'] : 'Open+Sans';
+$fontType = ! empty( $_GET['font-type'] ) ? $_GET['font-type'] : 'google';
+$fontWeight = ! empty( $_GET['font-weight'] ) ? $_GET['font-weight'] : 'normal';
+$fontStyle = ! empty( $_GET['font-style'] ) ? $_GET['font-style'] : 'normal';
+$fontSize = ! empty( $_GET['font-size'] ) ? $_GET['font-size'] : '13px';
+$color = ! empty( $_GET['color'] ) ? $_GET['color'] : '#333333';
+$lineHeight = ! empty( $_GET['line-height'] ) ? $_GET['line-height'] : '1.5em';
+$letterSpacing = ! empty( $_GET['letter-spacing'] ) ? $_GET['letter-spacing'] : 'normal';
+$textTransform = ! empty( $_GET['text-transform'] ) ? $_GET['text-transform'] : 'none';
+$fontVariant = ! empty( $_GET['font-variant'] ) ? $_GET['font-variant'] : 'normal';
+$isDarkBody = ! empty( $_GET['dark'] ) ? $_GET['dark'] : '';
+$text = ! empty( $_GET['text'] ) ? $_GET['text'] : '';
+
 // @see	http://bavotasan.com/2011/convert-hex-color-to-rgb-using-php/
 function hex2rgb($hex) {
    $hex = str_replace("#", "", $hex);
@@ -30,41 +49,42 @@ function hex2rgb($hex) {
    return $rgb; // returns an array with the rgb values
 }
 
+
 $textShadow = '';
-if ( $_GET['text-shadow-location'] != 'none' ) {
-	if ( stripos( $_GET['text-shadow-location'], 'left' ) !== false ) {
-		$textShadow .= '-' . $_GET['text-shadow-distance'];
-	} else if ( stripos( $_GET['text-shadow-location'], 'right' ) !== false ) {
-		$textShadow .= $_GET['text-shadow-distance'];
+if ( $textShadowLocation != 'none' ) {
+	if ( stripos( $textShadowLocation, 'left' ) !== false ) {
+		$textShadow .= '-' . $textShadowDistance;
+	} else if ( stripos( $textShadowLocation, 'right' ) !== false ) {
+		$textShadow .= $textShadowDistance;
 	} else {
 		$textShadow .= '0';
 	}
 	$textShadow .= ' ';
-	if ( stripos( $_GET['text-shadow-location'], 'top' ) !== false ) {
-		$textShadow .= '-' . $_GET['text-shadow-distance'];
-	} else if ( stripos( $_GET['text-shadow-location'], 'bottom' ) !== false ) {
-		$textShadow .= $_GET['text-shadow-distance'];
+	if ( stripos( $textShadowLocation, 'top' ) !== false ) {
+		$textShadow .= '-' . $textShadowDistance;
+	} else if ( stripos( $textShadowLocation, 'bottom' ) !== false ) {
+		$textShadow .= $textShadowDistance;
 	} else {
 		$textShadow .= '0';
 	}
 	$textShadow .= ' ';
-	$textShadow .= $_GET['text-shadow-blur'];
+	$textShadow .= $textShadowBlur;
 	$textShadow .= ' ';
 
-	$rgb = hex2rgb( $_GET['text-shadow-color'] );
-	$rgb[] = $_GET['text-shadow-opacity'];
+	$rgb = hex2rgb( $textShadowColor );
+	$rgb[] = $textShadowOpacity;
 
 	$textShadow .= 'rgba(' . implode( ',', $rgb ) . ')';
 } else {
-	$textShadow .= $_GET['text-shadow-location'];
+	$textShadow .= $textShadowLocation;
 }
 
 ?>
 <html>
 	<head>
 		<?php
-		if ( $_GET['font-type'] == 'google' ) {
-			$weight = $_GET['font-weight'];
+		if ( $fontType == 'google' ) {
+			$weight = $fontWeight;
 			if ( $weight == 'normal' ) {
 				$weight = array( '400' );
 			} else if ( $weight == 'bold' ) {
@@ -76,35 +96,35 @@ if ( $_GET['text-shadow-location'] != 'none' ) {
 			} else {
 				$weight = array( $weight );
 			}
-			if ( $_GET['font-style'] == 'italic' ) {
+			if ( $fontStyle == 'italic' ) {
 				foreach ( $weight as $key => $value ) {
-					$weight[$key] = $value . 'italic';
+					$weight[ $key ] = $value . 'italic';
 				}
 			}
 
 			printf( "<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=%s:400,%s&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,vietnamese,cyrillic' type='text/css' media='all' />",
-				str_replace( ' ', '+', str_replace( '%20', '+', $_GET['font-family'] ) ),
+				str_replace( ' ', '+', str_replace( '%20', '+', $fontFamily ) ),
 				implode( ',', $weight )
 			);
 
-			$_GET['font-family'] = '"' . $_GET['font-family'] . '"';
+			$fontFamily = '"' . $fontFamily . '"';
 		} else {
-			$_GET['font-family'] = stripslashes( $_GET['font-family'] );
+			$fontFamily = stripslashes( $fontFamily );
 		}
 		?>
 		<style>
 			p {
 				margin-left: 50px;
 				margin-right: 20px;
-				font-family: <?php echo $_GET['font-family'] ?>;
-				color: <?php echo $_GET['color'] ?>;
-				font-size: <?php echo $_GET['font-size'] ?>;
-				font-weight: <?php echo $_GET['font-weight'] ?>;
-				font-style: <?php echo $_GET['font-style'] ?>;
-				line-height: <?php echo $_GET['line-height'] ?>;
-				letter-spacing: <?php echo $_GET['letter-spacing'] ?>;
-				text-transform: <?php echo $_GET['text-transform'] ?>;
-				font-variant: <?php echo $_GET['font-variant'] ?>;
+				font-family: <?php echo $fontFamily ?>;
+				color: <?php echo $color ?>;
+				font-size: <?php echo $fontSize ?>;
+				font-weight: <?php echo $fontWeight ?>;
+				font-style: <?php echo $fontStyle ?>;
+				line-height: <?php echo $lineHeight ?>;
+				letter-spacing: <?php echo $letterSpacing ?>;
+				text-transform: <?php echo $textTransform ?>;
+				font-variant: <?php echo $fontVariant ?>;
 				text-shadow: <?php echo $textShadow ?>;
 			}
 			body {
@@ -122,31 +142,30 @@ if ( $_GET['text-shadow-location'] != 'none' ) {
 			}
 		</style>
 		<script>
-			function toggleClass(element, className){
-			    if (!element || !className){
+			function toggleClass( element, className ) {
+			    if ( ! element || ! className ) {
 			        return;
 			    }
 
-			    var classString = element.className, nameIndex = classString.indexOf(className);
-			    if (nameIndex == -1) {
+			    var classString = element.className, nameIndex = classString.indexOf( className );
+			    if ( nameIndex == -1 ) {
 			        classString += ' ' + className;
-			    }
-			    else {
-			        classString = classString.substr(0, nameIndex) + classString.substr(nameIndex+className.length);
+			    } else {
+			        classString = classString.substr( 0, nameIndex ) + classString.substr( nameIndex + className.length );
 			    }
 			    element.className = classString;
 			}
 		</script>
 	</head>
-	<body class='<?php echo $_GET['dark'] ?>'>
+	<body class='<?php echo $isDarkBody ? 'dark' : '' ?>'>
 		<?php
-		if ( empty( $_GET['text'] ) ):
+		if ( empty( $text ) ):
 			?>
 			<p>Grumpy wizards make toxic brew for the evil Queen and Jack</p>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at dolor non purus adipiscing rhoncus. Nullam vitae turpis pharetra odio feugiat gravida sed ac velit. Nullam luctus ultrices suscipit. Fusce condimentum laoreet cursus. Suspendisse sed accumsan tortor. Quisque pharetra pulvinar ante, feugiat varius nibh sodales nec. Fusce vel mattis lectus. Vivamus magna felis, pharetra in lacinia sed, condimentum quis nisi. Ut at rutrum urna. Vivamus convallis posuere metus vel ullamcorper.</p>
 			<?php
 		else:
-			echo "<p>" . str_replace( "\n", "</p><p>", $_GET['text'] ) . "</p>";
+			echo "<p>" . str_replace( "\n", "</p><p>", $text ) . "</p>";
 		endif;
 		?>
 	</body>
