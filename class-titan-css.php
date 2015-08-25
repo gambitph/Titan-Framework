@@ -229,7 +229,7 @@ class TitanFrameworkCSS {
 			
 			// Custom generated CSS
 			$generatedCSS = apply_filters( 'tf_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), '', $option );
-			if ( $generatedCSS ) {
+			if ( ! empty( $generatedCSS ) ) {
 				try {
 					$testerForValidCSS = $scss->compile( $generatedCSS );
 					$cssString .= $generatedCSS;
@@ -251,11 +251,12 @@ class TitanFrameworkCSS {
 				$optionValue
 			);
 
-			
-			try {
-				$testerForValidCSS = $scss->compile( $generatedCSS );
-				$cssString .= $generatedCSS;
-			} catch (Exception $e) {
+			if ( ! empty( $generatedCSS ) ) {
+				try {
+					$testerForValidCSS = $scss->compile( $generatedCSS );
+					$cssString .= $generatedCSS;
+				} catch ( Exception $e ) {
+				}
 			}
 
 			// Add the custom CSS
@@ -265,10 +266,12 @@ class TitanFrameworkCSS {
 				// translate it into the SaSS variable for the current option
 				$generatedCSS = str_replace( 'value', '#{$' . $option->settings['id'] . '}', $option->settings['css'] );
 
-				try {
-					$testerForValidCSS = $scss->compile( $generatedCSS );
-					$cssString .= $generatedCSS;
-				} catch (Exception $e) {
+				if ( ! empty( $generatedCSS ) ) {
+					try {
+						$testerForValidCSS = $scss->compile( $generatedCSS );
+						$cssString .= $generatedCSS;
+					} catch (Exception $e) {
+					}
 				}
 			}
 		}
@@ -281,9 +284,12 @@ class TitanFrameworkCSS {
 		// Compile as SCSS & minify
 		if ( ! empty( $cssString ) ) {
 			$scss->setFormatter( self::SCSS_COMPRESSION );
-			try {
-				$cssString = $scss->compile( $cssString );
-			} catch ( Exception $e ) {
+			$cssString = '';
+			if ( ! empty( $cssString ) ) {
+				try {
+					$cssString = $scss->compile( $cssString );
+				} catch ( Exception $e ) {
+				}
 			}
 		}
 
