@@ -284,12 +284,10 @@ class TitanFrameworkCSS {
 		// Compile as SCSS & minify
 		if ( ! empty( $cssString ) ) {
 			$scss->setFormatter( self::SCSS_COMPRESSION );
-			$cssString = '';
-			if ( ! empty( $cssString ) ) {
-				try {
-					$cssString = $scss->compile( $cssString );
-				} catch ( Exception $e ) {
-				}
+			try {
+				$testerForValidCSS = $scss->compile( $cssString );
+				$cssString = $testerForValidCSS;
+			} catch ( Exception $e ) {
 			}
 		}
 
