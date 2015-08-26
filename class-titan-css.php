@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class TitanFrameworkCSS {
 
 	// Compression type to use
-	const SCSS_COMPRESSION = 'scss_formatter_compressed';
+	const SCSS_COMPRESSION = 'titanscss_formatter_compressed';
 
 	// Internal variables
 	private $frameworkInstance;
@@ -213,7 +213,7 @@ class TitanFrameworkCSS {
 		
 		// Compile as SCSS & minify
 		require_once( trailingslashit( dirname( __FILE__ ) ) . "inc/scssphp/scss.inc.php" );
-		$scss = new scssc();
+		$scss = new titanscssc();
 
 		// Get all the CSS
 		foreach ( $this->allOptionsWithIDs as $option ) {

@@ -132,7 +132,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 
 		// Print out valid CSS only
 		require_once( trailingslashit( dirname( __FILE__ ) ) . "inc/scssphp/scss.inc.php" );
-		$scss = new scssc();
+		$scss = new titanscssc();
 		try {
 			$css = $scss->compile( $css );
 			echo "<style type='text/css' media='screen'>{$css}</style>";
