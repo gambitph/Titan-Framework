@@ -43,18 +43,6 @@
 		{
 			"type": "package",
 			"package": {
-				"name": "trentrichardson/jquery-timepicker-addon",
-				"version": "dev-master",
-				"source": {
-					"url": "https://github.com/trentrichardson/jQuery-Timepicker-Addon",
-					"type": "git",
-					"reference": "origin/master"
-				}
-			}
-		},
-		{
-			"type": "package",
-			"package": {
 				"name": "ajaxorg/ace-builds",
 				"version": "dev-master",
 				"source": {
@@ -66,7 +54,6 @@
 		}
 	],
 	"require": {
-		"trentrichardson/jquery-timepicker-addon": "dev-master",
 		"ajaxorg/ace-builds": "dev-master"
 	},
 	"scripts": {
@@ -75,8 +62,6 @@
 			"php -r \"foreach ( glob('*.zip') as \\$zipFile ) { \\$dir = basename(\\$zipFile, '.zip'); exec( 'mkdir _tmp && mv ' . \\$zipFile . ' _tmp && cd _tmp && unzip ' . \\$zipFile . ' -d ' . \\$dir . ' && rm ' . \\$zipFile . ' && zip -r9 ' . \\$zipFile . ' ' . \\$dir . ' && mv *.zip .. && cd .. && rm -R _tmp' ); exec( 'mv ' . \\$zipFile . ' ..' ); } echo 'Created: ' . \\$zipFile . \\\"\\n\\\";\""
 		],
 		"post-update-cmd": [
-			"php -r \"copy('vendor/trentrichardson/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js', 'js/jquery-ui-timepicker-addon.js');\"",
-			
 			"php -r \"@mkdir('js/ace-min-noconflict/');\"",
 			"php -r \"copy('vendor/ajaxorg/ace-builds/src-min-noconflict/ace.js', 'js/ace-min-noconflict/ace.js');\"",
 			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/theme-*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
