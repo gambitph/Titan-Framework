@@ -29,7 +29,11 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
 
 		$this->settings['options'] = array();
 		foreach ( $posts as $post ) {
-			$this->settings['options'][$post->ID] = $post->post_title;
+			$title = $post->post_title;
+			if ( empty( $title ) ) {
+				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $post->ID . ')' );
+			}
+			$this->settings['options'][$post->ID] = $title;
 		}
 
 		parent::display();
@@ -51,7 +55,11 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
 
 		$this->settings['options'] = array();
 		foreach ( $posts as $post ) {
-			$this->settings['options'][$post->ID] = $post->post_title;
+			$title = $post->post_title;
+			if ( empty( $title ) ) {
+				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $post->ID . ')' );
+			}
+			$this->settings['options'][$post->ID] = $title;
 		}
 
 		$wp_customize->add_control( new TitanFrameworkOptionMulticheckControl( $wp_customize, $this->getID(), array(

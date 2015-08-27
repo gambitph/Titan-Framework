@@ -32,10 +32,16 @@ class TitanFrameworkOptionSelectPages extends TitanFrameworkOption {
 
 		// Print all the other pages
 		foreach ( self::$allPages as $page ) {
+
+			$title = $page->post_title;
+			if ( empty( $title ) ) {
+				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $page->ID . ')' );
+			}
+			
 			printf( "<option value='%s' %s>%s</option>",
 				esc_attr( $page->ID ),
 				selected( $this->getValue(), $page->ID, false ),
-				$page->post_title
+				$title
 			);
 		}
 		echo "</select>";
