@@ -21,7 +21,6 @@ class TitanFramework {
 	private $allOptions;
 
 	public $cssInstance;
-	public $trackerInstance;
 	
 	// We used to prevent getOption from being called too early, now
 	// we entertain that by manually querying our option from the DB.
@@ -41,7 +40,6 @@ class TitanFramework {
 		'css' => 'generate', 	// If 'generate', Titan will try and generate a cacheable CSS file (or inline if it can't).
 			 					// If 'inline', CSS will be printed out in the head tag,
 								// If false, CSS will not be generated nor printed
-		'tracking' => false, 	// TODO: Turn to true, when code is finalized for 1.6
 	);
 
 	public static function getInstance( $optionNamespace ) {
@@ -70,7 +68,6 @@ class TitanFramework {
 		do_action( 'tf_init_' . $this->optionNamespace, $this );
 
 		$this->cssInstance = new TitanFrameworkCSS( $this );
-		$this->trackerInstance = new TitanFrameworkTracker( $this );
 
 		add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 7 );
 		add_action( 'init', array( $this, 'updateOptionDBListing' ), 12 );
