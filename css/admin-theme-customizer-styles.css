@@ -140,17 +140,17 @@
 }
 /* google webfont new */
 .tf-font label {
-	border: 1px solid #DDD;
 	vertical-align: middle;
 	padding: 4px 4px 4px 13px;
-	background: #fcfcfc;
-	margin-bottom: 4px;
+	background: transparent;
+	margin-bottom: 0;
 	display: block;
 	text-align: right;
 	white-space: nowrap;
 	margin-right: 0;
 	font-size: 12px;
 	line-height: 28px;
+	border: 0;
 }
 .tf-font label.tf-picker-open {
 	color: #fcfcfc;
@@ -161,7 +161,7 @@
 }
 .tf-font label.tf-picker-open .wp-picker-container {
 	position: absolute;
-	left: 0px;
+	left: 10px;
 }
 .tf-font label.tf-picker-open .wp-picker-container .wp-color-result {
 	margin-left: 0;
@@ -188,6 +188,11 @@
 }
 .tf-font div {
 	position: relative;
+}
+.tf-font > div {
+    padding: 5px 0;
+    background-color: rgba(255,255,255,.5);
+    margin-bottom: 4px;
 }
 .tf-font i {
 	position: absolute;
