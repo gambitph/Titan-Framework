@@ -13,7 +13,7 @@ class TitanFrameworkOptionCheckbox extends TitanFrameworkOption {
 		?>
 		<label for="<?php echo $this->getID() ?>">
 		<input name="<?php echo $this->getID() ?>" type="checkbox" id="<?php echo $this->getID() ?>" value="1" <?php checked( $this->getValue(), 1 ) ?>>
-		<?php echo $this->getDesc( true ) ?>
+		<?php echo $this->getDesc( '' ) ?>
 		</label>
 		<?php
 
