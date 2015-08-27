@@ -22,6 +22,12 @@ class TitanFramework {
 
 	public $cssInstance;
 	public $trackerInstance;
+	
+	// We used to prevent getOption from being called too early, now
+	// we entertain that by manually querying our option from the DB.
+	// This is where the query results are saved.
+	// @see _getOptionEarly()
+	private static $earlyAdminOptions = array();
 
 	// We have an initialization phase where the options are just being gathered
 	// for processing, during this phase we need to stop certain steps when creat
@@ -372,6 +378,39 @@ class TitanFramework {
 		return $continueCreating;
 	}
 
+
+	/**
+	 * If getOption is called too early, and the settings haven't yet loaded, we use this
+	 * to get the settings by querying the database directly and keeping a temporary copy of the saved options.
+	 * Not meant to be called directly, use getOption instead
+	 *
+	 * @access  public
+	 * @param	String 	$optionName The name of the option
+	 * @return  Mixed	The option value
+	 * @since   1.8
+	 */
+	protected function _getOptionEarly( $optionName ) {
+		
+		if ( empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
+			global $wpdb;
+			$options = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = '" . esc_attr( $this->optionNamespace ) . "_options'" );
+			$options = maybe_unserialize( maybe_unserialize( $options ) );
+			self::$earlyAdminOptions[ $this->optionNamespace ] = $options;
+		}
+		
+		return ! empty( self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] ) ? self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] : false;
+	}
+
+
+	/**
+	 * Get an option
+	 *
+	 * @access  public
+	 * @param	String 	$optionName The name of the option
+	 * @param	Int 	$postID The post ID if this is a meta option
+	 * @return  Mixed	The option value
+	 * @since   1.0
+	 */
 	public function getOption( $optionName, $postID = null ) {
 		$value = null;
 
@@ -384,10 +423,13 @@ class TitanFramework {
 
 				// this is blank if called too early. getOption should be called inside a hook or template
 				if ( ! is_array( $this->allOptions ) ) {
-					self::displayFrameworkError( sprintf( __( 'Wrong usage of %s, this should be called inside a hook or from within a theme file.', TF_I18NDOMAIN ), '<code>getOption</code>' ) );
-					return null;
+					return $this->_getOptionEarly( $optionName );
 				}
 
+				// If we have a saved copy of the admin options, delete it to free memory, we don't need it
+				if ( ! empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
+					unset( self::$earlyAdminOptions[ $this->optionNamespace ] );
+				}
 				$value = $this->allOptions[ $this->optionNamespace ][ $optionName ];
 
 
