@@ -79,9 +79,9 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 				}
 
 				var ul = $(this).siblings('ul:eq(0)');
-				ul.find('li').addClass('invisible').find('i.visibility').toggleClass('dashicons-visibility-faint');
+				ul.find('li').addClass('tf-invisible').find('i.visibility').toggleClass('dashicons-visibility-faint');
 				$.each(value, function(i, val) {
-					ul.find('li[data-value=' + val + ']').removeClass('invisible').find('i.visibility').toggleClass('dashicons-visibility-faint');
+					ul.find('li[data-value=' + val + ']').removeClass('tf-invisible').find('i.visibility').toggleClass('dashicons-visibility-faint');
 				});
 			});
 
@@ -93,7 +93,7 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 				})
 				.find('li').each(function() {
 					$(this).find('i.visibility').click(function() {
-						$(this).toggleClass('dashicons-visibility-faint').parents('li:eq(0)').toggleClass('invisible');
+						$(this).toggleClass('dashicons-visibility-faint').parents('li:eq(0)').toggleClass('tf-invisible');
 					});
 				})
 				.click(function() {
@@ -109,7 +109,7 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 			var values = [];
 
 			ul.find('li').each(function() {
-				if ( ! $(this).is('.invisible') ) {
+				if ( ! $(this).is('.tf-invisible') ) {
 					values.push( $(this).attr('data-value') );
 				}
 			});

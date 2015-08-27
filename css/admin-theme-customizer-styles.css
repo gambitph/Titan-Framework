@@ -97,7 +97,7 @@
 .tf-sortable ul li i:last-of-type {
 	margin-left: 50px;
 }
-.tf-sortable li.invisible {
+.tf-sortable li.tf-invisible {
 	color: #ccc;
 	background: transparent;
 }
