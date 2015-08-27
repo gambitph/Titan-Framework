@@ -132,14 +132,15 @@ class TitanFrameworkAdminPanel {
 		}
 
 		$message = '';
+		$activeTab = $this->getActiveTab();
 
 		/*
 		 *  Save
 		 */
 
 		if ( $_POST['action'] == 'save' ) {
+			
 			// we are in a tab
-			$activeTab = $this->getActiveTab();
 			if ( ! empty( $activeTab ) ) {
 				foreach ( $activeTab->options as $option ) {
 					if ( empty( $option->settings['id'] ) ) {
@@ -171,8 +172,11 @@ class TitanFrameworkAdminPanel {
 
 			// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
 			do_action( 'tf_pre_save_options_' . $this->getOptionNamespace(), $this );
+			do_action( 'tf_pre_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 				
 			$this->owner->saveOptions();
+			
+			do_action( 'tf_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
 			$message = 'saved';
 
@@ -181,8 +185,8 @@ class TitanFrameworkAdminPanel {
 		 */
 
 		} else if ( $_POST['action'] == 'reset' ) {
+			
 			// we are in a tab
-			$activeTab = $this->getActiveTab();
 			if ( ! empty( $activeTab ) ) {
 				foreach ( $activeTab->options as $option ) {
 					if ( empty( $option->settings['id'] ) ) {
@@ -203,8 +207,11 @@ class TitanFrameworkAdminPanel {
 		
 			// Hook 'tf_pre_reset_options_{namespace}' - action pre-saving
 			do_action( 'tf_pre_reset_options_' . $this->getOptionNamespace(), $this );
+			do_action( 'tf_pre_reset_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 			
 			$this->owner->saveOptions();
+			
+			do_action( 'tf_reset_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
 			$message = 'reset';
 		}
