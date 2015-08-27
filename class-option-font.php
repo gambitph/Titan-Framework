@@ -582,7 +582,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 		?>
 		<label <?php echo $visibilityAttrs ?>>
-			Color
 			<input class='tf-font-sel-color' type="text" value="<?php echo esc_attr( $value['color'] ) ?>"  data-default-color="<?php echo esc_attr( $value['color'] ) ?>"/>
 		</label>
 		<?php
