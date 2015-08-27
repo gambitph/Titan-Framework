@@ -624,7 +624,7 @@ class TitanFramework {
 		$theme = get_option( 'stylesheet' );
 
 		// Intercept theme mods only
-		if ( ! preg_match( '/^theme_mods_' . $theme . '/', $optionName ) ) {
+		if ( strpos( $optionName, 'theme_mods_' . $theme ) !== 0 ) {
 			return $value;
 		}
 		
