@@ -35,8 +35,10 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		/**
 		 * Constructor
 		 *
-		 * @return	void
-		 * @since	1.7.1
+		 * @since    1.7.1
+		 *
+		 * @param array  $settings Option settings
+		 * @param string $owner
 		 */
 		function __construct( $settings, $owner ) {
 			parent::__construct( $settings, $owner );
@@ -78,7 +80,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 						unset( $get['eddactivate'] );
 					}
 
-					$status = $this->check( $license, 'activate_license' );
+					$this->check( $license, 'activate_license' );
 
 					/* Redirect to the settings page without the eddactivate parameter (otherwise it's used in all tabs links) */
 					wp_redirect( wp_sanitize_redirect( add_query_arg( $get, admin_url( $pagenow ) ) ) );
@@ -86,7 +88,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 				/* First activation of the license. */
 				if ( false === get_transient( "tf_edd_license_try_$key" ) ) {
-					$status = $this->check( $license, 'activate_license' );
+					$this->check( $license, 'activate_license' );
 				}
 
 			}
@@ -168,6 +170,9 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		 * Display for theme customizer
 		 */
 		public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
+			/**
+			 * @var WP_Customize_Manager $wp_customize
+			 */
 			$wp_customize->add_control( new TitanFrameworkCustomizeControl( $wp_customize, $this->getID(), array(
 				'label' => $this->settings['name'],
 				'section' => $section->settings['id'],
@@ -193,9 +198,9 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		 * @param  string $action  Action to take (check_license or activate_license)
 		 * @return string          Current license status
 		 */
-		public function check( $license = false, $action = 'check_license' ) {
+		public function check( $license = '', $action = 'check_license' ) {
 
-			if ( false === $license ) {
+			if ( empty( $license ) ) {
 				return false;
 			}
 
