@@ -2,9 +2,9 @@
 Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
-Requires at least: 3.8
-Tested up to: 4.2
-Stable tag: 1.7.6
+Requires at least: 4.0
+Tested up to: 4.3
+Stable tag: 1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,7 @@ The generated theme comes with sample pre-created options in the admin and theme
 
 = Options available in admin pages, meta boxes and theme customizer: =
 
+* Ajax button
 * Checkbox
 * Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
