@@ -35,8 +35,10 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		/**
 		 * Constructor
 		 *
-		 * @return	void
-		 * @since	1.7.1
+		 * @since    1.7.1
+		 *
+		 * @param array  $settings Option settings
+		 * @param string $owner
 		 */
 		function __construct( $settings, $owner ) {
 			parent::__construct( $settings, $owner );
@@ -78,7 +80,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 						unset( $get['eddactivate'] );
 					}
 
-					$status = $this->check( $license, 'activate_license' );
+					$this->check( $license, 'activate_license' );
 
 					/* Redirect to the settings page without the eddactivate parameter (otherwise it's used in all tabs links) */
 					wp_redirect( wp_sanitize_redirect( add_query_arg( $get, admin_url( $pagenow ) ) ) );
@@ -86,7 +88,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 				/* First activation of the license. */
 				if ( false === get_transient( "tf_edd_license_try_$key" ) ) {
-					$status = $this->check( $license, 'activate_license' );
+					$this->check( $license, 'activate_license' );
 				}
 
 			}
@@ -168,6 +170,9 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		 * Display for theme customizer
 		 */
 		public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
+			/**
+			 * @var WP_Customize_Manager $wp_customize
+			 */
 			$wp_customize->add_control( new TitanFrameworkCustomizeControl( $wp_customize, $this->getID(), array(
 				'label' => $this->settings['name'],
 				'section' => $section->settings['id'],
@@ -193,9 +198,9 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		 * @param  string $action  Action to take (check_license or activate_license)
 		 * @return string          Current license status
 		 */
-		public function check( $license = false, $action = 'check_license' ) {
+		public function check( $license = '', $action = 'check_license' ) {
 
-			if ( false === $license ) {
+			if ( empty( $license ) ) {
 				return false;
 			}
 
@@ -210,9 +215,23 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$api_params = array(
 				'edd_action' => $action,
 				'license'    => $license,
-				'item_name'  => urlencode( $this->settings['item_name'] ),
 				'url'        => home_url()
 			);
+
+			/**
+			 * Set the item ID or name. ID has the highest priority
+			 *
+			 * @since 1.7.4
+			 */
+			if ( isset( $this->settings['item_id'] ) ) {
+				$api_params['item_id'] = urlencode( $this->settings['item_id'] );
+			} elseif ( isset( $this->settings['item_name'] ) ) {
+				$api_params['item_name'] = urlencode( $this->settings['item_name'] );
+			}
+
+			if ( !isset( $api_params['item_id'] ) && ! isset( $api_params['item_name'] ) ) {
+				return false;
+			}
 
 			/* Call the API. */
 			$response = wp_remote_get( add_query_arg( $api_params, $this->settings['server'] ), array( 'timeout' => 15, 'sslverify' => false ) );
@@ -299,16 +318,23 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$item_is = $this->item_is( $this->settings['file'] );
 
 			/* Item name */
-			$item_name = sanitize_text_field( $this->settings['item_name'] );
+			$item_name = isset( $this->settings['item_name'] ) ? sanitize_text_field( $this->settings['item_name'] ) : false;
+			$item_id   = isset( $this->settings['item_id'] ) ? (int) $this->settings['item_id'] : false;
 
 			/* Retrieve license key */
 			$license_key = trim( esc_attr( $this->getValue() ) );
 
 			/* Prepare updater arguments */
 			$args = array( 
-				'license'   => $license_key, // Item license key
-				'item_name' => $item_name,   // Item name (exactly the same as the item on the remote server)
+				'license' => $license_key, // Item license key
 			);
+
+			/* Add license ID or name for identification */
+			if ( false !== $item_id ) {
+				$args['item_id'] = $item_id;
+			} elseif ( false !== $item_name ) {
+				$args['item_name'] = $item_name;
+			}
 
 			/* Load the plugin updater class and add required parameters. */
 			if( 'plugin' === $item_is ) {
