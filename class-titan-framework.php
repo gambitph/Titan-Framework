@@ -502,6 +502,9 @@ class TitanFramework {
 	}
 
 	public function createCSS( $CSSString ) {
+		if ( self::$initializing ) {
+			return;
+		}
 		$this->cssInstance->addCSS( $CSSString );
 	}
 
