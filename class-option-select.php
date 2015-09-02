@@ -12,36 +12,19 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 	 * Display for options and meta
 	 */
 	public function display() {
+
 		$this->echoOptionHeader();
 
-		?><select name="<?php echo $this->getID(); ?>"><?php
-		foreach ( $this->settings['options'] as $value => $label ) {
+		$multiple = isset( $this->settings['multiple'] ) && true === $this->settings['multiple'] ? 'multiple' : '';
+		$name     = $this->getID();
+		$val      = (array) $this->getValue();
 
-			// this is if we have option groupings
-			if ( is_array( $label ) ) {
-				?><optgroup label="<?php echo $value ?>"><?php
-				foreach ( $label as $subValue => $subLabel ) {
-					
-					printf("<option value=\"%s\" %s %s>%s</option>",
-						$subValue,
-						selected( $this->getValue(), $subValue, false ),
-						disabled( stripos( $subValue, '!' ), 0, false ),
-						$disabled,
-						$subLabel
-						);
-				}
-				?></optgroup><?php
-
-			// this is for normal list of options
-			} else {
-				printf("<option value=\"%s\" %s %s>%s</option>",
-					$value,
-					selected( $this->getValue(), $value, false ),
-					disabled( stripos( $value, '!' ), 0, false ),
-					$label
-					);
-			}
+		if ( ! empty( $multiple ) ) {
+			$name = "{$name}[]";
 		}
+
+		?><select name="<?php echo $name; ?>" <?php echo $multiple; ?>><?php
+			tf_parse_select_options( $this->settings['options'], $val );
 		?></select><?php
 		$this->echoOptionFooter();
 	}
@@ -94,32 +77,7 @@ function registerTitanFrameworkOptionSelectControl() {
 			<label>
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 				<select <?php $this->link(); ?>>
-					<?php
-					foreach ( $this->choices as $value => $label ):
-						if ( is_array( $label ) ):
-							
-							?><optgroup label="<?php echo $value ?>"><?php
-							foreach ( $label as $subValue => $subLabel ) {
-								printf("<option value=\"%s\" %s %s>%s</option>",
-									esc_attr( $subValue ),
-									selected( $this->value(), $subValue, false ),
-									disabled( stripos( $subValue, '!' ), 0, false ),
-									$subLabel
-									);
-							}
-							?></optgroup><?php
-							
-						else:
-							printf("<option value=\"%s\" %s %s>%s</option>",
-								$value,
-								selected( $this->value(), $value, false ),
-								disabled( stripos( $value, '!' ), 0, false ),
-								$label
-								);
-							
-						endif;
-					endforeach;
-					?>
+					<?php tf_parse_select_options( $this->choices, (array) $this->value() ); ?>
 				</select>
 			</label>
 			<?php
@@ -127,4 +85,61 @@ function registerTitanFrameworkOptionSelectControl() {
 			echo "<p class='description'>{$this->description}</p>";
 		}
 	}
+}
+
+/**
+ * Helper function for parsing select options
+ *
+ * This function is used to reduce duplicated code between the TF option
+ * and the customizer control.
+ *
+ * @since 1.8.2
+ *
+ * @param array $options List of options
+ * @param array $val     Current value
+ *
+ * @return void
+ */
+function tf_parse_select_options( $options, $val = array() ) {
+
+	/* No options? Duh... */
+	if ( empty( $options ) ) {
+		return;
+	}
+
+	/* Make sure the current value is an array (for multiple select) */
+	if ( ! is_array( $val ) ) {
+		$val = (array) $val;
+	}
+
+	foreach ( $options as $value => $label ) {
+
+		// this is if we have option groupings
+		if ( is_array( $label ) ) {
+
+			?>
+			<optgroup label="<?php echo $value ?>"><?php
+			foreach ( $label as $subValue => $subLabel ) {
+
+				printf( "<option value=\"%s\" %s %s>%s</option>",
+					$subValue,
+					in_array( $subValue, $val ) ? 'selected="selected"' : '',
+					disabled( stripos( $subValue, '!' ), 0, false ),
+					$subLabel
+				);
+			}
+			?></optgroup><?php
+		}
+
+		// this is for normal list of options
+		else {
+			printf( "<option value=\"%s\" %s %s>%s</option>",
+				$value,
+				in_array( $value, $val ) ? 'selected="selected"' : '',
+				disabled( stripos( $value, '!' ), 0, false ),
+				$label
+			);
+		}
+	}
+
 }
