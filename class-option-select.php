@@ -26,7 +26,6 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 						$subValue,
 						selected( $this->getValue(), $subValue, false ),
 						disabled( stripos( $subValue, '!' ), 0, false ),
-						$disabled,
 						$subLabel
 						);
 				}
