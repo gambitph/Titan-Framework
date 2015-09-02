@@ -12,9 +12,18 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 	 * Display for options and meta
 	 */
 	public function display() {
+
 		$this->echoOptionHeader();
 
-		?><select name="<?php echo $this->getID(); ?>"><?php
+		$multiple = isset( $this->settings['multiple'] ) && true === $this->settings['multiple'] ? 'multiple' : '';
+		$name     = $this->getID();
+		$val      = (array) $this->getValue();
+
+		if ( ! empty( $multiple ) ) {
+			$name = "{$name}[]";
+		}
+
+		?><select name="<?php echo $name; ?>" <?php echo $multiple; ?>><?php
 		foreach ( $this->settings['options'] as $value => $label ) {
 
 			// this is if we have option groupings
@@ -24,7 +33,7 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 					
 					printf("<option value=\"%s\" %s %s>%s</option>",
 						$subValue,
-						selected( $this->getValue(), $subValue, false ),
+						in_array( $subValue, $val ) ? 'selected="selected"' : '',
 						disabled( stripos( $subValue, '!' ), 0, false ),
 						$subLabel
 						);
@@ -35,7 +44,7 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 			} else {
 				printf("<option value=\"%s\" %s %s>%s</option>",
 					$value,
-					selected( $this->getValue(), $value, false ),
+					in_array( $value, $val ) ? 'selected="selected"' : '',
 					disabled( stripos( $value, '!' ), 0, false ),
 					$label
 					);
