@@ -1,4 +1,5 @@
 # Travis CI Configuration File
+sudo: false
 
 # Tell Travis CI we're using PHP
 language: php
