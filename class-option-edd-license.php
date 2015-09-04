@@ -54,7 +54,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		 * @since	1.7.1
 		 */
 		public function activateLicense( $option ) {
-			if ( $this->settings['id'] != $option->settings['id'] ) {
+			if ( $this->settings['id'] !== $option->settings['id'] ) {
 				return;
 			}
 
@@ -68,7 +68,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			if ( strlen( $license ) > 0 ) {
 
 				/* First of all we check if the user requested a manual activation */
-				if ( isset( $_GET['eddactivate'] ) && '1' == $_GET['eddactivate'] ) {
+				if ( isset( $_GET['eddactivate'] ) && '1' === $_GET['eddactivate'] ) {
 
 					global $pagenow;
 
@@ -129,11 +129,11 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				switch( $status ) {
 
 					case 'valid':
-						?><p class="description"><?php _e( 'Your license is valid and active.', TF_I18NDOMAIN ); ?></p><?php
+						?><p class="description"><?php _esc_html_e( 'Your license is valid and active.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 					case 'invalid':
-						?><p class="description"><?php _e( 'Your license is invalid.', TF_I18NDOMAIN ); ?></p><?php
+						?><p class="description"><?php _esc_html_e( 'Your license is invalid.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 					case 'inactive':
@@ -147,19 +147,19 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 						$get['eddactivate'] = true;
 						$url                = esc_url( add_query_arg( $get, admin_url( $pagenow ) ) );
 						?>
-						<a href="<?php echo $url; ?>" class="button-secondary"><?php _e( 'Activate', TF_I18NDOMAIN ); ?></a>
-						<p class="description"><?php _e( 'Your license is valid but inactive. Click the button above to activate it.', TF_I18NDOMAIN ); ?></p><?php
+						<a href="<?php echo $url; ?>" class="button-secondary"><?php _esc_html_e( 'Activate', TF_I18NDOMAIN ); ?></a>
+						<p class="description"><?php _esc_html_e( 'Your license is valid but inactive. Click the button above to activate it.', TF_I18NDOMAIN ); ?></p><?php
 
 					break;
 
 					case 'no_response':
-						?><p class="description"><?php _e( 'The remote server did not return a valid response. You can retry by hitting the &laquo;Save&raquo; button again.', TF_I18NDOMAIN ); ?></p><?php
+						?><p class="description"><?php _esc_html_e( 'The remote server did not return a valid response. You can retry by hitting the &laquo;Save&raquo; button again.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 				}
 
 			} else {
-				?><p class="description"><?php _e( 'Entering your license key is mandatory to get the product updates.', TF_I18NDOMAIN ); ?></p><?php
+				?><p class="description"><?php _esc_html_e( 'Entering your license key is mandatory to get the product updates.', TF_I18NDOMAIN ); ?></p><?php
 			}
 
 			$this->echoOptionFooter();
@@ -252,7 +252,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			/* License ID */
 			$key = substr( md5( $license ), 0, 10 );
 
-			if ( 'activate_license' == $action ) {
+			if ( 'activate_license' === $action ) {
 
 				/**
 				 * If the license is invalid we can set all transients right away.

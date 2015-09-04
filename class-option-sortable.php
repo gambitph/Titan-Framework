@@ -138,13 +138,13 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 		$this->echoOptionHeader( true );
 
 		$values = $this->getValue();
-		if ( $values == '' ) {
+		if ( $values === '' ) {
 			$values = array_keys( $this->settings['options'] );
 		}
 		if ( is_serialized( $values ) ) {
 			$values = unserialize( $values );
 		}
-		if ( count( $values ) != count( $this->settings['options'] ) ) {
+		if ( count( $values ) !== count( $this->settings['options'] ) ) {
 			$this->settings['visible_button'] = true;
 		}
 
@@ -282,13 +282,13 @@ function registerTitanFrameworkOptionSortableControl() {
 			<?php
 
 			$values = $this->value();
-			if ( $values == '' ) {
+			if ( $values === '' ) {
 				$values = array_keys( $this->options );
 			}
 			if ( is_serialized( $values ) ) {
 				$values = unserialize( $values );
 			}
-			if ( count( $values ) != count( $this->options ) ) {
+			if ( count( $values ) !== count( $this->options ) ) {
 				$this->visible_button = true;
 			}
 

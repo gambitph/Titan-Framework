@@ -21,7 +21,7 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 		if ( empty( $this->settings['options'] ) ) {
 			return;
 		}
-		if ( $this->settings['options'] == array() ) {
+		if ( $this->settings['options'] === array() ) {
 			return;
 		}
 
@@ -29,7 +29,7 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 
 		// Get the correct value, since we are accepting indices in the default setting
 		$value = $this->getValue();
-		if ( $value == '' ) {
+		if ( $value === '' ) {
 			$value = 0;
 		}
 		if ( ! is_array( $value ) ) {
@@ -43,7 +43,7 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 				$this->getID() . $key,
 				$this->getID(),
 				esc_attr( $key ),
-				$value == $colorSet ? 'checked="checked"' : '' // can't use checked with arrays
+				$value === $colorSet ? 'checked="checked"' : '' // can't use checked with arrays
 			);
 			if ( ! is_array( $colorSet ) ) {
 				continue;
@@ -104,10 +104,10 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 
 	// For live previews, we need to give our options to javascript and then get the proper value from it
 	public function preLivePreview( $optionID, $optionType, $option ) {
-		if ( $optionID != $this->settings['id'] || empty( $this->settings['options'] ) ) {
+		if ( $optionID !== $this->settings['id'] || empty( $this->settings['options'] ) ) {
 			return;
 		}
-		if ( $this->settings['options'] == array() ) {
+		if ( $this->settings['options'] === array() ) {
 			return;
 		}
 		?>
@@ -131,7 +131,7 @@ function registerTitanFrameworkOptionRadioPaletteControl() {
 		public function render_content() {
 			// Get the correct value, we might get a blank if index / value is 0
 			$value = $this->value();
-			if ( $value == '' ) {
+			if ( $value === '' ) {
 				$value = 0;
 			}
 

@@ -68,14 +68,14 @@ class TitanFrameworkCSS {
 	public function printCSS() {
 
 		// If the setting is 'generate css' and we can't just echo it out
-		if ( $this->frameworkInstance->settings['css'] == 'generate' ) {
+		if ( $this->frameworkInstance->settings['css'] === 'generate' ) {
 			$css = get_option( $this->getCSSSlug() );
 			if ( ! empty( $css ) ) {
 				echo "<style>{$css}</style>";
 			}
 
 		// If the setting is 'print inline css', print it out if we have any
-		} else if ( $this->frameworkInstance->settings['css'] == 'inline' ) {
+		} else if ( $this->frameworkInstance->settings['css'] === 'inline' ) {
 			$css = $this->generateCSS();
 			if ( ! empty( $css ) ) {
 				echo "<style>{$css}</style>";
@@ -93,7 +93,7 @@ class TitanFrameworkCSS {
 	public function enqueueCSS() {
 
 		// Only enqueue the generated css if we have the settings for it
-		if ( $this->frameworkInstance->settings['css'] == 'generate' ) {
+		if ( $this->frameworkInstance->settings['css'] === 'generate' ) {
 
 			$css = get_option( $this->getCSSSlug() );
 			$generatedCss = $this->getCSSFilePath();
@@ -240,7 +240,7 @@ class TitanFrameworkCSS {
 
 			// Don't render CSS for this option if it doesn't have a value
 			$optionValue = $this->frameworkInstance->getOption( $option->settings['id'] );
-			if ( $optionValue == '' || $optionValue === false ) {
+			if ( $optionValue === '' || $optionValue === false ) {
 				continue;
 			}
 

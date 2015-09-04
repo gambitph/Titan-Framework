@@ -34,7 +34,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 	 * @since	1.5
 	 */
 	public function generateCSS( $css, $option ) {
-		if ( $this->settings['id'] != $option->settings['id'] ) {
+		if ( $this->settings['id'] !== $option->settings['id'] ) {
 			return $css;
 		}
 
@@ -148,7 +148,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			$('.tf-upload').each(function() {
 				var $accordion = $(this).parents('.control-section.accordion-section');
 				if ( $accordion.length > 0 ) {
-					if ( $.inArray( $accordion, tfUploadAccordionSections ) == -1 ) {
+					if ( $.inArray( $accordion, tfUploadAccordionSections ) === -1 ) {
 						tfUploadAccordionSections.push($accordion);
 					}
 				}
@@ -187,7 +187,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 				event.preventDefault();
 				// If we have a smaller image, users can click on the thumbnail
 				if ( $(this).is('.thumbnail') ) {
-					if ( $(this).parents('.tf-upload').find('img').length != 0 ) {
+					if ( $(this).parents('.tf-upload').find('img').length !== 0 ) {
 						$(this).parents('.tf-upload').find('img').trigger('click');
 						return true;
 					}
@@ -199,10 +199,10 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 				// uploader frame properties
 				var frame = wp.media({
-					title: '<?php _e( 'Select Image', TF_I18NDOMAIN ) ?>',
+					title: '<?php _esc_html_e( 'Select Image', TF_I18NDOMAIN ) ?>',
 					multiple: false,
 					library: { type: 'image' },
-					button : { text : '<?php _e( 'Use image', TF_I18NDOMAIN ) ?>' }
+					button : { text : '<?php _esc_html_e( 'Use image', TF_I18NDOMAIN ) ?>' }
 				});
 
 				// get the url when done
@@ -224,7 +224,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 							// Get the preview image
 							var image = attachment.attributes.sizes.full;
-							if ( typeof attachment.attributes.sizes.thumbnail != 'undefined' ) {
+							if ( typeof attachment.attributes.sizes.thumbnail !== 'undefined' ) {
 								image = attachment.attributes.sizes.thumbnail;
 							}
 							var url = image.url;

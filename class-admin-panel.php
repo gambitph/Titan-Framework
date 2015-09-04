@@ -138,7 +138,7 @@ class TitanFrameworkAdminPanel {
 		 *  Save
 		 */
 
-		if ( $_POST['action'] == 'save' ) {
+		if ( $_POST['action'] === 'save' ) {
 			
 			// we are in a tab
 			if ( ! empty( $activeTab ) ) {
@@ -184,7 +184,7 @@ class TitanFrameworkAdminPanel {
 		 * Reset
 		 */
 
-		} else if ( $_POST['action'] == 'reset' ) {
+		} else if ( $_POST['action'] === 'reset' ) {
 			
 			// we are in a tab
 			if ( ! empty( $activeTab ) ) {
@@ -242,7 +242,7 @@ class TitanFrameworkAdminPanel {
 		}
 
 		$screen = get_current_screen();
-		if ( $screen->id != $this->panelID ) {
+		if ( $screen->id !== $this->panelID ) {
 			return false;
 		}
 
@@ -271,7 +271,7 @@ class TitanFrameworkAdminPanel {
 		}
 
 		foreach ( $this->tabs as $tab ) {
-			if ( $tab->settings['id'] == $_GET['tab'] ) {
+			if ( $tab->settings['id'] === $_GET['tab'] ) {
 				$this->activeTab = $tab;
 				return $this->activeTab;
 			}
@@ -326,9 +326,9 @@ class TitanFrameworkAdminPanel {
 
 		// Display notification if we did something
 		if ( ! empty( $_GET['message'] ) ) {
-			if ( $_GET['message'] == 'saved' ) {
+			if ( $_GET['message'] === 'saved' ) {
 				echo TitanFrameworkAdminNotification::formNotification( __( 'Settings saved.', TF_I18NDOMAIN ), esc_html( $_GET['message'] ) );
-			} else if ( $_GET['message'] == 'reset' ) {
+			} else if ( $_GET['message'] === 'reset' ) {
 				echo TitanFrameworkAdminNotification::formNotification( __( 'Settings reset to default.', TF_I18NDOMAIN ), esc_html( $_GET['message'] ) );
 			}
 		}

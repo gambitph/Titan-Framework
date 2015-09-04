@@ -41,8 +41,8 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since 1.6
 		 */
 		function __construct() {
-			add_action( 'after_setup_theme', array( $this, 'performCheck' ), 2 );
-			add_action( 'tgmpa_register', array( $this, 'tgmPluginActivationInclude' ) );
+			add_action( 'after_setup_theme', array( $this, 'perform_check' ), 2 );
+			add_action( 'tgmpa_register', array( $this, 'tgm_plugin_activation_include' ) );
 		}
 
 
@@ -51,7 +51,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 *
 		 * @since 1.6
 		 */
-		public function performCheck() {
+		public function perform_check() {
 			
 			// Only show notifications in the admin
 			if ( ! is_admin() ) {
@@ -59,12 +59,12 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 			}
 			
 			// If the plugin does not exist, throw admin notice to install.
-			if ( ! $this->pluginExists() ) {
-				add_filter( 'admin_notices', array( $this, 'displayAdminNotificationNotExist' ) );
+			if ( ! $this->plugin_exists() ) {
+				add_filter( 'admin_notices', array( $this, 'display_admin_notification_not_exist' ) );
 				
 			// If the class doesn't exist, the plugin is inactive. Throw admin notice to activate plugin.
 			} else if ( ! class_exists( self::TITAN_CLASS ) ) {
-				add_filter( 'admin_notices', array( $this, 'displayAdminNotificationInactive' ) );
+				add_filter( 'admin_notices', array( $this, 'display_admin_notification_inactive' ) );
 			}
 		}
 
@@ -74,11 +74,11 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 *
 		 * @since 1.6
 		 */
-		public function displayAdminNotificationNotExist() {
+		public function display_admin_notification_not_exist() {
 
 			// Check for TGM use, if used, let TGM do the notice.
-			// We do this here since performCheck() is too early
-			if ( $this->tgmPluginActivationExists() ) {
+			// We do this here since perform_check() is too early
+			if ( $this->tgm_plugin_activation_exists() ) {
 				return;
 			}
 			
@@ -96,11 +96,11 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 *
 		 * @since 1.6
 		 */
-		public function displayAdminNotificationInactive() {
+		public function display_admin_notification_inactive() {
 
 			// Check for TGM use, if used, let TGM do the notice.
-			// We do this here since performCheck() is too early
-			if ( $this->tgmPluginActivationExists() ) {
+			// We do this here since perform_check() is too early
+			if ( $this->tgm_plugin_activation_exists() ) {
 				return;
 			}
 			
@@ -120,7 +120,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @return	boolean True if the TF exists
 		 * @since	1.6
 		 */
-		public function pluginExists() {
+		public function plugin_exists() {
 			// Required function as it is only loaded in admin pages.
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 			
@@ -145,7 +145,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since	1.7.4
 		 * @see		http://tgmpluginactivation.com/
 		 */
-		public function tgmPluginActivationExists() {
+		public function tgm_plugin_activation_exists() {
 			return class_exists( 'TGM_Plugin_Activation' ) 
 				&& function_exists( 'tgmpa' );
 		}
@@ -159,8 +159,8 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since	1.7.4
 		 * @see		http://tgmpluginactivation.com/
 		 */
-		public function tgmPluginActivationInclude() {
-			if ( ! $this->tgmPluginActivationExists() ) {
+		public function tgm_plugin_activation_include() {
+			if ( ! $this->tgm_plugin_activation_exists() ) {
 				return;
 			}
 			

@@ -19,7 +19,7 @@ class TitanFrameworkOptionRadioImage extends TitanFrameworkOption {
 		if ( empty( $this->settings['options'] ) ) {
 			return;
 		}
-		if ( $this->settings['options'] == array() ) {
+		if ( $this->settings['options'] === array() ) {
 			return;
 		}
 
@@ -30,7 +30,7 @@ class TitanFrameworkOptionRadioImage extends TitanFrameworkOption {
 
 		// print the images
 		foreach ( $this->settings['options'] as $key => $imageURL ) {
-			if ( $value == '' ) {
+			if ( $value === '' ) {
 				$value = $key;
 			}
 			printf( '<label id="%s"><input id="%s" type="radio" name="%s" value="%s" %s/> <img src="%s" /></label>',

@@ -16,7 +16,7 @@ class TitanFrameworkOptionNote extends TitanFrameworkOption {
 	public function display() {
 		$this->echoOptionHeader();
 
-		$color = $this->settings['color'] == 'green' ? '' : 'error';
+		$color = $this->settings['color'] === 'green' ? '' : 'error';
 
 		if ( $this->settings['notification'] ) {
 			?><div class='updated below-h2 <?php echo $color ?>'><?php

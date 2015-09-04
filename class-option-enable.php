@@ -56,11 +56,11 @@ class TitanFrameworkOptionEnable extends TitanFrameworkOption {
 	}
 
 	public function cleanValueForSaving( $value ) {
-		return $value != '1' ? '0' : '1';
+		return $value !== '1' ? '0' : '1';
 	}
 
 	public function cleanValueForGetting( $value ) {
-		return $value == '1' ? true : false;
+		return $value === '1' ? true : false;
 	}
 
 	/*

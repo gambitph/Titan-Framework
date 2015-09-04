@@ -132,7 +132,7 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 				event.preventDefault();
 				// If we have a smaller image, users can click on the thumbnail
 				if ( $(this).is('.thumbnail') ) {
-					if ( $(this).parents('.tf-gallery').find('img').length != 0 ) {
+					if ( $(this).parents('.tf-gallery').find('img').length !== 0 ) {
 						$(this).parents('.tf-gallery').find('img').trigger('click');
 						return true;
 					}
@@ -145,10 +145,10 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 
 				// uploader frame properties
 				var frame = wp.media({
-					title: '<?php _e( 'Select Image', TF_I18NDOMAIN ) ?>',
+					title: '<?php _esc_html_e( 'Select Image', TF_I18NDOMAIN ) ?>',
 					multiple: true,
 					library: { type: 'image' },
-					button : { text : '<?php _e( 'Use image', TF_I18NDOMAIN ) ?>' }
+					button : { text : '<?php _esc_html_e( 'Use image', TF_I18NDOMAIN ) ?>' }
 				});
 
 				// get the url when done
@@ -167,7 +167,7 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
                         
                         // Get the preview image
                         var image = attachment.attributes.sizes.full;
-                        if ( typeof attachment.attributes.sizes.thumbnail != 'undefined' ) {
+                        if ( typeof attachment.attributes.sizes.thumbnail !== 'undefined' ) {
                             image = attachment.attributes.sizes.thumbnail;
                         }
                         var url = image.url;

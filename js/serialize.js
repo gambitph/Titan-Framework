@@ -57,7 +57,7 @@ function serialize(mixed_value) {
 	  }
 	  types = ['boolean', 'number', 'string', 'array'];
 	  for (key in types) {
-		if (cons == types[key]) {
+		if (cons === types[key]) {
 		  type = types[key];
 		  break;
 		}
@@ -75,7 +75,7 @@ function serialize(mixed_value) {
 	  val = 'b:' + (mixed_value ? '1' : '0');
 	  break;
 	case 'number':
-	  val = (Math.round(mixed_value) == mixed_value ? 'i' : 'd') + ':' + mixed_value;
+	  val = (Math.round(mixed_value) === mixed_value ? 'i' : 'd') + ':' + mixed_value;
 	  break;
 	case 'string':
 	  val = 's:' + _utf8Size(mixed_value) + ':"' + mixed_value + '"';
@@ -86,7 +86,7 @@ function serialize(mixed_value) {
 	  /*
 		if (type === 'object') {
 		  var objname = mixed_value.constructor.toString().match(/(\w+)\(\)/);
-		  if (objname == undefined) {
+		  if (objname === undefined) {
 			return;
 		  }
 		  objname[1] = this.serialize(objname[1]);
@@ -117,7 +117,7 @@ function serialize(mixed_value) {
 	  break;
   }
   if (type !== 'object' && type !== 'array') {
-	  if ( type == 'string' && val.indexOf('}') != -1 ) {
+	  if ( type === 'string' && val.indexOf('}') !== -1 ) {
 	  } else {
 			val += ';';
 		}
@@ -171,7 +171,7 @@ function unserialize(data) {
 	  buf = [],
 	  chr = data.slice(offset, offset + 1);
 
-	while (chr != stopchr) {
+	while (chr !== stopchr) {
 	  if ((i + offset) > data.length) {
 		error('Error', 'Invalid');
 	  }
@@ -250,7 +250,7 @@ function unserialize(data) {
 		chrs = readData[0];
 		readdata = readData[1];
 		dataoffset += chrs + 2;
-		if (chrs != parseInt(stringlength, 10) && chrs != readdata.length) {
+		if (chrs !== parseInt(stringlength, 10) && chrs !== readdata.length) {
 		  error('SyntaxError', 'String length mismatch');
 		}
 		break;

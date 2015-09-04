@@ -132,7 +132,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				continue;
 			}
 
-			if ( $fontValue['font-type'] != 'google' ) {
+			if ( $fontValue['font-type'] !== 'google' ) {
 				continue;
 			}
 
@@ -143,17 +143,17 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 			// Get the weight
 			$variant = $fontValue['font-weight'];
-			if ( $variant == 'normal' ) {
+			if ( $variant === 'normal' ) {
 				$variant = '400';
-			} else if ( $variant == 'bold' ) {
+			} else if ( $variant === 'bold' ) {
 				$variant = '500';
-			} else if ( $variant == 'bolder' ) {
+			} else if ( $variant === 'bolder' ) {
 				$variant = '800';
-			} else if ( $variant == 'lighter' ) {
+			} else if ( $variant === 'lighter' ) {
 				$variant = '100';
 			}
 
-			if ( $fontValue['font-style'] == 'italic' ) {
+			if ( $fontValue['font-style'] === 'italic' ) {
 				$variant .= 'italic';
 			}
 
@@ -197,7 +197,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public function generateCSS( $css, $option ) {
-		if ( $this->settings['id'] != $option->settings['id'] ) {
+		if ( $this->settings['id'] !== $option->settings['id'] ) {
 			return $css;
 		}
 
@@ -228,9 +228,9 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				continue;
 			}
 
-			if ( $key == 'font-family' ) {
+			if ( $key === 'font-family' ) {
 				if ( ! empty( $value['font-type'] ) ) {
-					if ( $value['font-type'] == 'google' ) {
+					if ( $value['font-type'] === 'google' ) {
 						$css .= "\$" . $option->settings['id'] . "-" . $key . ": \"" . $value[ $key ] . "\";";
 						continue;
 					}
@@ -239,9 +239,9 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				continue;
 			}
 
-			if ( $key == 'text-shadow-location' ) {
+			if ( $key === 'text-shadow-location' ) {
 				$textShadow = '';
-				if ( $value[ $key ] != 'none' ) {
+				if ( $value[ $key ] !== 'none' ) {
 					if ( stripos( $value[ $key ], 'left' ) !== false ) {
 						$textShadow .= '-' . $value['text-shadow-distance'];
 					} else if ( stripos( $value[ $key ], 'right' ) !== false ) {
@@ -348,7 +348,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			$('.tf-font .tf-font-sel-color, .tf-font .tf-font-sel-shadow-color').wpColorPicker({
 				change: function ( event, ui ) {
 					// update the preview, but throttle it to prevent fast loading
-					if ( _tf_select_font_throttle != null ) {
+					if ( _tf_select_font_throttle !== null ) {
 						clearTimeout( _tf_select_font_throttle );
 						_tf_select_font_throttle = null;
 					}
@@ -371,7 +371,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				// Trigger for toggling light/dark preview backgrounds
 				$(this).find('.btn-dark').click(function() {
 					var darkInput = $(this).parent().find('.tf-font-sel-dark');
-					if ( darkInput.val() == '' ) {
+					if ( darkInput.val() === '' ) {
 						darkInput.val('dark').trigger('change');
 					} else {
 						darkInput.val('').trigger('change');
@@ -427,8 +427,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			var $ = jQuery;
 
 			// Show / hide shadow fields
-			if ( $container.find(".tf-font-sel-location").val() == 'none'
-				 || $container.find('.tf-font-sel-location').parents('label:eq(0)').attr('data-visible') == 'false' ) {
+			if ( $container.find(".tf-font-sel-location").val() === 'none'
+				 || $container.find('.tf-font-sel-location').parents('label:eq(0)').attr('data-visible') === 'false' ) {
 				$container.find(".tf-font-sel-distance").parents('label:eq(0)').fadeOut();
 				$container.find(".tf-font-sel-blur").parents('label:eq(0)').fadeOut();
 				$container.find(".tf-font-sel-shadow-color").parents('label:eq(0)').fadeOut();

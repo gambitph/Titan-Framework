@@ -16,7 +16,7 @@ function bfi_get_googlefonts_from_json($json) {
 		$fontVariants = $item->variants;
 
 		foreach ( $fontVariants as $key => $variant ) {
-			if ( $variant == 'regular' ) {
+			if ( $variant === 'regular' ) {
 				$fontVariants[$key] = '400';
 			}
 		}
@@ -32,12 +32,12 @@ function bfi_get_googlefonts_from_json($json) {
 	foreach ( $allFonts as $font ) {
 		echo "array( 'name' => '{$font['name']}', 'subsets' => array(";
 		foreach ( $font['subsets'] as $key => $subset ) {
-			echo $key == 0 ? "" : ",";
+			echo $key === 0 ? "" : ",";
 			echo "'$subset'";
 		}
 		echo "), 'variants' => array(";
 		foreach ( $font['variants'] as $key => $variant ) {
-			echo $key == 0 ? "" : ",";
+			echo $key === 0 ? "" : ",";
 			echo "'$variant'";
 		}
 		echo ") ),\n";

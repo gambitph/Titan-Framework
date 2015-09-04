@@ -38,12 +38,12 @@ if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 			// on redeclaring Titan classes
 			if ( is_admin() ) {
 				if ( ! empty( $_GET['action'] ) && ! empty( $_GET['plugin'] ) ) {
-				    if ( $_GET['action'] == 'activate' ) {
+				    if ( $_GET['action'] === 'activate' ) {
 				        return;
 				    }
 				}
 			}
-			add_action( 'after_setup_theme', array( $this, 'performCheck' ), 1 );
+			add_action( 'after_setup_theme', array( $this, 'perform_check' ), 1 );
 		}
 
 
@@ -52,7 +52,7 @@ if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 		 *
 		 * @since 1.6
 		 */
-		public function performCheck() {
+		public function perform_check() {
 			if ( class_exists( 'TitanFramework' ) ) {
 				return;
 			}

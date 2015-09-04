@@ -78,9 +78,9 @@ class TitanFrameworkPlugin {
 	 * @since	1.0
 	 */
 	function __construct() {
-		add_action( 'plugins_loaded', array( $this, 'loadTextDomain' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
 		add_action( 'plugins_loaded', array( $this, 'forceLoadFirst' ), 10, 1 );
-		add_filter( 'plugin_row_meta', array( $this, 'pluginLinks' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_links' ), 10, 2 );
 
 		// Initialize options, but do not really create them yet
 		add_action( 'after_setup_theme', array( $this, 'triggerOptionCreation' ), 5 );
@@ -99,7 +99,7 @@ class TitanFrameworkPlugin {
 	 */
 	public function triggerOptionCreation() {
 		// The after_setup_theme is the initialization stage
-		if ( current_filter() == 'after_setup_theme' ) {
+		if ( current_filter() === 'after_setup_theme' ) {
 			TitanFramework::$initializing = true;
 		}
 
@@ -107,7 +107,7 @@ class TitanFrameworkPlugin {
 
 		TitanFramework::$initializing = false;
 		
-		if ( current_filter() == 'init' ) {
+		if ( current_filter() === 'init' ) {
 			do_action( 'tf_done' );
 		}
 	}
@@ -120,7 +120,7 @@ class TitanFrameworkPlugin {
 	 * @return	void
 	 * @since	1.0
 	 */
-	public function loadTextDomain() {
+	public function load_text_domain() {
 		load_plugin_textdomain( TF_I18NDOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 
@@ -139,7 +139,7 @@ class TitanFrameworkPlugin {
 		if ( $plugins = get_option( 'active_plugins' ) ) {
 			foreach ( $plugins as $key => $pluginPath ) {
 				// If we are the first one to load already, don't do anything
-				if ( strpos( $pluginPath, $tfFileName ) !== false && $key == 0 ) {
+				if ( strpos( $pluginPath, $tfFileName ) !== false && $key === 0 ) {
 					break;
 				// If we aren't the first one, force it!
 				} else if ( strpos( $pluginPath, $tfFileName ) !== false ) {
@@ -162,8 +162,8 @@ class TitanFrameworkPlugin {
 	 * @return	array The current array of links together with our additions
 	 * @since	1.1.1
 	 **/
-	public function pluginLinks( $plugin_meta, $plugin_file ) {
-		if ( $plugin_file == plugin_basename( __FILE__ ) ) {
+	public function plugin_links( $plugin_meta, $plugin_file ) {
+		if ( plugin_basename( __FILE__ ) === $plugin_file ) {
 			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
 				"http://www.titanframework.net/docs",
 				__( "Documentation", TF_I18NDOMAIN )
