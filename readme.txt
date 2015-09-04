@@ -18,7 +18,11 @@ This means faster theme & plugin creation for everyone.
 
 = The Goal =
 
-Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/how/)
+Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. 
+
+Read an overview on [How Titan Framework works](http://www.titanframework.net/what/)
+
+Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/how/)
 
 * [Documentation and Tutorials for Developers](http://www.titanframework.net/docs)
 * [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
@@ -136,6 +140,31 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.8 =
+* New option: ajax-button
+* Added new hooks:
+ * tf_done
+ * tf_pre_save_admin_{namespace}
+ * tf_save_admin_{namespace}
+ * tf_pre_reset_admin_{namespace}
+ * tf_reset_admin_{namespace}
+* Added `desc` option for headers
+* Removed unused tracking code
+* Tweaked customizer font css
+* Updated SCSSPHP to v0.0.15
+* Added label for blank page/post titles for page/post options
+* Updated & namespaced SCSSPHP
+* Saving '0' values now work (e.g. in select options)
+* Additional check to prevent scss compile of empty string
+* Fixed bug where sometimes options without IDs (e.g. note) produce errors in the Customizer
+* Fixed possible JS running in iframe-font-preview + empty checks for CWE-200
+* getOption no longer throws a "called too early" warning and can now be called anywhere
+* #240 Update class-option-font.php
+* #235 Update class-option-checkbox.php
+* #262 Namespace invisible class
+* #264 Switch to strpos instead of preg_match
+* #253 Remove timepicker from requirements
 
 = 1.7.6 =
 * The Note option can now be placed in the Customizer
