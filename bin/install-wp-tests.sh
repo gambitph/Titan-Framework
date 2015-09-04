@@ -20,7 +20,7 @@ mysql -e "DROP DATABASE IF EXISTS ${DB_NAME};" --user="${DB_USER}" --password="$
 install_wp() {
 	mkdir -p $WP_CORE_DIR
 
-	if [ $WP_VERSION === 'latest' ]; then
+	if [ $WP_VERSION == 'latest' ]; then
 		local ARCHIVE_NAME='latest'
 	else
 		local ARCHIVE_NAME="wordpress-$WP_VERSION"
@@ -34,7 +34,7 @@ install_wp() {
 
 install_test_suite() {
 	# portable in-place argument for both GNU sed and Mac OSX sed
-	if [[ $(uname -s) === 'Darwin' ]]; then
+	if [[ $(uname -s) == 'Darwin' ]]; then
 		local ioption='-i ""'
 	else
 		local ioption='-i'
