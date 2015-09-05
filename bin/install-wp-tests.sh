@@ -26,8 +26,16 @@ install_wp() {
 		local ARCHIVE_NAME="wordpress-$WP_VERSION"
 	fi
 
-	wget -nv -O /tmp/wordpress.tar.gz http://wordpress.org/${ARCHIVE_NAME}.tar.gz
-	tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C $WP_CORE_DIR
+	# Original: Always do wget
+	# wget -nv -O /tmp/wordpress.tar.gz http://wordpress.org/${ARCHIVE_NAME}.tar.gz
+	# tar --strip-components=1 -zxmf /tmp/wordpress.tar.gz -C $WP_CORE_DIR
+	
+	# Modified: Only do wget if it hasn't been downloaded before
+	CURR_DIR=$(pwd)
+	cd /tmp
+	wget --timestamping -nv http://wordpress.org/${ARCHIVE_NAME}.tar.gz
+	cd ${CURR_DIR}
+	tar --strip-components=1 -zxmf /tmp/${ARCHIVE_NAME}.tar.gz -C $WP_CORE_DIR
 
 	# wget -nv -O $WP_CORE_DIR/wp-content/db.php https://raw.github.com/markoheijnen/wp-mysqli/master/db.php
 }
@@ -43,9 +51,16 @@ install_test_suite() {
 	# set up testing suite
 	mkdir -p $WP_TESTS_DIR
 	cd $WP_TESTS_DIR
-	svn co --quiet http://develop.svn.wordpress.org/trunk/tests/phpunit/includes/
+	# continue even if failed
+	svn co --quiet http://develop.svn.wordpress.org/trunk/tests/phpunit/includes/ || true
 
-	wget -nv -O wp-tests-config.php http://develop.svn.wordpress.org/trunk/wp-tests-config-sample.php
+	# Original: Always do wget
+	# wget -nv -O wp-tests-config.php http://develop.svn.wordpress.org/trunk/wp-tests-config-sample.php
+	
+	# Modified: Only do wget if it hasn't been downloaded before
+	wget --timestamping -nv http://develop.svn.wordpress.org/trunk/wp-tests-config-sample.php
+	mv wp-tests-config-sample.php wp-tests-config.php
+	
 	sed $ioption "s:dirname( __FILE__ ) . '/src/':'$WP_CORE_DIR':" wp-tests-config.php
 	sed $ioption "s/youremptytestdbnamehere/$DB_NAME/" wp-tests-config.php
 	sed $ioption "s/yourusernamehere/$DB_USER/" wp-tests-config.php
