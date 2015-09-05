@@ -36,8 +36,6 @@ install_wp() {
 	wget --timestamping -nv http://wordpress.org/${ARCHIVE_NAME}.tar.gz
 	cd ${CURR_DIR}
 	tar --strip-components=1 -zxmf /tmp/${ARCHIVE_NAME}.tar.gz -C $WP_CORE_DIR
-
-	# wget -nv -O $WP_CORE_DIR/wp-content/db.php https://raw.github.com/markoheijnen/wp-mysqli/master/db.php
 }
 
 install_test_suite() {
@@ -69,25 +67,6 @@ install_test_suite() {
 }
 
 install_db() {
-	# parse DB_HOST for port or socket references
-	# local PARTS=(${DB_HOST//\:/ })
-	# local DB_HOSTNAME=${PARTS[0]};
-	# local DB_SOCK_OR_PORT=${PARTS[1]};
-	# local EXTRA=""
-	#
-	# if ! [ -z $DB_HOSTNAME ] ; then
-	# 	if [[ "$DB_SOCK_OR_PORT" =~ ^[0-9]+$ ]] ; then
-	# 		EXTRA=" --host=$DB_HOSTNAME --port=$DB_SOCK_OR_PORT --protocol=tcp"
-	# 	elif ! [ -z $DB_SOCK_OR_PORT ] ; then
-	# 		EXTRA=" --socket=$DB_SOCK_OR_PORT"
-	# 	elif ! [ -z $DB_HOSTNAME ] ; then
-	# 		EXTRA=" --host=$DB_HOSTNAME --protocol=tcp"
-	# 	fi
-	# fi
-	#
-	# # create database
-	# mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"$EXTRA
-
 	mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};" --user="${DB_USER}" --password="${DB_PASS}"
 }
 
