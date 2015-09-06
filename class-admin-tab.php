@@ -32,7 +32,7 @@ class TitanFrameworkAdminTab {
 	}
 
 	public function isActiveTab() {
-		return $this->settings['id'] === $this->owner->getActiveTab()->settings['id'];
+		return $this->settings['id'] == $this->owner->getActiveTab()->settings['id'];
 	}
 
 	public function createOption( $settings ) {

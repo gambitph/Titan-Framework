@@ -53,12 +53,12 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 */
 	public function printJS() {
 		// For CSS langs only
-		if ( $this->settings['lang'] !== 'javascript' ) {
+		if ( $this->settings['lang'] != 'javascript' ) {
 			return;
 		}
 
 		// For non-meta box options only
-		if ( TitanFrameworkOption::TYPE_META === $this->type ) {
+		if ( TitanFrameworkOption::TYPE_META == $this->type ) {
 			return;
 		}
 		
@@ -78,18 +78,18 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 */
 	public function printJSForPagesAndPosts() {
 		// This is for meta box options only, other types get generated normally
-		if ( TitanFrameworkOption::TYPE_META !== $this->type ) {
+		if ( TitanFrameworkOption::TYPE_META != $this->type ) {
 			return;
 		}
 
 		// For CSS langs only
-		if ( $this->settings['lang'] !== 'javascript' ) {
+		if ( $this->settings['lang'] != 'javascript' ) {
 			return;
 		}
 
 		// Don't generate CSS for non-pages and non-posts
 		$id = get_the_ID();
-		if ( empty( $id ) || 1 === $id ) {
+		if ( empty( $id ) || 1 == $id ) {
 			return;
 		}
 
@@ -109,18 +109,18 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 */
 	public function printCSSForPagesAndPosts() {
 		// This is for meta box options only, other types get generated normally
-		if ( TitanFrameworkOption::TYPE_META !== $this->type ) {
+		if ( TitanFrameworkOption::TYPE_META != $this->type ) {
 			return;
 		}
 
 		// For CSS langs only
-		if ( $this->settings['lang'] !== 'css' ) {
+		if ( $this->settings['lang'] != 'css' ) {
 			return;
 		}
 
 		// Don't generate CSS for non-pages and non-posts
 		$id = get_the_ID();
-		if ( empty( $id ) || 1 === $id ) {
+		if ( empty( $id ) || 1 == $id ) {
 			return;
 		}
 
@@ -151,10 +151,10 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function generateCSSCode( $css, $option ) {
-		if ( $this->settings['id'] !== $option->settings['id'] ) {
+		if ( $this->settings['id'] != $option->settings['id'] ) {
 			return $css;
 		}
-		if ( TitanFrameworkOption::TYPE_META !== $option->type ) {
+		if ( TitanFrameworkOption::TYPE_META != $option->type ) {
 			$css = $this->getFramework()->getOption( $option->settings['id'] );
 		}
 		return $css;

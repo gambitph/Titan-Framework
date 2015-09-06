@@ -47,7 +47,7 @@ class TitanFramework {
 		$optionNamespace = str_replace( ' ', '-', trim( strtolower( $optionNamespace ) ) );
 
 		foreach ( self::$instances as $instance ) {
-			if ( $instance->optionNamespace === $optionNamespace ) {
+			if ( $instance->optionNamespace == $optionNamespace ) {
 				return $instance;
 			}
 		}
@@ -416,7 +416,7 @@ class TitanFramework {
 			$option = $this->optionsUsed[ $optionName ];
 
 			// Admin page options
-			if ( $option->type === TitanFrameworkOption::TYPE_ADMIN ) {
+			if ( $option->type == TitanFrameworkOption::TYPE_ADMIN ) {
 
 				// this is blank if called too early. getOption should be called inside a hook or template
 				if ( ! is_array( $this->allOptions ) ) {
@@ -431,11 +431,11 @@ class TitanFramework {
 
 
 			// Meta box options
-			} else if ( $option->type === TitanFrameworkOption::TYPE_META ) {
+			} else if ( $option->type == TitanFrameworkOption::TYPE_META ) {
 
 				// If no $postID is given, try and get it if we are in a loop
 				if ( empty( $postID ) && ! is_admin() ) {
-					if ( get_post() !== null ) {
+					if ( get_post() != null ) {
 						$postID = get_the_ID();
 					}
 				}
@@ -444,7 +444,7 @@ class TitanFramework {
 
 
 			// Theme customizer options
-			} else if ( $option->type === TitanFrameworkOption::TYPE_CUSTOMIZER ) {
+			} else if ( $option->type == TitanFrameworkOption::TYPE_CUSTOMIZER ) {
 				$value = get_theme_mod( $this->optionNamespace . '_' . $optionName );
 
 			}
@@ -562,14 +562,14 @@ class TitanFramework {
 		// framework is in a parent theme
 		if ( stripos( $file, $parentTheme ) !== false ) {
 			$dir = trailingslashit( dirname( str_replace( $parentTheme, '', $file ) ) );
-			if ( $dir === './' ) {
+			if ( $dir == './' ) {
 				$dir = '';
 			}
 			return trailingslashit( get_template_directory_uri() ) . $dir . $script;
 		// framework is in a child theme
 		} else if ( stripos( $file, $childTheme ) !== false ) {
 			$dir = trailingslashit( dirname( str_replace( $childTheme, '', $file ) ) );
-			if ( $dir === './' ) {
+			if ( $dir == './' ) {
 				$dir = '';
 			}
 			return trailingslashit( get_stylesheet_directory_uri() ) . $dir . $script;
@@ -667,7 +667,7 @@ class TitanFramework {
 					
 					// We mainly check for equality here so that we won't have to serialize IF the value
 					// wasn't touched anyway.
-					if ( $newValue !== $tempValue ) {
+					if ( $newValue != $tempValue ) {
 						if ( is_array( $newValue ) ) {
 							$newValue = serialize( $newValue );
 						}

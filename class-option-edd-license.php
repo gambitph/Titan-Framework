@@ -54,7 +54,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		 * @since	1.7.1
 		 */
 		public function activateLicense( $option ) {
-			if ( $this->settings['id'] !== $option->settings['id'] ) {
+			if ( $this->settings['id'] != $option->settings['id'] ) {
 				return;
 			}
 
@@ -68,7 +68,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			if ( strlen( $license ) > 0 ) {
 
 				/* First of all we check if the user requested a manual activation */
-				if ( isset( $_GET['eddactivate'] ) && '1' === $_GET['eddactivate'] ) {
+				if ( isset( $_GET['eddactivate'] ) && '1' == $_GET['eddactivate'] ) {
 
 					global $pagenow;
 
@@ -252,7 +252,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			/* License ID */
 			$key = substr( md5( $license ), 0, 10 );
 
-			if ( 'activate_license' === $action ) {
+			if ( 'activate_license' == $action ) {
 
 				/**
 				 * If the license is invalid we can set all transients right away.

@@ -193,7 +193,7 @@ class titanscssc {
 			list($target, $origin) = $this->extends[$idx];
 
 			// check count
-			if ($count !== count($target)) continue;
+			if ($count != count($target)) continue;
 
 			// check if target is subset of single
 			if (array_diff(array_intersect($single, $target), $target)) continue;
@@ -254,7 +254,7 @@ class titanscssc {
 					// remove shared parts
 					if ($initial) {
 						foreach ($before as $k => $val) {
-							if (!isset($new[$k]) || $val !== $new[$k]) {
+							if (!isset($new[$k]) || $val != $new[$k]) {
 								break;
 							}
 						}
@@ -266,7 +266,7 @@ class titanscssc {
 						$after);
 
 
-					if ($result === $selector) continue;
+					if ($result == $selector) continue;
 					$out[] = $result;
 
 					// recursively check for more matches
@@ -309,7 +309,7 @@ class titanscssc {
 				$block->selectors[] = $this->compileSelector($selector);
 			}
 
-			if ($placeholderSelector && 0 === count($block->selectors) && null !== $parentKey) {
+			if ($placeholderSelector && 0 == count($block->selectors) && null !== $parentKey) {
 				unset($block->parent->children[$parentKey]);
 				return;
 			}
@@ -369,7 +369,7 @@ class titanscssc {
 
 	protected function mediaParent($scope) {
 		while (!empty($scope->parent)) {
-			if (!empty($scope->type) && $scope->type !== 'media') {
+			if (!empty($scope->type) && $scope->type != 'media') {
 				break;
 			}
 			$scope = $scope->parent;
@@ -504,7 +504,7 @@ class titanscssc {
 
 		foreach ($selector as $parts) {
 			foreach ($parts as $part) {
-				if ('%' === $part[0]) {
+				if ('%' == $part[0]) {
 					return true;
 				}
 			}
@@ -586,30 +586,30 @@ class titanscssc {
 		} else {
 			$t2 = strtolower($type2[0]);
 		}
-		if (($m1 === 'not') ^ ($m2 === 'not')) {
-			if ($t1 === $t2) {
+		if (($m1 == 'not') ^ ($m2 == 'not')) {
+			if ($t1 == $t2) {
 				return null;
 			}
 			return array(
-				$m1 === 'not' ? $m2 : $m1,
-				$m1 === 'not' ? $t2 : $t1
+				$m1 == 'not' ? $m2 : $m1,
+				$m1 == 'not' ? $t2 : $t1
 			);
-		} elseif ($m1 === 'not' && $m2 === 'not') {
+		} elseif ($m1 == 'not' && $m2 == 'not') {
 			# CSS has no way of representing "neither screen nor print"
-			if ($t1 !== $t2) {
+			if ($t1 != $t2) {
 				return null;
 			}
 			return array('not', $t1);
-		} elseif ($t1 !== $t2) {
+		} elseif ($t1 != $t2) {
 			return null;
-		} else { // t1 === t2, neither m1 nor m2 are "not"
+		} else { // t1 == t2, neither m1 nor m2 are "not"
 			return array(empty($m1)? $m2 : $m1, $t1);
 		}
 	}
 
 	// returns true if the value was something that could be imported
 	protected function compileImport($rawPath, $out) {
-		if ($rawPath[0] === 'string') {
+		if ($rawPath[0] == 'string') {
 			$path = $this->compileStringContent($rawPath);
 			if ($path = $this->findImport($path)) {
 				$this->importFile($path, $out);
@@ -617,11 +617,11 @@ class titanscssc {
 			}
 			return false;
 		}
-		if ($rawPath[0] === 'list') {
+		if ($rawPath[0] == 'list') {
 			// handle a list of strings
-			if (count($rawPath[2]) === 0) return false;
+			if (count($rawPath[2]) == 0) return false;
 			foreach ($rawPath[2] as $path) {
-				if ($path[0] !== 'string') return false;
+				if ($path[0] != 'string') return false;
 			}
 
 			foreach ($rawPath[2] as $path) {
@@ -666,12 +666,12 @@ class titanscssc {
 			break;
 		case 'assign':
 			list(,$name, $value) = $child;
-			if ($name[0] === 'var') {
+			if ($name[0] == 'var') {
 				$isDefault = !empty($child[3]);
 
 				if ($isDefault) {
 					$existingValue = $this->get($name[1], true);
-					$shouldSet = $existingValue === true || $existingValue === self::$null;
+					$shouldSet = $existingValue === true || $existingValue == self::$null;
 				}
 
 				if (!$isDefault || $shouldSet) {
@@ -682,9 +682,9 @@ class titanscssc {
 
 			// if the value reduces to null from something else then
 			// the property should be discarded
-			if ($value[0] !== 'null') {
+			if ($value[0] != 'null') {
 				$value = $this->reduce($value);
-				if ($value[0] === 'null') {
+				if ($value[0] == 'null') {
 					break;
 				}
 			}
@@ -695,7 +695,7 @@ class titanscssc {
 				$compiledValue);
 			break;
 		case 'comment':
-			if ($out->type === 'root') {
+			if ($out->type == 'root') {
 				$this->compileComment($child);
 				break;
 			}
@@ -721,8 +721,8 @@ class titanscssc {
 				return $this->compileChildren($if->children, $out);
 			} else {
 				foreach ($if->cases as $case) {
-					if ($case->type === 'else' ||
-						$case->type === 'elseif' && $this->isTruthy($this->reduce($case->cond)))
+					if ($case->type == 'else' ||
+						$case->type == 'elseif' && $this->isTruthy($this->reduce($case->cond)))
 					{
 						return $this->compileChildren($case->children, $out);
 					}
@@ -758,8 +758,8 @@ class titanscssc {
 			$d = $start < $end ? 1 : -1;
 
 			while (true) {
-				if ((!$for->until && $start - $d === $end) ||
-					($for->until && $start === $end))
+				if ((!$for->until && $start - $d == $end) ||
+					($for->until && $start == $end))
 				{
 					break;
 				}
@@ -777,10 +777,10 @@ class titanscssc {
 			$prefixed = array();
 			$prefix = $this->compileValue($prop->prefix) . '-';
 			foreach ($prop->children as $child) {
-				if ($child[0] === 'assign') {
+				if ($child[0] == 'assign') {
 					array_unshift($child[1][2], $prefix);
 				}
-				if ($child[0] === 'nestedprop') {
+				if ($child[0] == 'nestedprop') {
 					array_unshift($child[1]->prefix[2], $prefix);
 				}
 				$prefixed[] = $child;
@@ -857,14 +857,14 @@ class titanscssc {
 	}
 
 	protected function isTruthy($value) {
-		return $value !== self::$false && $value !== self::$null;
+		return $value != self::$false && $value != self::$null;
 	}
 
 	// should $value cause its operand to eval
 	protected function shouldEval($value) {
 		switch ($value[0]) {
 		case 'exp':
-			if ($value[1] === '/') {
+			if ($value[1] == '/') {
 				return $this->shouldEval($value[2], $value[3]);
 			}
 		case 'var':
@@ -887,8 +887,8 @@ class titanscssc {
 				$right = $this->reduce($right, true);
 
 				// only do division in special cases
-				if ($opName === 'div' && !$inParens && !$inExp) {
-					if ($left[0] !== 'color' && $right[0] !== 'color') {
+				if ($opName == 'div' && !$inParens && !$inExp) {
+					if ($left[0] != 'color' && $right[0] != 'color') {
 						return $this->expToString($value);
 					}
 				}
@@ -914,34 +914,34 @@ class titanscssc {
 				{
 					$unitChange = false;
 					if (!isset($genOp) &&
-						$left[0] === 'number' && $right[0] === 'number')
+						$left[0] == 'number' && $right[0] == 'number')
 					{
-						if ($opName === 'mod' && $right[2] !== '') {
+						if ($opName == 'mod' && $right[2] != '') {
 							$this->throwError("Cannot modulo by a number with units: $right[1]$right[2].");
 						}
 
 						$unitChange = true;
-						$emptyUnit = $left[2] === '' || $right[2] === '';
-						$targetUnit = '' !== $left[2] ? $left[2] : $right[2];
+						$emptyUnit = $left[2] == '' || $right[2] == '';
+						$targetUnit = '' != $left[2] ? $left[2] : $right[2];
 
-						if ($opName !== 'mul') {
-							$left[2] = '' !== $left[2] ? $left[2] : $targetUnit;
-							$right[2] = '' !== $right[2] ? $right[2] : $targetUnit;
+						if ($opName != 'mul') {
+							$left[2] = '' != $left[2] ? $left[2] : $targetUnit;
+							$right[2] = '' != $right[2] ? $right[2] : $targetUnit;
 						}
 
-						if ($opName !== 'mod') {
+						if ($opName != 'mod') {
 							$left = $this->normalizeNumber($left);
 							$right = $this->normalizeNumber($right);
 						}
 
-						if ($opName === 'div' && !$emptyUnit && $left[2] === $right[2]) {
+						if ($opName == 'div' && !$emptyUnit && $left[2] == $right[2]) {
 							$targetUnit = '';
 						}
 
-						if ($opName === 'mul') {
-							$left[2] = '' !== $left[2] ? $left[2] : $right[2];
-							$right[2] = '' !== $right[2] ? $right[2] : $left[2];
-						} elseif ($opName === 'div' && $left[2] === $right[2]) {
+						if ($opName == 'mul') {
+							$left[2] = '' != $left[2] ? $left[2] : $right[2];
+							$right[2] = '' != $right[2] ? $right[2] : $left[2];
+						} elseif ($opName == 'div' && $left[2] == $right[2]) {
 							$left[2] = '';
 							$right[2] = '';
 						}
@@ -955,7 +955,7 @@ class titanscssc {
 					}
 
 					if (isset($out)) {
-						if ($unitChange && $out[0] === 'number') {
+						if ($unitChange && $out[0] == 'number') {
 							$out = $this->coerceUnit($out, $targetUnit);
 						}
 						return $out;
@@ -968,7 +968,7 @@ class titanscssc {
 				$inExp = $inExp || $this->shouldEval($exp);
 
 				$exp = $this->reduce($exp);
-				if ($exp[0] === 'number') {
+				if ($exp[0] == 'number') {
 					switch ($op) {
 					case '+':
 						return $exp;
@@ -978,9 +978,9 @@ class titanscssc {
 					}
 				}
 
-				if ($op === 'not') {
+				if ($op == 'not') {
 					if ($inExp || $inParens) {
-						if ($exp === self::$false) {
+						if ($exp == self::$false) {
 							return self::$true;
 						} else {
 							return self::$false;
@@ -1058,7 +1058,7 @@ class titanscssc {
 		switch ($type) {
 		case 'list':
 			$value = $this->extractInterpolation($value);
-			if ($value[0] !== 'list') {
+			if ($value[0] != 'list') {
 				return array('keyword', $this->compileValue($value));
 			}
 			foreach ($value[2] as $key => $item) {
@@ -1115,7 +1115,7 @@ class titanscssc {
 	// adding strings
 	protected function op_add($left, $right) {
 		if ($strLeft = $this->coerceString($left)) {
-			if ($right[0] === 'string') {
+			if ($right[0] == 'string') {
 				$right[1] = '';
 			}
 			$strLeft[2][] = $right;
@@ -1123,7 +1123,7 @@ class titanscssc {
 		}
 
 		if ($strRight = $this->coerceString($right)) {
-			if ($left[0] === 'string') {
+			if ($left[0] == 'string') {
 				$left[1] = '';
 			}
 			array_unshift($strRight[2], $left);
@@ -1133,13 +1133,13 @@ class titanscssc {
 
 	protected function op_and($left, $right, $shouldEval) {
 		if (!$shouldEval) return;
-		if ($left !== self::$false) return $right;
+		if ($left != self::$false) return $right;
 		return $left;
 	}
 
 	protected function op_or($left, $right, $shouldEval) {
 		if (!$shouldEval) return;
-		if ($left !== self::$false) return $left;
+		if ($left != self::$false) return $left;
 		return $right;
 	}
 
@@ -1162,7 +1162,7 @@ class titanscssc {
 				$out[] = $lval % $rval;
 				break;
 			case '/':
-				if ($rval === 0) {
+				if ($rval == 0) {
 					$this->throwError("color: Can't divide by zero");
 				}
 				$out[] = $lval / $rval;
@@ -1198,14 +1198,14 @@ class titanscssc {
 		if (($lStr = $this->coerceString($left)) && ($rStr = $this->coerceString($right))) {
 			$lStr[1] = '';
 			$rStr[1] = '';
-			return $this->toBool($this->compileValue($lStr) === $this->compileValue($rStr));
+			return $this->toBool($this->compileValue($lStr) == $this->compileValue($rStr));
 		}
 
-		return $this->toBool($left === $right);
+		return $this->toBool($left == $right);
 	}
 
 	protected function op_neq($left, $right) {
-		return $this->toBool($left !== $right);
+		return $this->toBool($left != $right);
 	}
 
 	protected function op_gte_number_number($left, $right) {
@@ -1259,7 +1259,7 @@ class titanscssc {
 			$g = round($g);
 			$b = round($b);
 
-			if (count($value) === 5 && $value[4] !== 1) { // rgba
+			if (count($value) == 5 && $value[4] != 1) { // rgba
 				return 'rgba('.$r.', '.$g.', '.$b.', '.$value[4].')';
 			}
 
@@ -1280,13 +1280,13 @@ class titanscssc {
 			return "$value[1]($args)";
 		case 'list':
 			$value = $this->extractInterpolation($value);
-			if ($value[0] !== 'list') return $this->compileValue($value);
+			if ($value[0] != 'list') return $this->compileValue($value);
 
 			list(, $delim, $items) = $value;
 
 			$filtered = array();
 			foreach ($items as $item) {
-				if ($item[0] === 'null') continue;
+				if ($item[0] == 'null') continue;
 				$filtered[] = $this->compileValue($item);
 			}
 
@@ -1342,7 +1342,7 @@ class titanscssc {
 	protected function extractInterpolation($list) {
 		$items = $list[2];
 		foreach ($items as $i => $item) {
-			if ($item[0] === 'interpolate') {
+			if ($item[0] == 'interpolate') {
 				$before = array('list', $list[1], array_slice($items, 0, $i));
 				$after = array('list', $list[1], array_slice($items, $i + 1));
 				return array('interpolated', $item, $before, $after);
@@ -1383,7 +1383,7 @@ class titanscssc {
 		foreach ($child as $part) {
 			$newPart = array();
 			foreach ($part as $p) {
-				if ($p === self::$selfSelector) {
+				if ($p == self::$selfSelector) {
 					$setSelf = true;
 					foreach ($parent as $i => $parentPart) {
 						if ($i > 0) {
@@ -1408,7 +1408,7 @@ class titanscssc {
 
 	protected function multiplyMedia($env, $childQueries = null) {
 		if (!isset($env) ||
-			!empty($env->block->type) && $env->block->type !== 'media')
+			!empty($env->block->type) && $env->block->type != 'media')
 		{
 			return $childQueries;
 		}
@@ -1419,7 +1419,7 @@ class titanscssc {
 		}
 
 		$parentQueries = $env->block->queryList;
-		if ($childQueries === null) {
+		if ($childQueries == null) {
 			$childQueries = $parentQueries;
 		} else {
 			$originalQueries = $childQueries;
@@ -1437,7 +1437,7 @@ class titanscssc {
 
 	// convert something to list
 	protected function coerceList($item, $delim = ',') {
-		if (isset($item) && $item[0] === 'list') {
+		if (isset($item) && $item[0] == 'list') {
 			return $item;
 		}
 
@@ -1477,9 +1477,9 @@ class titanscssc {
 				}
 			} elseif (count($keywordArgs)) {
 				$this->throwError('Positional arguments must come before keyword arguments.');
-			} elseif ($arg[2] === true) {
+			} elseif ($arg[2] == true) {
 				$val = $this->reduce($arg[1], true);
-				if ($val[0] === 'list') {
+				if ($val[0] == 'list') {
 					foreach ($val[2] as $name => $item) {
 						if (!is_numeric($name)) {
 							$keywordArgs[$name] = $item;
@@ -1709,7 +1709,7 @@ class titanscssc {
 				// check urls for normal import paths
 				foreach ($urls as $full) {
 					$full = $dir .
-						(!empty($dir) && substr($dir, -1) !== '/' ? '/' : '') .
+						(!empty($dir) && substr($dir, -1) != '/' ? '/' : '') .
 						$full;
 
 					if ($this->fileExists($file = $full.'.scss') ||
@@ -1851,7 +1851,7 @@ class titanscssc {
 	}
 
 	public function assertList($value) {
-		if ($value[0] !== 'list')
+		if ($value[0] != 'list')
 			$this->throwError('expecting list');
 		return $value;
 	}
@@ -1862,14 +1862,14 @@ class titanscssc {
 	}
 
 	public function assertNumber($value) {
-		if ($value[0] !== 'number')
+		if ($value[0] != 'number')
 			$this->throwError('expecting number');
 		return $value[1];
 	}
 
 	protected function coercePercent($value) {
-		if ($value[0] === 'number') {
-			if ($value[2] === '%') {
+		if ($value[0] == 'number') {
+			if ($value[2] == '%') {
 				return $value[1] / 100;
 			}
 			return $value[1];
@@ -1893,7 +1893,7 @@ class titanscssc {
 
 		$l = $min + $max;
 
-		if ($min === $max) {
+		if ($min == $max) {
 			$s = $h = 0;
 		} else {
 			$d = $max - $min;
@@ -1903,11 +1903,11 @@ class titanscssc {
 			else
 				$s = $d / (510 - $l);
 
-			if ($red === $max)
+			if ($red == $max)
 				$h = 60 * ($green - $blue) / $d;
-			elseif ($green === $max)
+			elseif ($green == $max)
 				$h = 60 * ($blue - $red) / $d + 120;
-			elseif ($blue === $max)
+			elseif ($blue == $max)
 				$h = 60 * ($red - $green) / $d + 240;
 		}
 
@@ -2004,7 +2004,7 @@ class titanscssc {
 		foreach (array(1,2,3,7) as $i) {
 			if (isset($args[$i])) {
 				$val = $this->assertNumber($args[$i]);
-				$ii = $i === 7 ? 4 : $i; // alpha
+				$ii = $i == 7 ? 4 : $i; // alpha
 				$color[$ii] =
 					$this->$fn(isset($color[$ii]) ? $color[$ii] : 0, $val, $i);
 			}
@@ -2143,7 +2143,7 @@ class titanscssc {
 		$w = $weight * 2 - 1;
 		$a = $firstAlpha - $secondAlpha;
 
-		$w1 = (($w * $a === -1 ? $w : ($w + $a)/(1 + $w * $a)) + 1) / 2.0;
+		$w1 = (($w * $a == -1 ? $w : ($w + $a)/(1 + $w * $a)) + 1) / 2.0;
 		$w2 = 1.0 - $w1;
 
 		$new = array('color',
@@ -2152,7 +2152,7 @@ class titanscssc {
 			$w1 * $first[3] + $w2 * $second[3],
 		);
 
-		if ($firstAlpha !== 1.0 || $secondAlpha !== 1.0) {
+		if ($firstAlpha != 1.0 || $secondAlpha != 1.0) {
 			$new[] = $firstAlpha * $weight + $secondAlpha * ($weight - 1);
 		}
 
@@ -2298,14 +2298,14 @@ class titanscssc {
 	protected static $lib_unquote = array('string');
 	protected function lib_unquote($args) {
 		$str = $args[0];
-		if ($str[0] === 'string') $str[1] = '';
+		if ($str[0] == 'string') $str[1] = '';
 		return $str;
 	}
 
 	protected static $lib_quote = array('string');
 	protected function lib_quote($args) {
 		$value = $args[0];
-		if ($value[0] === 'string' && !empty($value[1]))
+		if ($value[0] == 'string' && !empty($value[1]))
 			return $value;
 		return array('string', '"', array($value));
 	}
@@ -2374,7 +2374,7 @@ class titanscssc {
 		$originalUnit = null;
 		$numbers = array();
 		foreach ($args as $key => $item) {
-			if ('number' !== $item[0]) {
+			if ('number' != $item[0]) {
 				$this->throwError('%s is not a number', $item[0]);
 			}
 			$number = $this->normalizeNumber($item);
@@ -2461,7 +2461,7 @@ class titanscssc {
 		$value = $args[0];
 		switch ($value[0]) {
 		case 'keyword':
-			if ($value === self::$true || $value === self::$false) {
+			if ($value == self::$true || $value == self::$false) {
 				return 'bool';
 			}
 
@@ -2478,7 +2478,7 @@ class titanscssc {
 	protected static $lib_unit = array('number');
 	protected function lib_unit($args) {
 		$num = $args[0];
-		if ($num[0] === 'number') {
+		if ($num[0] == 'number') {
 			return array('string', '"', array($num[2]));
 		}
 		return '';
@@ -2487,20 +2487,20 @@ class titanscssc {
 	protected static $lib_unitless = array('number');
 	protected function lib_unitless($args) {
 		$value = $args[0];
-		return $value[0] === 'number' && empty($value[2]);
+		return $value[0] == 'number' && empty($value[2]);
 	}
 
 	protected static $lib_comparable = array('number-1', 'number-2');
 	protected function lib_comparable($args) {
 		list($number1, $number2) = $args;
-		if (!isset($number1[0]) || $number1[0] !== 'number' || !isset($number2[0]) || $number2[0] !== 'number') {
+		if (!isset($number1[0]) || $number1[0] != 'number' || !isset($number2[0]) || $number2[0] != 'number') {
 			$this->throwError('Invalid argument(s) for "comparable"');
 		}
 
 		$number1 = $this->normalizeNumber($number1);
 		$number2 = $this->normalizeNumber($number2);
 
-		return $number1[2] === $number2[2] || $number1[2] === '' || $number2[2] === '';
+		return $number1[2] == $number2[2] || $number1[2] == '' || $number2[2] == '';
 	}
 
 	/**
@@ -2768,7 +2768,7 @@ class titanscss_parser {
 		while (false !== $this->parseChunk())
 			;
 
-		if ($this->count !== strlen($this->buffer)) {
+		if ($this->count != strlen($this->buffer)) {
 			$this->throwParseError();
 		}
 
@@ -2824,7 +2824,7 @@ class titanscss_parser {
 		$s = $this->seek();
 
 		// the directives
-		if (isset($this->buffer[$this->count]) && $this->buffer[$this->count] === '@') {
+		if (isset($this->buffer[$this->count]) && $this->buffer[$this->count] == '@') {
 			if ($this->literal('@media') && $this->mediaQueryList($mediaQueryList) && $this->literal('{')) {
 				$media = $this->pushSpecialBlock('media');
 				$media->queryList = $mediaQueryList[2];
@@ -2979,7 +2979,7 @@ class titanscss_parser {
 			}
 
 			$last = $this->last();
-			if (isset($last) && $last[0] === 'if') {
+			if (isset($last) && $last[0] == 'if') {
 				list(, $if) = $last;
 				if ($this->literal('@else')) {
 					if ($this->literal('{')) {
@@ -3043,7 +3043,7 @@ class titanscss_parser {
 			$this->valueList($value) && $this->end())
 		{
 			// check for !default
-			$defaultVar = $value[0] === 'list' && $this->stripDefault($value);
+			$defaultVar = $value[0] == 'list' && $this->stripDefault($value);
 			$this->append(array('assign', $name, $value, $defaultVar), $s);
 			return true;
 		} else {
@@ -3091,7 +3091,7 @@ class titanscss_parser {
 		// closing a block
 		if ($this->literal('}')) {
 			$block = $this->popBlock();
-			if (isset($block->type) && $block->type === 'include') {
+			if (isset($block->type) && $block->type == 'include') {
 				$include = $block->child;
 				unset($block->child);
 				$include[3] = $block;
@@ -3115,13 +3115,13 @@ class titanscss_parser {
 
 	protected function stripDefault(&$value) {
 		$def = end($value[2]);
-		if ($def[0] === 'keyword' && $def[1] === '!default') {
+		if ($def[0] == 'keyword' && $def[1] == '!default') {
 			array_pop($value[2]);
 			$value = $this->flattenList($value);
 			return true;
 		}
 
-		if ($def[0] === 'list') {
+		if ($def[0] == 'list') {
 			return $this->stripDefault($value[2][count($value[2]) - 1]);
 		}
 
@@ -3133,7 +3133,7 @@ class titanscss_parser {
 
 		// shortcut on single letter
 		if (!isset($what[1]) && isset($this->buffer[$this->count])) {
-			if ($this->buffer[$this->count] === $what) {
+			if ($this->buffer[$this->count] == $what) {
 				if (!$eatWhitespace) {
 					$this->count++;
 					return true;
@@ -3336,12 +3336,12 @@ class titanscss_parser {
 			}
 		}
 
-		if (count($items) === 0) {
+		if (count($items) == 0) {
 			$this->seek($s);
 			return false;
 		}
 
-		if ($flatten && count($items) === 1) {
+		if ($flatten && count($items) == 1) {
 			$out = $items[0];
 		} else {
 			$out = array('list', $delim, $items);
@@ -3359,7 +3359,7 @@ class titanscss_parser {
 				return true;
 			}
 
-			if ($this->valueList($out) && $this->literal(')') && $out[0] === 'list') {
+			if ($this->valueList($out) && $this->literal(')') && $out[0] == 'list') {
 				return true;
 			}
 
@@ -3387,7 +3387,7 @@ class titanscss_parser {
 			$op = $m[1];
 
 			// don't turn negative numbers into expressions
-			if ($op === '-' && $whiteBefore) {
+			if ($op == '-' && $whiteBefore) {
 				if (!$whiteAfter) break;
 			}
 
@@ -3447,7 +3447,7 @@ class titanscss_parser {
 		if ($this->progid($out)) return true;
 
 		if ($this->keyword($keyword)) {
-			if ($keyword === 'null') {
+			if ($keyword == 'null') {
 				$out = array('null');
 			} else {
 				$out = array('keyword', $keyword);
@@ -3503,12 +3503,12 @@ class titanscss_parser {
 		if ($this->keyword($name, false) &&
 			$this->literal('('))
 		{
-			if ($name === 'alpha' && $this->argumentList($args)) {
+			if ($name == 'alpha' && $this->argumentList($args)) {
 				$func = array('function', $name, array('string', '', $args));
 				return true;
 			}
 
-			if ($name !== 'expression' && !preg_match('/^(-[a-z]+-)?calc$/', $name)) {
+			if ($name != 'expression' && !preg_match('/^(-[a-z]+-)?calc$/', $name)) {
 				$ss = $this->seek();
 				if ($this->argValues($args) && $this->literal(')')) {
 					$func = array('fncall', $name, $args);
@@ -3656,7 +3656,7 @@ class titanscss_parser {
 
 		while ($this->matchString($m, $delim)) {
 			$content[] = $m[1];
-			if ($m[2] === '#{') {
+			if ($m[2] == '#{') {
 				$this->count -= strlen($m[2]);
 				if ($this->interpolation($inter, false)) {
 					$content[] = $inter;
@@ -3664,7 +3664,7 @@ class titanscss_parser {
 					$this->count += strlen($m[2]);
 					$content[] = '#{'; // ignore it
 				}
-			} elseif ($m[2] === '\\') {
+			} elseif ($m[2] == '\\') {
 				$content[] = $m[2];
 				if ($this->literal($delim, false)) {
 					$content[] = $delim;
@@ -3710,7 +3710,7 @@ class titanscss_parser {
 
 		$this->eatWhiteDefault = $oldWhite;
 
-		if (count($parts) === 0) return false;
+		if (count($parts) == 0) return false;
 
 		if ($this->eatWhiteDefault) {
 			$this->whitespace();
@@ -3745,20 +3745,20 @@ class titanscss_parser {
 			$tok = $m[2];
 
 			$this->count-= strlen($tok);
-			if ($tok === $end) {
-				if ($nestingLevel === 0) {
+			if ($tok == $end) {
+				if ($nestingLevel == 0) {
 					break;
 				} else {
 					$nestingLevel--;
 				}
 			}
 
-			if (($tok === '\'' || $tok === '"') && $this->string($str)) {
+			if (($tok == '\'' || $tok == '"') && $this->string($str)) {
 				$content[] = $str;
 				continue;
 			}
 
-			if ($tok === '#{' && $this->interpolation($inter)) {
+			if ($tok == '#{' && $this->interpolation($inter)) {
 				$content[] = $inter;
 				continue;
 			}
@@ -3769,7 +3769,7 @@ class titanscss_parser {
 
 		$this->eatWhiteDefault = $oldWhite;
 
-		if (count($content) === 0) return false;
+		if (count($content) == 0) return false;
 
 		// trim the end
 		if (is_string(end($content))) {
@@ -3825,7 +3825,7 @@ class titanscss_parser {
 				$parts[] = $inter;
 			} elseif ($this->keyword($text)) {
 				$parts[] = $text;
-			} elseif (count($parts) === 0 && $this->match('[:.#]', $m, false)) {
+			} elseif (count($parts) == 0 && $this->match('[:.#]', $m, false)) {
 				// css hacks
 				$parts[] = $m[0];
 			} else {
@@ -3834,7 +3834,7 @@ class titanscss_parser {
 		}
 
 		$this->eatWhiteDefault = $oldWhite;
-		if (count($parts) === 0) return false;
+		if (count($parts) == 0) return false;
 
 		// match comment hack
 		if (preg_match(self::$whitePattern,
@@ -3862,7 +3862,7 @@ class titanscss_parser {
 			while ($this->literal(',')); // ignore extra
 		}
 
-		if (count($selectors) === 0) {
+		if (count($selectors) == 0) {
 			$this->seek($s);
 			return false;
 		}
@@ -3889,7 +3889,7 @@ class titanscss_parser {
 
 		}
 
-		if (count($selector) === 0) {
+		if (count($selector) == 0) {
 			return false;
 		}
 
@@ -4044,7 +4044,7 @@ class titanscss_parser {
 
 		$this->eatWhiteDefault = $oldWhite;
 
-		if (count($parts) === 0) return false;
+		if (count($parts) == 0) return false;
 
 		$out = $parts;
 		return true;
@@ -4082,7 +4082,7 @@ class titanscss_parser {
 	protected function end() {
 		if ($this->literal(';')) {
 			return true;
-		} elseif ($this->count === strlen($this->buffer) || $this->buffer[$this->count] === '}') {
+		} elseif ($this->count == strlen($this->buffer) || $this->buffer[$this->count] == '}') {
 			// if there is end of file or a closing block next then we don't need a ;
 			return true;
 		}
@@ -4140,7 +4140,7 @@ class titanscss_parser {
 		$token = null;
 
 		$end = strpos($this->buffer, "\n", $this->count);
-		if ($end === false || $this->buffer[$end - 1] === '\\' || $this->buffer[$end - 2] === '\\' && $this->buffer[$end - 1] === "\r") {
+		if ($end === false || $this->buffer[$end - 1] == '\\' || $this->buffer[$end - 2] == '\\' && $this->buffer[$end - 1] == "\r") {
 			$end = strlen($this->buffer);
 		}
 
@@ -4225,7 +4225,7 @@ class titanscss_parser {
 
 	// turn list of length 1 into value type
 	protected function flattenList($value) {
-		if ($value[0] === 'list' && count($value[2]) === 1) {
+		if ($value[0] == 'list' && count($value[2]) == 1) {
 			return $this->flattenList($value[2][0]);
 		}
 		return $value;
@@ -4368,7 +4368,7 @@ class titanscss_formatter_nested extends titanscss_formatter {
 	}
 
 	protected function block($block) {
-		if ($block->type === 'root') {
+		if ($block->type == 'root') {
 			$this->adjustAllChildren($block);
 		}
 
@@ -4393,7 +4393,7 @@ class titanscss_formatter_nested extends titanscss_formatter {
 
 				if (isset($block->children[$i + 1])) {
 					$next = $block->children[$i + 1];
-					if ($next->depth === max($block->depth, 1) && $child->depth >= $next->depth) {
+					if ($next->depth == max($block->depth, 1) && $child->depth >= $next->depth) {
 						echo $this->break;
 					}
 				}
@@ -4405,7 +4405,7 @@ class titanscss_formatter_nested extends titanscss_formatter {
 			echo $this->close;
 		}
 
-		if ($block->type === 'root') {
+		if ($block->type == 'root') {
 			echo $this->break;
 		}
 	}

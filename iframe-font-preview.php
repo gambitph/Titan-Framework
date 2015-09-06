@@ -35,7 +35,7 @@ $text = ! empty( $_GET['text'] ) ? $_GET['text'] : '';
 function hex2rgb($hex) {
    $hex = str_replace("#", "", $hex);
 
-   if(strlen($hex) === 3) {
+   if(strlen($hex) == 3) {
       $r = hexdec(substr($hex,0,1).substr($hex,0,1));
       $g = hexdec(substr($hex,1,1).substr($hex,1,1));
       $b = hexdec(substr($hex,2,1).substr($hex,2,1));
@@ -51,7 +51,7 @@ function hex2rgb($hex) {
 
 
 $textShadow = '';
-if ( $textShadowLocation !== 'none' ) {
+if ( $textShadowLocation != 'none' ) {
 	if ( stripos( $textShadowLocation, 'left' ) !== false ) {
 		$textShadow .= '-' . $textShadowDistance;
 	} else if ( stripos( $textShadowLocation, 'right' ) !== false ) {
@@ -83,20 +83,20 @@ if ( $textShadowLocation !== 'none' ) {
 <html>
 	<head>
 		<?php
-		if ( $fontType === 'google' ) {
+		if ( $fontType == 'google' ) {
 			$weight = $fontWeight;
-			if ( $weight === 'normal' ) {
+			if ( $weight == 'normal' ) {
 				$weight = array( '400' );
-			} else if ( $weight === 'bold' ) {
+			} else if ( $weight == 'bold' ) {
 				$weight = array( '500' );//, '700' );
-			} else if ( $weight === 'bolder' ) {
+			} else if ( $weight == 'bolder' ) {
 				$weight = array( '800' );//, '900' );
-			} else if ( $weight === 'lighter' ) {
+			} else if ( $weight == 'lighter' ) {
 				$weight = array( '100' );//, '200', '300' );
 			} else {
 				$weight = array( $weight );
 			}
-			if ( $fontStyle === 'italic' ) {
+			if ( $fontStyle == 'italic' ) {
 				foreach ( $weight as $key => $value ) {
 					$weight[ $key ] = $value . 'italic';
 				}
@@ -148,7 +148,7 @@ if ( $textShadowLocation !== 'none' ) {
 			    }
 
 			    var classString = element.className, nameIndex = classString.indexOf( className );
-			    if ( nameIndex === -1 ) {
+			    if ( nameIndex == -1 ) {
 			        classString += ' ' + className;
 			    } else {
 			        classString = classString.substr( 0, nameIndex ) + classString.substr( nameIndex + className.length );

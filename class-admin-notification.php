@@ -16,11 +16,11 @@ class TitanFrameworkAdminNotification {
 	}
 
 	public static function formNotification( $message, $type = 'updated', $location = 'top' ) {
-		if ( $location !== 'top' ) {
+		if ( $location != 'top' ) {
 			$location = 'below-h2';
 		}
 
-		if ( $type === 'saved' || $type === 'reset' ) {
+		if ( $type == 'saved' || $type == 'reset' ) {
 			$message = '<strong>' . $message . '</strong>';
 			$type = 'updated';
 		}

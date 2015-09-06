@@ -74,7 +74,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 			$_transient_data = new stdClass;
 		}
 
-		if( 'plugins.php' === $pagenow && is_multisite() ) {
+		if( 'plugins.php' == $pagenow && is_multisite() ) {
 			return $_transient_data;
 		}
 
@@ -118,7 +118,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 			return;
 		}
 
-		if ( $this->name !== $file ) {
+		if ( $this->name != $file ) {
 			return;
 		}
 
@@ -207,13 +207,13 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 	function plugins_api_filter( $_data, $_action = '', $_args = null ) {
 
 
-		if ( $_action !== 'plugin_information' ) {
+		if ( $_action != 'plugin_information' ) {
 
 			return $_data;
 
 		}
 
-		if ( ! isset( $_args->slug ) || ( $_args->slug !== $this->slug ) ) {
+		if ( ! isset( $_args->slug ) || ( $_args->slug != $this->slug ) ) {
 
 			return $_data;
 
@@ -270,13 +270,13 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 
 		$data = array_merge( $this->api_data, $_data );
 
-		if ( $data['slug'] !== $this->slug )
+		if ( $data['slug'] != $this->slug )
 			return;
 
 		if ( empty( $data['license'] ) )
 			return;
 
-		if( $this->api_url === home_url() ) {
+		if( $this->api_url == home_url() ) {
 			return false; // Don't allow a plugin to ping itself
 		}
 
@@ -308,7 +308,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 	public function show_changelog() {
 
 
-		if( empty( $_REQUEST['edd_sl_action'] ) || 'view_plugin_changelog' !== $_REQUEST['edd_sl_action'] ) {
+		if( empty( $_REQUEST['edd_sl_action'] ) || 'view_plugin_changelog' != $_REQUEST['edd_sl_action'] ) {
 			return;
 		}
 

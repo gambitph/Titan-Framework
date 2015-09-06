@@ -50,7 +50,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public function cleanValueForSaving( $value ) {
-		if ( $value === '' ) {
+		if ( $value == '' ) {
 			return 0;
 		}
 		return $value;
@@ -65,7 +65,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public function cleanValueForGetting( $value ) {
-		if ( $value === '' ) {
+		if ( $value == '' ) {
 			return 0;
 		}
 		return $value;

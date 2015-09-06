@@ -93,16 +93,16 @@ class TitanFrameworkOption {
 		//make sure we are on the backend
 		if (!is_admin()) return false;
 
-		if($new_edit === "edit")
+		if($new_edit == "edit")
 			return in_array( $pagenow, array( 'post.php',  ) );
-		elseif($new_edit === "new") //check for new post page
+		elseif($new_edit == "new") //check for new post page
 			return in_array( $pagenow, array( 'post-new.php' ) );
 		else //check for either new or edit
 			return in_array( $pagenow, array( 'post.php', 'post-new.php' ) );
 	}
 
 	public function getValue() {
-		if ( $this->type === self::TYPE_ADMIN ) {
+		if ( $this->type == self::TYPE_ADMIN ) {
 			if ( is_a( $this->owner, 'TitanFrameworkAdminTab' ) ) {
 				$allOptions = $this->owner->owner->owner->getAllOptions();
 			} else {
@@ -112,7 +112,7 @@ class TitanFrameworkOption {
 				return $allOptions[$this->settings['id']];
 			}
 			return '';
-		} else if ( $this->type === self::TYPE_META ) {
+		} else if ( $this->type == self::TYPE_META ) {
 			// for meta options, use the default value for new posts/pages
 			if ( $this->isEditPage( 'new' ) ) {
 				return $this->settings['default'];
@@ -120,7 +120,7 @@ class TitanFrameworkOption {
 				// use the saved value for edited posts/pages
 				return get_post_meta( $this->owner->postID, $this->getID(), true );
 			}
-		} else if ( $this->type === self::TYPE_CUSTOMIZER ) {
+		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
 			return get_theme_mod( $this->getID() );
 		}
 		return false;
@@ -182,7 +182,7 @@ class TitanFrameworkOption {
 
 		$id = $this->getID();
 		$name = $this->getName();
-		$evenOdd = self::$rowIndex++ % 2 === 0 ? 'odd' : 'even';
+		$evenOdd = self::$rowIndex++ % 2 == 0 ? 'odd' : 'even';
 		
 		$style = $this->getHidden() === true ? 'style="display: none"' : '';
 		

@@ -38,7 +38,7 @@ if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 			// on redeclaring Titan classes
 			if ( is_admin() ) {
 				if ( ! empty( $_GET['action'] ) && ! empty( $_GET['plugin'] ) ) {
-				    if ( $_GET['action'] === 'activate' ) {
+				    if ( $_GET['action'] == 'activate' ) {
 				        return;
 				    }
 				}

@@ -147,10 +147,10 @@ class TitanFrameworkMetaBox {
 				return false;
 			}
 		} else {
-			if ( $_POST['post_type'] !== $this->settings['post_type'] ) {
+			if ( $_POST['post_type'] != $this->settings['post_type'] ) {
 				return false;
 			}
-			if ( $post->post_type !== $this->settings['post_type'] ) {
+			if ( $post->post_type != $this->settings['post_type'] ) {
 				return false;
 			}
 		}
@@ -170,7 +170,7 @@ class TitanFrameworkMetaBox {
 				return false;
 			}
 		} else {
-			if ( $this->settings['post_type'] === 'page' ) {
+			if ( $this->settings['post_type'] == 'page' ) {
 				if ( ! current_user_can( 'edit_page', $postID ) ) {
 					return false;
 				}

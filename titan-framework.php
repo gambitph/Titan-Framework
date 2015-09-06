@@ -99,7 +99,7 @@ class TitanFrameworkPlugin {
 	 */
 	public function triggerOptionCreation() {
 		// The after_setup_theme is the initialization stage
-		if ( current_filter() === 'after_setup_theme' ) {
+		if ( current_filter() == 'after_setup_theme' ) {
 			TitanFramework::$initializing = true;
 		}
 
@@ -107,7 +107,7 @@ class TitanFrameworkPlugin {
 
 		TitanFramework::$initializing = false;
 		
-		if ( current_filter() === 'init' ) {
+		if ( current_filter() == 'init' ) {
 			do_action( 'tf_done' );
 		}
 	}
@@ -139,7 +139,7 @@ class TitanFrameworkPlugin {
 		if ( $plugins = get_option( 'active_plugins' ) ) {
 			foreach ( $plugins as $key => $pluginPath ) {
 				// If we are the first one to load already, don't do anything
-				if ( strpos( $pluginPath, $tfFileName ) !== false && $key === 0 ) {
+				if ( strpos( $pluginPath, $tfFileName ) !== false && $key == 0 ) {
 					break;
 				// If we aren't the first one, force it!
 				} else if ( strpos( $pluginPath, $tfFileName ) !== false ) {
@@ -163,7 +163,7 @@ class TitanFrameworkPlugin {
 	 * @since	1.1.1
 	 **/
 	public function plugin_links( $plugin_meta, $plugin_file ) {
-		if ( plugin_basename( __FILE__ ) === $plugin_file ) {
+		if ( plugin_basename( __FILE__ ) == $plugin_file ) {
 			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
 				"http://www.titanframework.net/docs",
 				__( "Documentation", TF_I18NDOMAIN )
