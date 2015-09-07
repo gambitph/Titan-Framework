@@ -40,21 +40,10 @@
 		]
 	},
 	"repositories": [
-		{
-			"type": "package",
-			"package": {
-				"name": "ajaxorg/ace-builds",
-				"version": "dev-master",
-				"source": {
-					"url": "https://github.com/ajaxorg/ace-builds",
-					"type": "git",
-					"reference": "origin/master"
-				}
-			}
-		}
 	],
 	"require": {
-		"ajaxorg/ace-builds": "dev-master"
+	},
+	"require-dev": {
 	},
 	"scripts": {
 		"post-archive-cmd": [
