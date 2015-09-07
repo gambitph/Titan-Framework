@@ -29,3 +29,6 @@ before_script:
     - cd "/tmp/wordpress/wp-content/plugins/$PLUGIN_SLUG"
 
 script: phpunit
+
+after_success:
+  - coveralls
