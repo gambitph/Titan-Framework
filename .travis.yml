@@ -19,9 +19,9 @@ env:
     - WP_VERSION=latest WP_MULTISITE=1
     - WP_VERSION=4.0 WP_MULTISITE=1
     # - WP_VERSION=3.9 WP_MULTISITE=1
-	
+
 install:
-	- composer require satooshi/php-coveralls:~0.6.1@stable
+    - composer require satooshi/php-coveralls:~0.6.1@stable
 
 # Clones WordPress and configures our testing environment.
 before_script:
@@ -30,10 +30,10 @@ before_script:
     - cd ..
     - mv $PLUGIN_SLUG "/tmp/wordpress/wp-content/plugins/$PLUGIN_SLUG"
     - cd "/tmp/wordpress/wp-content/plugins/$PLUGIN_SLUG"
-	- mkdir -p build/logs
+    - mkdir -p build/logs
 
 script:
-	- phpunit --coverage-clover build/logs/clover.xml
+    - phpunit --coverage-clover build/logs/clover.xml
 
 after_success:
-	- php vendor/bin/coveralls -v
+    - php vendor/bin/coveralls -v
