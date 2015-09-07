@@ -17,10 +17,6 @@ env:
     - WP_VERSION=4.0 WP_MULTISITE=1
     # - WP_VERSION=3.9 WP_MULTISITE=1
 
-# No composer at PHP <5.3
-install:
-    - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "5.2" ]; then composer require satooshi/php-coveralls:~0.6@stable; fi;' 
-
 # Clones WordPress and configures our testing environment.
 before_script:
     - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
@@ -28,11 +24,11 @@ before_script:
     - cd ..
     - mv $PLUGIN_SLUG "/tmp/wordpress/wp-content/plugins/$PLUGIN_SLUG"
     - cd "/tmp/wordpress/wp-content/plugins/$PLUGIN_SLUG"
-    - mkdir -p build/logs
 
 script:
-    - phpunit --coverage-clover build/logs/clover.xml
+    - phpunit --coverage-text --coverage-clover=coverage.clover
 
 # No composer at PHP <5.3
 after_success:
-    - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "5.2" ]; then php vendor/bin/coveralls -v; fi;'
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
