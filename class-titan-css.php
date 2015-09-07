@@ -172,7 +172,7 @@ class TitanFrameworkCSS {
 		}
 		if ( is_array( $value ) ) {
 			foreach ( $value as $subKey => $subValue ) {
-				if ( $key !== false ) {
+				if ( $key != false ) {
 					$subKey = $key . '-' . $subKey;
 				}
 				$cssString = $this->formCSSVariables( $id, $type, $subValue, $subKey, $cssString );
@@ -181,11 +181,11 @@ class TitanFrameworkCSS {
 			$value = esc_attr( $value );
 
 			// If the value is a file address, wrap it in quotes
-			if ( $type === 'upload' ) {
+			if ( $type == 'upload' ) {
 				$value = "'" . $value . "'";
 			}
 
-			if ( false === $key  ) {
+			if ( false == $key  ) {
 				$cssString .= "\$" . esc_attr( $id ) . ": " . $value . ";\n";
 			} else {
 				$cssString .= "\$" . esc_attr( $id ) . "-" . esc_attr( $key ) . ": " . $value . ";\n";
@@ -240,7 +240,7 @@ class TitanFrameworkCSS {
 
 			// Don't render CSS for this option if it doesn't have a value
 			$optionValue = $this->frameworkInstance->getOption( $option->settings['id'] );
-			if ( $optionValue == '' || $optionValue === false ) {
+			if ( $optionValue == '' || $optionValue == false ) {
 				continue;
 			}
 

@@ -58,7 +58,7 @@ class TITAN_EDD_Theme_Updater {
 
 		$api_response = get_transient( $this->response_key );
 
-		if ( false === $api_response ) {
+		if ( false == $api_response ) {
 			return;
 		}
 
@@ -100,7 +100,7 @@ class TITAN_EDD_Theme_Updater {
 
 		$update_data = get_transient( $this->response_key );
 
-		if ( false === $update_data ) {
+		if ( false == $update_data ) {
 			$failed = false;
 
 			$api_params = array(

@@ -178,7 +178,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			
 			$fontUrl = apply_filters( 'tf_enqueue_google_webfont_' . $this->getOptionNamespace(), $fontUrl, $fontName );
 
-			if ( $fontUrl !== false ) {
+			if ( $fontUrl != false ) {
 				wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $fontUrl );
 			}
 		}
@@ -242,17 +242,17 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			if ( $key == 'text-shadow-location' ) {
 				$textShadow = '';
 				if ( $value[ $key ] != 'none' ) {
-					if ( stripos( $value[ $key ], 'left' ) !== false ) {
+					if ( stripos( $value[ $key ], 'left' ) != false ) {
 						$textShadow .= '-' . $value['text-shadow-distance'];
-					} else if ( stripos( $value[ $key ], 'right' ) !== false ) {
+					} else if ( stripos( $value[ $key ], 'right' ) != false ) {
 						$textShadow .= $value['text-shadow-distance'];
 					} else {
 						$textShadow .= '0';
 					}
 					$textShadow .= ' ';
-					if ( stripos( $value[ $key ], 'top' ) !== false ) {
+					if ( stripos( $value[ $key ], 'top' ) != false ) {
 						$textShadow .= '-' . $value['text-shadow-distance'];
-					} else if ( stripos( $value[ $key ], 'bottom' ) !== false ) {
+					} else if ( stripos( $value[ $key ], 'bottom' ) != false ) {
 						$textShadow .= $value['text-shadow-distance'];
 					} else {
 						$textShadow .= '0';

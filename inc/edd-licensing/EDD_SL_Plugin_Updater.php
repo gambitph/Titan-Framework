@@ -82,7 +82,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 
 			$version_info = $this->api_request( 'plugin_latest_version', array( 'slug' => $this->slug ) );
 
-			if ( false !== $version_info && is_object( $version_info ) && isset( $version_info->new_version ) ) {
+			if ( false != $version_info && is_object( $version_info ) && isset( $version_info->new_version ) ) {
 
 				$this->did_check = true;
 
@@ -132,7 +132,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 			$cache_key    = md5( 'edd_plugin_' .sanitize_key( $this->name ) . '_version_info' );
 			$version_info = get_transient( $cache_key );
 
-			if( false === $version_info ) {
+			if( false == $version_info ) {
 
 				$version_info = $this->api_request( 'plugin_latest_version', array( 'slug' => $this->slug ) );
 
@@ -230,7 +230,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 
 		$api_response = $this->api_request( 'plugin_information', $to_send );
 
-		if ( false !== $api_response ) {
+		if ( false != $api_response ) {
 			$_data = $api_response;
 		}
 
@@ -247,7 +247,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 	 */
 	function http_request_args( $args, $url ) {
 		// If it is an https request and we are performing a package download, disable ssl verification
-		if ( strpos( $url, 'https://' ) !== false && strpos( $url, 'edd_action=package_download' ) ) {
+		if ( strpos( $url, 'https://' ) != false && strpos( $url, 'edd_action=package_download' ) ) {
 			$args['sslverify'] = false;
 		}
 		return $args;

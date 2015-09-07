@@ -139,10 +139,10 @@ class TitanFrameworkPlugin {
 		if ( $plugins = get_option( 'active_plugins' ) ) {
 			foreach ( $plugins as $key => $pluginPath ) {
 				// If we are the first one to load already, don't do anything
-				if ( strpos( $pluginPath, $tfFileName ) !== false && $key == 0 ) {
+				if ( strpos( $pluginPath, $tfFileName ) != false && $key == 0 ) {
 					break;
 				// If we aren't the first one, force it!
-				} else if ( strpos( $pluginPath, $tfFileName ) !== false ) {
+				} else if ( strpos( $pluginPath, $tfFileName ) != false ) {
 					array_splice( $plugins, $key, 1 );
 					array_unshift( $plugins, $pluginPath );
 					update_option( 'active_plugins', $plugins );

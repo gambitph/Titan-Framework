@@ -61,7 +61,7 @@ class TitanFrameworkAdminPanel {
 		// make sure all our IDs are unique
 		$suffix = '';
 		while ( in_array( $this->settings['id'] . $suffix, self::$idsUsed ) ) {
-			if ( $suffix === '' ) {
+			if ( $suffix == '' ) {
 				$suffix = 2;
 			} else {
 				$suffix++;

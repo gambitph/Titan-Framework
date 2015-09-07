@@ -87,7 +87,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				}
 
 				/* First activation of the license. */
-				if ( false === get_transient( "tf_edd_license_try_$key" ) ) {
+				if ( false == get_transient( "tf_edd_license_try_$key" ) ) {
 					$this->check( $license, 'activate_license' );
 				}
 
@@ -122,18 +122,18 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				$status = get_transient( "tf_edd_license_status_$key" );
 
 				/* If no transient is found or it is expired to check the license again. */
-				if ( false === $status ) {
+				if ( false == $status ) {
 					$status = $this->check( $license );
 				}
 
 				switch( $status ) {
 
 					case 'valid':
-						?><p class="description"><?php _esc_html_e( 'Your license is valid and active.', TF_I18NDOMAIN ); ?></p><?php
+						?><p class="description"><?php esc_html_e( 'Your license is valid and active.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 					case 'invalid':
-						?><p class="description"><?php _esc_html_e( 'Your license is invalid.', TF_I18NDOMAIN ); ?></p><?php
+						?><p class="description"><?php esc_html_e( 'Your license is invalid.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 					case 'inactive':
@@ -147,19 +147,19 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 						$get['eddactivate'] = true;
 						$url                = esc_url( add_query_arg( $get, admin_url( $pagenow ) ) );
 						?>
-						<a href="<?php echo $url; ?>" class="button-secondary"><?php _esc_html_e( 'Activate', TF_I18NDOMAIN ); ?></a>
-						<p class="description"><?php _esc_html_e( 'Your license is valid but inactive. Click the button above to activate it.', TF_I18NDOMAIN ); ?></p><?php
+						<a href="<?php echo $url; ?>" class="button-secondary"><?php esc_html_e( 'Activate', TF_I18NDOMAIN ); ?></a>
+						<p class="description"><?php esc_html_e( 'Your license is valid but inactive. Click the button above to activate it.', TF_I18NDOMAIN ); ?></p><?php
 
 					break;
 
 					case 'no_response':
-						?><p class="description"><?php _esc_html_e( 'The remote server did not return a valid response. You can retry by hitting the &laquo;Save&raquo; button again.', TF_I18NDOMAIN ); ?></p><?php
+						?><p class="description"><?php esc_html_e( 'The remote server did not return a valid response. You can retry by hitting the &laquo;Save&raquo; button again.', TF_I18NDOMAIN ); ?></p><?php
 					break;
 
 				}
 
 			} else {
-				?><p class="description"><?php _esc_html_e( 'Entering your license key is mandatory to get the product updates.', TF_I18NDOMAIN ); ?></p><?php
+				?><p class="description"><?php esc_html_e( 'Entering your license key is mandatory to get the product updates.', TF_I18NDOMAIN ); ?></p><?php
 			}
 
 			$this->echoOptionFooter();
@@ -259,7 +259,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				 * The user will need to modify its license anyways so there is no risk
 				 * of preventing further activation attempts.
 				 */
-				if ( 'invalid' === $license_data->license ) {
+				if ( 'invalid' == $license_data->license ) {
 					set_transient( "tf_edd_license_status_$key", 'invalid', $status_lifetime );
 					set_transient( "tf_edd_license_try_$key", true, $activation_lifetime );
 					return 'invalid';
@@ -330,14 +330,14 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			);
 
 			/* Add license ID or name for identification */
-			if ( false !== $item_id ) {
+			if ( false != $item_id ) {
 				$args['item_id'] = $item_id;
-			} elseif ( false !== $item_name ) {
+			} elseif ( false != $item_name ) {
 				$args['item_name'] = $item_name;
 			}
 
 			/* Load the plugin updater class and add required parameters. */
-			if( 'plugin' === $item_is ) {
+			if( 'plugin' == $item_is ) {
 
 				if ( !class_exists( 'TITAN_EDD_SL_Plugin_Updater' ) ) {
 					include( TF_PATH . 'inc/edd-licensing/EDD_SL_Plugin_Updater.php' );
@@ -406,7 +406,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$endpoint = esc_url( $this->settings['server'] );
 
 			/* Setup updater */
-			if( 'plugin' === $item_is ) {
+			if( 'plugin' == $item_is ) {
 				$edd_updater = new TITAN_EDD_SL_Plugin_Updater( $endpoint, $this->settings['file'], $args );
 			} else {
 				new TITAN_EDD_Theme_Updater( $args, $strings );
@@ -444,11 +444,11 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			}
 
 			/* The $file is in a parent theme */
-			if ( stripos( $file, $parentTheme ) !== false ) {
+			if ( stripos( $file, $parentTheme ) != false ) {
 				return 'theme-parent';
 			}
 			/* The $file is in a child theme */
-			else if ( stripos( $file, $childTheme ) !== false ) {
+			else if ( stripos( $file, $childTheme ) != false ) {
 				return 'theme-child';
 			}
 			/* The $file is in a plugin */
@@ -466,7 +466,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		function disable_wporg_request( $r, $url ) {
 
 			// If it's not a theme update request, bail.
-			if ( 0 !== strpos( $url, 'https://api.wordpress.org/themes/update-check/1.1/' ) ) {
+			if ( 0 != strpos( $url, 'https://api.wordpress.org/themes/update-check/1.1/' ) ) {
 	 			return $r;
 	 		}
 

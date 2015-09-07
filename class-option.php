@@ -60,7 +60,7 @@ class TitanFrameworkOption {
 
 		// remove blank settings to make it ready for merging with the defaults
 		foreach ( $settings as $key => $value ) {
-			if ( $value === '' ) {
+			if ( $value == '' ) {
 				unset( $settings[$key] );
 			}
 		}
@@ -72,7 +72,7 @@ class TitanFrameworkOption {
 		$this->type = is_a( $owner, 'TitanFrameworkThemeCustomizerSection' ) ? self::TYPE_CUSTOMIZER : $this->type;
 		
 		// Generate a unique ID depending on the settings for those without IDs
-		if ( empty( $this->settings['id'] ) && $this->settings['type'] !== 'save' ) {
+		if ( empty( $this->settings['id'] ) && $this->settings['type'] != 'save' ) {
 			$this->settings['id'] = substr( md5( serialize( $this->settings ) . serialize( $this->owner->settings ) ), 0, 16 );
 		}
 	}
@@ -162,7 +162,7 @@ class TitanFrameworkOption {
 
 	public function __call( $name, $args ) {
 		$default = is_array( $args ) && count( $args ) ? $args[0] : '';
-		if ( stripos( $name, 'get' ) === 0) {
+		if ( stripos( $name, 'get' ) == 0) {
 			$setting = strtolower( substr( $name, 3 ) );
 			return empty( $this->settings[$setting] ) ? $default : $this->settings[$setting];
 		}
@@ -184,7 +184,7 @@ class TitanFrameworkOption {
 		$name = $this->getName();
 		$evenOdd = self::$rowIndex++ % 2 == 0 ? 'odd' : 'even';
 		
-		$style = $this->getHidden() === true ? 'style="display: none"' : '';
+		$style = $this->getHidden() == true ? 'style="display: none"' : '';
 		
 		?>
 		<tr valign="top" class="row-<?php echo self::$rowIndex ?> <?php echo $evenOdd ?>" <?php echo $style ?>>

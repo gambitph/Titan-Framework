@@ -166,7 +166,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 			$('.form-table, .customize-control').on( 'click', '.tf-ajax-button .button', function( e ) {
 
 				// Only perform one ajax at a time
-				if ( typeof this.doingAjax === 'undefined' ) {
+				if ( typeof this.doingAjax == 'undefined' ) {
 					this.doingAjax = false;
 				}
 				e.preventDefault();
@@ -198,8 +198,8 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 						$(this).text( successMessage || $(this).attr('data-success-label') );
 						
 						// Call the error callback
-						if ( $(this).attr('data-success-callback') !== '' ) {
-							if ( typeof window[ $(this).attr('data-success-callback') ] !== 'undefined' ) {
+						if ( $(this).attr('data-success-callback') != '' ) {
+							if ( typeof window[ $(this).attr('data-success-callback') ] != 'undefined' ) {
 								window[ $(this).attr('data-success-callback') ]();
 							}
 						}
@@ -217,8 +217,8 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 						$(this).text( errorMessage || $(this).attr('data-error-label') );
 						
 						// Call the error callback
-						if ( $(this).attr('data-error-callback') !== '' ) {
-							if ( typeof window[ $(this).attr('data-error-callback') ] !== 'undefined' ) {
+						if ( $(this).attr('data-error-callback') != '' ) {
+							if ( typeof window[ $(this).attr('data-error-callback') ] != 'undefined' ) {
 								window[ $(this).attr('data-error-callback') ]();
 							}
 						}
@@ -232,7 +232,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 				});
 				
 				// Clear the label timer
-				if ( typeof this.labelTimer !== 'undefined' ) {
+				if ( typeof this.labelTimer != 'undefined' ) {
 					clearTimeout( this.labelTimer );
 					this.labelTimer = undefined;
 				}

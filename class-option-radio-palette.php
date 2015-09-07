@@ -63,7 +63,7 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 			return $value;
 		}
 		// if the key above is zero, we will get a blank value
-		if ( $value === '' ) {
+		if ( $value == '' ) {
 			$value = 0;
 		}
 		return $value;

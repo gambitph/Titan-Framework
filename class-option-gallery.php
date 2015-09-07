@@ -145,10 +145,10 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 
 				// uploader frame properties
 				var frame = wp.media({
-					title: '<?php _esc_html_e( 'Select Image', TF_I18NDOMAIN ) ?>',
+					title: '<?php esc_html_e( 'Select Image', TF_I18NDOMAIN ) ?>',
 					multiple: true,
 					library: { type: 'image' },
-					button : { text : '<?php _esc_html_e( 'Use image', TF_I18NDOMAIN ) ?>' }
+					button : { text : '<?php esc_html_e( 'Use image', TF_I18NDOMAIN ) ?>' }
 				});
 
 				// get the url when done

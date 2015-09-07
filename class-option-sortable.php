@@ -149,7 +149,7 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 		}
 
 		$visibleButton = '';
-		if ( $this->settings['visible_button'] === true ) {
+		if ( $this->settings['visible_button'] == true ) {
 			$visibleButton = "<i class='dashicons dashicons-visibility visibility'></i>";
 		}
 		?>
@@ -293,7 +293,7 @@ function registerTitanFrameworkOptionSortableControl() {
 			}
 
 			$visibleButton = '';
-			if ( $this->visible_button === true ) {
+			if ( $this->visible_button == true ) {
 				$visibleButton = "<i class='dashicons dashicons-visibility visibility'></i>";
 			}
 			?>

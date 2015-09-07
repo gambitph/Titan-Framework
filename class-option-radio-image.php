@@ -52,7 +52,7 @@ class TitanFrameworkOptionRadioImage extends TitanFrameworkOption {
 			return $value;
 		}
 		// if the key above is zero, we will get a blank value
-		if ( $value === '' ) {
+		if ( $value == '' ) {
 			$keys = array_keys( $this->settings['options'] );
 			return $keys[0];
 		}
@@ -61,7 +61,7 @@ class TitanFrameworkOptionRadioImage extends TitanFrameworkOption {
 
 	// The value we should return is a key of one of the options
 	public function cleanValueForGetting( $value ) {
-		if ( ! empty( $this->settings['options'] ) && $value === '' ) {
+		if ( ! empty( $this->settings['options'] ) && $value == '' ) {
 			$keys = array_keys( $this->settings['options'] );
 			return $keys[0];
 		}
@@ -105,7 +105,7 @@ function registerTitanFrameworkOptionRadioImageControl() {
 			$value = $this->value();
 			foreach ( $this->choices as $key => $imageURL ) {
 				// Get the correct value, we might get a blank if index / value is 0
-				if ( $value === '' ) {
+				if ( $value == '' ) {
 					$value = $key;
 				}
 				?>

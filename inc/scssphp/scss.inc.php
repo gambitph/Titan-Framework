@@ -309,7 +309,7 @@ class titanscssc {
 				$block->selectors[] = $this->compileSelector($selector);
 			}
 
-			if ($placeholderSelector && 0 == count($block->selectors) && null !== $parentKey) {
+			if ($placeholderSelector && 0 == count($block->selectors) && null != $parentKey) {
 				unset($block->parent->children[$parentKey]);
 				return;
 			}
@@ -345,7 +345,7 @@ class titanscssc {
 			$needsWrap = false;
 			foreach ($media->children as $child) {
 				$type = $child[0];
-				if ($type !== 'block' && $type !== 'media' && $type !== 'directive') {
+				if ($type != 'block' && $type != 'media' && $type != 'directive') {
 					$needsWrap = true;
 					break;
 				}
@@ -671,7 +671,7 @@ class titanscssc {
 
 				if ($isDefault) {
 					$existingValue = $this->get($name[1], true);
-					$shouldSet = $existingValue === true || $existingValue == self::$null;
+					$shouldSet = $existingValue == true || $existingValue == self::$null;
 				}
 
 				if (!$isDefault || $shouldSet) {
@@ -1266,7 +1266,7 @@ class titanscssc {
 			$h = sprintf('#%02x%02x%02x', $r, $g, $b);
 
 			// Converting hex color to short notation (e.g. #003399 to #039)
-			if ($h[1] === $h[2] && $h[3] === $h[4] && $h[5] === $h[6]) {
+			if ($h[1] == $h[2] && $h[3] == $h[4] && $h[5] == $h[6]) {
 				$h = '#' . $h[1] . $h[3] . $h[5];
 			}
 
@@ -1354,7 +1354,7 @@ class titanscssc {
 	// find the final set of selectors
 	protected function multiplySelectors($env) {
 		$envs = array();
-		while (null !== $env) {
+		while (null != $env) {
 			if (!empty($env->selectors)) {
 				$envs[] = $env;
 			}
@@ -1601,7 +1601,7 @@ class titanscssc {
 		$parser = new titanscss_parser(__METHOD__, false);
 
 		foreach ($args as $name => $strValue) {
-			if ($name[0] === '$') {
+			if ($name[0] == '$') {
 				$name = substr($name, 1);
 			}
 
@@ -1721,7 +1721,7 @@ class titanscssc {
 			} else {
 				// check custom callback for import path
 				$file = call_user_func($dir,$url,$this);
-				if ($file !== null) {
+				if ($file != null) {
 					return $file;
 				}
 			}
@@ -1973,7 +1973,7 @@ class titanscssc {
 		}
 		$key = array_search($this->normalizeValue($value), $values);
 
-		return false === $key ? false : $key + 1;
+		return false == $key ? false : $key + 1;
 	}
 
 	protected static $lib_rgb = array('red', 'green', 'blue');
@@ -2120,7 +2120,7 @@ class titanscssc {
 	protected static $lib_opacity = array('color');
 	protected function lib_opacity($args) {
 		$value = $args[0];
-		if ($value[0] === 'number') return null;
+		if ($value[0] == 'number') return null;
 		return $this->lib_alpha($args);
 	}
 
@@ -2227,7 +2227,7 @@ class titanscssc {
 	protected static $lib_saturate = array('color', 'amount');
 	protected function lib_saturate($args) {
 		$value = $args[0];
-		if ($value[0] === 'number') return null;
+		if ($value[0] == 'number') return null;
 		$color = $this->assertColor($value);
 		$amount = 100*$this->coercePercent($args[1]);
 		return $this->adjustHsl($color, 2, $amount);
@@ -2243,7 +2243,7 @@ class titanscssc {
 	protected static $lib_grayscale = array('color');
 	protected function lib_grayscale($args) {
 		$value = $args[0];
-		if ($value[0] === 'number') return null;
+		if ($value[0] == 'number') return null;
 		return $this->adjustHsl($this->assertColor($value), 2, -100);
 	}
 
@@ -2255,7 +2255,7 @@ class titanscssc {
 	protected static $lib_invert = array('color');
 	protected function lib_invert($args) {
 		$value = $args[0];
-		if ($value[0] === 'number') return null;
+		if ($value[0] == 'number') return null;
 		$color = $this->assertColor($value);
 		$color[1] = 255 - $color[1];
 		$color[2] = 255 - $color[2];
@@ -2349,7 +2349,7 @@ class titanscssc {
 		$numbers = $this->getNormalizedNumbers($args);
 		$min = null;
 		foreach ($numbers as $key => $number) {
-			if (null === $min || $number[1] <= $min[1]) {
+			if (null == $min || $number[1] <= $min[1]) {
 				$min = array($key, $number[1]);
 			}
 		}
@@ -2361,7 +2361,7 @@ class titanscssc {
 		$numbers = $this->getNormalizedNumbers($args);
 		$max = null;
 		foreach ($numbers as $key => $number) {
-			if (null === $max || $number[1] >= $max[1]) {
+			if (null == $max || $number[1] >= $max[1]) {
 				$max = array($key, $number[1]);
 			}
 		}
@@ -2379,10 +2379,10 @@ class titanscssc {
 			}
 			$number = $this->normalizeNumber($item);
 
-			if (null === $unit) {
+			if (null == $unit) {
 				$unit = $number[2];
 				$originalUnit = $item[2];
-			} elseif ($unit !== $number[2]) {
+			} elseif ($unit != $number[2]) {
 				$this->throwError('Incompatible units: "%s" and "%s".', $originalUnit, $item[2]);
 			}
 
@@ -2765,7 +2765,7 @@ class titanscss_parser {
 		$this->pushBlock(null);
 		$this->popBlock();
 
-		while (false !== $this->parseChunk())
+		while (false != $this->parseChunk())
 			;
 
 		if ($this->count != strlen($this->buffer)) {
@@ -3203,7 +3203,7 @@ class titanscss_parser {
 	}
 
 	protected function append($statement, $pos=null) {
-		if ($pos !== null) {
+		if ($pos != null) {
 			$statement[-1] = $pos;
 			if (!$this->rootParser) $statement[-2] = $this;
 		}
@@ -3735,7 +3735,7 @@ class titanscss_parser {
 
 		$content = array();
 		while ($this->match($patt, $m, false)) {
-			if (isset($m[1]) && $m[1] !== '') {
+			if (isset($m[1]) && $m[1] != '') {
 				$content[] = $m[1];
 				if ($nestingOpen) {
 					$nestingLevel += substr_count($m[1], $nestingOpen);
@@ -4140,14 +4140,14 @@ class titanscss_parser {
 		$token = null;
 
 		$end = strpos($this->buffer, "\n", $this->count);
-		if ($end === false || $this->buffer[$end - 1] == '\\' || $this->buffer[$end - 2] == '\\' && $this->buffer[$end - 1] == "\r") {
+		if ($end == false || $this->buffer[$end - 1] == '\\' || $this->buffer[$end - 2] == '\\' && $this->buffer[$end - 1] == "\r") {
 			$end = strlen($this->buffer);
 		}
 
 		// look for either ending delim, escape, or string interpolation
 		foreach (array('#{', '\\', $delim) as $lookahead) {
 			$pos = strpos($this->buffer, $lookahead, $this->count);
-			if ($pos !== false && $pos < $end) {
+			if ($pos != false && $pos < $end) {
 				$end = $pos;
 				$token = $lookahead;
 			}
@@ -4207,7 +4207,7 @@ class titanscss_parser {
 	}
 
 	protected function seek($where = null) {
-		if ($where === null) return $this->count;
+		if ($where == null) return $this->count;
 		else $this->count = $where;
 		return true;
 	}
@@ -4355,7 +4355,7 @@ class titanscss_formatter_nested extends titanscss_formatter {
 		$glue = $this->break . $inner;
 
 		foreach ($block->lines as $index => $line) {
-			if (substr($line, 0, 2) === '/*') {
+			if (substr($line, 0, 2) == '/*') {
 				$block->lines[$index] = preg_replace('/(\r|\n)+/', $glue, $line);
 			}
 		}
@@ -4431,9 +4431,9 @@ class titanscss_formatter_compressed extends titanscss_formatter {
 		$glue = $this->break.$inner;
 
 		foreach ($block->lines as $index => $line) {
-			if (substr($line, 0, 2) === '/*' && substr($line, 2, 1) !== '!') {
+			if (substr($line, 0, 2) == '/*' && substr($line, 2, 1) != '!') {
 				unset($block->lines[$index]);
-			} elseif (substr($line, 0, 3) === '/*!') {
+			} elseif (substr($line, 0, 3) == '/*!') {
 				$block->lines[$index] = '/*' . substr($line, 3);
 			}
 		}
@@ -4466,7 +4466,7 @@ class titanscss_formatter_crunched extends titanscss_formatter {
 		$glue = $this->break.$inner;
 
 		foreach ($block->lines as $index => $line) {
-			if (substr($line, 0, 2) === '/*') {
+			if (substr($line, 0, 2) == '/*') {
 				unset($block->lines[$index]);
 			}
 		}
@@ -4520,8 +4520,8 @@ class titanscss_server {
 	 */
 	protected function findInput() {
 		if (($input = $this->inputName())
-			&& strpos($input, '..') === false
-			&& substr($input, -5) === '.scss'
+			&& strpos($input, '..') == false
+			&& substr($input, -5) == '.scss'
 		) {
 			$name = $this->join($this->dir, $input);
 
@@ -4576,7 +4576,7 @@ class titanscss_server {
 		if (is_readable($metadataName)) {
 			$metadata = unserialize(file_get_contents($metadataName));
 
-			if ($metadata['etag'] === $etag) {
+			if ($metadata['etag'] == $etag) {
 				return false;
 			}
 
@@ -4606,7 +4606,7 @@ class titanscss_server {
 		if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
 			$modifiedSince = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
 
-			if (false !== ($semicolonPos = strpos($modifiedSince, ';'))) {
+			if (false != ($semicolonPos = strpos($modifiedSince, ';'))) {
 				$modifiedSince = substr($modifiedSince, 0, $semicolonPos);
 			}
 		}
@@ -4700,7 +4700,7 @@ class titanscss_server {
 			header('Content-type: text/css');
 			header('ETag: "' . $etag . '"');
 
-			if ($etag === $noneMatch) {
+			if ($etag == $noneMatch) {
 				header($protocol . ' 304 Not Modified');
 
 				return;
@@ -4709,7 +4709,7 @@ class titanscss_server {
 			$modifiedSince = $this->getIfModifiedSinceHeader();
 			$mtime = filemtime($output);
 
-			if (@strtotime($modifiedSince) === $mtime) {
+			if (@strtotime($modifiedSince) == $mtime) {
 				header($protocol . ' 304 Not Modified');
 
 				return;
