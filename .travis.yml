@@ -19,7 +19,7 @@ env:
 
 # No composer at PHP <5.3
 install:
-    - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "5.2" ]; then composer require satooshi/php-coveralls:~0.6.1@stable; fi;' 
+    - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "5.2" ]; then composer require satooshi/php-coveralls:~0.6@stable; fi;' 
 
 # Clones WordPress and configures our testing environment.
 before_script:
