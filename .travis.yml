@@ -28,7 +28,6 @@ before_script:
 script:
     - phpunit --coverage-text --coverage-clover=coverage.clover
 
-# No composer at PHP <5.3
 after_success:
     - wget https://scrutinizer-ci.com/ocular.phar
     - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
