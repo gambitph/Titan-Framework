@@ -1,7 +1,7 @@
 Titan Framework
 =======
 
-[![Build Status](https://travis-ci.org/gambitph/Titan-Framework.png?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
+[![Build Status](https://travis-ci.org/gambitph/Titan-Framework.svg?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
 
 *The easiest to use WordPress options framework.*
 
