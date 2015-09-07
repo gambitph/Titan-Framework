@@ -1,7 +1,10 @@
 Titan Framework
 =======
 
+[![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
 [![Build Status](https://travis-ci.org/gambitph/Titan-Framework.svg?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
+[![Coverage Status](https://coveralls.io/repos/gambitph/Titan-Framework/badge.svg?branch=master&service=github)](https://coveralls.io/github/gambitph/Titan-Framework?branch=master)
 
 *The easiest to use WordPress options framework.*
 
