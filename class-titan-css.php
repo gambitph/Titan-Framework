@@ -179,10 +179,32 @@ class TitanFrameworkCSS {
 			}
 		} else {
 			$value = esc_attr( $value );
+		
+			// Compile as SCSS & minify
+			require_once( trailingslashit( dirname( __FILE__ ) ) . "inc/scssphp/scss.inc.php" );
+			$scss = new titanscssc();
 
 			// If the value is a file address, wrap it in quotes
 			if ( $type == 'upload' ) {
 				$value = "'" . $value . "'";
+			}
+			
+			// Compile checks.
+			// Odd, in our newer copy of SCSSPHP, you need to add ';' to detect errors
+			try {
+				$testerForValidCSS = $scss->compile( ";\$" . esc_attr( $id ) . ": " . $value . ";" );
+			} catch (Exception $e) {
+				try {
+					$testerForValidCSS = $scss->compile( ";\$" . esc_attr( $id ) . ": '" . $value . "';" );
+					$value = "'" . $value . "'";
+				} catch (Exception $e) {
+					try {
+						$testerForValidCSS = $scss->compile( ";\$" . esc_attr( $id ) . ": url('" . $value . "');" );
+						$value = "url('" . $value . "')";
+					} catch (Exception $e) {
+						return $cssString;
+					}
+				}
 			}
 
 			if ( false == $key  ) {
