@@ -5,6 +5,6 @@ checks:
             ruleset_path: 'WordPress-Core/ruleset.xml'
 tools:
     external_code_coverage: true
-	php_code_sniffer:
+    php_code_sniffer:
         config:
             standard: "WordPress"
