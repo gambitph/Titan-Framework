@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionEditor extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(

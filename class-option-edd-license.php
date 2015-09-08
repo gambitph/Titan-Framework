@@ -20,8 +20,8 @@
  * @link   http://julienliabeuf.com
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 	class TitanFrameworkOptionEddLicense extends TitanFrameworkOption {
@@ -44,7 +44,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			parent::__construct( $settings, $owner );
 
 			add_action( 'admin_init',                                      array( $this, 'checkUpdates' ), 10, 0 );
-			add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, "activateLicense" ) );
+			add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, 'activateLicense' ) );
 		}
 
 		/**
@@ -90,9 +90,8 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				if ( false == get_transient( "tf_edd_license_try_$key" ) ) {
 					$this->check( $license, 'activate_license' );
 				}
-
 			}
-			
+
 		}
 
 		/**
@@ -108,12 +107,12 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 			$this->echoOptionHeader();
 
-			printf( "<input class=\"regular-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"%s\" value=\"%s\" />",
+			printf( '<input class="regular-text" name="%s" placeholder="%s" id="%s" type="%s" value="%s" />',
 				$this->getID(),
 				$this->settings['placeholder'],
 				$this->getID(),
 				$this->settings['is_password'] ? 'password' : 'text',
-				$license );
+			$license );
 
 			/* If the license is set, we display its status and check it if necessary. */
 			if ( strlen( $license ) > 0 ) {
@@ -126,7 +125,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 					$status = $this->check( $license );
 				}
 
-				switch( $status ) {
+				switch ( $status ) {
 
 					case 'valid':
 						?><p class="description"><?php esc_html_e( 'Your license is valid and active.', TF_I18NDOMAIN ); ?></p><?php
@@ -157,7 +156,6 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 					break;
 
 				}
-
 			} else {
 				?><p class="description"><?php esc_html_e( 'Entering your license key is mandatory to get the product updates.', TF_I18NDOMAIN ); ?></p><?php
 			}
@@ -208,14 +206,14 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$license = trim( sanitize_key( $license ) );
 
 			/* Set the transients lifetime. */
-			$status_lifetime     = apply_filters( 'tf_edd_license_status_lifetime', 48*60*60 );         // Default is set to two days
-			$activation_lifetime = apply_filters( 'tf_edd_license_activation_lifetime', 365*24*60*60 ); // Default is set to one year
+			$status_lifetime     = apply_filters( 'tf_edd_license_status_lifetime', 48 * 60 * 60 );         // Default is set to two days
+			$activation_lifetime = apply_filters( 'tf_edd_license_activation_lifetime', 365 * 24 * 60 * 60 ); // Default is set to one year
 
 			/* Prepare the data to send with the API request. */
 			$api_params = array(
 				'edd_action' => $action,
 				'license'    => $license,
-				'url'        => home_url()
+				'url'        => home_url(),
 			);
 
 			/**
@@ -229,7 +227,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				$api_params['item_name'] = urlencode( $this->settings['item_name'] );
 			}
 
-			if ( !isset( $api_params['item_id'] ) && ! isset( $api_params['item_name'] ) ) {
+			if ( ! isset( $api_params['item_id'] ) && ! isset( $api_params['item_name'] ) ) {
 				return false;
 			}
 
@@ -245,7 +243,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
 			/* If the remote server didn't return a valid response we just return an error and don't set any transients so that activation will be tried again next time the option is saved */
-			if ( !is_object( $license_data ) || empty( $license_data ) || !isset( $license_data->license ) ) {
+			if ( ! is_object( $license_data ) || empty( $license_data ) || ! isset( $license_data->license ) ) {
 				return 'no_response';
 			}
 
@@ -275,12 +273,11 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				$status = $this->check( $license );
 
 				if ( in_array( $status, array( 'valid', 'inactive' ) ) ) {
-					
+
 					/* We set the "try" transient only as the status will be set by the second instance of this method when we check the license status */
 					set_transient( "tf_edd_license_try_$key", true, $activation_lifetime );
 
 				}
-
 			} else {
 
 				/* Set the status transient. */
@@ -305,12 +302,12 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		public function checkUpdates() {
 
 			/* Check if we have all the required parameters. */
-			if ( !isset( $this->settings['server'] ) || !isset( $this->settings['name'] ) || !isset( $this->settings['file'] ) ) {
+			if ( ! isset( $this->settings['server'] ) || ! isset( $this->settings['name'] ) || ! isset( $this->settings['file'] ) ) {
 				return false;
 			}
 
 			/* Make sure the file actually exists. */
-			if ( !file_exists( $this->settings['file'] ) ) {
+			if ( ! file_exists( $this->settings['file'] ) ) {
 				return false;
 			}
 
@@ -325,7 +322,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$license_key = trim( esc_attr( $this->getValue() ) );
 
 			/* Prepare updater arguments */
-			$args = array( 
+			$args = array(
 				'license' => $license_key, // Item license key
 			);
 
@@ -337,9 +334,9 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			}
 
 			/* Load the plugin updater class and add required parameters. */
-			if( 'plugin' == $item_is ) {
+			if ( 'plugin' == $item_is ) {
 
-				if ( !class_exists( 'TITAN_EDD_SL_Plugin_Updater' ) ) {
+				if ( ! class_exists( 'TITAN_EDD_SL_Plugin_Updater' ) ) {
 					include( TF_PATH . 'inc/edd-licensing/EDD_SL_Plugin_Updater.php' );
 				}
 
@@ -347,12 +344,10 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				$args['version'] = $plugin['Version'];
 				$args['author']  = $plugin['Author'];
 
-			}
-
-			/* Load the theme updater class and add required parameters. */
+			} /* Load the theme updater class and add required parameters. */
 			elseif ( in_array( $item_is, array( 'theme-parent', 'theme-child' ) ) ) {
 
-				if ( !class_exists( 'TITAN_EDD_Theme_Updater' ) ) {
+				if ( ! class_exists( 'TITAN_EDD_Theme_Updater' ) ) {
 					include( TF_PATH . 'inc/edd-licensing/theme-updater-class.php' );
 				}
 
@@ -362,7 +357,7 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				$theme     = wp_get_theme( $theme_dir[0], get_theme_root() );
 
 				/* Make sure the theme exists. */
-				if ( !$theme->exists() ) {
+				if ( ! $theme->exists() ) {
 					return false;
 				}
 
@@ -392,21 +387,19 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 					'site-is-inactive'          => __( 'Site is inactive.', 'edd-theme-updater' ),
 					'license-status-unknown'    => __( 'License status is unknown.', 'edd-theme-updater' ),
 					'update-notice'             => __( "Updating this theme will lose any customizations you have made. 'Cancel' to stop, 'OK' to update.", 'edd-theme-updater' ),
-					'update-available'          => __('<strong>%1$s %2$s</strong> is available. <a href="%3$s" class="thickbox" title="%4s">Check out what\'s new</a> or <a href="%5$s"%6$s>update now</a>.', 'edd-theme-updater' )
+					'update-available'          => __( '<strong>%1$s %2$s</strong> is available. <a href="%3$s" class="thickbox" title="%4s">Check out what\'s new</a> or <a href="%5$s"%6$s>update now</a>.', 'edd-theme-updater' ),
 				);
-				
-			}
 
-			/* What the hell is this?? */
+			} /* What the hell is this?? */
 			else {
 				return false;
-			}			
+			}
 
 			/* Update server URL */
 			$endpoint = esc_url( $this->settings['server'] );
 
 			/* Setup updater */
-			if( 'plugin' == $item_is ) {
+			if ( 'plugin' == $item_is ) {
 				$edd_updater = new TITAN_EDD_SL_Plugin_Updater( $endpoint, $this->settings['file'], $args );
 			} else {
 				new TITAN_EDD_Theme_Updater( $args, $strings );
@@ -439,19 +432,17 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			$file        = str_replace( '\\', '/', $file );
 
 			/* Make sure the file exists. */
-			if ( !file_exists( $file ) ) {
+			if ( ! file_exists( $file ) ) {
 				return false;
 			}
 
 			/* The $file is in a parent theme */
 			if ( stripos( $file, $parentTheme ) != false ) {
 				return 'theme-parent';
-			}
-			/* The $file is in a child theme */
+			} /* The $file is in a child theme */
 			else if ( stripos( $file, $childTheme ) != false ) {
 				return 'theme-child';
-			}
-			/* The $file is in a plugin */
+			} /* The $file is in a plugin */
 			else {
 				return 'plugin';
 			}
@@ -484,6 +475,5 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 
 	 		return $r;
 		}
-
 	}
 }

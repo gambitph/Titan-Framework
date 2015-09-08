@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -44,13 +44,12 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 
 		// Not associative array, do normal control
 		// if ( ! $isAssociativeArray ) {
-		// 	$class = "TitanFrameworkCustomizeControl";
+		// $class = "TitanFrameworkCustomizeControl";
 		//
 		// // Associative array, custom make the control
 		// } else {
-			$class = "TitanFrameworkOptionSelectControl";
+			$class = 'TitanFrameworkOptionSelectControl';
 		// }
-
 		$wp_customize->add_control( new $class( $wp_customize, $this->getID(), array(
 			'label' => $this->settings['name'],
 			'section' => $section->settings['id'],
@@ -121,7 +120,7 @@ function tf_parse_select_options( $options, $val = array() ) {
 			<optgroup label="<?php echo $value ?>"><?php
 			foreach ( $label as $subValue => $subLabel ) {
 
-				printf( "<option value=\"%s\" %s %s>%s</option>",
+				printf( '<option value="%s" %s %s>%s</option>',
 					$subValue,
 					in_array( $subValue, $val ) ? 'selected="selected"' : '',
 					disabled( stripos( $subValue, '!' ), 0, false ),
@@ -129,11 +128,9 @@ function tf_parse_select_options( $options, $val = array() ) {
 				);
 			}
 			?></optgroup><?php
-		}
-
-		// this is for normal list of options
+		} // this is for normal list of options
 		else {
-			printf( "<option value=\"%s\" %s %s>%s</option>",
+			printf( '<option value="%s" %s %s>%s</option>',
 				$value,
 				in_array( $value, $val ) ? 'selected="selected"' : '',
 				disabled( stripos( $value, '!' ), 0, false ),

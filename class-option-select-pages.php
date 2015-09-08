@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionSelectPages extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -27,7 +27,7 @@ class TitanFrameworkOptionSelectPages extends TitanFrameworkOption {
 		printf( "<option value='%s' %s>%s</option>",
 			'0',
 			selected( $this->getValue(), '0', false ),
-			"— " . __( "Select", TF_I18NDOMAIN ) . " —"
+			'— ' . __( 'Select', TF_I18NDOMAIN ) . ' —'
 		);
 
 		// Print all the other pages
@@ -37,14 +37,14 @@ class TitanFrameworkOptionSelectPages extends TitanFrameworkOption {
 			if ( empty( $title ) ) {
 				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $page->ID . ')' );
 			}
-			
+
 			printf( "<option value='%s' %s>%s</option>",
 				esc_attr( $page->ID ),
 				selected( $this->getValue(), $page->ID, false ),
 				$title
 			);
 		}
-		echo "</select>";
+		echo '</select>';
 
 		$this->echoOptionFooter();
 	}

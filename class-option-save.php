@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionSave extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -13,7 +13,7 @@ class TitanFrameworkOptionSave extends TitanFrameworkOption {
 	);
 
 	public function display() {
-		if ( !empty( $this->owner->postID ) ) {
+		if ( ! empty( $this->owner->postID ) ) {
 			return;
 		}
 
@@ -37,7 +37,7 @@ class TitanFrameworkOptionSave extends TitanFrameworkOption {
 			</button>
 
 			<?php
-			if ( $this->settings['use_reset'] ):
+			if ( $this->settings['use_reset'] ) :
 			?>
 			<button name="action" class="button button-secondary"
 				onclick="javascript: if ( confirm( '<?php echo htmlentities( esc_attr( $this->settings['reset_question'] ) ) ?>' ) ) { jQuery( '#tf-reset-form' ).submit(); } jQuery(this).blur(); return false;">

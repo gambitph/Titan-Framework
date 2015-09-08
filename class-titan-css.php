@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 /**
  * Titan Framework CSS Class
  * In charge of creating and parsing CSS rules created from framework options.
@@ -74,7 +74,7 @@ class TitanFrameworkCSS {
 				echo "<style>{$css}</style>";
 			}
 
-		// If the setting is 'print inline css', print it out if we have any
+			// If the setting is 'print inline css', print it out if we have any
 		} else if ( $this->frameworkInstance->settings['css'] == 'inline' ) {
 			$css = $this->generateCSS();
 			if ( ! empty( $css ) ) {
@@ -101,7 +101,6 @@ class TitanFrameworkCSS {
 			if ( file_exists( $generatedCss ) && empty( $css ) ) {
 				wp_enqueue_style( 'tf-compiled-options-' . $this->frameworkInstance->optionNamespace, $this->getCSSFileURL(), __FILE__ );
 			}
-
 		}
 	}
 
@@ -161,7 +160,7 @@ class TitanFrameworkCSS {
 	 *
 	 * @param   string $id The id of an option
 	 * @param   string $value The value or CSS rule
-	 * @param   mixes $key The key of the value, used for when the value is an array
+	 * @param   mixes  $key The key of the value, used for when the value is an array
 	 * @param   string $cssString The current CSS rules from a previous recursive call
 	 * @return  string CSS rules of SaSS variables
 	 * @since   1.2
@@ -179,27 +178,27 @@ class TitanFrameworkCSS {
 			}
 		} else {
 			$value = esc_attr( $value );
-		
+
 			// Compile as SCSS & minify
-			require_once( trailingslashit( dirname( __FILE__ ) ) . "inc/scssphp/scss.inc.php" );
+			require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/scssphp/scss.inc.php' );
 			$scss = new titanscssc();
 
 			// If the value is a file address, wrap it in quotes
 			if ( $type == 'upload' ) {
 				$value = "'" . $value . "'";
 			}
-			
+
 			// Compile checks.
 			// Odd, in our newer copy of SCSSPHP, you need to add ';' to detect errors
 			try {
-				$testerForValidCSS = $scss->compile( ";\$" . esc_attr( $id ) . ": " . $value . ";" );
-			} catch (Exception $e) {
+				$testerForValidCSS = $scss->compile( ';$' . esc_attr( $id ) . ': ' . $value . ';' );
+			} catch ( Exception $e ) {
 				try {
-					$testerForValidCSS = $scss->compile( ";\$" . esc_attr( $id ) . ": '" . $value . "';" );
+					$testerForValidCSS = $scss->compile( ';$' . esc_attr( $id ) . ": '" . $value . "';" );
 					$value = "'" . $value . "'";
 				} catch (Exception $e) {
 					try {
-						$testerForValidCSS = $scss->compile( ";\$" . esc_attr( $id ) . ": url('" . $value . "');" );
+						$testerForValidCSS = $scss->compile( ';$' . esc_attr( $id ) . ": url('" . $value . "');" );
 						$value = "url('" . $value . "')";
 					} catch (Exception $e) {
 						return $cssString;
@@ -208,9 +207,9 @@ class TitanFrameworkCSS {
 			}
 
 			if ( false == $key  ) {
-				$cssString .= "\$" . esc_attr( $id ) . ": " . $value . ";\n";
+				$cssString .= '$' . esc_attr( $id ) . ': ' . $value . ";\n";
 			} else {
-				$cssString .= "\$" . esc_attr( $id ) . "-" . esc_attr( $key ) . ": " . $value . ";\n";
+				$cssString .= '$' . esc_attr( $id ) . '-' . esc_attr( $key ) . ': ' . $value . ";\n";
 			}
 		}
 		return $cssString;
@@ -225,16 +224,16 @@ class TitanFrameworkCSS {
 	 */
 	public function generateCSS() {
 		$cssString = '';
-		
+
 		// These are the option types which are not allowed:
 		$noCSSOptionTypes = array(
 			'text',
 			'textarea',
 			'editor',
 		);
-		
+
 		// Compile as SCSS & minify
-		require_once( trailingslashit( dirname( __FILE__ ) ) . "inc/scssphp/scss.inc.php" );
+		require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/scssphp/scss.inc.php' );
 		$scss = new titanscssc();
 
 		// Get all the CSS
@@ -243,12 +242,12 @@ class TitanFrameworkCSS {
 			if ( in_array( $option->settings['type'], $noCSSOptionTypes ) ) {
 				continue;
 			}
-			
+
 			// Decide whether or not we should continue to generate CSS for this option
 			if ( ! apply_filters( 'tf_continue_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), true, $option ) ) {
 				continue;
 			}
-			
+
 			// Custom generated CSS
 			$generatedCSS = apply_filters( 'tf_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), '', $option );
 			if ( ! empty( $generatedCSS ) ) {
@@ -297,7 +296,7 @@ class TitanFrameworkCSS {
 				}
 			}
 		}
-		
+
 		// Add additional CSS added via TitanFramework::createCSS()
 		foreach ( $this->additionalCSS as $css ) {
 			$cssString .= $css . "\n";
@@ -418,5 +417,4 @@ class TitanFrameworkCSS {
 		// Write our CSS
 		return $wp_filesystem->put_contents( $cssFilename, $parsedCSS, 0644 );
 	}
-
 }

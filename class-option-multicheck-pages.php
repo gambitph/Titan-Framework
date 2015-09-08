@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionMulticheckPages extends TitanFrameworkOptionMulticheck {
 
 	public $defaultSecondarySettings = array(
@@ -26,7 +26,7 @@ class TitanFrameworkOptionMulticheckPages extends TitanFrameworkOptionMulticheck
 			if ( empty( $title ) ) {
 				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $page->ID . ')' );
 			}
-			$this->settings['options'][$page->ID] = $title;
+			$this->settings['options'][ $page->ID ] = $title;
 		}
 
 		parent::display();
@@ -47,7 +47,7 @@ class TitanFrameworkOptionMulticheckPages extends TitanFrameworkOptionMulticheck
 			if ( empty( $title ) ) {
 				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $page->ID . ')' );
 			}
-			$this->settings['options'][$page->ID] = $title;
+			$this->settings['options'][ $page->ID ] = $title;
 		}
 
 		$wp_customize->add_control( new TitanFrameworkOptionMulticheckControl( $wp_customize, $this->getID(), array(

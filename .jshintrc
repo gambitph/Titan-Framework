@@ -1,0 +1,29 @@
+/**
+ * WordPress standards from https://develop.svn.wordpress.org/trunk/.jshintrc
+ */
+
+{
+	"boss": true,
+	"curly": true,
+	"eqeqeq": true,
+	"eqnull": true,
+	"es3": true,
+	"expr": true,
+	"immed": true,
+	"noarg": true,
+	"onevar": true,
+	"quotmark": "single",
+	"trailing": true,
+	"undef": true, // This reports `console` in `console.log()` as an error
+	"unused": true,
+
+	"browser": true,
+
+	"globals": {
+		"_": false,
+		"Backbone": false,
+		"jQuery": false,
+		"JSON": false,
+		"wp": false
+	}
+}

@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 
 	private static $firstLoad = true;
@@ -30,8 +30,8 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 		self::createUploaderScript();
 
 		$this->echoOptionHeader();
-        
-        // display the preview image
+
+		// display the preview image
 		$value = $this->getValue();
 		if ( is_numeric( $value ) ) {
 			// gives us an array with the first element as the src or false on fail
@@ -43,26 +43,26 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 			$value = $value[0];
 		}
 
-        //$value = '101,96';
-        $value_arr = explode( ',', $value );
-        
-        foreach( $value_arr as $k=>$v) {
-            $previewImage = '';
-            if ( ! empty( $v ) ) {
-                $size = ! empty( $option->settings['size'] ) ? $option->settings['size'] : 'thumbnail';
-                
-                if ( is_numeric($v) ) {
-                    $attachment = wp_get_attachment_image_src( $v, $size );
-                    $v = $attachment[0];
-                } 
-                
-                $previewImage = "<i class='dashicons dashicons-no-alt remove'></i><img style='max-width: 150px; max-height: 150px; margin-top: 0px; margin-left: 0px;' src='" . esc_url( $v ) . "' style='display: none'/>";
-                echo "<div class='thumbnail used-thumbnail tf-image-preview'>" . $previewImage . "</div>";
-            }
-        }
-        echo "<div class='thumbnail tf-image-preview'></div>";
-        
-		printf("<input name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"hidden\" value=\"%s\" />",
+		// $value = '101,96';
+		$value_arr = explode( ',', $value );
+
+		foreach ( $value_arr as $k => $v ) {
+			$previewImage = '';
+			if ( ! empty( $v ) ) {
+				$size = ! empty( $option->settings['size'] ) ? $option->settings['size'] : 'thumbnail';
+
+				if ( is_numeric( $v ) ) {
+					$attachment = wp_get_attachment_image_src( $v, $size );
+					$v = $attachment[0];
+				}
+
+				$previewImage = "<i class='dashicons dashicons-no-alt remove'></i><img style='max-width: 150px; max-height: 150px; margin-top: 0px; margin-left: 0px;' src='" . esc_url( $v ) . "' style='display: none'/>";
+				echo "<div class='thumbnail used-thumbnail tf-image-preview'>" . $previewImage . '</div>';
+			}
+		}
+		echo "<div class='thumbnail tf-image-preview'></div>";
+
+		printf('<input name="%s" placeholder="%s" id="%s" type="hidden" value="%s" />',
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->getID(),
@@ -72,7 +72,7 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 	}
 
 	public static function createUploaderScript() {
-        if ( ! self::$firstLoad ) {
+		if ( ! self::$firstLoad ) {
 			return;
 		}
 		self::$firstLoad = false;

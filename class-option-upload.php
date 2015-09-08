@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 	private static $firstLoad = true;
@@ -28,7 +28,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 	/**
 	 * Generates CSS for the font, this is used in TitanFrameworkCSS
 	 *
-	 * @param	string $css The CSS generated
+	 * @param	string               $css The CSS generated
 	 * @param	TitanFrameworkOption $option The current option being processed
 	 * @return	string The CSS generated
 	 * @since	1.5
@@ -50,7 +50,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			$value = $attachment[0];
 		}
 
-		$css .= "\$" . $option->settings['id'] . ": url(" . $value . ");";
+		$css .= '$' . $option->settings['id'] . ': url(' . $value . ');';
 
 		if ( ! empty( $option->settings['css'] ) ) {
 			// In the css parameter, we accept the term `value` as our current value,
@@ -85,9 +85,9 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		if ( ! empty( $value ) ) {
 			$previewImage = "<i class='dashicons dashicons-no-alt remove'></i><img src='" . esc_url( $value ) . "' style='display: none'/>";
 		}
-		echo "<div class='thumbnail tf-image-preview'>" . $previewImage . "</div>";
+		echo "<div class='thumbnail tf-image-preview'>" . $previewImage . '</div>';
 
-		printf("<input name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"hidden\" value=\"%s\" />",
+		printf('<input name="%s" placeholder="%s" id="%s" type="hidden" value="%s" />',
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->getID(),

@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -33,7 +33,7 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 			$value = 0;
 		}
 		if ( ! is_array( $value ) ) {
-			$value = $this->settings['options'][$value];
+			$value = $this->settings['options'][ $value ];
 		}
 
 		// print the palettes
@@ -51,7 +51,7 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 			foreach ( $colorSet as $color ) {
 				echo "<span style='background: {$color}'></span>";
 			}
-			echo "</span></label>";
+			echo '</span></label>';
 		}
 
 		$this->echoOptionFooter();
@@ -82,7 +82,7 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 			$value = 0;
 		}
 		if ( array_key_exists( $value, $this->settings['options'] ) ) {
-			return $this->settings['options'][$value];
+			return $this->settings['options'][ $value ];
 		}
 		return $value;
 	}
@@ -137,30 +137,30 @@ function registerTitanFrameworkOptionRadioPaletteControl() {
 
 			?><span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span><?php
 
-			if ( ! empty( $this->description ) ) {
-				echo "<p class='description'>" . $this->description . "</p>";
-			}
+if ( ! empty( $this->description ) ) {
+	echo "<p class='description'>" . $this->description . '</p>';
+}
 
 			// print the palettes
-			foreach ( $this->choices as $key => $colorSet ) {
-				if ( ! is_array( $colorSet ) ) {
-					continue;
+foreach ( $this->choices as $key => $colorSet ) {
+	if ( ! is_array( $colorSet ) ) {
+		continue;
+	}
+	?>
+	<span class='tf-radio-palette'>
+		<label>
+			<input type="radio" name="<?php echo $this->id ?>" value="<?php echo esc_attr( $key ) ?>" <?php $this->link(); checked( $value, $key ); ?>/>
+			<span>
+				<?php
+				foreach ( $colorSet as $color ) {
+					echo "<span style='background: {$color}'></span>";
 				}
 				?>
-				<span class='tf-radio-palette'>
-					<label>
-						<input type="radio" name="<?php echo $this->id ?>" value="<?php echo esc_attr( $key ) ?>" <?php $this->link(); checked( $value, $key ); ?>/>
-						<span>
-							<?php
-							foreach ( $colorSet as $color ) {
-								echo "<span style='background: {$color}'></span>";
-							}
-							?>
-						</span>
-					</label>
+			</span>
+		</label>
 				</span>
 				<?php
-			}
+}
 		}
 	}
 }

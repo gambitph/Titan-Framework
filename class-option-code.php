@@ -7,8 +7,8 @@
  * @package Titan Framework Core
  **/
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 /**
  * Code Option Class
  *
@@ -32,16 +32,16 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
-		add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 
 		// CSS generation for CSS code langs
-		add_filter( 'tf_generate_css_code_' . $this->getOptionNamespace(), array( $this, "generateCSSCode" ), 10, 2 );
-		add_filter( 'wp_head', array( $this, "printCSSForPagesAndPosts" ), 100 );
+		add_filter( 'tf_generate_css_code_' . $this->getOptionNamespace(), array( $this, 'generateCSSCode' ), 10, 2 );
+		add_filter( 'wp_head', array( $this, 'printCSSForPagesAndPosts' ), 100 );
 
 		// JS inclusion for Javascript code langs
-		add_filter( 'wp_footer', array( $this, "printJS" ), 100 );
-		add_filter( 'wp_footer', array( $this, "printJSForPagesAndPosts" ), 101 );
+		add_filter( 'wp_footer', array( $this, 'printJS' ), 100 );
+		add_filter( 'wp_footer', array( $this, 'printJSForPagesAndPosts' ), 101 );
 	}
 
 
@@ -61,9 +61,9 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		if ( TitanFrameworkOption::TYPE_META == $this->type ) {
 			return;
 		}
-		
+
 		$js = $this->getFramework()->getOption( $this->settings['id'] );
-		
+
 		if ( ! empty( $js ) ) {
 			printf( "<script type=\"text/javascript\">\n%s\n</script>\n", $js );
 		}
@@ -131,7 +131,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		}
 
 		// Print out valid CSS only
-		require_once( trailingslashit( dirname( __FILE__ ) ) . "inc/scssphp/scss.inc.php" );
+		require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/scssphp/scss.inc.php' );
 		$scss = new titanscssc();
 		try {
 			$css = $scss->compile( $css );
@@ -145,7 +145,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * Generates CSS to be included in our dynamically generated CSS file in
 	 * TitanFrameworkCSS, using tf_generate_css_code
 	 *
-	 * @param	string $css The CSS to output
+	 * @param	string               $css The CSS to output
 	 * @param	TitanFrameworkOption $option The option object being generated
 	 * @return	void
 	 * @since	1.3
@@ -220,7 +220,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		printf( "<textarea name='%s' id='%s' style='display: none'>%s</textarea>",
 			$this->getID(),
 			$this->getID(),
-			esc_textarea( $this->getValue() ) );
+		esc_textarea( $this->getValue() ) );
 
 		$this->echoOptionFooter();
 	}
@@ -244,9 +244,9 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	/**
 	 * Registers the theme customizer control, for displaying the option
 	 *
-	 * @param	WP_Customize $wp_enqueue_script The customize object
+	 * @param	WP_Customize                    $wp_enqueue_script The customize object
 	 * @param	TitanFrameworkCustomizerSection $section The section where this option will be placed
-	 * @param	int $priority The order of this control in the section
+	 * @param	int                             $priority The order of this control in the section
 	 * @return	void
 	 * @since	1.3
 	 */
@@ -317,9 +317,9 @@ function registerTitanFrameworkOptionCodeControl() {
 			// The hidden textarea that will hold our contents
 			?><textarea <?php $this->link(); ?> style='display: none'><?php echo $this->value() ?></textarea><?php
 
-			if ( ! empty( $this->description ) ) {
-				echo "<p class='description'>{$this->description}</p>";
-			}
+if ( ! empty( $this->description ) ) {
+	echo "<p class='description'>{$this->description}</p>";
+}
 
 			?>
 			</label>

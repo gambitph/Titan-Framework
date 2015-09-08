@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionColor extends TitanFrameworkOption {
 
 	private static $firstLoad = true;
@@ -24,7 +24,7 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 		<?php
 
 		// load the javascript to init the colorpicker
-		if ( self::$firstLoad ):
+		if ( self::$firstLoad ) :
 			?>
 			<script>
 			jQuery(document).ready(function($) {

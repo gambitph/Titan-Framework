@@ -8,8 +8,8 @@
  * @since	1.4
  **/
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 /**
  * Code Option Class
  *
@@ -156,7 +156,7 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 		<ul>
 			<?php
 			foreach ( $values as $dummy => $value ) {
-				if( isset( $this->settings['options'][ $value ] ) ) {
+				if ( isset( $this->settings['options'][ $value ] ) ) {
 					printf( "<li data-value='%s'><i class='dashicons dashicons-menu'></i>%s%s</li>",
 						esc_attr( $value ),
 						$visibleButton,
@@ -167,7 +167,7 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 
 			$invisibleKeys = array_diff( array_keys( $this->settings['options'] ), $values );
 			foreach ( $invisibleKeys as $dummy => $value ) {
-				if( isset( $this->settings['options'][ $value ] ) ) {
+				if ( isset( $this->settings['options'][ $value ] ) ) {
 					printf( "<li data-value='%s'><i class='dashicons dashicons-menu'></i>%s%s</li>",
 						esc_attr( $value ),
 						$visibleButton,
@@ -227,9 +227,9 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 	/**
 	 * Registers the theme customizer control, for displaying the option
 	 *
-	 * @param	WP_Customize $wp_enqueue_script The customize object
+	 * @param	WP_Customize                    $wp_enqueue_script The customize object
 	 * @param	TitanFrameworkCustomizerSection $section The section where this option will be placed
-	 * @param	int $priority The order of this control in the section
+	 * @param	int                             $priority The order of this control in the section
 	 * @return	void
 	 * @since	1.4
 	 */

@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck {
 
 	public $defaultSecondarySettings = array(
@@ -33,7 +33,7 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
 			if ( empty( $title ) ) {
 				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $post->ID . ')' );
 			}
-			$this->settings['options'][$post->ID] = $title;
+			$this->settings['options'][ $post->ID ] = $title;
 		}
 
 		parent::display();
@@ -59,7 +59,7 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
 			if ( empty( $title ) ) {
 				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $post->ID . ')' );
 			}
-			$this->settings['options'][$post->ID] = $title;
+			$this->settings['options'][ $post->ID ] = $title;
 		}
 
 		$wp_customize->add_control( new TitanFrameworkOptionMulticheckControl( $wp_customize, $this->getID(), array(

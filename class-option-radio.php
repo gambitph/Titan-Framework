@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionRadio extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -14,7 +14,7 @@ class TitanFrameworkOptionRadio extends TitanFrameworkOption {
 	public function display() {
 		$this->echoOptionHeader( true );
 
-		echo "<fieldset>";
+		echo '<fieldset>';
 
 		foreach ( $this->settings['options'] as $value => $label ) {
 			printf('<label for="%s"><input id="%s" type="radio" name="%s" value="%s" %s/> %s</label><br>',
@@ -27,7 +27,7 @@ class TitanFrameworkOptionRadio extends TitanFrameworkOption {
 			);
 		}
 
-		echo "</fieldset>";
+		echo '</fieldset>';
 
 		$this->echoOptionFooter( false );
 	}

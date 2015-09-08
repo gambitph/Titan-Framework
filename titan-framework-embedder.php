@@ -58,7 +58,6 @@ if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 			}
 			require_once( 'titan-framework.php' );
 		}
-
 	}
 
 	new TitanFrameworkEmbedder();

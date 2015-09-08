@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 
 	private static $firstLoad = true;
@@ -16,8 +16,8 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		'success_callback' => '',
 		'error_callback' => '',
 	);
-	
-	
+
+
 	/**
 	 * This is first called when an ajax button is clicked. This checks whether the nonce
 	 * is valid and if we should continue;
@@ -32,8 +32,8 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 			wp_send_json_error( __( 'Security check failed, please refresh the page and try again.', TF_I18NDOMAIN ) );
 		}
 	}
-	
-	
+
+
 	/**
 	 * This is last called when an ajax button is clicked. This just exist with a successful state,
 	 * since doing nothing reads as an error with wp.ajax
@@ -43,8 +43,8 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 	public function ajaxLastSuccess() {
 		wp_send_json_success();
 	}
-	
-	
+
+
 	/**
 	 * Constructor, fixes the settings to allow for multiple ajax buttons in a single option
 	 *
@@ -63,7 +63,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 				$this->settings[ $key ] = array( $this->settings[ $key ] );
 			}
 		}
-		
+
 		while ( count( $this->settings['label'] ) < count( $this->settings['action'] ) ) {
 			$this->settings['label'][] = $this->settings['label'][ count( $this->settings['label'] ) - 1 ];
 		}
@@ -85,7 +85,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		while ( count( $this->settings['error_callback'] ) < count( $this->settings['action'] ) ) {
 			$this->settings['error_callback'][] = __( 'Something went wrong', TF_I18NDOMAIN );
 		}
-		
+
 		foreach ( $this->settings['label'] as $i => $label ) {
 			if ( empty( $label ) ) {
 				$this->settings['label'][ $i ] = __( 'Click me', TF_I18NDOMAIN );
@@ -112,14 +112,14 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		 */
 		foreach ( $this->settings['action'] as $i => $action ) {
 			if ( ! empty( $action ) ) {
-				add_action( 'wp_ajax_' . $action, array( $this, 'ajaxSecurityChecker'), 1 );
-				add_action( 'wp_ajax_' . $action, array( $this, 'ajaxLastSuccess'), 99999 );
+				add_action( 'wp_ajax_' . $action, array( $this, 'ajaxSecurityChecker' ), 1 );
+				add_action( 'wp_ajax_' . $action, array( $this, 'ajaxLastSuccess' ), 99999 );
 			}
 		}
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Renders the option
 	 *
@@ -127,7 +127,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 	 */
 	public function display() {
 		$this->echoOptionHeader();
-		
+
 		foreach ( $this->settings['action'] as $i => $action ) {
 			printf( '<button class="button %s" data-action="%s" data-label="%s" data-wait-label="%s" data-error-label="%s" data-success-label="%s" data-nonce="%s" data-success-callback="%s" data-error-callback="%s">%s</button>',
 				$this->settings['class'][ $i ],
@@ -142,11 +142,11 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 				esc_attr( $this->settings['label'][ $i ] )
 			);
 		}
-		
+
 		$this->echoOptionFooter();
 	}
-	
-	
+
+
 	/**
 	 * Prints the Javascript needed by ajax buttons. The script is only echoed once
 	 *
@@ -276,26 +276,26 @@ function registerTitanFrameworkOptionAjaxButtonControl() {
 			?>
 			<label class='tf-ajax-button'>
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span><?php
-			
-			foreach ( $this->options['action'] as $i => $action ) {
-				printf( '<button class="button %s" data-action="%s" data-label="%s" data-wait-label="%s" data-error-label="%s" data-success-label="%s" data-nonce="%s" data-success-callback="%s" data-error-callback="%s">%s</button>',
-					$this->options['class'][ $i ],
-					esc_attr( $action ),
-					esc_attr( $this->options['label'][ $i ] ),
-					esc_attr( $this->options['wait_label'][ $i ] ),
-					esc_attr( $this->options['error_label'][ $i ] ),
-					esc_attr( $this->options['success_label'][ $i ] ),
-					esc_attr( wp_create_nonce( 'tf-ajax-button' ) ),
-					esc_attr( $this->options['success_callback'][ $i ] ),
-					esc_attr( $this->options['error_callback'][ $i ] ),
-					esc_attr( $this->options['label'][ $i ] )
-				);
-			}
 
-			if ( ! empty( $this->description ) ) {
-				echo "<p class='description'>" . $this->description . "</p>";
-			}
-			
+				foreach ( $this->options['action'] as $i => $action ) {
+					printf( '<button class="button %s" data-action="%s" data-label="%s" data-wait-label="%s" data-error-label="%s" data-success-label="%s" data-nonce="%s" data-success-callback="%s" data-error-callback="%s">%s</button>',
+						$this->options['class'][ $i ],
+						esc_attr( $action ),
+						esc_attr( $this->options['label'][ $i ] ),
+						esc_attr( $this->options['wait_label'][ $i ] ),
+						esc_attr( $this->options['error_label'][ $i ] ),
+						esc_attr( $this->options['success_label'][ $i ] ),
+						esc_attr( wp_create_nonce( 'tf-ajax-button' ) ),
+						esc_attr( $this->options['success_callback'][ $i ] ),
+						esc_attr( $this->options['error_callback'][ $i ] ),
+						esc_attr( $this->options['label'][ $i ] )
+					);
+				}
+
+				if ( ! empty( $this->description ) ) {
+					echo "<p class='description'>" . $this->description . '</p>';
+				}
+
 			?></label><?php
 		}
 	}

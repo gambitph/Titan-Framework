@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 /*
  * People can extend this class to create their own options
  */
@@ -27,7 +27,7 @@ class TitanFrameworkOption {
 		'default' => '', // Menu icon for top level menus only
 		'example' => '', // An example value for this field, will be displayed in a <code>
 		'livepreview' => '', // jQuery script to update something in the site. For theme customizer only
-		'hidden' => false, 
+		'hidden' => false,
 	);
 
 	public $defaultSecondarySettings = array();
@@ -42,7 +42,7 @@ class TitanFrameworkOption {
 			TitanFramework::displayFrameworkError(
 				sprintf( __( 'Option type or extended class %s does not exist.', TF_I18NDOMAIN ), '<code>' . $settings['type'] . '</code>', $settings ),
 			$settings );
-			return NULL;
+			return null;
 		}
 
 		if ( class_exists( $className ) ) {
@@ -61,7 +61,7 @@ class TitanFrameworkOption {
 		// remove blank settings to make it ready for merging with the defaults
 		foreach ( $settings as $key => $value ) {
 			if ( $value == '' ) {
-				unset( $settings[$key] );
+				unset( $settings[ $key ] );
 			}
 		}
 
@@ -70,7 +70,7 @@ class TitanFrameworkOption {
 
 		$this->type = is_a( $owner, 'TitanFrameworkMetaBox' ) ? self::TYPE_META : self::TYPE_ADMIN;
 		$this->type = is_a( $owner, 'TitanFrameworkThemeCustomizerSection' ) ? self::TYPE_CUSTOMIZER : $this->type;
-		
+
 		// Generate a unique ID depending on the settings for those without IDs
 		if ( empty( $this->settings['id'] ) && $this->settings['type'] != 'save' ) {
 			$this->settings['id'] = substr( md5( serialize( $this->settings ) . serialize( $this->owner->settings ) ), 0, 16 );
@@ -83,22 +83,21 @@ class TitanFrameworkOption {
 	 *
 	 * @author Ohad Raz <admin@bainternet.info>
 	 *
-	 * @param  string  $new_edit what page to check for accepts new - new post page ,edit - edit post page, null for either
+	 * @param  string $new_edit what page to check for accepts new - new post page ,edit - edit post page, null for either
 	 * @return boolean
 	 *
 	 * @see Borrowed from: http://wordpress.stackexchange.com/questions/50043/how-to-determine-whether-we-are-in-add-new-page-post-cpt-or-in-edit-page-post-cp?rq=1
 	 */
-	private function isEditPage($new_edit = null){
+	private function isEditPage( $new_edit = null ) {
 		global $pagenow;
-		//make sure we are on the backend
-		if (!is_admin()) return false;
+		// make sure we are on the backend
+		if ( ! is_admin() ) { return false; }
 
-		if($new_edit == "edit")
-			return in_array( $pagenow, array( 'post.php',  ) );
-		elseif($new_edit == "new") //check for new post page
+		if ( $new_edit == 'edit' ) {
+			return in_array( $pagenow, array( 'post.php' ) ); } elseif ($new_edit == 'new') // check for new post page
 			return in_array( $pagenow, array( 'post-new.php' ) );
-		else //check for either new or edit
-			return in_array( $pagenow, array( 'post.php', 'post-new.php' ) );
+		else { // check for either new or edit
+			return in_array( $pagenow, array( 'post.php', 'post-new.php' ) ); }
 	}
 
 	public function getValue() {
@@ -109,7 +108,7 @@ class TitanFrameworkOption {
 				$allOptions = $this->owner->owner->getAllOptions();
 			}
 			if ( array_key_exists( $this->settings['id'], $allOptions ) ) {
-				return $allOptions[$this->settings['id']];
+				return $allOptions[ $this->settings['id'] ];
 			}
 			return '';
 		} else if ( $this->type == self::TYPE_META ) {
@@ -162,9 +161,9 @@ class TitanFrameworkOption {
 
 	public function __call( $name, $args ) {
 		$default = is_array( $args ) && count( $args ) ? $args[0] : '';
-		if ( stripos( $name, 'get' ) == 0) {
+		if ( stripos( $name, 'get' ) == 0 ) {
 			$setting = strtolower( substr( $name, 3 ) );
-			return empty( $this->settings[$setting] ) ? $default : $this->settings[$setting];
+			return empty( $this->settings[ $setting ] ) ? $default : $this->settings[ $setting ];
 		}
 		return $default;
 	}
@@ -183,19 +182,19 @@ class TitanFrameworkOption {
 		$id = $this->getID();
 		$name = $this->getName();
 		$evenOdd = self::$rowIndex++ % 2 == 0 ? 'odd' : 'even';
-		
+
 		$style = $this->getHidden() == true ? 'style="display: none"' : '';
-		
+
 		?>
 		<tr valign="top" class="row-<?php echo self::$rowIndex ?> <?php echo $evenOdd ?>" <?php echo $style ?>>
 		<th scope="row" class="first">
-			<label for="<?php echo !empty( $id ) ? $id : '' ?>"><?php echo !empty( $name ) ? $name : '' ?></label>
+			<label for="<?php echo ! empty( $id ) ? $id : '' ?>"><?php echo ! empty( $name ) ? $name : '' ?></label>
 		</th>
 		<td class="second tf-<?php echo $this->settings['type'] ?>">
 		<?php
 
 		$desc = $this->getDesc();
-		if ( ! empty( $desc ) && $showDesc ):
+		if ( ! empty( $desc ) && $showDesc ) :
 			?>
 			<p class='description'><?php echo $desc ?></p>
 			<?php
@@ -214,14 +213,14 @@ class TitanFrameworkOption {
 		}
 
 		$desc = $this->getDesc();
-		if ( ! empty( $desc ) && $showDesc ):
+		if ( ! empty( $desc ) && $showDesc ) :
 			?>
 			<p class='description'><?php echo $desc ?></p>
 			<?php
 		endif;
 
 		$example = $this->getExample();
-		if ( !empty( $example ) ):
+		if ( ! empty( $example ) ) :
 			?>
 			<p class="description"><code><?php echo htmlentities( $example ) ?></code></p>
 			<?php

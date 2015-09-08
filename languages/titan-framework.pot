@@ -1,0 +1,130 @@
+# Copyright (C) 2015 Titan Framework
+# This file is distributed under the same license as the Titan Framework package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Titan Framework\n"
+"Report-Msgid-Bugs-To: http://titanframework.net\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Benjamin Intal <bf.intal@gambit.ph>\n"
+"Language-Team: Gambit Technologies Inc <info@gambit.ph>\n"
+
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+
+#: class-admin-panel.php:119
+msgid "<em>Options Page Created with <a href='http://titanframework.net?utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
+msgstr ""
+
+#: class-admin-panel.php:329
+msgid "Settings saved."
+msgstr ""
+
+#: class-admin-panel.php:331
+msgid "Settings reset to default."
+msgstr ""
+
+#: class-meta-box.php:36, class-theme-customizer-section.php:33
+msgid "More Options"
+msgstr ""
+
+#: class-option-ajax-button.php:29, class-option-ajax-button.php:32
+msgid "Security check failed, please refresh the page and try again."
+msgstr ""
+
+#: class-option-ajax-button.php:86
+msgid "Something went wrong"
+msgstr ""
+
+#: class-option-ajax-button.php:91
+msgid "Click me"
+msgstr ""
+
+#: class-option-ajax-button.php:96
+msgid "Please wait..."
+msgstr ""
+
+#: class-option-edd-license.php:131
+msgid "Your license is valid and active."
+msgstr ""
+
+#: class-option-edd-license.php:135
+msgid "Your license is invalid."
+msgstr ""
+
+#: class-option-edd-license.php:149
+msgid "Activate"
+msgstr ""
+
+#: class-option-edd-license.php:150
+msgid "Your license is valid but inactive. Click the button above to activate it."
+msgstr ""
+
+#: class-option-edd-license.php:155
+msgid "The remote server did not return a valid response. You can retry by hitting the &laquo;Save&raquo; button again."
+msgstr ""
+
+#: class-option-edd-license.php:160
+msgid "Entering your license key is mandatory to get the product updates."
+msgstr ""
+
+#: class-option-enable.php:21, class-option-enable.php:96
+msgid "Enabled"
+msgstr ""
+
+#: class-option-enable.php:24, class-option-enable.php:99
+msgid "Disabled"
+msgstr ""
+
+#: class-option-gallery.php:148, class-option-upload.php:202
+msgid "Select Image"
+msgstr ""
+
+#: class-option-gallery.php:151, class-option-upload.php:205
+msgid "Use image"
+msgstr ""
+
+#: class-option-multicheck-pages.php:27, class-option-multicheck-pages.php:48, class-option-multicheck-posts.php:34, class-option-multicheck-posts.php:60, class-option-select-pages.php:38, class-option-select-posts.php:46
+msgid "Untitled %s"
+msgstr ""
+
+#: class-option-save.php:21
+msgid "Save Changes"
+msgstr ""
+
+#: class-option-save.php:24
+msgid "Reset to Defaults"
+msgstr ""
+
+#: class-option-save.php:27
+msgid "Are you sure you want to reset ALL options to their default values?"
+msgstr ""
+
+#: class-option-select-categories.php:37, class-option-select-categories.php:104, class-option-select-pages.php:30, class-option-select-posts.php:38, class-option-select-posts.php:112
+msgid "Select"
+msgstr ""
+
+#: class-option.php:43
+msgid "Option type or extended class %s does not exist."
+msgstr ""
+
+#: class-titan-framework.php:111
+msgid "All option IDs must be unique. The id %s has been used multiple times."
+msgstr ""
+
+#: class-titan-framework.php:478
+msgid "Wrong usage of %s, this should be called inside a hook or from within a theme file."
+msgstr ""
+
+#: titan-framework.php:169
+msgid "Documentation"
+msgstr ""
+
+#: titan-framework.php:173
+msgid "GitHub Repo"
+msgstr ""
+
+#: titan-framework.php:177
+msgid "Issue Tracker"
+msgstr ""

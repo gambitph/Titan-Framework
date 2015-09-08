@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulticheck {
 
 	public $defaultSecondarySettings = array(
@@ -28,7 +28,7 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
 
 		$this->settings['options'] = array();
 		foreach ( $categories as $category ) {
-			$this->settings['options'][$category->term_id] = $category->name . ( $this->settings['show_count'] ? " (" . $category->count . ")" : '' );
+			$this->settings['options'][ $category->term_id ] = $category->name . ( $this->settings['show_count'] ? ' (' . $category->count . ')' : '' );
 		}
 
 		parent::display();
@@ -49,7 +49,7 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
 
 		$this->settings['options'] = array();
 		foreach ( $categories as $category ) {
-			$this->settings['options'][$category->term_id] = $category->name . ( $this->settings['show_count'] ? " (" . $category->count . ")" : '' );
+			$this->settings['options'][ $category->term_id ] = $category->name . ( $this->settings['show_count'] ? ' (' . $category->count . ')' : '' );
 		}
 
 		$wp_customize->add_control( new TitanFrameworkOptionMulticheckControl( $wp_customize, $this->getID(), array(

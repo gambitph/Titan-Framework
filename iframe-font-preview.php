@@ -32,21 +32,21 @@ $isDarkBody = ! empty( $_GET['dark'] ) ? $_GET['dark'] : '';
 $text = ! empty( $_GET['text'] ) ? $_GET['text'] : '';
 
 // @see	http://bavotasan.com/2011/convert-hex-color-to-rgb-using-php/
-function hex2rgb($hex) {
-   $hex = str_replace("#", "", $hex);
+function hex2rgb( $hex ) {
+	$hex = str_replace( '#', '', $hex );
 
-   if(strlen($hex) == 3) {
-      $r = hexdec(substr($hex,0,1).substr($hex,0,1));
-      $g = hexdec(substr($hex,1,1).substr($hex,1,1));
-      $b = hexdec(substr($hex,2,1).substr($hex,2,1));
-   } else {
-      $r = hexdec(substr($hex,0,2));
-      $g = hexdec(substr($hex,2,2));
-      $b = hexdec(substr($hex,4,2));
-   }
-   $rgb = array($r, $g, $b);
-   //return implode(",", $rgb); // returns the rgb values separated by commas
-   return $rgb; // returns an array with the rgb values
+	if ( strlen( $hex ) == 3 ) {
+		$r = hexdec( substr( $hex,0,1 ).substr( $hex,0,1 ) );
+		$g = hexdec( substr( $hex,1,1 ).substr( $hex,1,1 ) );
+		$b = hexdec( substr( $hex,2,1 ).substr( $hex,2,1 ) );
+	} else {
+		$r = hexdec( substr( $hex,0,2 ) );
+		$g = hexdec( substr( $hex,2,2 ) );
+		$b = hexdec( substr( $hex,4,2 ) );
+	}
+	$rgb = array( $r, $g, $b );
+	// return implode(",", $rgb); // returns the rgb values separated by commas
+	return $rgb; // returns an array with the rgb values
 }
 
 
@@ -88,11 +88,11 @@ if ( $textShadowLocation != 'none' ) {
 			if ( $weight == 'normal' ) {
 				$weight = array( '400' );
 			} else if ( $weight == 'bold' ) {
-				$weight = array( '500' );//, '700' );
+				$weight = array( '500' );// , '700' );
 			} else if ( $weight == 'bolder' ) {
-				$weight = array( '800' );//, '900' );
+				$weight = array( '800' );// , '900' );
 			} else if ( $weight == 'lighter' ) {
-				$weight = array( '100' );//, '200', '300' );
+				$weight = array( '100' );// , '200', '300' );
 			} else {
 				$weight = array( $weight );
 			}
@@ -159,13 +159,13 @@ if ( $textShadowLocation != 'none' ) {
 	</head>
 	<body class='<?php echo $isDarkBody ? 'dark' : '' ?>'>
 		<?php
-		if ( empty( $text ) ):
+		if ( empty( $text ) ) :
 			?>
 			<p>Grumpy wizards make toxic brew for the evil Queen and Jack</p>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at dolor non purus adipiscing rhoncus. Nullam vitae turpis pharetra odio feugiat gravida sed ac velit. Nullam luctus ultrices suscipit. Fusce condimentum laoreet cursus. Suspendisse sed accumsan tortor. Quisque pharetra pulvinar ante, feugiat varius nibh sodales nec. Fusce vel mattis lectus. Vivamus magna felis, pharetra in lacinia sed, condimentum quis nisi. Ut at rutrum urna. Vivamus convallis posuere metus vel ullamcorper.</p>
 			<?php
-		else:
-			echo "<p>" . str_replace( "\n", "</p><p>", $text ) . "</p>";
+		else :
+			echo '<p>' . str_replace( "\n", '</p><p>', $text ) . '</p>';
 		endif;
 		?>
 	</body>

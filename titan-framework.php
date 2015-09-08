@@ -4,14 +4,14 @@ Plugin Name: Titan Framework
 Plugin URI: http://www.titanframework.net/
 Description: Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 Author: Benjamin Intal, Gambit
-Version: 1.8.1
+Version: 1.8.2
 Author URI: http://gambit.ph
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 // Used for tracking the version used
-defined( 'TF_VERSION' ) or define( 'TF_VERSION', '1.8.1' );
+defined( 'TF_VERSION' ) or define( 'TF_VERSION', '1.8.2' );
 // Used for text domains
 defined( 'TF_I18NDOMAIN' ) or define( 'TF_I18NDOMAIN', 'titan-framework' );
 // Used for general naming, e.g. nonces
@@ -106,7 +106,7 @@ class TitanFrameworkPlugin {
 		do_action( 'tf_create_options' );
 
 		TitanFramework::$initializing = false;
-		
+
 		if ( current_filter() == 'init' ) {
 			do_action( 'tf_done' );
 		}
@@ -141,7 +141,7 @@ class TitanFrameworkPlugin {
 				// If we are the first one to load already, don't do anything
 				if ( strpos( $pluginPath, $tfFileName ) != false && $key == 0 ) {
 					break;
-				// If we aren't the first one, force it!
+					// If we aren't the first one, force it!
 				} else if ( strpos( $pluginPath, $tfFileName ) != false ) {
 					array_splice( $plugins, $key, 1 );
 					array_unshift( $plugins, $pluginPath );
@@ -157,7 +157,7 @@ class TitanFrameworkPlugin {
 	 * Adds links to the docs and GitHub
 	 *
 	 * @access	public
-	 * @param	array $plugin_meta The current array of links
+	 * @param	array  $plugin_meta The current array of links
 	 * @param	string $plugin_file The plugin file
 	 * @return	array The current array of links together with our additions
 	 * @since	1.1.1
@@ -165,16 +165,16 @@ class TitanFrameworkPlugin {
 	public function plugin_links( $plugin_meta, $plugin_file ) {
 		if ( plugin_basename( __FILE__ ) == $plugin_file ) {
 			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-				"http://www.titanframework.net/docs",
-				__( "Documentation", TF_I18NDOMAIN )
+				'http://www.titanframework.net/docs',
+				__( 'Documentation', TF_I18NDOMAIN )
 			);
 			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-				"https://github.com/gambitph/Titan-Framework",
-				__( "GitHub Repo", TF_I18NDOMAIN )
+				'https://github.com/gambitph/Titan-Framework',
+				__( 'GitHub Repo', TF_I18NDOMAIN )
 			);
 			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-				"https://github.com/gambitph/Titan-Framework/issues",
-				__( "Issue Tracker", TF_I18NDOMAIN )
+				'https://github.com/gambitph/Titan-Framework/issues',
+				__( 'Issue Tracker', TF_I18NDOMAIN )
 			);
 		}
 		return $plugin_meta;

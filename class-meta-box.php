@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkMetaBox {
 
 	private $defaultSettings = array(
@@ -14,7 +14,7 @@ class TitanFrameworkMetaBox {
 		'post_type' => 'page', // Post type, can be an array of post types
 		'context' => 'normal', // normal, advanced, or side
 		'hide_custom_fields' => true, // If true, the custom fields box will not be shown
-        'priority' => 'high', //  high, core, default, low
+		'priority' => 'high', // high, core, default, low
 		'desc' => '', // Description displayed below the title
 	);
 
@@ -32,9 +32,8 @@ class TitanFrameworkMetaBox {
 
 		$this->settings = array_merge( $this->defaultSettings, $settings );
 		// $this->options = $options;
-
 		if ( empty( $this->settings['name'] ) ) {
-			$this->settings['name'] = __( "More Options", TF_I18NDOMAIN );
+			$this->settings['name'] = __( 'More Options', TF_I18NDOMAIN );
 		}
 
 		if ( empty( $this->settings['id'] ) ) {
@@ -57,7 +56,7 @@ class TitanFrameworkMetaBox {
 
 		foreach ( $postTypes as $postType ) {
 			// Hide the custom fields
-			if ( $this->settings['hide_custom_fields']) {
+			if ( $this->settings['hide_custom_fields'] ) {
 				remove_meta_box( 'postcustom' , $postType , 'normal' );
 			}
 
@@ -68,7 +67,7 @@ class TitanFrameworkMetaBox {
 				$postType,
 				$this->settings['context'],
 				$this->settings['priority']
-            );
+			);
 		}
 	}
 
@@ -99,7 +98,7 @@ class TitanFrameworkMetaBox {
 		if ( ! $this->verifySecurity( $postID, $post ) ) {
 			return;
 		}
-		
+
 		// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
 		do_action( 'tf_pre_save_options_' . $this->owner->optionNamespace, $this );
 
@@ -109,8 +108,8 @@ class TitanFrameworkMetaBox {
 				continue;
 			}
 
-			if ( ! empty( $_POST[$this->owner->optionNamespace . '_' . $option->settings['id']] ) ) {
-				$value = $_POST[$this->owner->optionNamespace . '_' . $option->settings['id']];
+			if ( ! empty( $_POST[ $this->owner->optionNamespace . '_' . $option->settings['id'] ] ) ) {
+				$value = $_POST[ $this->owner->optionNamespace . '_' . $option->settings['id'] ];
 			} else {
 				$value = '';
 			}

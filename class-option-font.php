@@ -5,8 +5,8 @@
  * @since	1.4
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 /**
  * Font Option Class
  *
@@ -29,13 +29,13 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		'show_preview' => true,
 		'enqueue' => true,
 		'preview_text' => '',
-        'include_fonts' => '', // A regex string or array of regex strings to match font names to include.
+		'include_fonts' => '', // A regex string or array of regex strings to match font names to include.
 		'show_websafe_fonts' => true,
 		'show_google_fonts' => true,
 	);
 
 	// Default style options
-	public static $defaultStyling =  array(
+	public static $defaultStyling = array(
 		'font-family' => 'Open Sans',
 		'color' => '#333333',
 		'font-size' => '13px',
@@ -86,11 +86,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
-		add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 		add_action( 'admin_head', array( __CLASS__, 'createFontScript' ) );
-		add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, "rememberGoogleFonts" ) );
-		add_action( 'wp_enqueue_scripts', array( $this, "enqueueGooglefonts" ) );
+		add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, 'rememberGoogleFonts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueGooglefonts' ) );
 		add_filter( 'tf_generate_css_font_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
 	}
 
@@ -161,7 +161,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 
 		// Font subsets, allow others to change this
-		$subsets = apply_filters( 'tf_google_font_subsets_' . $this->getOptionNamespace(), array( 'latin', 'latin-ext', ) );
+		$subsets = apply_filters( 'tf_google_font_subsets_' . $this->getOptionNamespace(), array( 'latin', 'latin-ext' ) );
 
 		// Enqueue the Google Font
 		foreach ( $fontsToLoad as $fontName => $variants ) {
@@ -170,12 +170,12 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			$variants[] = '400';
 			$variants = array_unique( $variants );
 
-			$fontUrl = sprintf( "//fonts.googleapis.com/css?family=%s:%s&subset=%s",
+			$fontUrl = sprintf( '//fonts.googleapis.com/css?family=%s:%s&subset=%s',
 				str_replace( ' ', '+', $fontName ),
 				implode( ',', $variants ),
 				implode( ',', $subsets )
 			);
-			
+
 			$fontUrl = apply_filters( 'tf_enqueue_google_webfont_' . $this->getOptionNamespace(), $fontUrl, $fontName );
 
 			if ( $fontUrl != false ) {
@@ -191,7 +191,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	/**
 	 * Generates CSS for the font, this is used in TitanFrameworkCSS
 	 *
-	 * @param	string $css The CSS generated
+	 * @param	string               $css The CSS generated
 	 * @param	TitanFrameworkOption $option The current option being processed
 	 * @return	string The CSS generated
 	 * @since	1.4
@@ -205,17 +205,17 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		$skip = array( 'dark', 'font-type', 'text-shadow-distance', 'text-shadow-blur', 'text-shadow-color', 'text-shadow-opacity' );
 
-        // If the value is blank, use the defaults
-        if ( empty( $value ) ) {
-    		$value = $this->getValue();
-    		if ( is_serialized( $value ) ) {
-    			$value = unserialize( $value );
-    		}
-    		if ( ! is_array( $value ) ) {
-    			$value = array();
-    		}
-    		$value = array_merge( self::$defaultStyling, $value );
-        }
+		// If the value is blank, use the defaults
+		if ( empty( $value ) ) {
+			$value = $this->getValue();
+			if ( is_serialized( $value ) ) {
+				$value = unserialize( $value );
+			}
+			if ( ! is_array( $value ) ) {
+				$value = array();
+			}
+			$value = array_merge( self::$defaultStyling, $value );
+		}
 
 		foreach ( $value as $key => $val ) {
 			// Force skip other keys, those are processed under another key, e.g. text-shadow-distance is
@@ -231,11 +231,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			if ( $key == 'font-family' ) {
 				if ( ! empty( $value['font-type'] ) ) {
 					if ( $value['font-type'] == 'google' ) {
-						$css .= "\$" . $option->settings['id'] . "-" . $key . ": \"" . $value[ $key ] . "\";";
+						$css .= '$' . $option->settings['id'] . '-' . $key . ': "' . $value[ $key ] . '";';
 						continue;
 					}
 				}
-				$css .= "\$" . $option->settings['id'] . "-" . $key . ": " . $value[ $key ] . ";";
+				$css .= '$' . $option->settings['id'] . '-' . $key . ': ' . $value[ $key ] . ';';
 				continue;
 			}
 
@@ -269,11 +269,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					$textShadow .= $value[ $key ];
 				}
 
-				$css .= "\$" . $option->settings['id'] . "-text-shadow: " . $textShadow . ";";
+				$css .= '$' . $option->settings['id'] . '-text-shadow: ' . $textShadow . ';';
 				continue;
 			}
 
-			$css .= "\$" . $option->settings['id'] . "-" . $key . ": " . $value[ $key ] . ";";
+			$css .= '$' . $option->settings['id'] . '-' . $key . ': ' . $value[ $key ] . ';';
 		}
 
 		/*
@@ -285,16 +285,16 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		$cssVariables = '';
 		$cssChecking = array( 'font_family', 'color', 'font_size', 'font_weight', 'font_style', 'line_height', 'letter_spacing', 'text_transform', 'font_variant', 'text_shadow' );
 
-		//Enter values that are not marked as false.
+		// Enter values that are not marked as false.
 		foreach ( $cssChecking as $subject ) {
-			if ( $option->settings['show_'.$subject] ) {
-				$cssVariableArray[] = str_replace( "_", "-", $subject );
+			if ( $option->settings[ 'show_'.$subject ] ) {
+				$cssVariableArray[] = str_replace( '_', '-', $subject );
 			}
 		}
 
-		//Now, integrate these values with their corresponding keys
+		// Now, integrate these values with their corresponding keys
 		foreach ( $cssVariableArray as $param ) {
-			$cssVariables .= $param . ": \$" . $option->settings['id'] . "-" . $param . ";\n";
+			$cssVariables .= $param . ': $' . $option->settings['id'] . '-' . $param . ";\n";
 		}
 
 		// Replace the `value` parameters in the given css
@@ -498,7 +498,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 		$value = array_merge( self::$defaultStyling, $value );
 
-
 		/*
 		 * Create all the fields
 		 */
@@ -575,7 +574,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		</label>
 		<?php
 
-
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_color'] ) {
 			$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -586,7 +584,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			<input class='tf-font-sel-color' type="text" value="<?php echo esc_attr( $value['color'] ) ?>"  data-default-color="<?php echo esc_attr( $value['color'] ) ?>"/>
 		</label>
 		<?php
-
 
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_font_size'] ) {
@@ -608,7 +605,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			</select>
 		</label>
 		<?php
-
 
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_font_weight'] ) {
@@ -632,7 +628,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		</label>
 		<?php
 
-
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_font_style'] ) {
 			$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -655,7 +650,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		</label>
 		<?php
 
-
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_line_height'] ) {
 			$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -676,7 +670,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			</select>
 		</label>
 		<?php
-
 
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_letter_spacing'] ) {
@@ -700,7 +693,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		</label>
 		<?php
 
-
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_text_transform'] ) {
 			$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -723,7 +715,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		</label>
 		<?php
 
-
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_font_variant'] ) {
 			$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -745,7 +736,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			</select>
 		</label>
 		<?php
-
 
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_text_shadow'] ) {
@@ -818,8 +808,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		</div>
 		<?php
 
-
-
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_preview'] ) {
 			$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -887,9 +875,9 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	/**
 	 * Registers the theme customizer control, for displaying the option
 	 *
-	 * @param	WP_Customize $wp_enqueue_script The customize object
+	 * @param	WP_Customize                    $wp_enqueue_script The customize object
 	 * @param	TitanFrameworkCustomizerSection $section The section where this option will be placed
-	 * @param	int $priority The order of this control in the section
+	 * @param	int                             $priority The order of this control in the section
 	 * @return	void
 	 * @since	1.4
 	 */
@@ -943,7 +931,6 @@ function registerTitanFrameworkOptionFontControl() {
 			}
 			$value = array_merge( TitanFrameworkOptionFont::$defaultStyling, $value );
 
-
 			/*
 			 * Create all the fields
 			 */
@@ -983,7 +970,6 @@ function registerTitanFrameworkOptionFontControl() {
 			</label>
 			<?php
 
-
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_color'] ) {
 				$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -994,7 +980,6 @@ function registerTitanFrameworkOptionFontControl() {
 				<input class='tf-font-sel-color' type="text" value="<?php echo esc_attr( $value['color'] ) ?>"  data-default-color="<?php echo esc_attr( $value['color'] ) ?>"/>
 			</label>
 			<?php
-
 
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_font_size'] ) {
@@ -1016,7 +1001,6 @@ function registerTitanFrameworkOptionFontControl() {
 				</select>
 			</label>
 			<?php
-
 
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_font_weight'] ) {
@@ -1040,7 +1024,6 @@ function registerTitanFrameworkOptionFontControl() {
 			</label>
 			<?php
 
-
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_font_style'] ) {
 				$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -1063,7 +1046,6 @@ function registerTitanFrameworkOptionFontControl() {
 			</label>
 			<?php
 
-
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_line_height'] ) {
 				$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -1084,7 +1066,6 @@ function registerTitanFrameworkOptionFontControl() {
 				</select>
 			</label>
 			<?php
-
 
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_letter_spacing'] ) {
@@ -1108,7 +1089,6 @@ function registerTitanFrameworkOptionFontControl() {
 			</label>
 			<?php
 
-
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_text_transform'] ) {
 				$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -1131,7 +1111,6 @@ function registerTitanFrameworkOptionFontControl() {
 			</label>
 			<?php
 
-
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_font_variant'] ) {
 				$visibilityAttrs = "data-visible='false' style='display: none'";
@@ -1153,7 +1132,6 @@ function registerTitanFrameworkOptionFontControl() {
 				</select>
 			</label>
 			<?php
-
 
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_text_shadow'] ) {
@@ -1225,8 +1203,6 @@ function registerTitanFrameworkOptionFontControl() {
 			</label>
 			</div>
 			<?php
-
-
 
 			$visibilityAttrs = '';
 			if ( ! $this->params['show_preview'] ) {

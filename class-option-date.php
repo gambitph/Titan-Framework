@@ -7,8 +7,8 @@
  * @package Titan Framework Core
  **/
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 /**
  * Date Option Class
  *
@@ -85,7 +85,7 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
-		wp_enqueue_script( 'tf-jquery-ui-timepicker-addon', TitanFramework::getURL( 'js/jquery-ui-timepicker-addon.js', __FILE__ ), array( 'jquery-ui-datepicker', 'jquery-ui-slider' ) );
+		wp_enqueue_script( 'tf-jquery-ui-timepicker-addon', TitanFramework::getURL( 'js/min/jquery-ui-timepicker-addon-min.js', __FILE__ ), array( 'jquery-ui-datepicker', 'jquery-ui-slider' ) );
 	}
 
 
@@ -158,7 +158,7 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 			$placeholder = 'HH:MM';
 		}
 
-		printf("<input class=\"input-date%s%s\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"text\" value=\"%s\" /> <p class=\"description\">%s</p>",
+		printf('<input class="input-date%s%s" name="%s" placeholder="%s" id="%s" type="text" value="%s" /> <p class="description">%s</p>',
 			( $this->settings['date'] ? ' date' : '' ),
 			( $this->settings['time'] ? ' time' : '' ),
 			$this->getID(),
@@ -167,16 +167,16 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 			esc_attr( ($this->getValue() > 0) ? date( $dateFormat, $this->getValue() ) : '' ),
 			$this->settings['desc']
 		);
-		$this->echoOptionFooter(false);
+		$this->echoOptionFooter( false );
 	}
 
 
 	/**
 	 * Registers the theme customizer control, for displaying the option
 	 *
-	 * @param	WP_Customize $wp_enqueue_script The customize object
+	 * @param	WP_Customize                    $wp_enqueue_script The customize object
 	 * @param	TitanFrameworkCustomizerSection $section The section where this option will be placed
-	 * @param	int $priority The order of this control in the section
+	 * @param	int                             $priority The order of this control in the section
 	 * @return	void
 	 * @since	1.7
 	 */

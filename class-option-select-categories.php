@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionSelectCategories extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -34,7 +34,7 @@ class TitanFrameworkOptionSelectCategories extends TitanFrameworkOption {
 		printf( "<option value='%s' %s>%s</option>",
 			'0',
 			selected( $this->getValue(), '0', false ),
-			"— " . __( "Select", TF_I18NDOMAIN ) . " —"
+			'— ' . __( 'Select', TF_I18NDOMAIN ) . ' —'
 		);
 
 		// Print all the other pages
@@ -42,10 +42,10 @@ class TitanFrameworkOptionSelectCategories extends TitanFrameworkOption {
 			printf( "<option value='%s' %s>%s</option>",
 				esc_attr( $category->term_id ),
 				selected( $this->getValue(), $category->term_id, false ),
-				$category->name . ( $this->settings['show_count'] ? " (" . $category->count . ")" : '' )
+				$category->name . ( $this->settings['show_count'] ? ' (' . $category->count . ')' : '' )
 			);
 		}
-		echo "</select>";
+		echo '</select>';
 
 		$this->echoOptionFooter();
 	}
@@ -101,7 +101,7 @@ function registerTitanFrameworkOptionSelectCategoriesControl() {
 					printf( "<option value='%s' %s>%s</option>",
 						'0',
 						selected( $this->value(), '0', false ),
-						"— " . __( "Select", TF_I18NDOMAIN ) . " —"
+						'— ' . __( 'Select', TF_I18NDOMAIN ) . ' —'
 					);
 
 					// Print all the other pages
@@ -109,7 +109,7 @@ function registerTitanFrameworkOptionSelectCategoriesControl() {
 						printf( "<option value='%s' %s>%s</option>",
 							esc_attr( $category->term_id ),
 							selected( $this->value(), $category->term_id, false ),
-							$category->name . ( $this->show_count ? " (" . $category->count . ")" : '' )
+							$category->name . ( $this->show_count ? ' (' . $category->count . ')' : '' )
 						);
 					}
 					?>

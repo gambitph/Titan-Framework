@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkThemeCustomizerSection {
 
 	private $defaultSettings = array(
@@ -14,7 +14,7 @@ class TitanFrameworkThemeCustomizerSection {
 		'capability' => 'edit_theme_options', // User role
 		// 'icon' => 'dashicons-admin-generic', // Menu icon for top level menus only
 		'desc' => '', // Description
-		'position' => 30 // Menu position for top level menus only
+		'position' => 30,// Menu position for top level menus only
 	);
 
 	public $settings;
@@ -30,7 +30,7 @@ class TitanFrameworkThemeCustomizerSection {
 		$this->settings = array_merge( $this->defaultSettings, $settings );
 
 		if ( empty( $this->settings['name'] ) ) {
-			$this->settings['name'] = __( "More Options", TF_I18NDOMAIN );
+			$this->settings['name'] = __( 'More Options', TF_I18NDOMAIN );
 		}
 
 		if ( empty( $this->settings['id'] ) ) {
@@ -47,7 +47,7 @@ class TitanFrameworkThemeCustomizerSection {
 
 	public function loadUploaderScript() {
 		wp_enqueue_media();
-		wp_enqueue_script( 'tf-theme-customizer-serialize', TitanFramework::getURL( 'js/serialize.js', __FILE__ ) );
+		wp_enqueue_script( 'tf-theme-customizer-serialize', TitanFramework::getURL( 'js/min/serialize-min.js', __FILE__ ) );
 		wp_enqueue_style( 'tf-admin-theme-customizer-styles', TitanFramework::getURL( 'css/admin-theme-customizer-styles.css', __FILE__ ) );
 	}
 
@@ -60,8 +60,8 @@ class TitanFrameworkThemeCustomizerSection {
 		<script>
 		jQuery(document).ready(function($) {
 			<?php
-			foreach ( $this->options as $option ):
-				if ( empty( $option->settings['livepreview'] ) ):
+			foreach ( $this->options as $option ) :
+				if ( empty( $option->settings['livepreview'] ) ) :
 					continue;
 				endif;
 				?>
@@ -98,7 +98,7 @@ class TitanFrameworkThemeCustomizerSection {
 			return;
 		}
 		self::$generatedHeadCSSPreview = true;
-		echo "<style>" . $this->owner->cssInstance->generateCSS() . "</style>";
+		echo '<style>' . $this->owner->cssInstance->generateCSS() . '</style>';
 	}
 
 	public function register( $wp_customize ) {

@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkAdminPanel {
 
 	private $defaultSettings = array(
@@ -40,7 +40,6 @@ class TitanFrameworkAdminPanel {
 
 		$this->settings = array_merge( $this->defaultSettings, $settings );
 		// $this->options = $options;
-
 		if ( empty( $this->settings['name'] ) ) {
 			return;
 		}
@@ -89,42 +88,42 @@ class TitanFrameworkAdminPanel {
 		// Parent menu
 		if ( empty( $this->settings['parent'] ) ) {
 			$this->panelID = add_menu_page( $this->settings['name'],
-						   $this->settings['name'],
-						   $this->settings['capability'],
-						   $this->settings['id'],
-						   array( $this, 'createAdminPage' ),
-						   $this->settings['icon'],
-						   $this->settings['position'] );
-		// Sub menu
+				$this->settings['name'],
+				$this->settings['capability'],
+				$this->settings['id'],
+				array( $this, 'createAdminPage' ),
+				$this->settings['icon'],
+			$this->settings['position'] );
+			// Sub menu
 		} else {
 			$this->panelID = add_submenu_page( $this->settings['parent'],
-							  $this->settings['name'],
-							  $this->settings['name'],
-							  $this->settings['capability'],
-							  $this->settings['id'],
-							  array( $this, 'createAdminPage' ) );
+				$this->settings['name'],
+				$this->settings['name'],
+				$this->settings['capability'],
+				$this->settings['id'],
+			array( $this, 'createAdminPage' ) );
 		}
 
 		add_action( 'load-' . $this->panelID, array( $this, 'saveOptions' ) );
-		
+
 		add_action( 'load-' . $this->panelID, array( $this, 'addTitanCredit' ) );
 	}
-	
-	
+
+
 	public function addTitanCredit() {
 		add_filter( 'admin_footer_text', array( $this, 'addTitanCreditText' ) );
 	}
-	
-	
+
+
 	public function addTitanCreditText() {
 		echo __( "<em>Options Page Created with <a href='http://titanframework.net?utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>", TF_I18NDOMAIN );
 	}
-	
+
 
 	public function getOptionNamespace() {
 		return $this->owner->optionNamespace;
 	}
-	
+
 
 	public function saveOptions() {
 		if ( ! $this->verifySecurity() ) {
@@ -139,7 +138,7 @@ class TitanFrameworkAdminPanel {
 		 */
 
 		if ( $_POST['action'] == 'save' ) {
-			
+
 			// we are in a tab
 			if ( ! empty( $activeTab ) ) {
 				foreach ( $activeTab->options as $option ) {
@@ -147,8 +146,8 @@ class TitanFrameworkAdminPanel {
 						continue;
 					}
 
-					if ( isset( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
-						$value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
+					if ( isset( $_POST[ $this->getOptionNamespace() . '_' . $option->settings['id'] ] ) ) {
+						$value = $_POST[ $this->getOptionNamespace() . '_' . $option->settings['id'] ];
 					} else {
 						$value = '';
 					}
@@ -162,8 +161,8 @@ class TitanFrameworkAdminPanel {
 					continue;
 				}
 
-				if ( isset( $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']] ) ) {
-					$value = $_POST[$this->getOptionNamespace() . '_' . $option->settings['id']];
+				if ( isset( $_POST[ $this->getOptionNamespace() . '_' . $option->settings['id'] ] ) ) {
+					$value = $_POST[ $this->getOptionNamespace() . '_' . $option->settings['id'] ];
 				} else {
 					$value = '';
 				}
@@ -173,19 +172,19 @@ class TitanFrameworkAdminPanel {
 			// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
 			do_action( 'tf_pre_save_options_' . $this->getOptionNamespace(), $this );
 			do_action( 'tf_pre_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
-				
+
 			$this->owner->saveOptions();
-			
+
 			do_action( 'tf_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
 			$message = 'saved';
 
-		/*
-		 * Reset
-		 */
+			/*
+			* Reset
+			*/
 
 		} else if ( $_POST['action'] == 'reset' ) {
-			
+
 			// we are in a tab
 			if ( ! empty( $activeTab ) ) {
 				foreach ( $activeTab->options as $option ) {
@@ -204,13 +203,13 @@ class TitanFrameworkAdminPanel {
 
 				$this->owner->setOption( $option->settings['id'], $option->settings['default'] );
 			}
-		
+
 			// Hook 'tf_pre_reset_options_{namespace}' - action pre-saving
 			do_action( 'tf_pre_reset_options_' . $this->getOptionNamespace(), $this );
 			do_action( 'tf_pre_reset_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
-			
+
 			$this->owner->saveOptions();
-			
+
 			do_action( 'tf_reset_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
 			$message = 'reset';
@@ -300,7 +299,7 @@ class TitanFrameworkAdminPanel {
 		do_action( 'tf_admin_page_start' );
 		do_action( 'tf_admin_page_start_' . $this->getOptionNamespace() );
 
-		if ( count( $this->tabs ) ):
+		if ( count( $this->tabs ) ) :
 			?>
 			<h2 class="nav-tab-wrapper">
 			<?php
@@ -333,7 +332,7 @@ class TitanFrameworkAdminPanel {
 			}
 		}
 
-		if ( $this->settings['use_form'] ):
+		if ( $this->settings['use_form'] ) :
 			?>
 			<form method='post'>
 			<?php
@@ -374,7 +373,7 @@ class TitanFrameworkAdminPanel {
 		</table>
 		<?php
 
-		if ( $this->settings['use_form'] ):
+		if ( $this->settings['use_form'] ) :
 			?>
 			</form>
 			<?php
@@ -382,7 +381,7 @@ class TitanFrameworkAdminPanel {
 
 		// Reset form. We use JS to trigger a reset from other buttons within the main form
 		// This is used by class-option-save.php
-		if ( $this->settings['use_form'] ):
+		if ( $this->settings['use_form'] ) :
 			?>
 			<form method='post' id='tf-reset-form'>
 				<?php

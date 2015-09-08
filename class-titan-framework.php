@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFramework {
 
 	public $optionNamespace; // Options will be prefixed with this
@@ -21,7 +21,7 @@ class TitanFramework {
 	private $allOptions;
 
 	public $cssInstance;
-	
+
 	// We used to prevent getOption from being called too early, now
 	// we entertain that by manually querying our option from the DB.
 	// This is where the query results are saved.
@@ -75,15 +75,15 @@ class TitanFramework {
 		if ( is_admin() ) {
 			add_action( 'init', array( $this, 'updateThemeModListing' ), 12 );
 			add_action( 'init', array( $this, 'updateMetaDbListing' ), 12 );
-			add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "verifyUniqueIDs" ) );
+			add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, 'verifyUniqueIDs' ) );
 		}
 
-		add_action( 'admin_enqueue_scripts', array( $this, "loadAdminScripts" ) );
-		add_action( 'wp_enqueue_scripts', array( $this, "loadFrontEndScripts" ) );
-		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "rememberGoogleFonts" ) );
-		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, "rememberAllOptions" ) );
-		add_filter( 'tf_create_option_continue_' . $this->optionNamespace, array( $this, "removeChildThemeOptions" ), 10, 2 );
-		
+		add_action( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'loadFrontEndScripts' ) );
+		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, 'rememberGoogleFonts' ) );
+		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, 'rememberAllOptions' ) );
+		add_filter( 'tf_create_option_continue_' . $this->optionNamespace, array( $this, 'removeChildThemeOptions' ), 10, 2 );
+
 		// Create a save option filter for customizer options
 		add_filter( 'pre_update_option', array( $this, 'addCustomizerSaveFilter' ), 10, 3 );
 	}
@@ -163,10 +163,10 @@ class TitanFramework {
 		}
 
 		// Only enqueue scripts if we're on a Titan options page
-		if ( in_array( $hook, $panel_ids ) || count($this->metaBoxes) ) {
+		if ( in_array( $hook, $panel_ids ) || count( $this->metaBoxes ) ) {
 			wp_enqueue_media();
-			wp_enqueue_script( 'tf-serialize', TitanFramework::getURL( 'js/serialize.js', __FILE__ ) );
-			wp_enqueue_script( 'tf-styling', TitanFramework::getURL( 'js/admin-styling.js', __FILE__ ) );
+			wp_enqueue_script( 'tf-serialize', TitanFramework::getURL( 'js/min/serialize-min.js', __FILE__ ) );
+			wp_enqueue_script( 'tf-styling', TitanFramework::getURL( 'js/min/admin-styling-min.js', __FILE__ ) );
 			wp_enqueue_style( 'tf-admin-styles', TitanFramework::getURL( 'css/admin-styles.css', __FILE__ ) );
 		}
 	}
@@ -176,10 +176,10 @@ class TitanFramework {
 			$this->allOptions = array();
 		}
 
-		if ( empty( $this->allOptions[$this->optionNamespace] ) ) {
-			$this->allOptions[$this->optionNamespace] = array();
+		if ( empty( $this->allOptions[ $this->optionNamespace ] ) ) {
+			$this->allOptions[ $this->optionNamespace ] = array();
 		} else {
-			return $this->allOptions[$this->optionNamespace];
+			return $this->allOptions[ $this->optionNamespace ];
 		}
 
 		// Check if we have options saved already
@@ -191,17 +191,17 @@ class TitanFramework {
 		}
 
 		// Put all the available options in our global variable for future checking
-		if ( ! empty( $currentOptions ) && ! count( $this->allOptions[$this->optionNamespace] ) ) {
-			$this->allOptions[$this->optionNamespace] = unserialize( $currentOptions );
+		if ( ! empty( $currentOptions ) && ! count( $this->allOptions[ $this->optionNamespace ] ) ) {
+			$this->allOptions[ $this->optionNamespace ] = unserialize( $currentOptions );
 		}
 
-		return $this->allOptions[$this->optionNamespace];
+		return $this->allOptions[ $this->optionNamespace ];
 	}
 
 	public function saveOptions() {
-		update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[$this->optionNamespace] ) );
+		update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[ $this->optionNamespace ] ) );
 		do_action( 'tf_save_options_' . $this->optionNamespace );
-		return $this->allOptions[$this->optionNamespace];
+		return $this->allOptions[ $this->optionNamespace ];
 	}
 
 	/*
@@ -229,11 +229,11 @@ class TitanFramework {
 		// Check existing theme mods
 		foreach ( $this->themeCustomizerSections as $section ) {
 			foreach ( $section->options as $option ) {
-				if ( ! isset( $allThemeMods[$option->getID()] ) ) {
+				if ( ! isset( $allThemeMods[ $option->getID() ] ) ) {
 					set_theme_mod( $option->getID(), $option->settings['default'] );
 				}
 
-				unset( $allThemeModKeys[$option->getID()] );
+				unset( $allThemeModKeys[ $option->getID() ] );
 			}
 		}
 
@@ -255,7 +255,7 @@ class TitanFramework {
 	public function updateOptionDBListing() {
 		// Get also a list of all option keys
 		$allOptionKeys = array();
-		if ( ! empty( $this->allOptions[$this->optionNamespace] ) ) {
+		if ( ! empty( $this->allOptions[ $this->optionNamespace ] ) ) {
 			$allOptionKeys = array_fill_keys( array_keys( $this->allOptions[ $this->optionNamespace ] ), null );
 		}
 
@@ -267,15 +267,15 @@ class TitanFramework {
 				if ( empty( $option->settings['id'] ) ) {
 					continue;
 				}
-				if ( ! isset( $this->allOptions[$this->optionNamespace][$option->settings['id']] ) ) {
-					$this->allOptions[$this->optionNamespace][$option->settings['id']] = $option->settings['default'];
+				if ( ! isset( $this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] ) ) {
+					$this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] = $option->settings['default'];
 					$changed = true;
 				}
-				unset( $allOptionKeys[$option->settings['id']] );
+				unset( $allOptionKeys[ $option->settings['id'] ] );
 
 				// Clean the value for retrieval
-				$this->allOptions[$this->optionNamespace][$option->settings['id']] =
-					$option->cleanValueForGetting( $this->allOptions[$this->optionNamespace][$option->settings['id']] );
+				$this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] =
+					$option->cleanValueForGetting( $this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] );
 			}
 			// Check existing options
 			foreach ( $panel->tabs as $tab ) {
@@ -283,15 +283,15 @@ class TitanFramework {
 					if ( empty( $option->settings['id'] ) ) {
 						continue;
 					}
-					if ( ! isset( $this->allOptions[$this->optionNamespace][$option->settings['id']] ) ) {
-						$this->allOptions[$this->optionNamespace][$option->settings['id']] = $option->settings['default'];
+					if ( ! isset( $this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] ) ) {
+						$this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] = $option->settings['default'];
 						$changed = true;
 					}
-					unset( $allOptionKeys[$option->settings['id']] );
+					unset( $allOptionKeys[ $option->settings['id'] ] );
 
 					// Clean the value for retrieval
-					$this->allOptions[$this->optionNamespace][$option->settings['id']] =
-						$option->cleanValueForGetting( $this->allOptions[$this->optionNamespace][$option->settings['id']] );
+					$this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] =
+						$option->cleanValueForGetting( $this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] );
 				}
 			}
 		}
@@ -299,14 +299,14 @@ class TitanFramework {
 		// Remove all unused keys
 		if ( count( $allOptionKeys ) ) {
 			foreach ( $allOptionKeys as $optionName => $dummy ) {
-				unset( $this->allOptions[$this->optionNamespace][$optionName] );
+				unset( $this->allOptions[ $this->optionNamespace ][ $optionName ] );
 			}
 			$changed = true;
 		}
 
 		// New options have been added, save the default values
 		if ( $changed ) {
-			update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[$this->optionNamespace] ) );
+			update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[ $this->optionNamespace ] ) );
 		}
 	}
 
@@ -358,7 +358,7 @@ class TitanFramework {
 	 *
 	 * @access  public
 	 * @param	boolean $continueCreating If true, the option will be created
-	 * @param	array $optionSettings The settings for the option to be created
+	 * @param	array   $optionSettings The settings for the option to be created
 	 * @return  boolean If true, continue with creating the option. False to stop it.
 	 * @since   1.2.1
 	 */
@@ -382,19 +382,19 @@ class TitanFramework {
 	 * Not meant to be called directly, use getOption instead
 	 *
 	 * @access  public
-	 * @param	String 	$optionName The name of the option
+	 * @param	String $optionName The name of the option
 	 * @return  Mixed	The option value
 	 * @since   1.8
 	 */
 	protected function _getOptionEarly( $optionName ) {
-		
+
 		if ( empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
 			global $wpdb;
 			$options = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = '" . esc_attr( $this->optionNamespace ) . "_options'" );
 			$options = maybe_unserialize( maybe_unserialize( $options ) );
 			self::$earlyAdminOptions[ $this->optionNamespace ] = $options;
 		}
-		
+
 		return ! empty( self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] ) ? self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] : false;
 	}
 
@@ -403,8 +403,8 @@ class TitanFramework {
 	 * Get an option
 	 *
 	 * @access  public
-	 * @param	String 	$optionName The name of the option
-	 * @param	Int 	$postID The post ID if this is a meta option
+	 * @param	String $optionName The name of the option
+	 * @param	Int    $postID The post ID if this is a meta option
 	 * @return  Mixed	The option value
 	 * @since   1.0
 	 */
@@ -429,8 +429,7 @@ class TitanFramework {
 				}
 				$value = $this->allOptions[ $this->optionNamespace ][ $optionName ];
 
-
-			// Meta box options
+				// Meta box options
 			} else if ( $option->type == TitanFrameworkOption::TYPE_META ) {
 
 				// If no $postID is given, try and get it if we are in a loop
@@ -442,8 +441,7 @@ class TitanFramework {
 
 				$value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
 
-
-			// Theme customizer options
+				// Theme customizer options
 			} else if ( $option->type == TitanFrameworkOption::TYPE_CUSTOMIZER ) {
 				$value = get_theme_mod( $this->optionNamespace . '_' . $optionName );
 
@@ -452,8 +450,8 @@ class TitanFramework {
 
 		// Apply cleaning method for the value (for serialized data, slashes, etc)
 		if ( $value !== null ) {
-			if ( ! empty( $this->optionsUsed[$optionName] ) ) {
-				$value = $this->optionsUsed[$optionName]->cleanValueForGetting( $value );
+			if ( ! empty( $this->optionsUsed[ $optionName ] ) ) {
+				$value = $this->optionsUsed[ $optionName ]->cleanValueForGetting( $value );
 			}
 		}
 		return $value;
@@ -461,8 +459,8 @@ class TitanFramework {
 
 	public function setOption( $optionName, $value, $postID = null ) {
 		// Apply cleaning method for the value (for serialized data, slashes, etc)
-		if ( ! empty( $this->optionsUsed[$optionName] ) ) {
-			$value = $this->optionsUsed[$optionName]->cleanValueForSaving( $value );
+		if ( ! empty( $this->optionsUsed[ $optionName ] ) ) {
+			$value = $this->optionsUsed[ $optionName ]->cleanValueForSaving( $value );
 		}
 
 		// Call to 'tf_save_option_{namespace}', $value contains the current value about to be saved
@@ -475,15 +473,14 @@ class TitanFramework {
 
 		if ( empty( $postID ) ) {
 			// option
-
 			if ( ! is_array( $this->allOptions ) ) {
 				// this is blank if called too early. getOption should be called inside a hook or template
 				self::displayFrameworkError( sprintf( __( 'Wrong usage of %s, this should be called inside a hook or from within a theme file.', TF_I18NDOMAIN ), '<code>setOption</code>' ) );
 				return '';
 			}
 
-			if ( array_key_exists( $optionName, $this->allOptions[$this->optionNamespace] ) ) {
-				$this->allOptions[$this->optionNamespace][$optionName] = $value;
+			if ( array_key_exists( $optionName, $this->allOptions[ $this->optionNamespace ] ) ) {
+				$this->allOptions[ $this->optionNamespace ][ $optionName ] = $value;
 			} else {
 				// customizer
 				set_theme_mod( $this->optionNamespace . '_' . $optionName, $value );
@@ -518,7 +515,7 @@ class TitanFramework {
 		if ( is_array( $errorObject ) ) {
 			foreach ( $errorObject as $key => $val ) {
 				if ( $val === '' ) {
-					unset( $errorObject[$key] );
+					unset( $errorObject[ $key ] );
 				}
 			}
 		}
@@ -528,7 +525,7 @@ class TitanFramework {
 		<div style='margin: 20px'><strong><?php echo TF_NAME ?> Error:</strong>
 			<?php echo $message ?>
 			<?php
-			if ( ! empty( $errorObject ) ):
+			if ( ! empty( $errorObject ) ) :
 				?>
 				<pre><code style="display: inline-block; padding: 10px"><?php echo print_r( $errorObject, true ) ?></code></pre>
 				<?php
@@ -566,7 +563,7 @@ class TitanFramework {
 				$dir = '';
 			}
 			return trailingslashit( get_template_directory_uri() ) . $dir . $script;
-		// framework is in a child theme
+			// framework is in a child theme
 		} else if ( stripos( $file, $childTheme ) !== false ) {
 			$dir = trailingslashit( dirname( str_replace( $childTheme, '', $file ) ) );
 			if ( $dir == './' ) {
@@ -604,13 +601,13 @@ class TitanFramework {
 	public function generateCSS() {
 		return $this->cssInstance->generateCSS();
 	}
-	
+
 
 
 	/**
 	 * Adds a 'tf_save_option_{namespace}_{optionID}' filter to all Customizer options
 	 * which are just about to be saved
-	 * 
+	 *
 	 * This uses the `pre_update_option` filter to check all the options being saved if it's
 	 * a theme_mod option. It further checks whether these are Titan customizer options,
 	 * then attaches the new hook into those.
@@ -623,22 +620,22 @@ class TitanFramework {
 	 * @see		pre_update_option filter
 	 */
 	public function addCustomizerSaveFilter( $value, $optionName, $oldValue ) {
-		
+
 		$theme = get_option( 'stylesheet' );
 
 		// Intercept theme mods only
 		if ( strpos( $optionName, 'theme_mods_' . $theme ) !== 0 ) {
 			return $value;
 		}
-		
+
 		// We expect theme mods to be an array
 		if ( ! is_array( $value ) ) {
 			return $value;
 		}
-		
+
 		// Checks whether a Titan customizer is in place
 		$customizerUsed = false;
-		
+
 		// Go through all our customizer options and filter them for saving
 		$optionIDs = array();
 		foreach ( $this->themeCustomizerSections as $customizer ) {
@@ -646,43 +643,43 @@ class TitanFramework {
 				if ( ! empty( $option->settings['id'] ) ) {
 					$optionID = $option->settings['id'];
 					$themeModName = $this->optionNamespace . '_' . $option->settings['id'];
-					
+
 					if ( ! array_key_exists( $themeModName, $value ) ) {
 						continue;
 					}
-					
+
 					$customizerUsed = true;
-					
+
 					// Try and unserialize if possible
 					$tempValue = $value[ $themeModName ];
 					if ( is_serialized( $tempValue ) ) {
 						$tempValue = unserialize( $tempValue );
 					}
-					
+
 					// Hook 'tf_save_option_{namespace}'
 					$newValue = apply_filters( 'tf_save_option_' . $this->optionNamespace, $tempValue, $option->settings['id'] );
-					
+
 					// Hook 'tf_save_option_{namespace}_{optionID}'
 					$newValue = apply_filters( 'tf_save_option_' . $themeModName, $tempValue );
-					
+
 					// We mainly check for equality here so that we won't have to serialize IF the value
 					// wasn't touched anyway.
 					if ( $newValue != $tempValue ) {
 						if ( is_array( $newValue ) ) {
 							$newValue = serialize( $newValue );
 						}
-					
+
 						$value[ $themeModName ] = $newValue;
 					}
 				}
 			}
 		}
-		
+
 		// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
 		if ( $customizerUsed ) {
 			do_action( 'tf_pre_save_options_' . $this->optionNamespace, $this->themeCustomizerSections );
 		}
-		
+
 		return $value;
 	}
 }

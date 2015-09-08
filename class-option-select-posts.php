@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionSelectPosts extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -35,7 +35,7 @@ class TitanFrameworkOptionSelectPosts extends TitanFrameworkOption {
 		printf( "<option value='%s' %s>%s</option>",
 			'0',
 			selected( $this->getValue(), '0', false ),
-			"— " . __( "Select", TF_I18NDOMAIN ) . " —"
+			'— ' . __( 'Select', TF_I18NDOMAIN ) . ' —'
 		);
 
 		// Print all the other pages
@@ -45,14 +45,14 @@ class TitanFrameworkOptionSelectPosts extends TitanFrameworkOption {
 			if ( empty( $title ) ) {
 				$title = sprintf( __( 'Untitled %s', TF_I18NDOMAIN ), '(ID #' . $post->ID . ')' );
 			}
-			
+
 			printf( "<option value='%s' %s>%s</option>",
 				esc_attr( $post->ID ),
 				selected( $this->getValue(), $post->ID, false ),
 				$title
 			);
 		}
-		echo "</select>";
+		echo '</select>';
 
 		$this->echoOptionFooter();
 	}
@@ -109,7 +109,7 @@ function registerTitanFrameworkOptionSelectPostsControl() {
 					printf( "<option value='%s' %s>%s</option>",
 						'0',
 						selected( $this->value(), '0', false ),
-						"— " . __( "Select", TF_I18NDOMAIN ) . " —"
+						'— ' . __( 'Select', TF_I18NDOMAIN ) . ' —'
 					);
 
 					// Print all the other pages

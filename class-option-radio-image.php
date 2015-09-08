@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionRadioImage extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -97,27 +97,27 @@ function registerTitanFrameworkOptionRadioImageControl() {
 
 			?><span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span><?php
 
-			if ( ! empty( $this->description ) ) {
-				echo "<p class='description'>" . $this->description . "</p>";
-			}
+if ( ! empty( $this->description ) ) {
+	echo "<p class='description'>" . $this->description . '</p>';
+}
 
 			// print the images
 			$value = $this->value();
-			foreach ( $this->choices as $key => $imageURL ) {
-				// Get the correct value, we might get a blank if index / value is 0
-				if ( $value == '' ) {
-					$value = $key;
-				}
-				?>
-				<span class='tf-radio-image'>
-					<label>
-						<input type="radio" name="<?php echo esc_attr( $this->id ) ?>" value="<?php echo esc_attr( $key ) ?>" <?php $this->link(); checked( $value, $key ); ?>/>
-							<img src="<?php echo esc_attr( $imageURL ) ?>"/>
-						</input>
-					</label>
+foreach ( $this->choices as $key => $imageURL ) {
+	// Get the correct value, we might get a blank if index / value is 0
+	if ( $value == '' ) {
+		$value = $key;
+	}
+	?>
+	<span class='tf-radio-image'>
+		<label>
+			<input type="radio" name="<?php echo esc_attr( $this->id ) ?>" value="<?php echo esc_attr( $key ) ?>" <?php $this->link(); checked( $value, $key ); ?>/>
+				<img src="<?php echo esc_attr( $imageURL ) ?>"/>
+			</input>
+		</label>
 				</span>
 				<?php
-			}
+}
 		}
 	}
 }

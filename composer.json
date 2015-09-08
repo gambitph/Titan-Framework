@@ -16,29 +16,6 @@
 	"autoload": {
 		"files": ["titan-framework.php"]
 	},
-	"archive": {
-		"exclude": [
-			"/bin", 
-			"/vendor", 
-			"/tests",
-			"*/composer.*",
-			"/preview",
-			"*/.*", 
-			"*.dist",
-			"*.md",
-			"*.codekit",
-			"*.rb",
-			"*.pot",
-			"*.psd",
-			"/languages/readme.txt",
-			"*/_*.js",
-			"/scss",
-			"*/_*.scss",
-			"*.sh",
-			"*.py",
-			"phpunit.xml"
-		]
-	},
 	"repositories": [
 	],
 	"require": {
@@ -46,51 +23,13 @@
 	"require-dev": {
 	},
 	"scripts": {
-		"post-archive-cmd": [
-			"php -r \"\\$withVersion = false; \\$finalZip = basename( getcwd() ) . '.zip'; foreach ( array_merge(glob('*.php'), glob('*.css')) as \\$zipFile ) { \\$f = file_get_contents( \\$zipFile ); preg_match('/Plugin Name\\\\s*:\\\\s*([a-zA-Z\\\\s]*)\\\\n/i', \\$f, \\$matches ); if (count(\\$matches) < 2) { preg_match('/Theme Name\\\\s*:\\\\s*([a-zA-Z\\\\s]*)\\\\n/i', \\$f, \\$matches ); if (count(\\$matches) < 2) {continue;} } \\$name = \\$matches[1]; \\$zipName = trim(strtolower(str_replace(' ', '-', \\$name))); preg_match('/Version\\\\s*:\\\\s*([0-1a-zA-Z\\\\-.]*)\\\\n/i', \\$f, \\$matches); if ( count(\\$matches) < 2 ){ continue;} \\$version = \\$matches[1]; \\$finalZip = \\$zipName . '-' . \\$version . '.zip'; if ( ! \\$withVersion ) { \\$finalZip = \\$zipName . '.zip'; } } foreach ( glob('*.zip') as \\$zipFile ) { rename( \\$zipFile, \\$finalZip ); break; }\"",
-			"php -r \"foreach ( glob('*.zip') as \\$zipFile ) { \\$dir = basename(\\$zipFile, '.zip'); exec( 'mkdir _tmp && mv ' . \\$zipFile . ' _tmp && cd _tmp && unzip ' . \\$zipFile . ' -d ' . \\$dir . ' && rm ' . \\$zipFile . ' && zip -r9 ' . \\$zipFile . ' ' . \\$dir . ' && mv *.zip .. && cd .. && rm -R _tmp' ); exec( 'mv ' . \\$zipFile . ' ..' ); } echo 'Created: ' . \\$zipFile . \\\"\\n\\\";\""
-		],
-		"post-update-cmd": [
-			"php -r \"@mkdir('js/ace-min-noconflict/');\"",
-			"php -r \"copy('vendor/ajaxorg/ace-builds/src-min-noconflict/ace.js', 'js/ace-min-noconflict/ace.js');\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/theme-*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-css.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-html.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-javascript.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-json.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-less.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-lua.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-markdown.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-mysql.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-php.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-plain_text.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-python.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-ruby.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-sass.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-scss.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-sh.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-text.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/*-xml.*') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/' . basename(\\$file)); }\"",
-			
-			"php -r \"@mkdir('js/ace-min-noconflict/snippets/');\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/css.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/html.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/javascript.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/json.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/less.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/lua.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/markdown.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/mysql.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/php.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/plain_text.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/python.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/ruby.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/sass.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/scss.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/sh.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/text.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\"",
-			"php -r \"foreach (glob('vendor/ajaxorg/ace-builds/src-min-noconflict/snippets/xml.js') as \\$file) { copy( \\$file, 'js/ace-min-noconflict/snippets/' . basename(\\$file)); }\""
-		]
+        "post-install-cmd": [
+            "bower install",
+			"npm install -d"
+        ],
+        "post-update-cmd": [
+            "bower install",
+			"npm install -d"
+        ]
 	}
 }

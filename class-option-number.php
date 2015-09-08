@@ -7,8 +7,8 @@
  * @package Titan Framework Core
  **/
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 /**
  * Number Option Class
  *
@@ -24,7 +24,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 		'max' => 1000,
 		'step' => 1,
 		'default' => 0,
-		'unit' => ''
+		'unit' => '',
 	);
 
 
@@ -132,7 +132,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 	public function display() {
 		$this->echoOptionHeader();
 		echo "<div class='number-slider'></div>";
-		printf("<input class=\"%s-text\" name=\"%s\" placeholder=\"%s\" id=\"%s\" type=\"number\" value=\"%s\" min=\"%s\" max=\"%s\" step=\"%s\" /> %s <p class=\"description\">%s</p>",
+		printf('<input class="%s-text" name="%s" placeholder="%s" id="%s" type="number" value="%s" min="%s" max="%s" step="%s" /> %s <p class="description">%s</p>',
 			$this->settings['size'],
 			$this->getID(),
 			$this->settings['placeholder'],
@@ -144,16 +144,16 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 			$this->settings['unit'],
 			$this->settings['desc']
 		);
-		$this->echoOptionFooter(false);
+		$this->echoOptionFooter( false );
 	}
 
 
 	/**
 	 * Registers the theme customizer control, for displaying the option
 	 *
-	 * @param	WP_Customize $wp_enqueue_script The customize object
+	 * @param	WP_Customize                    $wp_enqueue_script The customize object
 	 * @param	TitanFrameworkCustomizerSection $section The section where this option will be placed
-	 * @param	int $priority The order of this control in the section
+	 * @param	int                             $priority The order of this control in the section
 	 * @return	void
 	 * @since	1.0
 	 */

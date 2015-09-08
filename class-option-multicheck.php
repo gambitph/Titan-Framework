@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -14,7 +14,7 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 	public function display() {
 		$this->echoOptionHeader( true );
 
-		echo "<fieldset>";
+		echo '<fieldset>';
 
 		$savedValue = $this->cleanValueForGetting( $this->getValue() );
 		if ( empty( $savedValue ) ) {
@@ -32,7 +32,7 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 			);
 		}
 
-		echo "</fieldset>";
+		echo '</fieldset>';
 
 		$this->echoOptionFooter( false );
 	}
@@ -136,7 +136,7 @@ function registerTitanFrameworkOptionMulticheckControl() {
 
 			$description = '';
 			if ( ! empty( $this->description ) ) {
-				$description = "<p class='description'>" . $this->description . "</p>";
+				$description = "<p class='description'>" . $this->description . '</p>';
 			}
 			?>
 			<label class='tf-multicheck-container'>

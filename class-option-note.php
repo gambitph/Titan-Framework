@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 class TitanFrameworkOptionNote extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
@@ -29,7 +29,7 @@ class TitanFrameworkOptionNote extends TitanFrameworkOption {
 		echo $this->settings['desc'];
 
 		if ( $this->settings['paragraph'] ) {
-			echo "</p>";
+			echo '</p>';
 		}
 
 		if ( $this->settings['notification'] ) {
@@ -63,7 +63,7 @@ function registerTitanFrameworkOptionNoteControl() {
 
 		public function render_content() {
 			if ( ! empty( $this->description ) ) {
-				echo "<p class='description'>" . $this->description . "</p>";
+				echo "<p class='description'>" . $this->description . '</p>';
 			}
 		}
 	}
