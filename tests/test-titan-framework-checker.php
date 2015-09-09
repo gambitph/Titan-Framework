@@ -92,26 +92,6 @@ class Titan_Framework_Checker_Test extends PHPUnit_Framework_TestCase {
 			$this->assertEmpty( $result );
 		}
 	}
-
-	function test_titan_admin_install_activate_notifications() {
-		if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
-			return;
-		}
-		
-		$o = new TitanFrameworkChecker();
-		
-		ob_start();
-		$o->display_admin_notification_not_exist();
-		$result = ob_get_contents(); 
-		ob_end_clean(); 
-		$this->assertNotEmpty( $result );
-		
-		ob_start();
-		$o->display_admin_notification_inactive();
-		$result = ob_get_contents(); 
-		ob_end_clean(); 
-		$this->assertNotEmpty( $result );
-	}
 	
 	function test_titan_admin_plugin_exists() {
 		if ( ! class_exists( 'TitanFrameworkChecker' ) ) {

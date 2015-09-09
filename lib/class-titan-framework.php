@@ -564,23 +564,23 @@ class TitanFramework {
 				$dir = '';
 			}
 			$url = trailingslashit( get_template_directory_uri() ) . $dir . $script;
-			
-		// framework is in a child theme
+
+			// framework is in a child theme
 		} else if ( stripos( $file, $childTheme ) !== false ) {
 			$dir = trailingslashit( dirname( str_replace( $childTheme, '', $file ) ) );
 			if ( $dir == './' ) {
 				$dir = '';
 			}
 			$url = trailingslashit( get_stylesheet_directory_uri() ) . $dir . $script;
-			
-		// framework is a or in a plugin
+
+			// framework is a or in a plugin
 		} else {
 			$url = plugins_url( $script, $file );
 		}
-		
+
 		// Replace /foo/../ with '/'.
-		$url = preg_replace( "/\/(?!\.\.)[^\/]+\/\.\.\//", "/", $url );
-		
+		$url = preg_replace( '/\/(?!\.\.)[^\/]+\/\.\.\//', '/', $url );
+
 		return $url;
 	}
 

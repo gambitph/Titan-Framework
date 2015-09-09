@@ -21,7 +21,7 @@
  * v1.7.7
  *		* Added filters to notices
  *
- * @package Sumo Search
+ * @package Titan Framework
  */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
@@ -68,44 +68,24 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 			// If the plugin does not exist, throw admin notice to install.
 			if ( ! $this->plugin_exists() ) {
-				$this->display_admin_notification_not_exist();
+				echo "<div class='error'><p><strong>"
+					. esc_html( apply_filters( 'titan_checker_installation_notice', __( 'Titan Framework needs to be installed.', 'default' ) ) )
+					. sprintf( " <a href='%s'>%s</a>",
+						esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=titan+framework' ) ),
+						esc_html( apply_filters( 'titan_checker_search_plugin_notice', __( 'Click here to search for the plugin.', 'default' ) ) )
+					)
+					. '</strong></p></div>';
 
-			// If the class doesn't exist, the plugin is inactive. Throw admin notice to activate plugin.
+				// If the class doesn't exist, the plugin is inactive. Throw admin notice to activate plugin.
 			} else if ( ! class_exists( apply_filters( 'tf_framework_checker_titan_class', self::TITAN_CLASS ) ) ) {
-				$this->display_admin_notification_inactive();
+				echo "<div class='error'><p><strong>"
+					. esc_html( apply_filters( 'titan_checker_activation_notice', __( 'Titan Framework needs to be activated.', 'default' ) ) )
+					. sprintf( " <a href='%s'>%s</a>",
+						esc_url( admin_url( 'plugins.php' ) ),
+						esc_html( apply_filters( 'titan_checker_activate_plugin_notice', __( 'Click here to go to the plugins page and activate it.', 'default' ) ) )
+					)
+					. '</strong></p></div>';
 			}
-		}
-
-
-		/**
-		 * Displays a notification in the admin with a link to search.
-		 *
-		 * @since 1.6
-		 */
-		public function display_admin_notification_not_exist() {
-			echo "<div class='error'><p><strong>"
-				. esc_html( apply_filters( 'titan_checker_installation_notice', __( 'Titan Framework needs to be installed.', 'default' ) ) )
-				. sprintf( " <a href='%s'>%s</a>",
-					esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=titan+framework' ) ),
-					esc_html( apply_filters( 'titan_checker_search_plugin_notice', __( 'Click here to search for the plugin.', 'default' ) ) )
-				)
-				. '</strong></p></div>';
-		}
-
-
-		/**
-		 * Displays a notification in the admin if the Titan Framework is found but not activated.
-		 *
-		 * @since 1.6
-		 */
-		public function display_admin_notification_inactive() {
-			echo "<div class='error'><p><strong>"
-				. esc_html( apply_filters( 'titan_checker_activation_notice', __( 'Titan Framework needs to be activated.', 'default' ) ) )
-				. sprintf( " <a href='%s'>%s</a>",
-					esc_url( admin_url( 'plugins.php' ) ),
-					esc_html( apply_filters( 'titan_checker_activate_plugin_notice', __( 'Click here to go to the plugins page and activate it.', 'default' ) ) )
-				)
-				. '</strong></p></div>';
 		}
 
 
@@ -113,8 +93,9 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * Checks the existence of Titan Framework in the list of plugins.
 		 * It uses the slug path of the plugin for checking.
 		 *
-		 * @return	boolean True if the TF exists
-		 * @since	1.6
+		 * @since 1.6
+		 *
+		 * @return boolean True if Titan Framework is installed (even if not activated).
 		 */
 		public function plugin_exists() {
 			// Required function as it is only loaded in admin pages.
@@ -138,9 +119,12 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		/**
 		 * Includes Titan Framework in TGM Plugin Activation if it's available.
 		 *
-		 * @return	void
 		 * @since	1.7.4
+		 *
+		 * @return	void
+		 *
 		 * @see		http://tgmpluginactivation.com/
+		 *
 		 * @codeCoverageIgnore
 		 */
 		public function tgm_plugin_activation_include() {

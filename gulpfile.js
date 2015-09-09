@@ -61,6 +61,7 @@ var url = 'local.wordpress.dev',
 	buildInclude = [
 		'./*.+(txt|php|md)', // All files in the root
 		'languages/*.+(po|mo|pot)', // Translation files
+		'lib/**/*', // Include files
 		'inc/**/*', // Include files
 		'js/**/*', // Include files
 		'css/**/*', // Include files
@@ -239,7 +240,7 @@ gulp.task( 'scripts', function() {
  * WordPress coding standards.
  */
 gulp.task('standards', function() {
-  return gulp.src( [ './*.php' ] )
+  return gulp.src( [ './*.php', './lib/**/*.php' ] )
 	// Run PHP CBF to fix easy errors first on the file being processed
 	.pipe( shell( [ 'phpcbf --standard=WordPress-Core,WordPress-Docs <%= file.path %>' ], {
 		// We only want PHPCS errors to notify
@@ -274,7 +275,7 @@ gulp.task('standards', function() {
  * Translation files
  */
 gulp.task( 'translations-pot', function () {
-    return gulp.src( [ '*.php' ] )
+    return gulp.src( [ '*.php', 'lib/**/*.php' ] )
 		.pipe( sort() )
         .pipe( wpPot( {
             domain: 'TF_I18NDOMAIN',
@@ -366,7 +367,7 @@ gulp.task( 'unit-test-sometimes', function () {
  */
 gulp.task( 'watch', [ 'styles', 'scripts', 'translations', 'unit-test-init', 'standards', 'browser-sync', 'unit-test' ], function() {
   gulp.watch( './scss/**/*.scss', [ 'styles' ] );
-  gulp.watch( [ './inc/**/*.php', './*.php' ], [ 'standards', 'unit-test-sometimes', 'browser-reload' ] );
+  gulp.watch( [ './inc/**/*.php', './lib/**/*.php', './*.php' ], [ 'standards', 'unit-test-sometimes', 'browser-reload' ] );
   gulp.watch( [ './js/*.js' ], [ 'scripts', 'browser-reload' ] );
   gulp.watch( [ './**/*.+(png|jpg|gif)' ], [ 'browser-reload' ] );
 } );
