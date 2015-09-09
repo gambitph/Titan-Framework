@@ -180,7 +180,7 @@ class TitanFrameworkCSS {
 			$value = esc_attr( $value );
 
 			// Compile as SCSS & minify
-			require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/scssphp/scss.inc.php' );
+			require_once( trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'inc/scssphp/scss.inc.php' );
 			$scss = new titanscssc();
 
 			// If the value is a file address, wrap it in quotes
@@ -233,7 +233,7 @@ class TitanFrameworkCSS {
 		);
 
 		// Compile as SCSS & minify
-		require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/scssphp/scss.inc.php' );
+		require_once( trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'inc/scssphp/scss.inc.php' );
 		$scss = new titanscssc();
 
 		// Get all the CSS

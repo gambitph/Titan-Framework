@@ -85,7 +85,7 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
-		wp_enqueue_script( 'tf-jquery-ui-timepicker-addon', TitanFramework::getURL( 'js/min/jquery-ui-timepicker-addon-min.js', __FILE__ ), array( 'jquery-ui-datepicker', 'jquery-ui-slider' ) );
+		wp_enqueue_script( 'tf-jquery-ui-timepicker-addon', TitanFramework::getURL( '../js/min/jquery-ui-timepicker-addon-min.js', __FILE__ ), array( 'jquery-ui-datepicker', 'jquery-ui-slider' ) );
 	}
 
 

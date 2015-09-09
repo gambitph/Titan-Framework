@@ -47,8 +47,8 @@ class TitanFrameworkThemeCustomizerSection {
 
 	public function loadUploaderScript() {
 		wp_enqueue_media();
-		wp_enqueue_script( 'tf-theme-customizer-serialize', TitanFramework::getURL( 'js/min/serialize-min.js', __FILE__ ) );
-		wp_enqueue_style( 'tf-admin-theme-customizer-styles', TitanFramework::getURL( 'css/admin-theme-customizer-styles.css', __FILE__ ) );
+		wp_enqueue_script( 'tf-theme-customizer-serialize', TitanFramework::getURL( '../js/min/serialize-min.js', __FILE__ ) );
+		wp_enqueue_style( 'tf-admin-theme-customizer-styles', TitanFramework::getURL( '../css/admin-theme-customizer-styles.css', __FILE__ ) );
 	}
 
 	public function getID() {

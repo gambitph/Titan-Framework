@@ -165,9 +165,9 @@ class TitanFramework {
 		// Only enqueue scripts if we're on a Titan options page
 		if ( in_array( $hook, $panel_ids ) || count( $this->metaBoxes ) ) {
 			wp_enqueue_media();
-			wp_enqueue_script( 'tf-serialize', TitanFramework::getURL( 'js/min/serialize-min.js', __FILE__ ) );
-			wp_enqueue_script( 'tf-styling', TitanFramework::getURL( 'js/min/admin-styling-min.js', __FILE__ ) );
-			wp_enqueue_style( 'tf-admin-styles', TitanFramework::getURL( 'css/admin-styles.css', __FILE__ ) );
+			wp_enqueue_script( 'tf-serialize', TitanFramework::getURL( '../js/min/serialize-min.js', __FILE__ ) );
+			wp_enqueue_script( 'tf-styling', TitanFramework::getURL( '../js/min/admin-styling-min.js', __FILE__ ) );
+			wp_enqueue_style( 'tf-admin-styles', TitanFramework::getURL( '../css/admin-styles.css', __FILE__ ) );
 		}
 	}
 
@@ -557,22 +557,31 @@ class TitanFramework {
 		$file = str_replace( '\\', '/', $file );
 
 		// framework is in a parent theme
+		$url = '';
 		if ( stripos( $file, $parentTheme ) !== false ) {
 			$dir = trailingslashit( dirname( str_replace( $parentTheme, '', $file ) ) );
 			if ( $dir == './' ) {
 				$dir = '';
 			}
-			return trailingslashit( get_template_directory_uri() ) . $dir . $script;
-			// framework is in a child theme
+			$url = trailingslashit( get_template_directory_uri() ) . $dir . $script;
+			
+		// framework is in a child theme
 		} else if ( stripos( $file, $childTheme ) !== false ) {
 			$dir = trailingslashit( dirname( str_replace( $childTheme, '', $file ) ) );
 			if ( $dir == './' ) {
 				$dir = '';
 			}
-			return trailingslashit( get_stylesheet_directory_uri() ) . $dir . $script;
-		}
+			$url = trailingslashit( get_stylesheet_directory_uri() ) . $dir . $script;
+			
 		// framework is a or in a plugin
-		return plugins_url( $script, $file );
+		} else {
+			$url = plugins_url( $script, $file );
+		}
+		
+		// Replace /foo/../ with '/'.
+		$url = preg_replace( "/\/(?!\.\.)[^\/]+\/\.\.\//", "/", $url );
+		
+		return $url;
 	}
 
 
