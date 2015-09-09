@@ -71,7 +71,7 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 				$this->display_admin_notification_not_exist();
 
 			// If the class doesn't exist, the plugin is inactive. Throw admin notice to activate plugin.
-			} else if ( ! class_exists( self::TITAN_CLASS ) ) {
+			} else if ( ! class_exists( apply_filters( 'tf_framework_checker_titan_class', self::TITAN_CLASS ) ) ) {
 				$this->display_admin_notification_inactive();
 			}
 		}
