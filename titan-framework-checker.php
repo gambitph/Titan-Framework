@@ -8,22 +8,29 @@
  * If Titan is not installed, then the script will display a notice with a link to
  * Titan. If Titan is installed but not activated, it will display the appropriate notice as well.
  *
- * To use this script, just copy it into your theme/plugin directory and do a
+ * To use this script, just copy it into your theme/plugin directory then add this in the main file of your project:
+ *
  * require_once( 'titan-framework-checker.php' );
  *
  * Changelog:
+ * v1.8.2
+ *      * Simplified class
  * v1.7.4
  *		* Now integrates with TGM Plugin Activation - uses TGM instead of displaying
  *			our own admin notice
  * v1.7.7
  *		* Added filters to notices
+ *
+ * @package Sumo Search
  */
 
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
+}
 
 if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 	/**
-	 * Titan Framework Checker
+	 * Titan Framework Checker.
 	 *
 	 * @since 1.6
 	 */
@@ -36,57 +43,52 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 
 		/**
-		 * Constructor, add hooks for checking for Titan Framework
+		 * Constructor, add hooks for checking for Titan Framework.
 		 *
 		 * @since 1.6
 		 */
 		function __construct() {
-			add_action( 'after_setup_theme', array( $this, 'perform_check' ), 2 );
+			add_action( 'admin_notices', array( $this, 'display_install_or_active_notice' ), 2 );
 			add_action( 'tgmpa_register', array( $this, 'tgm_plugin_activation_include' ) );
 		}
 
 
 		/**
-		 * Checks the existence of Titan Framework and prompts the display of a notice
+		 * Checks the existence of Titan Framework and prompts the display of a notice.
 		 *
 		 * @since 1.6
 		 */
-		public function perform_check() {
+		public function display_install_or_active_notice() {
 
-			// Only show notifications in the admin
-			if ( ! is_admin() ) {
+			// Check for TGM use, if used, let TGM do the notice.
+			// We do this here since perform_check() is too early.
+			if ( function_exists( 'tgmpa' ) ) {
 				return;
 			}
 
 			// If the plugin does not exist, throw admin notice to install.
 			if ( ! $this->plugin_exists() ) {
-				add_filter( 'admin_notices', array( $this, 'display_admin_notification_not_exist' ) );
+				$this->display_admin_notification_not_exist();
 
-				// If the class doesn't exist, the plugin is inactive. Throw admin notice to activate plugin.
+			// If the class doesn't exist, the plugin is inactive. Throw admin notice to activate plugin.
 			} else if ( ! class_exists( self::TITAN_CLASS ) ) {
-				add_filter( 'admin_notices', array( $this, 'display_admin_notification_inactive' ) );
+				$this->display_admin_notification_inactive();
 			}
 		}
 
 
 		/**
-		 * Displays a notification in the admin with a link to search
+		 * Displays a notification in the admin with a link to search.
 		 *
 		 * @since 1.6
 		 */
 		public function display_admin_notification_not_exist() {
-
-			// Check for TGM use, if used, let TGM do the notice.
-			// We do this here since perform_check() is too early
-			if ( $this->tgm_plugin_activation_exists() ) {
-				return;
-			}
-
 			echo "<div class='error'><p><strong>"
-				. apply_filters( 'titan_checker_installation_notice', __( 'Titan Framework needs to be installed.', 'default' ) )
+				. esc_html( apply_filters( 'titan_checker_installation_notice', __( 'Titan Framework needs to be installed.', 'default' ) ) )
 				. sprintf( " <a href='%s'>%s</a>",
-					admin_url( 'plugin-install.php?tab=search&type=term&s=titan+framework' ),
-				apply_filters( 'titan_checker_search_plugin_notice', __( 'Click here to search for the plugin.', 'default' ) ) )
+					esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=titan+framework' ) ),
+					esc_html( apply_filters( 'titan_checker_search_plugin_notice', __( 'Click here to search for the plugin.', 'default' ) ) )
+				)
 				. '</strong></p></div>';
 		}
 
@@ -97,25 +99,19 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 		 * @since 1.6
 		 */
 		public function display_admin_notification_inactive() {
-
-			// Check for TGM use, if used, let TGM do the notice.
-			// We do this here since perform_check() is too early
-			if ( $this->tgm_plugin_activation_exists() ) {
-				return;
-			}
-
 			echo "<div class='error'><p><strong>"
-				. apply_filters( 'titan_checker_activation_notice', __( 'Titan Framework needs to be activated.', 'default' ) )
+				. esc_html( apply_filters( 'titan_checker_activation_notice', __( 'Titan Framework needs to be activated.', 'default' ) ) )
 				. sprintf( " <a href='%s'>%s</a>",
-					admin_url( 'plugins.php' ),
-				apply_filters( 'titan_checker_activate_plugin_notice', __( 'Click here to go to the plugins page and activate it.', 'default' ) ) )
+					esc_url( admin_url( 'plugins.php' ) ),
+					esc_html( apply_filters( 'titan_checker_activate_plugin_notice', __( 'Click here to go to the plugins page and activate it.', 'default' ) ) )
+				)
 				. '</strong></p></div>';
 		}
 
 
 		/**
-		 * Checks the existence of Titan Framework in the list of plugins,
-		 * uses the slug path of the plugin for checking.
+		 * Checks the existence of Titan Framework in the list of plugins.
+		 * It uses the slug path of the plugin for checking.
 		 *
 		 * @return	boolean True if the TF exists
 		 * @since	1.6
@@ -129,7 +125,8 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 			// Check plugin existence by checking if the name is registered as an array key. get_plugins collects all plugin path into arrays.
 			foreach ( $plugins as $slug => $plugin ) {
-				if ( preg_match( self::SEARCH_REGEX, $slug, $matches ) ) {
+				$searchRegex = apply_filters( 'tf_framework_checker_regex', self::SEARCH_REGEX );
+				if ( preg_match( $searchRegex, $slug, $matches ) ) {
 					return true;
 				}
 			}
@@ -139,41 +136,27 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 
 		/**
-		 * Checks whether TGM Plugin Activation is being used.
-		 *
-		 * @return	boolean True if the TF was used in TGM
-		 * @since	1.7.4
-		 * @see		http://tgmpluginactivation.com/
-		 */
-		public function tgm_plugin_activation_exists() {
-			return class_exists( 'TGM_Plugin_Activation' )
-				&& function_exists( 'tgmpa' );
-		}
-
-
-		/**
-		 * Includes Titan Framework in TGM Plugin Activation if it's
-		 * available.
+		 * Includes Titan Framework in TGM Plugin Activation if it's available.
 		 *
 		 * @return	void
 		 * @since	1.7.4
 		 * @see		http://tgmpluginactivation.com/
+		 * @codeCoverageIgnore
 		 */
 		public function tgm_plugin_activation_include() {
-			if ( ! $this->tgm_plugin_activation_exists() ) {
-				return;
+			if ( function_exists( 'tgmpa' ) ) {
+			    tgmpa( array(
+			        array(
+			            'name' => 'Titan Framework',
+			            'slug' => self::PLUGIN_SLUG,
+			            'required' => true,
+			        ),
+			    ) );
 			}
-
-		    tgmpa( array(
-		        array(
-		            'name' => 'Titan Framework',
-		            'slug' => self::PLUGIN_SLUG,
-		            'required' => true,
-		        ),
-		    ) );
 		}
 	}
 
 	new TitanFrameworkChecker();
+
 
 }
