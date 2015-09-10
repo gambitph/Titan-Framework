@@ -154,17 +154,19 @@ class TitanFrameworkPlugin {
 	 *
 	 * @see	initially based on http://snippets.khromov.se/modify-wordpress-plugin-load-order/
 	 */
-	public function force_load_first() {
-		$plugins = (array) get_option( 'active_plugins' );
+	public function force_load_first( $plugins = null ) {
+		$plugins = $plugins == null ? (array) get_option( 'active_plugins' ) : $plugins;
 
 		if ( ! empty( $plugins ) ) {
 			$index = array_search( TF_PLUGIN_BASENAME, $plugins );
 			if ( false !== $index && 0 !== $index ) {
-				array_splice( $plugins, $key, 1 );
+				array_splice( $plugins, $index, 1 );
 				array_unshift( $plugins, TF_PLUGIN_BASENAME );
 				update_option( 'active_plugins', $plugins );
 			}
 		}
+
+		return $plugins;
 	}
 
 

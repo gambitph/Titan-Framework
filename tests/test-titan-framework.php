@@ -67,5 +67,19 @@ class Titan_Framework_Test extends PHPUnit_Framework_TestCase {
 		$this->assertCount( 1, $meta, 'Non TF meta should not be touched.' );
 	}
 	
+	function test_force_load_first() {
+		$o = new TitanFrameworkPlugin();
+		
+		$plugins = $o->force_load_first( array( '1', '2' ) );
+		$this->assertEquals( array( '1', '2' ), $plugins );
+		
+		$plugins = $o->force_load_first( array( '1', '2', TF_PLUGIN_BASENAME ) );
+		$this->assertCount( 3, $plugins );
+		$this->assertEquals( TF_PLUGIN_BASENAME, $plugins[0] );
+		
+		$plugins = $o->force_load_first( array( TF_PLUGIN_BASENAME, '1', '2' ) );
+		$this->assertCount( 3, $plugins );
+		$this->assertEquals( TF_PLUGIN_BASENAME, $plugins[0] );
+	}
 }
 
