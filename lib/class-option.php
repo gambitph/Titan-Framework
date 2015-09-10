@@ -201,6 +201,29 @@ class TitanFrameworkOption {
 		endif;
 	}
 
+	protected function echoOptionHeaderBare() {
+		// Allow overriding for custom styling
+		$useCustom = false;
+		$useCustom = apply_filters( 'tf_use_custom_option_header', $useCustom );
+		$useCustom = apply_filters( 'tf_use_custom_option_header_' . $this->getOptionNamespace(), $useCustom );
+		if ( $useCustom ) {
+			do_action( 'tf_custom_option_header', $this );
+			do_action( 'tf_custom_option_header_' . $this->getOptionNamespace(), $this );
+			return;
+		}
+
+		$id = $this->getID();
+		$name = $this->getName();
+		$evenOdd = self::$rowIndex++ % 2 == 0 ? 'odd' : 'even';
+
+		$style = $this->getHidden() == true ? 'style="display: none"' : '';
+
+		?>
+		<tr valign="top" class="row-<?php echo self::$rowIndex ?> <?php echo $evenOdd ?>" <?php echo $style ?>>
+			<td class="second tf-<?php echo $this->settings['type'] ?>">
+		<?php
+	}
+
 	protected function echoOptionFooter( $showDesc = true ) {
 		// Allow overriding for custom styling
 		$useCustom = false;
@@ -225,6 +248,23 @@ class TitanFrameworkOption {
 			<p class="description"><code><?php echo htmlentities( $example ) ?></code></p>
 			<?php
 		endif;
+
+		?>
+		</td>
+		</tr>
+		<?php
+	}
+
+	protected function echoOptionFooterBare( $showDesc = true ) {
+		// Allow overriding for custom styling
+		$useCustom = false;
+		$useCustom = apply_filters( 'tf_use_custom_option_footer', $useCustom );
+		$useCustom = apply_filters( 'tf_use_custom_option_footer_' . $this->getOptionNamespace(), $useCustom );
+		if ( $useCustom ) {
+			do_action( 'tf_custom_option_footer', $this );
+			do_action( 'tf_custom_option_footer_' . $this->getOptionNamespace(), $this );
+			return;
+		}
 
 		?>
 		</td>

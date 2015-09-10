@@ -365,9 +365,9 @@ gulp.task( 'unit-test-sometimes', function () {
 /**
  * Watch changed files
  */
-gulp.task( 'watch', [ 'styles', 'scripts', 'translations', 'unit-test-init', 'standards', 'browser-sync', 'unit-test' ], function() {
+gulp.task( 'watch', [ 'styles', 'scripts', 'translations', 'unit-test-init', 'browser-sync', 'unit-test' ], function() {
   gulp.watch( './scss/**/*.scss', [ 'styles' ] );
-  gulp.watch( [ './inc/**/*.php', './lib/**/*.php', './*.php' ], [ 'standards', 'unit-test-sometimes', 'browser-reload' ] );
+  gulp.watch( [ './inc/**/*.php', './lib/**/*.php', './*.php' ], [ 'unit-test-sometimes', 'browser-reload' ] );
   gulp.watch( [ './js/*.js' ], [ 'scripts', 'browser-reload' ] );
   gulp.watch( [ './**/*.+(png|jpg|gif)' ], [ 'browser-reload' ] );
 } );
