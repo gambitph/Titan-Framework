@@ -139,14 +139,14 @@ msgstr ""
 "Wrong usage of %s, this should be called inside a hook or from within a "
 "theme file."
 
-#: titan-framework.php:184
+#: titan-framework.php:185
 msgid "Documentation"
 msgstr "Documentation"
 
-#: titan-framework.php:188
+#: titan-framework.php:189
 msgid "GitHub Repo"
 msgstr "GitHub Repo"
 
-#: titan-framework.php:192
+#: titan-framework.php:193
 msgid "Issue Tracker"
 msgstr "Issue Tracker"

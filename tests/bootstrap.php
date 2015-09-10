@@ -5,6 +5,8 @@ if ( ! $_tests_dir ) {
 	$_tests_dir = '/tmp/wordpress-tests-lib';
 }
 
+define( 'TF_PLUGIN_BASENAME', 'Titan-Framework/titan-framework.php' );
+
 require_once $_tests_dir . '/includes/functions.php';
 
 $GLOBALS['wp_tests_options'] = array(

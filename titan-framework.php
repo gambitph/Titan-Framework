@@ -29,6 +29,8 @@ defined( 'TF' ) or define( 'TF', 'titan-framework' );
 defined( 'TF_NAME' ) or define( 'TF_NAME', 'Titan Framework' );
 // Used for file includes.
 defined( 'TF_PATH' ) or define( 'TF_PATH', trailingslashit( dirname( __FILE__ ) ) );
+// Used for testing and checking plugin slug name.
+defined( 'TF_PLUGIN_BASENAME' ) or define( 'TF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 require_once( TF_PATH . 'lib/class-admin-notification.php' );
 require_once( TF_PATH . 'lib/class-admin-panel.php' );
@@ -91,34 +93,40 @@ class TitanFrameworkPlugin {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_links' ), 10, 2 );
 
 		// Initialize options, but do not really create them yet.
-		add_action( 'after_setup_theme', array( $this, 'trigger_option_creation' ), 5 );
-
+		add_action( 'after_setup_theme', array( $this, 'trigger_initial_option_creation' ), 5 );
 		// Create the options.
-		add_action( 'init', array( $this, 'trigger_option_creation' ), 11 );
+		add_action( 'init', array( $this, 'trigger_actual_option_creation' ), 11 );
 	}
 
 
 	/**
-	 * This will trigger the loading of all the options
+	 * Trigger initial loading of all the options. Initial loading is when all options are
+	 * gathered for pre-processing: saving default values & checking.
 	 *
-	 * @since 1.6
+	 * @since 1.8.2
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function trigger_option_creation() {
-		// The after_setup_theme is the initialization stage.
-		if ( current_filter() == 'after_setup_theme' ) {
-			TitanFramework::$initializing = true;
-		}
-
+	public function trigger_initial_option_creation() {
+		TitanFramework::$initializing = true;
 		do_action( 'tf_create_options' );
-
 		TitanFramework::$initializing = false;
+	}
 
-		if ( current_filter() == 'init' ) {
-			do_action( 'tf_done' );
-		}
+
+	/**
+	 * Trigger actual loading of all the options. Actual loading is when all options are
+	 * gathered for display purposes
+	 *
+	 * @since 1.8.2
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function trigger_actual_option_creation() {
+		do_action( 'tf_create_options' );
+		do_action( 'tf_done' );
 	}
 
 
@@ -137,31 +145,24 @@ class TitanFrameworkPlugin {
 
 	/**
 	 * Forces our plugin to be loaded first. This is to ensure that plugins that use the framework have access to
-	 * this class.
+	 * this class from almost anywhere
 	 *
 	 * @since 1.0
 	 * @access public
 	 *
 	 * @return void
 	 *
-	 * @see	loosly based on http://snippets.khromov.se/modify-wordpress-plugin-load-order/
+	 * @see	initially based on http://snippets.khromov.se/modify-wordpress-plugin-load-order/
 	 */
 	public function force_load_first() {
-		$tfFileName = basename( __FILE__ );
-		if ( $plugins = get_option( 'active_plugins' ) ) {
-			foreach ( $plugins as $key => $pluginPath ) {
+		$plugins = (array) get_option( 'active_plugins' );
 
-				// If we are the first one to load already, don't do anything.
-				if ( false !== strpos( $pluginPath, $tfFileName ) && 0 == $key ) {
-					break;
-
-					// If we aren't the first one, force it!
-				} else if ( false !== strpos( $pluginPath, $tfFileName ) ) {
-					array_splice( $plugins, $key, 1 );
-					array_unshift( $plugins, $pluginPath );
-					update_option( 'active_plugins', $plugins );
-					break;
-				}
+		if ( ! empty( $plugins ) ) {
+			$index = array_search( TF_PLUGIN_BASENAME, $plugins );
+			if ( false !== $index && 0 !== $index ) {
+				array_splice( $plugins, $key, 1 );
+				array_unshift( $plugins, TF_PLUGIN_BASENAME );
+				update_option( 'active_plugins', $plugins );
 			}
 		}
 	}
@@ -178,7 +179,7 @@ class TitanFrameworkPlugin {
 	 * @return	array  The current array of links together with our additions
 	 **/
 	public function plugin_links( $plugin_meta, $plugin_file ) {
-		if ( plugin_basename( __FILE__ ) == $plugin_file ) {
+		if ( TF_PLUGIN_BASENAME == $plugin_file ) {
 			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
 				'http://www.titanframework.net/docs',
 				__( 'Documentation', TF_I18NDOMAIN )
