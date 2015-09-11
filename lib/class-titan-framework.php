@@ -427,7 +427,9 @@ class TitanFramework {
 				if ( ! empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
 					unset( self::$earlyAdminOptions[ $this->optionNamespace ] );
 				}
-				$value = $this->allOptions[ $this->optionNamespace ][ $optionName ];
+				if ( isset( $this->allOptions[ $this->optionNamespace ][ $optionName ] ) ) {
+					$value = $this->allOptions[ $this->optionNamespace ][ $optionName ];
+				}
 
 				// Meta box options
 			} else if ( $option->type == TitanFrameworkOption::TYPE_META ) {
