@@ -403,13 +403,24 @@ class TitanFramework {
 	 * Get an option
 	 *
 	 * @access  public
-	 * @param	String $optionName The name of the option
-	 * @param	Int    $postID The post ID if this is a meta option
-	 * @return  Mixed	The option value
 	 * @since   1.0
+	 *
+	 * @param	mixed $optionName The name of the option or an associative array containing
+	 *                            keys as option names
+	 * @param	int   $postID     The post ID if this is a meta option
+	 *
+	 * @return  mixed The option value
+	 *
+	 * @see _getOptionMulti()
 	 */
 	public function getOption( $optionName, $postID = null ) {
 		$value = null;
+		
+		// If the option name is an array, fill it up with values
+		if ( is_array( $optionName ) ) {
+			$return = $this->_getOptionMulti( $optionName, $postID );
+			return apply_filters( 'tf_get_option_multi', $return );
+		}
 
 		// Get the option value
 		if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
@@ -457,6 +468,30 @@ class TitanFramework {
 			}
 		}
 		return $value;
+	}
+
+
+	/**
+	 * Gets a set of options. Not to be called directly, use getOption() and pass
+	 * an associative array containing the option names as keys.
+	 *
+	 * @since   1.8.2
+	 *
+	 * @param	array $optionArray An associative array containing option names as keys
+	 * @param	int   $postID      The post ID if this is a meta option
+	 *
+	 * @return  array              An array containing the values saved
+	 *
+	 * @see $this->getOption()
+	 */
+	public function _getOptionMulti( $optionArray, $postID = null ) {
+		foreach ( $optionArray as $optionName => $originalValue ) {
+			$value = $this->getOption( $optionName, $postID );
+			if ( $value != null ) {
+				$optionArray[ $optionName ] = $value;
+			}
+		}
+		return $optionArray;
 	}
 
 	public function setOption( $optionName, $value, $postID = null ) {
