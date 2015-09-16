@@ -240,22 +240,25 @@ gulp.task( 'scripts', function() {
  * WordPress coding standards.
  */
 gulp.task('standards', function() {
-  return gulp.src( [ './*.php', './lib/**/*.php' ] )
+  return gulp.src( [ '*.php', 'lib/**/*.php' ] )
 	// Run PHP CBF to fix easy errors first on the file being processed
-	.pipe( shell( [ 'phpcbf --standard=WordPress-Core,WordPress-Docs <%= file.path %>' ], {
+	.pipe( shell( [ 'phpcbf --standard=./ruleset.xml <%= file.path %>' ], {
 		// We only want PHPCS errors to notify
 		ignoreErrors: true,
 		// We don't want to see what was fixed
 		quiet: true
 	} ) )
+	.pipe( debug() )
 	// Run PHP Code Sniffer to check
     .pipe(phpcs({
-      standard: 'WordPress-Core,WordPress-Docs',
+		// standard: 'WordPress-Core,WordPress-Docs',
+		standard: './ruleset.xml',
+		colors: true
     })) 
 	// Show PHPCS logs (this is where we check on how to fix stuff)
     .pipe(phpcs.reporter('log'))
 	// Make it report an error (doesn't report an error if there is none)
-    .pipe(phpcs.reporter('fail'))
+    // .pipe(phpcs.reporter('fail'))
 	// Notify desktop for errors
 	.on( 'error', function( err ) {
 		notify.onError( {
