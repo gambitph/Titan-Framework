@@ -218,11 +218,13 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 
 		foreach ( $value as $key => $val ) {
+
 			// Force skip other keys, those are processed under another key, e.g. text-shadow-distance is
 			// used by text-shadow-location
 			if ( in_array( $key, $skip ) ) {
 				continue;
 			}
+
 			// Don't include keys which are not in the default styles
 			if ( ! in_array( $key, array_keys( self::$defaultStyling ) ) ) {
 				continue;
@@ -278,10 +280,10 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		/*
 		 * There are 2 ways to include the values for the CSS. The normal `value-arraykey`, or just `value`
-		 * Using `value` will print out the entire font CSS
+		 * Using `value` will print out the entire font CSS.
 		 */
 
-		// Create the entire CSS for the font, this should just be used to replace the `value` variable
+		// Create the entire CSS for the font, this should just be used to replace the `value` variable.
 		$cssVariables = '';
 		$cssChecking = array( 'font_family', 'color', 'font_size', 'font_weight', 'font_style', 'line_height', 'letter_spacing', 'text_transform', 'font_variant', 'text_shadow' );
 
@@ -292,18 +294,20 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			}
 		}
 
-		// Now, integrate these values with their corresponding keys
+		// Now, integrate these values with their corresponding keys.
 		foreach ( $cssVariableArray as $param ) {
 			$cssVariables .= $param . ': $' . $option->settings['id'] . '-' . $param . ";\n";
 		}
 
-		// Replace the `value` parameters in the given css
+		// Replace the `value` parameters in the given css.
 		$modifiedCss = '';
 		if ( ! empty( $option->settings['css'] ) ) {
 			$modifiedCss = $option->settings['css'];
-			// if `value` is given, replace it with the entire css we created above in $cssVariables
+
+			// If `value` is given, replace it with the entire css we created above in $cssVariables.
 			$modifiedCss = preg_replace( '/value[^-]/', $cssVariables, $modifiedCss );
-			// normal `value-arraykey` values
+
+			// Normal `value-arraykey` values.
 			$modifiedCss = str_replace( 'value-', '$' . $option->settings['id'] . '-', $modifiedCss );
 		}
 

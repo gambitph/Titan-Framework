@@ -113,7 +113,7 @@ msgstr ""
 msgid "All option IDs must be unique. The id %s has been used multiple times."
 msgstr ""
 
-#: lib/class-titan-framework.php:478
+#: lib/class-titan-framework.php:515
 msgid "Wrong usage of %s, this should be called inside a hook or from within a theme file."
 msgstr ""
 
