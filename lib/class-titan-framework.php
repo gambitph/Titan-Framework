@@ -151,8 +151,6 @@ class TitanFramework {
 	 * @since 1.0
 	 *
 	 * @param string $optionNamespace The namespace to get options from.
-	 *
-	 * @return void
 	 */
 	function __construct( $optionNamespace ) {
 
