@@ -41,6 +41,10 @@ class TitanFrameworkThemeCustomizerSection {
 			$this->settings['panel_id'] = str_replace( ' ', '-', trim( strtolower( $this->settings['panel'] ) ) );
 		}
 
+		if ( TitanFramework::$initializing ) {
+			return;
+		}
+		
 		add_action( 'customize_register', array( $this, 'register' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadUploaderScript' ) );
 	}
@@ -75,6 +79,11 @@ class TitanFrameworkThemeCustomizerSection {
 						}
 
 						echo $option->settings['livepreview'];
+
+						// Some options may want to insert custom jQuery code after manipulation of live preview
+						if ( ! empty( $option->settings['id'] ) ) {
+							do_action( 'tf_livepreview_post_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
+						}
 						?>
 					} );
 				} );
