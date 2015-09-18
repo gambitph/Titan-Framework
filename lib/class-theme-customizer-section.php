@@ -44,7 +44,7 @@ class TitanFrameworkThemeCustomizerSection {
 		if ( TitanFramework::$initializing ) {
 			return;
 		}
-		
+
 		add_action( 'customize_register', array( $this, 'register' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadUploaderScript' ) );
 	}

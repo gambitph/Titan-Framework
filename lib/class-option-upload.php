@@ -22,7 +22,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		parent::__construct( $settings, $owner );
 
 		add_filter( 'tf_generate_css_upload_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
-		
+
 		if ( ! TitanFramework::$initializing ) {
 			add_action( 'tf_livepreview_pre_' . $this->getOptionNamespace(), array( $this, 'preLivePreview' ), 10, 3 );
 			add_action( 'tf_livepreview_post_' . $this->getOptionNamespace(), array( $this, 'postLivePreview' ), 10, 3 );
@@ -68,9 +68,9 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 
 	/**
-	 * The upload option gives out an attachment ID. Live previews will not work since we cannot get 
+	 * The upload option gives out an attachment ID. Live previews will not work since we cannot get
 	 * the upload URL from an ID easily. Use a specially created Ajax Handler for just getting the URL.
-	 * 
+	 *
 	 * @since 1.9
 	 *
 	 * @see tf_upload_option_customizer_get_value()
@@ -79,10 +79,10 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		if ( $optionID != $this->settings['id'] ) {
 			return;
 		}
-		
+
 		$nonce = wp_create_nonce( 'tf_upload_option_nonce' );
 		$size = ! empty( $this->settings['size'] ) ? $this->settings['size'] : 'thumbnail';
-		
+
 		?>
 		wp.ajax.send( 'tf_upload_option_customizer_get_value', {
 		    data: {
@@ -99,7 +99,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 	/**
 	 * Closes the Javascript code created in preLivePreview()
-	 * 
+	 *
 	 * @since 1.9
 	 *
 	 * @see preLivePreview()
@@ -108,7 +108,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		if ( $optionID != $this->settings['id'] ) {
 			return;
 		}
-		
+
 		// Close the ajax call
 		?>
 			}
@@ -357,31 +357,30 @@ function registerTitanFrameworkOptionUploadControl() {
 
 
 if ( ! function_exists( 'tf_upload_option_customizer_get_value' ) ) {
-	
+
 	add_action( 'wp_ajax_tf_upload_option_customizer_get_value', 'tf_upload_option_customizer_get_value' );
-	
+
 	/**
 	 * Returns the image URL from an attachment ID & size
 	 *
 	 * @see TitanFrameworkOptionUpload->preLivePreview()
 	 */
 	function tf_upload_option_customizer_get_value() {
-		
-		if ( ! empty( $_POST['nonce'] ) && ! empty( $_POST['id'] ) && ! empty( $_POST['size' ] ) ) {
-		
+
+		if ( ! empty( $_POST['nonce'] ) && ! empty( $_POST['id'] ) && ! empty( $_POST['size'] ) ) {
+
 			$nonce = sanitize_text_field( $_POST['nonce'] );
 			$attachmentID = sanitize_text_field( $_POST['id'] );
 			$size = sanitize_text_field( $_POST['size'] );
-		
-			if ( wp_verify_nonce( $nonce, "tf_upload_option_nonce" ) ) {
+
+			if ( wp_verify_nonce( $nonce, 'tf_upload_option_nonce' ) ) {
 				$attachment = wp_get_attachment_image_src( $attachmentID, $size );
 				if ( ! empty( $attachment ) ) {
 					wp_send_json_success( $attachment[0] );
 				}
 			}
-	
 		}
-		
+
 		// Instead of doing a wp_send_json_error, send a blank value instead so
 		// Javascript adjustments still get executed
 		wp_send_json_success( '' );

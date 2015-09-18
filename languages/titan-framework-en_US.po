@@ -88,11 +88,11 @@ msgstr "Enabled"
 msgid "Disabled"
 msgstr "Disabled"
 
-#: lib/class-option-gallery.php:148, lib/class-option-upload.php:202
+#: lib/class-option-gallery.php:148, lib/class-option-upload.php:257
 msgid "Select Image"
 msgstr "Select Image"
 
-#: lib/class-option-gallery.php:151, lib/class-option-upload.php:205
+#: lib/class-option-gallery.php:151, lib/class-option-upload.php:260
 msgid "Use image"
 msgstr "Use image"
 
@@ -127,11 +127,11 @@ msgstr "Select"
 msgid "Option type or extended class %s does not exist."
 msgstr "Option type or extended class %s does not exist."
 
-#: lib/class-titan-framework.php:111
+#: lib/class-titan-framework.php:209
 msgid "All option IDs must be unique. The id %s has been used multiple times."
 msgstr "All option IDs must be unique. The id %s has been used multiple times."
 
-#: lib/class-titan-framework.php:515
+#: lib/class-titan-framework.php:757
 msgid ""
 "Wrong usage of %s, this should be called inside a hook or from within a "
 "theme file."
