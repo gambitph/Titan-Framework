@@ -411,6 +411,9 @@ class TitanFrameworkAdminPanel {
 	public function createTab( $settings ) {
 		$obj = new TitanFrameworkAdminTab( $settings, $this );
 		$this->tabs[] = $obj;
+		
+		do_action( 'tf_admin_tab_created_' . $this->getOptionNamespace(), $obj );
+		
 		return $obj;
 	}
 
