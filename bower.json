@@ -38,6 +38,7 @@
     "tests"
   ],
   "dependencies": {
-    "ace-builds": "~1.2.0"
+    "ace-builds": "~1.2.0",
+    "wp-color-picker-alpha": "23r9i0/wp-color-picker-alpha"
   }
 }
