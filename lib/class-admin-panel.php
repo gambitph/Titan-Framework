@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
-class TitanFrameworkAdminPanel {
+class TitanFrameworkAdminPage {
 
 	private $defaultSettings = array(
 		'name' => '', // Name of the menu item

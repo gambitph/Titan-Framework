@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
-class TitanFrameworkThemeCustomizerSection {
+class TitanFrameworkCustomizer {
 
 	private $defaultSettings = array(
 		'name' => '', // Name of the menu item

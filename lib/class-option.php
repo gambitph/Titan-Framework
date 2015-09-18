@@ -69,7 +69,7 @@ class TitanFrameworkOption {
 		$this->settings = array_merge( $this->settings, $settings );
 
 		$this->type = is_a( $owner, 'TitanFrameworkMetaBox' ) ? self::TYPE_META : self::TYPE_ADMIN;
-		$this->type = is_a( $owner, 'TitanFrameworkThemeCustomizerSection' ) ? self::TYPE_CUSTOMIZER : $this->type;
+		$this->type = is_a( $owner, 'TitanFrameworkCustomizer' ) ? self::TYPE_CUSTOMIZER : $this->type;
 
 		// Generate a unique ID depending on the settings for those without IDs
 		if ( empty( $this->settings['id'] ) && $this->settings['type'] != 'save' ) {

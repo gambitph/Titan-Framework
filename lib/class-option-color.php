@@ -72,9 +72,9 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 	 *
 	 * @since 1.0
 	 *
-	 * @param WP_Customize                         $wp_customize
-	 * @param TitanFrameworkThemeCustomizerSection $section
-	 * @param int                                  $priority The location/priority of this option inside the section.
+	 * @param WP_Customize             $wp_customize
+	 * @param TitanFrameworkCustomizer $section
+	 * @param int                      $priority The location/priority of this option inside the section.
 	 *
 	 * @return void
 	 */
