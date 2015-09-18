@@ -545,7 +545,7 @@ class TitanFramework {
 	 */
 	public function createThemeCustomizerSection( $settings ) {
 		// _deprecated_function( __FUNCTION__, '1.9', 'createCustomizerSection' );
-		return $this->createCustomizer( $settings );
+		return $this->createCustomizerSection( $settings );
 	}
 
 
