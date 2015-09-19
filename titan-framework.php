@@ -33,8 +33,9 @@ defined( 'TF_PATH' ) or define( 'TF_PATH', trailingslashit( dirname( __FILE__ ) 
 defined( 'TF_PLUGIN_BASENAME' ) or define( 'TF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 require_once( TF_PATH . 'lib/class-admin-notification.php' );
-require_once( TF_PATH . 'lib/class-admin-panel.php' );
+require_once( TF_PATH . 'lib/class-admin-page.php' );
 require_once( TF_PATH . 'lib/class-admin-tab.php' );
+require_once( TF_PATH . 'lib/class-customizer.php' );
 require_once( TF_PATH . 'lib/class-meta-box.php' );
 require_once( TF_PATH . 'lib/class-option.php' );
 require_once( TF_PATH . 'lib/class-option-ajax-button.php' );
@@ -68,7 +69,6 @@ require_once( TF_PATH . 'lib/class-option-sortable.php' );
 require_once( TF_PATH . 'lib/class-option-text.php' );
 require_once( TF_PATH . 'lib/class-option-textarea.php' );
 require_once( TF_PATH . 'lib/class-option-upload.php' );
-require_once( TF_PATH . 'lib/class-theme-customizer-section.php' );
 require_once( TF_PATH . 'lib/class-titan-css.php' );
 require_once( TF_PATH . 'lib/class-titan-framework.php' );
 require_once( TF_PATH . 'lib/class-wp-customize-control.php' );
