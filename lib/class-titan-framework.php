@@ -703,7 +703,12 @@ class TitanFramework {
 					}
 				}
 
-				$value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
+				// If the post meta doesn't exist yet, then return the default value
+				if ( metadata_exists( 'post', $postID, $this->optionNamespace . '_' . $optionName ) ) {
+					$value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
+				} else if ( isset( $option->settings['default'] ) ) {
+					$value = $option->settings['default'];
+				}
 
 			} else if ( $option->type == TitanFrameworkOption::TYPE_CUSTOMIZER ) { // Customizer option.
 

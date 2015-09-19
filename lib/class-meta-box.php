@@ -42,6 +42,10 @@ class TitanFrameworkMetaBox {
 
 		add_action( 'add_meta_boxes', array( $this, 'register' ) );
 		add_action( 'save_post', array( $this, 'saveOptions' ), 10, 2 );
+		
+		// The action save_post isn't performed for attachments. edit_attachments
+		// is a specific action only for attachments.
+		add_action( 'edit_attachment', array( $this, 'saveOptions' ) );
 	}
 
 	public function register() {
@@ -93,7 +97,8 @@ class TitanFrameworkMetaBox {
 		<?php
 	}
 
-	public function saveOptions( $postID, $post ) {
+	public function saveOptions( $postID, $post = null ) {
+		
 		// Verify nonces and other stuff
 		if ( ! $this->verifySecurity( $postID, $post ) ) {
 			return;
@@ -118,7 +123,7 @@ class TitanFrameworkMetaBox {
 		}
 	}
 
-	private function verifySecurity( $postID, $post ) {
+	private function verifySecurity( $postID, $post = null ) {
 		// Verify edit submission
 		if ( empty( $_POST ) ) {
 			return false;
@@ -142,14 +147,14 @@ class TitanFrameworkMetaBox {
 			if ( ! in_array( $_POST['post_type'], $this->settings['post_type'] ) ) {
 				return false;
 			}
-			if ( ! in_array( $post->post_type, $this->settings['post_type'] ) ) {
+			if ( null !== $post && ! in_array( $post->post_type, $this->settings['post_type'] ) ) {
 				return false;
 			}
 		} else {
 			if ( $_POST['post_type'] != $this->settings['post_type'] ) {
 				return false;
 			}
-			if ( $post->post_type != $this->settings['post_type'] ) {
+			if ( null !== $post && $post->post_type != $this->settings['post_type'] ) {
 				return false;
 			}
 		}

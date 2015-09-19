@@ -77,31 +77,9 @@ class TitanFrameworkOption {
 		}
 	}
 
-	/**
-	 * is_edit_page
-	 * function to check if the current page is a post edit page
-	 *
-	 * @author Ohad Raz <admin@bainternet.info>
-	 *
-	 * @param  string $new_edit what page to check for accepts new - new post page ,edit - edit post page, null for either
-	 * @return boolean
-	 *
-	 * @see Borrowed from: http://wordpress.stackexchange.com/questions/50043/how-to-determine-whether-we-are-in-add-new-page-post-cpt-or-in-edit-page-post-cp?rq=1
-	 */
-	private function isEditPage( $new_edit = null ) {
-		global $pagenow;
-		// make sure we are on the backend
-		if ( ! is_admin() ) { return false; }
-
-		if ( $new_edit == 'edit' ) {
-			return in_array( $pagenow, array( 'post.php' ) ); } elseif ($new_edit == 'new') // check for new post page
-			return in_array( $pagenow, array( 'post-new.php' ) );
-		else { // check for either new or edit
-			return in_array( $pagenow, array( 'post.php', 'post-new.php' ) ); }
-	}
-
 	public function getValue() {
 		if ( $this->type == self::TYPE_ADMIN ) {
+			
 			if ( is_a( $this->owner, 'TitanFrameworkAdminTab' ) ) {
 				$allOptions = $this->owner->owner->owner->getAllOptions();
 			} else {
@@ -111,14 +89,16 @@ class TitanFrameworkOption {
 				return $allOptions[ $this->settings['id'] ];
 			}
 			return '';
+			
 		} else if ( $this->type == self::TYPE_META ) {
+			
 			// for meta options, use the default value for new posts/pages
-			if ( $this->isEditPage( 'new' ) ) {
-				return $this->settings['default'];
-			} else {
-				// use the saved value for edited posts/pages
+			if ( metadata_exists( 'post', $this->owner->postID, $this->getID() ) ) {
 				return get_post_meta( $this->owner->postID, $this->getID(), true );
+			} else {
+				return $this->settings['default'];
 			}
+			
 		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
 			return get_theme_mod( $this->getID() );
 		}
