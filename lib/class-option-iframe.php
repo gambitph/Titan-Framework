@@ -28,7 +28,7 @@ class TitanFrameworkOptionIframe extends TitanFrameworkOption {
 	 * Display for options and meta
 	 */
 	public function display() {
-		
+
 		$this->echoOptionHeader();
 
 		printf( '<iframe frameborder="0" src="%s" style="height: %spx; width:100%%;"></iframe>',
@@ -93,7 +93,7 @@ function register_titan_framework_option_iframe_control() {
 					$this->optionSettings['url'],
 					$this->optionSettings['height']
 				);
-				
+
 				if ( ! empty( $this->optionSettings['desc'] ) ) {
 					echo "<p class='description'>{$this->optionSettings['desc']}</p>";
 				}

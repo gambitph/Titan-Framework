@@ -74,7 +74,6 @@ class TitanFramework {
 	 * @see _getOptionEarly()
 	 */
 	// private static $earlyAdminOptions = array();
-
 	/**
 	 * We have an initialization phase where the options are just being gathered
 	 * for processing (e.g. saving default values and cleaning up the database if needed)
@@ -327,7 +326,7 @@ class TitanFramework {
 
 		return $this->allOptions[ $this->optionNamespace ];
 	}
-	
+
 	public function setInternalAdminOption( $optionName, $value ) {
 		if ( array_key_exists( $optionName, $this->allOptions[ $this->optionNamespace ] ) ) {
 			$this->allOptions[ $this->optionNamespace ][ $optionName ] = $value;
@@ -652,17 +651,15 @@ class TitanFramework {
 	 */
 	// protected function _getOptionEarly( $optionName ) {
 	//
-	// 	if ( empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
-	// 		global $wpdb;
-	// 		$options = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = '" . esc_attr( $this->optionNamespace ) . "_options'" );
-	// 		$options = maybe_unserialize( maybe_unserialize( $options ) );
-	// 		self::$earlyAdminOptions[ $this->optionNamespace ] = $options;
-	// 	}
-	//
-	// 	return ! empty( self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] ) ? self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] : false;
+	// if ( empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
+	// global $wpdb;
+	// $options = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = '" . esc_attr( $this->optionNamespace ) . "_options'" );
+	// $options = maybe_unserialize( maybe_unserialize( $options ) );
+	// self::$earlyAdminOptions[ $this->optionNamespace ] = $options;
 	// }
-
-
+	//
+	// return ! empty( self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] ) ? self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] : false;
+	// }
 	/**
 	 * Get an option
 	 *
@@ -727,7 +724,7 @@ class TitanFramework {
 			$option = $this->optionsUsed[ $optionName ];
 			$option->setValue( $value, $postID );
 		}
-		
+
 		do_action( 'tf_set_option_' . $this->optionNamespace, $optionName, $value, $postID );
 
 		return true;

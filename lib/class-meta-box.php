@@ -42,7 +42,7 @@ class TitanFrameworkMetaBox {
 
 		add_action( 'add_meta_boxes', array( $this, 'register' ) );
 		add_action( 'save_post', array( $this, 'saveOptions' ), 10, 2 );
-		
+
 		// The action save_post isn't performed for attachments. edit_attachments
 		// is a specific action only for attachments.
 		add_action( 'edit_attachment', array( $this, 'saveOptions' ) );
@@ -98,7 +98,7 @@ class TitanFrameworkMetaBox {
 	}
 
 	public function saveOptions( $postID, $post = null ) {
-		
+
 		// Verify nonces and other stuff
 		if ( ! $this->verifySecurity( $postID, $post ) ) {
 			return;
