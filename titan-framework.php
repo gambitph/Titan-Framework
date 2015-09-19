@@ -50,6 +50,7 @@ require_once( TF_PATH . 'lib/class-option-editor.php' );
 require_once( TF_PATH . 'lib/class-option-font.php' );
 /* require_once( TF_PATH . 'lib/class-option-gallery.php' ); */
 require_once( TF_PATH . 'lib/class-option-heading.php' );
+require_once( TF_PATH . 'lib/class-option-iframe.php' );
 require_once( TF_PATH . 'lib/class-option-multicheck.php' );
 require_once( TF_PATH . 'lib/class-option-multicheck-categories.php' );
 require_once( TF_PATH . 'lib/class-option-multicheck-pages.php' );
