@@ -327,6 +327,14 @@ class TitanFramework {
 
 		return $this->allOptions[ $this->optionNamespace ];
 	}
+	
+	public function setInternalAdminOption( $optionName, $value ) {
+		if ( array_key_exists( $optionName, $this->allOptions[ $this->optionNamespace ] ) ) {
+			$this->allOptions[ $this->optionNamespace ][ $optionName ] = $value;
+			return true;
+		}
+		return false;
+	}
 
 
 	/**
@@ -672,53 +680,7 @@ class TitanFramework {
 		if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
 			$option = $this->optionsUsed[ $optionName ];
 			$value = $option->getValue( $postID );
-
-			// if ( $option->type == TitanFrameworkOption::TYPE_ADMIN ) { // Admin page option.
-			//
-			// 	// This is blank if called too early. getOption should be called inside a hook or template.
-			// 	if ( ! is_array( $this->allOptions ) ) {
-			// 		return $this->_getOptionEarly( $optionName );
-			// 	}
-			//
-			// 	// If we have a saved copy of the admin options, delete it to free memory, we don't need it.
-			// 	if ( ! empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
-			// 		unset( self::$earlyAdminOptions[ $this->optionNamespace ] );
-			// 	}
-			// 	if ( isset( $this->allOptions[ $this->optionNamespace ][ $optionName ] ) ) {
-			// 		$value = $this->allOptions[ $this->optionNamespace ][ $optionName ];
-			// 	}
-			// } else if ( $option->type == TitanFrameworkOption::TYPE_META ) { // Meta box option.
-			//
-			// 	// If no $postID is given, try and get it if we are in a loop.
-			// 	if ( empty( $postID ) && ! is_admin() ) {
-			// 		if ( get_post() != null ) {
-			// 			$postID = get_the_ID();
-			// 		}
-			// 	}
-			//
-			// 	// If the post meta doesn't exist yet, then return the default value
-			// 	if ( metadata_exists( 'post', $postID, $this->optionNamespace . '_' . $optionName ) ) {
-			// 		$value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
-			// 	} else if ( isset( $option->settings['default'] ) ) {
-			// 		$value = $option->settings['default'];
-			// 	}
-			//
-			// } else if ( $option->type == TitanFrameworkOption::TYPE_CUSTOMIZER ) { // Customizer option.
-			//
-			// 	$value = get_theme_mod( $this->optionNamespace . '_' . $optionName );
-			//
-			// }
-			
-			// Apply cleaning method for the value (for serialized data, slashes, etc).
-			// $value = $option->cleanValueForGetting( $value );
-			
 		}
-
-		// if ( null !== $value ) {
-		// 	if ( ! empty( $this->optionsUsed[ $optionName ] ) ) {
-		// 		$value = $this->optionsUsed[ $optionName ]->cleanValueForGetting( $value );
-		// 	}
-		// }
 
 		return apply_filters( 'tf_get_option_' . $this->optionNamespace, $value, $optionName, $postID );
 	}
@@ -749,7 +711,6 @@ class TitanFramework {
 
 	/**
 	 * Sets an option
-	 * TODO: move this into an option method: setValue
 	 *
 	 * @since 1.0
 	 *
@@ -757,48 +718,19 @@ class TitanFramework {
 	 * @param mixed  $value The value of the option.
 	 * @param int    $postID The ID of the parent post if this is a meta box option.
 	 *
-	 * @return mixed The new value, or false if the saving failed
+	 * @return boolean Always returns true
 	 */
 	public function setOption( $optionName, $value, $postID = null ) {
 
-		// Apply cleaning method for the value (for serialized data, slashes, etc).
-		if ( ! empty( $this->optionsUsed[ $optionName ] ) ) {
-			$value = $this->optionsUsed[ $optionName ]->cleanValueForSaving( $value );
+		// Get the option value.
+		if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
+			$option = $this->optionsUsed[ $optionName ];
+			$option->setValue( $value, $postID );
 		}
+		
+		do_action( 'tf_set_option_' . $this->optionNamespace, $optionName, $value, $postID );
 
-		// Call to 'tf_save_option_{namespace}', $value contains the current value about to be saved.
-		// This is for admin panel & post meta options. Customizer settings are filtered by addCustomizerSaveFilter() below.
-		$value = apply_filters( 'tf_save_option_' . $this->optionNamespace, $value, $optionName );
-
-		// Call to 'tf_save_option_{namespace}_{optionID}', $value contains the current value about to be saved.
-		// This is for admin panel & post meta options. Customizer settings are filtered by addCustomizerSaveFilter() below.
-		$value = apply_filters( 'tf_save_option_' . $this->optionNamespace . '_' . $optionName, $value );
-
-		// Different save process for different options.
-		if ( empty( $postID ) ) {
-
-			if ( ! is_array( $this->allOptions ) ) {
-				// This is blank if called too early. getOption should be called inside a hook or template.
-				self::displayFrameworkError( sprintf( __( 'Wrong usage of %s, this should be called inside a hook or from within a theme file.', TF_I18NDOMAIN ), '<code>setOption</code>' ) );
-				return false;
-			}
-
-			// Admin page option.
-			if ( array_key_exists( $optionName, $this->allOptions[ $this->optionNamespace ] ) ) {
-				$this->allOptions[ $this->optionNamespace ][ $optionName ] = $value;
-
-			} else {
-
-				// Customizer option.
-				set_theme_mod( $this->optionNamespace . '_' . $optionName, $value );
-			}
-		} else {
-			
-			// Meta box option.
-			return update_post_meta( $postID, $this->optionNamespace . '_' . $optionName, $value );
-		}
-
-		return $value;
+		return true;
 	}
 
 

@@ -119,7 +119,7 @@ class TitanFrameworkMetaBox {
 				$value = '';
 			}
 
-			$this->owner->setOption( $option->settings['id'], $value, $postID );
+			$option->setValue( $value, $postID );
 		}
 	}
 

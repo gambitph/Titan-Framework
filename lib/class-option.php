@@ -84,11 +84,7 @@ class TitanFrameworkOption {
 		
 		if ( $this->type == self::TYPE_ADMIN ) {
 			
-			if ( is_a( $this->owner, 'TitanFrameworkAdminTab' ) ) {
-				$allOptions = $this->owner->owner->owner->getAllOptions();
-			} else {
-				$allOptions = $this->owner->owner->getAllOptions();
-			}
+			$allOptions = $this->getFramework()->getAllOptions();
 			if ( array_key_exists( $this->settings['id'], $allOptions ) ) {
 				$value = $allOptions[ $this->settings['id'] ];
 			}
@@ -113,18 +109,47 @@ class TitanFrameworkOption {
 		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
 			$value = get_theme_mod( $this->getID(), $this->settings['default'] );
 		}
-		
+
+		// Apply cleaning method for the value (for serialized data, slashes, etc).
 		$value = $this->cleanValueForGetting( $value );
 		
-		return apply_filters( 'tf_get_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID );
+		return apply_filters( 'tf_get_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID, $this );
 	}
 	
 	
 	/**
-	 * TODO: move class-titan-framework.php setOption to this
+	 * 
 	 */
 	public function setValue( $value, $postID = null ) {
+
+		// Apply cleaning method for the value (for serialized data, slashes, etc).
+		$value = $this->cleanValueForSaving( $value );
 		
+		if ( $this->type == self::TYPE_ADMIN ) {
+			
+			$this->getFramework()->setInternalAdminOption( $this->settings['id'], $value );
+			
+		} else if ( $this->type == self::TYPE_META ) {
+			
+			if ( empty( $postID ) ) {
+				$postID = $this->owner->postID;
+			}
+			// If no $postID is given, try and get it if we are in a loop.
+			if ( empty( $postID ) && ! is_admin() && get_post() != null ) {
+				$postID = get_the_ID();
+			}
+			
+			update_post_meta( $postID, $this->getID(), $value );
+			
+		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
+
+			set_theme_mod( $this->getID(), $value );
+			
+		}
+		
+		return apply_filters( 'tf_set_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID, $this );
+		
+		return true;
 	}
 
 

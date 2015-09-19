@@ -152,7 +152,7 @@ class TitanFrameworkAdminPage {
 						$value = '';
 					}
 
-					$this->owner->setOption( $option->settings['id'], $value );
+					$option->setValue( $value );
 				}
 			}
 
@@ -166,7 +166,8 @@ class TitanFrameworkAdminPage {
 				} else {
 					$value = '';
 				}
-				$this->owner->setOption( $option->settings['id'], $value );
+
+				$option->setValue( $value );
 			}
 
 			// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
@@ -192,7 +193,7 @@ class TitanFrameworkAdminPage {
 						continue;
 					}
 
-					$this->owner->setOption( $option->settings['id'], $option->settings['default'] );
+					$option->setValue( $option->settings['default'] );
 				}
 			}
 
@@ -201,7 +202,7 @@ class TitanFrameworkAdminPage {
 					continue;
 				}
 
-				$this->owner->setOption( $option->settings['id'], $option->settings['default'] );
+				$option->setValue( $option->settings['default'] );
 			}
 
 			// Hook 'tf_pre_reset_options_{namespace}' - action pre-saving
