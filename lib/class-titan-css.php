@@ -280,20 +280,10 @@ class TitanFrameworkCSS {
 				}
 			}
 
-			// Add the custom CSS
+			// In the css parameter, we accept the term `value` as our current value,
+			// translate it into the SaSS variable for the current option
 			if ( ! empty( $option->settings['css'] ) ) {
-
-				// In the css parameter, we accept the term `value` as our current value,
-				// translate it into the SaSS variable for the current option
-				$generatedCSS = str_replace( 'value', '#{$' . $option->settings['id'] . '}', $option->settings['css'] );
-
-				if ( ! empty( $generatedCSS ) ) {
-					try {
-						$testerForValidCSS = $scss->compile( $generatedCSS );
-						$cssString .= $generatedCSS;
-					} catch (Exception $e) {
-					}
-				}
+				$cssString .= str_replace( 'value', '#{$' . $option->settings['id'] . '}', $option->settings['css'] );
 			}
 		}
 
