@@ -31,7 +31,7 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_style( 'wp-color-picker' );
 		if ( $this->settings['alpha'] ) {
-			wp_enqueue_script( 'wp-color-picker-alpha', TitanFramework::getURL( '../js/wp-color-picker-alpha.js', __FILE__ ), array( 'wp-color-picker' ), TF_VERSION );
+			wp_enqueue_script( 'wp-color-picker-alpha', TitanFramework::getURL( '../js/min/wp-color-picker-alpha-min.js', __FILE__ ), array( 'wp-color-picker' ), TF_VERSION );
 		}
 
 		$this->echoOptionHeader();
@@ -106,7 +106,7 @@ function registerTitanFrameworkOptionColorControl() {
 
 		public function enqueue() {
 			parent::enqueue();
-			wp_enqueue_script( 'wp-color-picker-alpha', TitanFramework::getURL( '../js/wp-color-picker-alpha.js', __FILE__ ), array( 'wp-color-picker' ), TF_VERSION );
+			wp_enqueue_script( 'wp-color-picker-alpha', TitanFramework::getURL( '../js/min/wp-color-picker-alpha-min.js', __FILE__ ), array( 'wp-color-picker' ), TF_VERSION );
 		}
 
 		public function to_json() {

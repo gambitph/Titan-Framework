@@ -127,11 +127,19 @@ msgstr "Select"
 msgid "Option type or extended class %s does not exist."
 msgstr "Option type or extended class %s does not exist."
 
-#: lib/class-titan-framework.php:209
+#: lib/class-titan-framework.php:197
 msgid "All option IDs must be unique. The id %s has been used multiple times."
 msgstr "All option IDs must be unique. The id %s has been used multiple times."
 
-#: lib/class-titan-framework.php:757
+#: lib/class-titan-framework.php:568
+msgid "%s needs a %s parameter."
+msgstr "%s needs a %s parameter."
+
+#: lib/class-titan-framework.php:578
+msgid "Container of type %s, does not exist."
+msgstr "Container of type %s, does not exist."
+
+#: lib/class-titan-framework.php:781
 msgid ""
 "Wrong usage of %s, this should be called inside a hook or from within a "
 "theme file."

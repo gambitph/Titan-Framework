@@ -64,8 +64,7 @@ var url = 'local.wordpress.dev',
 		'lib/**/*', // Include files
 		'inc/**/*', // Include files
 		'js/**/*', // Include files
-		'css/**/*', // Include files
-		'!js/*.js'
+		'css/**/*' // Include files
 	];
 
 
