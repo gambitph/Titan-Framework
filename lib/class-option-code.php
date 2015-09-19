@@ -63,7 +63,6 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		}
 
 		$js = $this->getValue();
-		$js = $this->cleanValueForGetting( $js );
 
 		if ( ! empty( $js ) ) {
 			printf( "<script type=\"text/javascript\">\n%s\n</script>\n", $js );
@@ -157,7 +156,6 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		}
 		if ( TitanFrameworkOption::TYPE_META != $option->type ) {
 			$css = $this->getValue();
-			$css = $this->cleanValueForGetting( $css );
 		}
 		return $css;
 	}
@@ -222,7 +220,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		printf( "<textarea name='%s' id='%s' style='display: none'>%s</textarea>",
 			esc_attr( $this->getID() ),
 			esc_attr( $this->getID() ),
-			esc_textarea( $this->cleanValueForGetting( $this->getValue() ) )
+			esc_textarea( $this->getValue() )
 		);
 
 		$this->echoOptionFooter();

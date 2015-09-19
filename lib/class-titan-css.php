@@ -261,7 +261,6 @@ class TitanFrameworkCSS {
 
 			// Don't render CSS for this option if it doesn't have a value
 			$optionValue = $option->getValue();
-			$optionValue = $option->cleanValueForGetting( $optionValue );
 			if ( $optionValue == '' || $optionValue == false ) {
 				continue;
 			}

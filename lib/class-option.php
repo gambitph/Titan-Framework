@@ -114,7 +114,9 @@ class TitanFrameworkOption {
 			$value = get_theme_mod( $this->getID(), $this->settings['default'] );
 		}
 		
-		return $value;
+		$value = $this->cleanValueForGetting( $value );
+		
+		return apply_filters( 'tf_get_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID );
 	}
 	
 	

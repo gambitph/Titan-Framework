@@ -127,7 +127,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		$fontsToLoad = array();
 		foreach ( self::$googleFontsOptions as $option ) {
 			$fontValue = $option->getValue();
-			$fontValue = $this->cleanValueForGetting( $fontValue );
 
 			if ( empty( $fontValue['font-family'] ) ) {
 				continue;

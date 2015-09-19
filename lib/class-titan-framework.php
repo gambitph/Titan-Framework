@@ -710,7 +710,7 @@ class TitanFramework {
 			// }
 			
 			// Apply cleaning method for the value (for serialized data, slashes, etc).
-			$value = $option->cleanValueForGetting( $value );
+			// $value = $option->cleanValueForGetting( $value );
 			
 		}
 
