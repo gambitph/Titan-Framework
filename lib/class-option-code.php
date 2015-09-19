@@ -62,7 +62,8 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 			return;
 		}
 
-		$js = $this->getFramework()->getOption( $this->settings['id'] );
+		$js = $this->getValue();
+		$js = $this->cleanValueForGetting( $js );
 
 		if ( ! empty( $js ) ) {
 			printf( "<script type=\"text/javascript\">\n%s\n</script>\n", $js );
@@ -95,7 +96,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 
 		?>
 		<script>
-		<?php echo $this->getFramework()->getOption( $this->settings['id'], $id ) ?>
+		<?php echo $this->getValue( $id ) ?>
 		</script>
 		<?php
 	}
@@ -125,7 +126,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		}
 
 		// Check if a CSS was entered
-		$css = $this->getFramework()->getOption( $this->settings['id'], $id );
+		$css = $this->getValue( $id );
 		if ( empty( $css ) ) {
 			return;
 		}
@@ -155,7 +156,8 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 			return $css;
 		}
 		if ( TitanFrameworkOption::TYPE_META != $option->type ) {
-			$css = $this->getFramework()->getOption( $option->settings['id'] );
+			$css = $this->getValue();
+			$css = $this->cleanValueForGetting( $css );
 		}
 		return $css;
 	}
@@ -218,9 +220,10 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 
 		// The hidden textarea that will hold our contents
 		printf( "<textarea name='%s' id='%s' style='display: none'>%s</textarea>",
-			$this->getID(),
-			$this->getID(),
-		esc_textarea( $this->getValue() ) );
+			esc_attr( $this->getID() ),
+			esc_attr( $this->getID() ),
+			esc_textarea( $this->cleanValueForGetting( $this->getValue() ) )
+		);
 
 		$this->echoOptionFooter();
 	}
@@ -234,9 +237,6 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function cleanValueForGetting( $value ) {
-		if ( isset( $this->settings['wpautop'] ) && $this->settings['wpautop'] ) {
-			return wpautop( stripslashes( $value ) );
-		}
 		return stripslashes( $value );
 	}
 

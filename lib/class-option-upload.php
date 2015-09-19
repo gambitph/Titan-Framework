@@ -43,7 +43,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			return $css;
 		}
 
-		$value = $this->getFramework()->getOption( $option->settings['id'] );
+		$value = $this->getValue();
 
 		if ( empty( $value ) ) {
 			return $css;

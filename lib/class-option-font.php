@@ -126,7 +126,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		// load them once after gathering them
 		$fontsToLoad = array();
 		foreach ( self::$googleFontsOptions as $option ) {
-			$fontValue = $option->getFramework()->getOption( $option->settings['id'] );
+			$fontValue = $option->getValue();
+			$fontValue = $this->cleanValueForGetting( $fontValue );
 
 			if ( empty( $fontValue['font-family'] ) ) {
 				continue;
@@ -201,21 +202,15 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			return $css;
 		}
 
-		$value = $this->getFramework()->getOption( $option->settings['id'] );
-
 		$skip = array( 'dark', 'font-type', 'text-shadow-distance', 'text-shadow-blur', 'text-shadow-color', 'text-shadow-opacity' );
 
 		// If the value is blank, use the defaults
-		if ( empty( $value ) ) {
-			$value = $this->getValue();
-			if ( is_serialized( $value ) ) {
-				$value = unserialize( $value );
-			}
-			if ( ! is_array( $value ) ) {
-				$value = array();
-			}
-			$value = array_merge( self::$defaultStyling, $value );
+		$value = $this->getValue();
+		$value = maybe_serialize( $value );
+		if ( ! is_array( $value ) ) {
+			$value = array();
 		}
+		$value = array_merge( self::$defaultStyling, $value );
 
 		foreach ( $value as $key => $val ) {
 

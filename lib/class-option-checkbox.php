@@ -25,6 +25,10 @@ class TitanFrameworkOptionCheckbox extends TitanFrameworkOption {
 	}
 
 	public function cleanValueForGetting( $value ) {
+		if ( is_bool( $value ) ) {
+			return $value;
+		}
+		
 		return $value == '1' ? true : false;
 	}
 

@@ -73,7 +73,7 @@ class TitanFramework {
 	 * @var array
 	 * @see _getOptionEarly()
 	 */
-	private static $earlyAdminOptions = array();
+	// private static $earlyAdminOptions = array();
 
 	/**
 	 * We have an initialization phase where the options are just being gathered
@@ -642,17 +642,17 @@ class TitanFramework {
 	 *
 	 * @return  Mixed The option value
 	 */
-	protected function _getOptionEarly( $optionName ) {
-
-		if ( empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
-			global $wpdb;
-			$options = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = '" . esc_attr( $this->optionNamespace ) . "_options'" );
-			$options = maybe_unserialize( maybe_unserialize( $options ) );
-			self::$earlyAdminOptions[ $this->optionNamespace ] = $options;
-		}
-
-		return ! empty( self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] ) ? self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] : false;
-	}
+	// protected function _getOptionEarly( $optionName ) {
+	//
+	// 	if ( empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
+	// 		global $wpdb;
+	// 		$options = $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = '" . esc_attr( $this->optionNamespace ) . "_options'" );
+	// 		$options = maybe_unserialize( maybe_unserialize( $options ) );
+	// 		self::$earlyAdminOptions[ $this->optionNamespace ] = $options;
+	// 	}
+	//
+	// 	return ! empty( self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] ) ? self::$earlyAdminOptions[ $this->optionNamespace ][ $optionName ] : false;
+	// }
 
 
 	/**
@@ -660,79 +660,75 @@ class TitanFramework {
 	 *
 	 * @since 1.0
 	 *
-	 * @param mixed $optionName The name of the option or an associative array containing keys as option names.
-	 * @param int   $postID The post ID if this is a meta option.
+	 * @param string $optionName The name of the option
+	 * @param int    $postID The post ID if this is a meta option.
 	 *
 	 * @return mixed The option value
-	 *
-	 * @see _getOptionMulti()
 	 */
 	public function getOption( $optionName, $postID = null ) {
 		$value = null;
 
-		// If the option name is an array, fill it up with values.
-		if ( is_array( $optionName ) ) {
-			$return = $this->_getOptionMulti( $optionName, $postID );
-			return apply_filters( 'tf_get_option_multi', $return );
-		}
-
 		// Get the option value.
 		if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
 			$option = $this->optionsUsed[ $optionName ];
+			$value = $option->getValue( $postID );
 
-			if ( $option->type == TitanFrameworkOption::TYPE_ADMIN ) { // Admin page option.
-
-				// This is blank if called too early. getOption should be called inside a hook or template.
-				if ( ! is_array( $this->allOptions ) ) {
-					return $this->_getOptionEarly( $optionName );
-				}
-
-				// If we have a saved copy of the admin options, delete it to free memory, we don't need it.
-				if ( ! empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
-					unset( self::$earlyAdminOptions[ $this->optionNamespace ] );
-				}
-				if ( isset( $this->allOptions[ $this->optionNamespace ][ $optionName ] ) ) {
-					$value = $this->allOptions[ $this->optionNamespace ][ $optionName ];
-				}
-			} else if ( $option->type == TitanFrameworkOption::TYPE_META ) { // Meta box option.
-
-				// If no $postID is given, try and get it if we are in a loop.
-				if ( empty( $postID ) && ! is_admin() ) {
-					if ( get_post() != null ) {
-						$postID = get_the_ID();
-					}
-				}
-
-				// If the post meta doesn't exist yet, then return the default value
-				if ( metadata_exists( 'post', $postID, $this->optionNamespace . '_' . $optionName ) ) {
-					$value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
-				} else if ( isset( $option->settings['default'] ) ) {
-					$value = $option->settings['default'];
-				}
-
-			} else if ( $option->type == TitanFrameworkOption::TYPE_CUSTOMIZER ) { // Customizer option.
-
-				$value = get_theme_mod( $this->optionNamespace . '_' . $optionName );
-
-			}
+			// if ( $option->type == TitanFrameworkOption::TYPE_ADMIN ) { // Admin page option.
+			//
+			// 	// This is blank if called too early. getOption should be called inside a hook or template.
+			// 	if ( ! is_array( $this->allOptions ) ) {
+			// 		return $this->_getOptionEarly( $optionName );
+			// 	}
+			//
+			// 	// If we have a saved copy of the admin options, delete it to free memory, we don't need it.
+			// 	if ( ! empty( self::$earlyAdminOptions[ $this->optionNamespace ] ) ) {
+			// 		unset( self::$earlyAdminOptions[ $this->optionNamespace ] );
+			// 	}
+			// 	if ( isset( $this->allOptions[ $this->optionNamespace ][ $optionName ] ) ) {
+			// 		$value = $this->allOptions[ $this->optionNamespace ][ $optionName ];
+			// 	}
+			// } else if ( $option->type == TitanFrameworkOption::TYPE_META ) { // Meta box option.
+			//
+			// 	// If no $postID is given, try and get it if we are in a loop.
+			// 	if ( empty( $postID ) && ! is_admin() ) {
+			// 		if ( get_post() != null ) {
+			// 			$postID = get_the_ID();
+			// 		}
+			// 	}
+			//
+			// 	// If the post meta doesn't exist yet, then return the default value
+			// 	if ( metadata_exists( 'post', $postID, $this->optionNamespace . '_' . $optionName ) ) {
+			// 		$value = get_post_meta( $postID, $this->optionNamespace . '_' . $optionName, true );
+			// 	} else if ( isset( $option->settings['default'] ) ) {
+			// 		$value = $option->settings['default'];
+			// 	}
+			//
+			// } else if ( $option->type == TitanFrameworkOption::TYPE_CUSTOMIZER ) { // Customizer option.
+			//
+			// 	$value = get_theme_mod( $this->optionNamespace . '_' . $optionName );
+			//
+			// }
+			
+			// Apply cleaning method for the value (for serialized data, slashes, etc).
+			$value = $option->cleanValueForGetting( $value );
+			
 		}
 
-		// Apply cleaning method for the value (for serialized data, slashes, etc).
-		if ( null !== $value ) {
-			if ( ! empty( $this->optionsUsed[ $optionName ] ) ) {
-				$value = $this->optionsUsed[ $optionName ]->cleanValueForGetting( $value );
-			}
-		}
+		// if ( null !== $value ) {
+		// 	if ( ! empty( $this->optionsUsed[ $optionName ] ) ) {
+		// 		$value = $this->optionsUsed[ $optionName ]->cleanValueForGetting( $value );
+		// 	}
+		// }
 
-		return $value;
+		return apply_filters( 'tf_get_option_' . $this->optionNamespace, $value, $optionName, $postID );
 	}
 
 
 	/**
-	 * Gets a set of options. Not to be called directly, use getOption() and pass
-	 * an associative array containing the option names as keys.
+	 * Gets a set of options. Pass an associative array containing the option names as keys and
+	 * the values you want to be retained if the option names are not implemented.
 	 *
-	 * @since 1.8.2
+	 * @since 1.9
 	 *
 	 * @param array $optionArray An associative array containing option names as keys.
 	 * @param int   $postID The post ID if this is a meta option.
@@ -741,19 +737,19 @@ class TitanFramework {
 	 *
 	 * @see $this->getOption()
 	 */
-	public function _getOptionMulti( $optionArray, $postID = null ) {
+	public function getOptions( $optionArray, $postID = null ) {
 		foreach ( $optionArray as $optionName => $originalValue ) {
-			$value = $this->getOption( $optionName, $postID );
-			if ( null != $value ) {
-				$optionArray[ $optionName ] = $value;
+			if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
+				$optionArray[ $optionName ] = $this->getOption( $optionName, $postID );
 			}
 		}
-		return $optionArray;
+		return apply_filters( 'tf_get_options_' . $this->optionNamespace, $optionArray, $postID );
 	}
 
 
 	/**
 	 * Sets an option
+	 * TODO: move this into an option method: setValue
 	 *
 	 * @since 1.0
 	 *
@@ -797,7 +793,7 @@ class TitanFramework {
 				set_theme_mod( $this->optionNamespace . '_' . $optionName, $value );
 			}
 		} else {
-
+			
 			// Meta box option.
 			return update_post_meta( $postID, $this->optionNamespace . '_' . $optionName, $value );
 		}

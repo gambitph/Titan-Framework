@@ -151,7 +151,7 @@ class TitanFrameworkAdminPage {
 					} else {
 						$value = '';
 					}
-					// $value = $option->cleanValueForSaving( $value );
+
 					$this->owner->setOption( $option->settings['id'], $value );
 				}
 			}

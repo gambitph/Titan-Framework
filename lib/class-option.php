@@ -77,7 +77,11 @@ class TitanFrameworkOption {
 		}
 	}
 
-	public function getValue() {
+
+	public function getValue( $postID = null ) {
+		
+		$value = false;
+		
 		if ( $this->type == self::TYPE_ADMIN ) {
 			
 			if ( is_a( $this->owner, 'TitanFrameworkAdminTab' ) ) {
@@ -86,23 +90,39 @@ class TitanFrameworkOption {
 				$allOptions = $this->owner->owner->getAllOptions();
 			}
 			if ( array_key_exists( $this->settings['id'], $allOptions ) ) {
-				return $allOptions[ $this->settings['id'] ];
+				$value = $allOptions[ $this->settings['id'] ];
 			}
-			return '';
 			
 		} else if ( $this->type == self::TYPE_META ) {
 			
+			if ( empty( $postID ) ) {
+				$postID = $this->owner->postID;
+			}
+			// If no $postID is given, try and get it if we are in a loop.
+			if ( empty( $postID ) && ! is_admin() && get_post() != null ) {
+				$postID = get_the_ID();
+			}
+			
 			// for meta options, use the default value for new posts/pages
-			if ( metadata_exists( 'post', $this->owner->postID, $this->getID() ) ) {
-				return get_post_meta( $this->owner->postID, $this->getID(), true );
+			if ( metadata_exists( 'post', $postID, $this->getID() ) ) {
+				$value = get_post_meta( $postID, $this->getID(), true );
 			} else {
-				return $this->settings['default'];
+				$value = $this->settings['default'];
 			}
 			
 		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
-			return get_theme_mod( $this->getID() );
+			$value = get_theme_mod( $this->getID(), $this->settings['default'] );
 		}
-		return false;
+		
+		return $value;
+	}
+	
+	
+	/**
+	 * TODO: move class-titan-framework.php setOption to this
+	 */
+	public function setValue( $value, $postID = null ) {
+		
 	}
 
 

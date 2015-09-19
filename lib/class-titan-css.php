@@ -260,7 +260,8 @@ class TitanFrameworkCSS {
 			}
 
 			// Don't render CSS for this option if it doesn't have a value
-			$optionValue = $this->frameworkInstance->getOption( $option->settings['id'] );
+			$optionValue = $option->getValue();
+			$optionValue = $option->cleanValueForGetting( $optionValue );
 			if ( $optionValue == '' || $optionValue == false ) {
 				continue;
 			}

@@ -95,7 +95,7 @@ class TitanFrameworkPlugin {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_links' ), 10, 2 );
 
 		// Initialize options, but do not really create them yet.
-		add_action( 'after_setup_theme', array( $this, 'trigger_initial_option_creation' ), 5 );
+		// add_action( 'after_setup_theme', array( $this, 'trigger_initial_option_creation' ), 5 );
 		// Create the options.
 		add_action( 'init', array( $this, 'trigger_actual_option_creation' ), 11 );
 	}
