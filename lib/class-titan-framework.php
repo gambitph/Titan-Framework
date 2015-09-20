@@ -152,12 +152,12 @@ class TitanFramework {
 
 		$this->cssInstance = new TitanFrameworkCSS( $this );
 
-		add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 7 );
-		add_action( 'init', array( $this, 'updateOptionDBListing' ), 12 );
+		// add_action( 'after_setup_theme', array( $this, 'getAllOptions' ), 7 );
+		// add_action( 'init', array( $this, 'updateOptionDBListing' ), 12 );
 
 		if ( is_admin() ) {
-			add_action( 'init', array( $this, 'updateThemeModListing' ), 12 );
-			add_action( 'init', array( $this, 'updateMetaDbListing' ), 12 );
+			// add_action( 'init', array( $this, 'updateThemeModListing' ), 12 );
+			// add_action( 'init', array( $this, 'updateMetaDbListing' ), 12 );
 			add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, 'verifyUniqueIDs' ) );
 		}
 
@@ -323,16 +323,17 @@ class TitanFramework {
 		if ( ! empty( $currentOptions ) && ! count( $this->allOptions[ $this->optionNamespace ] ) ) {
 			$this->allOptions[ $this->optionNamespace ] = unserialize( $currentOptions );
 		}
+		
+		if ( empty( $this->allOptions[ $this->optionNamespace ] ) ) {
+			$this->allOptions[ $this->optionNamespace ] = array();
+		}
 
 		return $this->allOptions[ $this->optionNamespace ];
 	}
 
 	public function setInternalAdminOption( $optionName, $value ) {
-		if ( array_key_exists( $optionName, $this->allOptions[ $this->optionNamespace ] ) ) {
-			$this->allOptions[ $this->optionNamespace ][ $optionName ] = $value;
-			return true;
-		}
-		return false;
+		$this->allOptions[ $this->optionNamespace ][ $optionName ] = $value;
+		return true;
 	}
 
 

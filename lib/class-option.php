@@ -81,13 +81,20 @@ class TitanFrameworkOption {
 	public function getValue( $postID = null ) {
 
 		$value = false;
+		
+		if ( empty( $this->settings['id'] ) ) {
+			return $value;
+		}
 
 		if ( $this->type == self::TYPE_ADMIN ) {
 
 			$allOptions = $this->getFramework()->getAllOptions();
 			if ( array_key_exists( $this->settings['id'], $allOptions ) ) {
 				$value = $allOptions[ $this->settings['id'] ];
+			} else {
+				$value = $this->settings['default'];
 			}
+			
 		} else if ( $this->type == self::TYPE_META ) {
 
 			if ( empty( $postID ) ) {
@@ -145,7 +152,7 @@ class TitanFrameworkOption {
 
 		}
 
-		return apply_filters( 'tf_set_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID, $this );
+		do_action( 'tf_set_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID, $this );
 
 		return true;
 	}

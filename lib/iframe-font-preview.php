@@ -109,7 +109,7 @@ if ( $textShadowLocation != 'none' ) {
 
 			$fontFamily = '"' . $fontFamily . '"';
 		} else {
-			$fontFamily = stripslashes( $fontFamily );
+			$fontFamily = str_replace( '&quot;', '"', stripslashes( $fontFamily ) );
 		}
 		?>
 		<style>

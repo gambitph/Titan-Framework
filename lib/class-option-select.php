@@ -16,8 +16,8 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 		$this->echoOptionHeader();
 
 		$multiple = isset( $this->settings['multiple'] ) && true == $this->settings['multiple'] ? 'multiple' : '';
-		$name     = $this->getID();
-		$val      = (array) $this->getValue();
+		$name = $this->getID();
+		$val = (array) $this->getValue();
 
 		if ( ! empty( $multiple ) ) {
 			$name = "{$name}[]";

@@ -141,9 +141,6 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 		if ( $values == '' ) {
 			$values = array_keys( $this->settings['options'] );
 		}
-		if ( is_serialized( $values ) ) {
-			$values = unserialize( $values );
-		}
 		if ( count( $values ) != count( $this->settings['options'] ) ) {
 			$this->settings['visible_button'] = true;
 		}

@@ -205,10 +205,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		// If the value is blank, use the defaults
 		$value = $this->getValue();
-		$value = maybe_serialize( $value );
-		if ( ! is_array( $value ) ) {
-			$value = array();
-		}
 		$value = array_merge( self::$defaultStyling, $value );
 
 		foreach ( $value as $key => $val ) {
@@ -306,7 +302,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 
 		$css .= $modifiedCss;
-
+		
 		return $css;
 	}
 
@@ -488,12 +484,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		// Get the current value and merge with defaults
 		$value = $this->getValue();
-		if ( is_serialized( $value ) ) {
-			$value = unserialize( $value );
-		}
-		if ( ! is_array( $value ) ) {
-			$value = array();
-		}
 		$value = array_merge( self::$defaultStyling, $value );
 
 		/*

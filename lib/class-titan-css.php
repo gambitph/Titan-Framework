@@ -301,7 +301,7 @@ class TitanFrameworkCSS {
 			} catch ( Exception $e ) {
 			}
 		}
-
+		
 		return $cssString;
 	}
 

@@ -17,9 +17,6 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 		echo '<fieldset>';
 
 		$savedValue = $this->getValue();
-		if ( empty( $savedValue ) ) {
-			$savedValue = array();
-		}
 
 		foreach ( $this->settings['options'] as $value => $label ) {
 			printf('<label for="%s"><input id="%s" type="checkbox" name="%s[]" value="%s" %s/> %s</label><br>',
