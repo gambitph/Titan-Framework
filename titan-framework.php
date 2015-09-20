@@ -94,39 +94,20 @@ class TitanFrameworkPlugin {
 		add_action( 'plugins_loaded', array( $this, 'force_load_first' ), 10, 1 );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_links' ), 10, 2 );
 
-		// Initialize options, but do not really create them yet.
-		// add_action( 'after_setup_theme', array( $this, 'trigger_initial_option_creation' ), 5 );
 		// Create the options.
-		add_action( 'init', array( $this, 'trigger_actual_option_creation' ), 11 );
+		add_action( 'init', array( $this, 'trigger_option_creation' ), 1 );
 	}
 
 
 	/**
-	 * Trigger initial loading of all the options. Initial loading is when all options are
-	 * gathered for pre-processing: saving default values & checking.
+	 * Trigger the creation of the options
 	 *
 	 * @since 1.8.2
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function trigger_initial_option_creation() {
-		TitanFramework::$initializing = true;
-		do_action( 'tf_create_options' );
-		TitanFramework::$initializing = false;
-	}
-
-
-	/**
-	 * Trigger actual loading of all the options. Actual loading is when all options are
-	 * gathered for display purposes
-	 *
-	 * @since 1.8.2
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function trigger_actual_option_creation() {
+	public function trigger_option_creation() {
 		do_action( 'tf_create_options' );
 		do_action( 'tf_done' );
 	}

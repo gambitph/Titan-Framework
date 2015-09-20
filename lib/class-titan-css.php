@@ -238,7 +238,7 @@ class TitanFrameworkCSS {
 
 		// Get all the CSS.
 		foreach ( $this->allOptionsWithIDs as $option ) {
-			
+
 			// Only do this for the allowed types.
 			if ( in_array( $option->settings['type'], $noCSSOptionTypes ) ) {
 				continue;
@@ -253,7 +253,7 @@ class TitanFrameworkCSS {
 			$generatedCSS = apply_filters( 'tf_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), '', $option );
 			if ( ! empty( $generatedCSS ) ) {
 				$cssString .= $generatedCSS;
-				
+
 				// Don't continue the default CSS generation since it was handled by the filter already.
 				continue;
 			}
@@ -299,7 +299,7 @@ class TitanFrameworkCSS {
 			} catch ( Exception $e ) {
 			}
 		}
-		
+
 		return $cssString;
 	}
 

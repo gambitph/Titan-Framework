@@ -302,7 +302,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		}
 
 		$css .= $modifiedCss;
-		
+
 		return $css;
 	}
 

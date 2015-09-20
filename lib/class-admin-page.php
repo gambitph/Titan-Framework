@@ -33,11 +33,6 @@ class TitanFrameworkAdminPage {
 			return;
 		}
 
-		// If we are just initializing, do not create our admin panels yet. During this phase all we want is to get all the options to create
-		if ( TitanFramework::$initializing ) {
-			return;
-		}
-
 		$this->settings = array_merge( $this->defaultSettings, $settings );
 		// $this->options = $options;
 		if ( empty( $this->settings['name'] ) ) {

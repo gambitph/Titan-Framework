@@ -14,7 +14,7 @@ msgstr ""
 "\n"
 "Language: en_US\n"
 
-#: lib/class-admin-page.php:119
+#: lib/class-admin-page.php:114
 msgid ""
 "<em>Options Page Created with <a href='http://titanframework.net?"
 "utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
@@ -22,11 +22,11 @@ msgstr ""
 "<em>Options Page Created with <a href='http://titanframework.net?"
 "utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
 
-#: lib/class-admin-page.php:330
+#: lib/class-admin-page.php:325
 msgid "Settings saved."
 msgstr "Settings saved."
 
-#: lib/class-admin-page.php:332
+#: lib/class-admin-page.php:327
 msgid "Settings reset to default."
 msgstr "Settings reset to default."
 
@@ -88,11 +88,11 @@ msgstr "Enabled"
 msgid "Disabled"
 msgstr "Disabled"
 
-#: lib/class-option-gallery.php:148, lib/class-option-upload.php:257
+#: lib/class-option-gallery.php:148, lib/class-option-upload.php:255
 msgid "Select Image"
 msgstr "Select Image"
 
-#: lib/class-option-gallery.php:151, lib/class-option-upload.php:260
+#: lib/class-option-gallery.php:151, lib/class-option-upload.php:258
 msgid "Use image"
 msgstr "Use image"
 
@@ -127,26 +127,26 @@ msgstr "Select"
 msgid "Option type or extended class %s does not exist."
 msgstr "Option type or extended class %s does not exist."
 
-#: lib/class-titan-framework.php:197
+#: lib/class-titan-framework.php:175
 msgid "All option IDs must be unique. The id %s has been used multiple times."
 msgstr "All option IDs must be unique. The id %s has been used multiple times."
 
-#: lib/class-titan-framework.php:576
+#: lib/class-titan-framework.php:594
 msgid "%s needs a %s parameter."
 msgstr "%s needs a %s parameter."
 
-#: lib/class-titan-framework.php:586
+#: lib/class-titan-framework.php:604
 msgid "Container of type %s, does not exist."
 msgstr "Container of type %s, does not exist."
 
-#: titan-framework.php:189
+#: titan-framework.php:170
 msgid "Documentation"
 msgstr "Documentation"
 
-#: titan-framework.php:193
+#: titan-framework.php:174
 msgid "GitHub Repo"
 msgstr "GitHub Repo"
 
-#: titan-framework.php:197
+#: titan-framework.php:178
 msgid "Issue Tracker"
 msgstr "Issue Tracker"
