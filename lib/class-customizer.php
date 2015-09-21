@@ -22,7 +22,7 @@ class TitanFrameworkCustomizer {
 	public $owner;
 
 	// Makes sure we only load live previewing CSS only once
-	private static $generatedHeadCSSPreview = false;
+	private static $namespacesWithPrintedPreviewCSS = array();
 
 	function __construct( $settings, $owner ) {
 		$this->owner = $owner;
@@ -93,17 +93,24 @@ class TitanFrameworkCustomizer {
 
 
 	/**
-	 * Prints out CSS styles for refresh previewing
+	 * Prints out CSS styles for the current namespace refresh previewing
+	 *
+	 * @since	1.3
 	 *
 	 * @return	void
-	 * @since	1.3
+	 *
+	 * @see self::$namespacesWithPrintedPreviewCSS
 	 */
 	public function printPreviewCSS() {
-		if ( self::$generatedHeadCSSPreview ) {
-			return;
+		
+		// Only print the styles once per namespace
+		if ( ! in_array( $this->owner->optionNamespace, self::$namespacesWithPrintedPreviewCSS ) ) {
+			self::$namespacesWithPrintedPreviewCSS[] = $this->owner->optionNamespace;
+			
+			echo '<style id="titan-preview-' . esc_attr( $this->owner->optionNamespace ) . '">';
+			echo $this->owner->cssInstance->generateCSS();
+			echo '</style>';
 		}
-		self::$generatedHeadCSSPreview = true;
-		echo '<style>' . $this->owner->cssInstance->generateCSS() . '</style>';
 	}
 
 	public function register( $wp_customize ) {
