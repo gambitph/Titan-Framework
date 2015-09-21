@@ -57,14 +57,7 @@ class TitanFrameworkOption {
 
 	function __construct( $settings, $owner ) {
 		$this->owner = $owner;
-
-		// remove blank settings to make it ready for merging with the defaults
-		foreach ( $settings as $key => $value ) {
-			if ( $value == '' ) {
-				unset( $settings[ $key ] );
-			}
-		}
-
+		
 		$this->settings = array_merge( self::$defaultSettings, $this->defaultSecondarySettings );
 		$this->settings = array_merge( $this->settings, $settings );
 
