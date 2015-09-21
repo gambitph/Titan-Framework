@@ -169,7 +169,7 @@ class TitanFrameworkAdminPage {
 			do_action( 'tf_pre_save_options_' . $this->getOptionNamespace(), $this );
 			do_action( 'tf_pre_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
-			$this->owner->saveOptions();
+			$this->owner->saveInternalAdminPageOptions();
 
 			do_action( 'tf_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
@@ -204,7 +204,7 @@ class TitanFrameworkAdminPage {
 			do_action( 'tf_pre_reset_options_' . $this->getOptionNamespace(), $this );
 			do_action( 'tf_pre_reset_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
-			$this->owner->saveOptions();
+			$this->owner->saveInternalAdminPageOptions();
 
 			do_action( 'tf_reset_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 

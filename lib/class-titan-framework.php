@@ -362,7 +362,7 @@ class TitanFramework {
 	 *
 	 * @return array All admin options currently in the instance
 	 */
-	public function saveOptions() {
+	public function saveInternalAdminPageOptions() {
 		update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[ $this->optionNamespace ] ) );
 		do_action( 'tf_save_options_' . $this->optionNamespace );
 		return $this->allOptions[ $this->optionNamespace ];

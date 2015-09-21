@@ -139,7 +139,7 @@ class TitanFrameworkCustomizer {
 		// Unfortunately we have to call each option's register from here
 		foreach ( $this->options as $index => $option ) {
 			if ( ! empty( $option->settings['id'] ) ) {
-				$wp_customize->add_setting( $option->getID() , array(
+				$wp_customize->add_setting( $option->getID(), array(
 					'default' => $option->settings['default'],
 					'transport' => empty( $option->settings['livepreview'] ) ? 'refresh' : 'postMessage',
 				) );
