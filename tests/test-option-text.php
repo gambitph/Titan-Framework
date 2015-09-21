@@ -7,7 +7,8 @@
 
 class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 	
-	public $adminOption;
+	public $adminPageOption;
+	public $adminTabOption;
 	public $customizerOption;
 	public $metaOption;
 	
@@ -31,8 +32,17 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		$container = $titan->createAdminPage( array(
 			'name' => 'test container',
 		) );
-		$this->adminOption = $container->createOption( array(
+		$this->adminPageOption = $container->createOption( array(
 			'id' => 'test1',
+			'type' => 'text',
+			'default' => 'default',
+		) );
+		
+		$container = $container->createTab( array(
+			'name' => 'test container',
+		) );
+		$this->adminTabOption = $container->createOption( array(
+			'id' => 'test2',
 			'type' => 'text',
 			'default' => 'default',
 		) );
@@ -42,7 +52,7 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 			'name' => 'test container',
 		) );
 		$this->customizerOption = $container->createOption( array(
-			'id' => 'test2',
+			'id' => 'test3',
 			'type' => 'text',
 			'default' => 'default',
 		) );
@@ -52,14 +62,14 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 			'name' => 'test container',
 		) );
 		$this->metaOption = $container->createOption( array(
-			'id' => 'test3',
+			'id' => 'test4',
 			'type' => 'text',
 			'default' => 'default',
 		) );
 	}
 	
 	function test_option_save_get_admin_page() {
-		$option = $this->adminOption;
+		$option = $this->adminPageOption;
 		
 		$titan = TitanFramework::getInstance( 'testing' );
 		
@@ -74,9 +84,24 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		$titan->saveInternalAdminPageOptions();
 		$this->assertEquals( 'modified again', $titan->getOption( $id ) );
 		
-		$option->setValue( '文字化け€àáßèëœ蟄怜喧らاة على هذاรื่องร로그ĐứЯрополкمارسאבגדடாஹ்கோ' );
+		$this->go_to( admin_url('options-general.php?page=test-container') );
+	}
+	
+	function test_option_save_get_admin_tab() {
+		$option = $this->adminTabOption;
+		
+		$titan = TitanFramework::getInstance( 'testing' );
+		
+		$id = $option->settings['id'];
+		$this->assertEquals( 'default', $titan->getOption( $id ) );
+		
+		$option->setValue( 'modified' );
 		$titan->saveInternalAdminPageOptions();
-		$this->assertEquals( '文字化け€àáßèëœ蟄怜喧らاة على هذاรื่องร로그ĐứЯрополкمارسאבגדடாஹ்கோ', $titan->getOption( $id ) );
+		$this->assertEquals( 'modified', $titan->getOption( $id ) );
+		
+		$option->setValue( 'modified again' );
+		$titan->saveInternalAdminPageOptions();
+		$this->assertEquals( 'modified again', $titan->getOption( $id ) );
 	}
 	
 	function test_option_save_get_customizer() {
@@ -89,9 +114,6 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		
 		$option->setValue( 'modified' );
 		$this->assertEquals( 'modified', $titan->getOption( $id ) );
-		
-		$option->setValue( '文字化け€àáßèëœ蟄怜喧らاة على هذاรื่องร로그ĐứЯрополкمارسאבגדடாஹ்கோ' );
-		$this->assertEquals( '文字化け€àáßèëœ蟄怜喧らاة على هذاรื่องร로그ĐứЯрополкمارسאבגדடாஹ்கோ', $titan->getOption( $id ) );
 	}
 	
 	function test_option_save_get_meta_box() {
@@ -109,11 +131,7 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'default', $titan->getOption( $id ) );
 		
 		$option->setValue( 'modified' );
-		$this->assertEquals( 'modified', $titan->getOption( $id ) );
-		
-		$option->setValue( '文字化け€àáßèëœ蟄怜喧らاة على هذاรื่องร로그ĐứЯрополкمارسאבגדடாஹ்கோ' );
-		$this->assertEquals( '文字化け€àáßèëœ蟄怜喧らاة على هذاรื่องร로그ĐứЯрополкمارسאבגדடாஹ்கோ', $titan->getOption( $id ) );
-		
+		$this->assertEquals( 'modified', $titan->getOption( $id ) );		
 	}
 	
 }
