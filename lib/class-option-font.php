@@ -234,17 +234,17 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			if ( $key == 'text-shadow-location' ) {
 				$textShadow = '';
 				if ( $value[ $key ] != 'none' ) {
-					if ( stripos( $value[ $key ], 'left' ) != false ) {
+					if ( stripos( $value[ $key ], 'left' ) !== false ) {
 						$textShadow .= '-' . $value['text-shadow-distance'];
-					} else if ( stripos( $value[ $key ], 'right' ) != false ) {
+					} else if ( stripos( $value[ $key ], 'right' ) !== false ) {
 						$textShadow .= $value['text-shadow-distance'];
 					} else {
 						$textShadow .= '0';
 					}
 					$textShadow .= ' ';
-					if ( stripos( $value[ $key ], 'top' ) != false ) {
+					if ( stripos( $value[ $key ], 'top' ) !== false ) {
 						$textShadow .= '-' . $value['text-shadow-distance'];
-					} else if ( stripos( $value[ $key ], 'bottom' ) != false ) {
+					} else if ( stripos( $value[ $key ], 'bottom' ) !== false ) {
 						$textShadow .= $value['text-shadow-distance'];
 					} else {
 						$textShadow .= '0';

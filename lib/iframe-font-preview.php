@@ -52,17 +52,17 @@ function hex2rgb( $hex ) {
 
 $textShadow = '';
 if ( $textShadowLocation != 'none' ) {
-	if ( stripos( $textShadowLocation, 'left' ) != false ) {
+	if ( stripos( $textShadowLocation, 'left' ) !== false ) {
 		$textShadow .= '-' . $textShadowDistance;
-	} else if ( stripos( $textShadowLocation, 'right' ) != false ) {
+	} else if ( stripos( $textShadowLocation, 'right' ) !== false ) {
 		$textShadow .= $textShadowDistance;
 	} else {
 		$textShadow .= '0';
 	}
 	$textShadow .= ' ';
-	if ( stripos( $textShadowLocation, 'top' ) != false ) {
+	if ( stripos( $textShadowLocation, 'top' ) !== false ) {
 		$textShadow .= '-' . $textShadowDistance;
-	} else if ( stripos( $textShadowLocation, 'bottom' ) != false ) {
+	} else if ( stripos( $textShadowLocation, 'bottom' ) !== false ) {
 		$textShadow .= $textShadowDistance;
 	} else {
 		$textShadow .= '0';
