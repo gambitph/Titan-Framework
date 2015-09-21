@@ -83,8 +83,6 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		$option->setValue( 'modified again' );
 		$titan->saveInternalAdminPageOptions();
 		$this->assertEquals( 'modified again', $titan->getOption( $id ) );
-		
-		$this->go_to( admin_url('options-general.php?page=test-container') );
 	}
 	
 	function test_option_save_get_admin_tab() {
