@@ -80,9 +80,13 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		$titan->saveInternalAdminPageOptions();
 		$this->assertEquals( 'modified', $titan->getOption( $id ) );
 		
-		$option->setValue( 'modified again' );
+		$option->setValue( '' );
 		$titan->saveInternalAdminPageOptions();
-		$this->assertEquals( 'modified again', $titan->getOption( $id ) );
+		$this->assertEquals( '', $titan->getOption( $id ) );
+		
+		$option->setValue( '0' );
+		$titan->saveInternalAdminPageOptions();
+		$this->assertEquals( '0', $titan->getOption( $id ) );
 	}
 	
 	function test_option_save_get_admin_tab() {
@@ -97,9 +101,13 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		$titan->saveInternalAdminPageOptions();
 		$this->assertEquals( 'modified', $titan->getOption( $id ) );
 		
-		$option->setValue( 'modified again' );
+		$option->setValue( '' );
 		$titan->saveInternalAdminPageOptions();
-		$this->assertEquals( 'modified again', $titan->getOption( $id ) );
+		$this->assertEquals( '', $titan->getOption( $id ) );
+		
+		$option->setValue( '0' );
+		$titan->saveInternalAdminPageOptions();
+		$this->assertEquals( '0', $titan->getOption( $id ) );
 	}
 	
 	function test_option_save_get_customizer() {
@@ -112,6 +120,12 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		
 		$option->setValue( 'modified' );
 		$this->assertEquals( 'modified', $titan->getOption( $id ) );
+		
+		$option->setValue( '' );
+		$this->assertEquals( '', $titan->getOption( $id ) );
+		
+		$option->setValue( '0' );
+		$this->assertEquals( '0', $titan->getOption( $id ) );
 	}
 	
 	function test_option_save_get_meta_box() {
@@ -129,7 +143,13 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'default', $titan->getOption( $id ) );
 		
 		$option->setValue( 'modified' );
-		$this->assertEquals( 'modified', $titan->getOption( $id ) );		
+		$this->assertEquals( 'modified', $titan->getOption( $id ) );
+		
+		$option->setValue( '' );
+		$this->assertEquals( '', $titan->getOption( $id ) );
+		
+		$option->setValue( '0' );
+		$this->assertEquals( '0', $titan->getOption( $id ) );
 	}
 	
 }
