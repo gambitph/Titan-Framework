@@ -41,13 +41,13 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 
 		$this->echoOptionFooter();
 	}
-	
-	
+
+
 	/**
 	 * Enqueue the colorpicker scripts
 	 *
 	 * @since 1.9
-	 * 
+	 *
 	 * @return void
 	 */
 	public function enqueueColorPickerScript() {

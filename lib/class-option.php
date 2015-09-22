@@ -57,7 +57,7 @@ class TitanFrameworkOption {
 
 	function __construct( $settings, $owner ) {
 		$this->owner = $owner;
-		
+
 		$this->settings = array_merge( self::$defaultSettings, $this->defaultSecondarySettings );
 		$this->settings = array_merge( $this->settings, $settings );
 

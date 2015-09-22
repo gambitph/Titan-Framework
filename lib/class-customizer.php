@@ -102,11 +102,11 @@ class TitanFrameworkCustomizer {
 	 * @see self::$namespacesWithPrintedPreviewCSS
 	 */
 	public function printPreviewCSS() {
-		
+
 		// Only print the styles once per namespace
 		if ( ! in_array( $this->owner->optionNamespace, self::$namespacesWithPrintedPreviewCSS ) ) {
 			self::$namespacesWithPrintedPreviewCSS[] = $this->owner->optionNamespace;
-			
+
 			echo '<style id="titan-preview-' . esc_attr( $this->owner->optionNamespace ) . '">';
 			echo $this->owner->cssInstance->generateCSS();
 			echo '</style>';
