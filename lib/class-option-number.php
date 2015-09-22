@@ -36,8 +36,8 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueueSlider' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueueSlider' ) );
+		tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'enqueueSlider' ) );
+		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'enqueueSlider' ) );
 		add_action( 'admin_head', array( __CLASS__, 'createSliderScript' ) );
 	}
 

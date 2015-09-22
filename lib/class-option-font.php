@@ -86,8 +86,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
+		tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
+		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 		add_action( 'admin_head', array( __CLASS__, 'createFontScript' ) );
 		add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, 'rememberGoogleFonts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueGooglefonts' ) );

@@ -42,7 +42,7 @@ class TitanFrameworkCustomizer {
 		}
 
 		add_action( 'customize_register', array( $this, 'register' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadUploaderScript' ) );
+		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'loadUploaderScript' ) );
 	}
 
 	public function loadUploaderScript() {
