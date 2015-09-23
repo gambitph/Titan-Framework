@@ -49,10 +49,10 @@ class TitanFramework {
 	private $optionsToRemove = array();
 
 	/**
-	 * All options created & used
+	 * Holds the values of all admin (page & tab) options. We need this since
 	 * @var array of TitanFrameworkOption
 	 */
-	private $allOptions;
+	private $adminOptions;
 
 	/**
 	 * The CSS class instance used
@@ -249,14 +249,12 @@ class TitanFramework {
 	 * @return array All admin options currently in the instance
 	 */
 	protected function getInternalAdminOptions() {
-		if ( empty( $this->allOptions ) ) {
-			$this->allOptions = array();
+		if ( empty( $this->adminOptions ) ) {
+			$this->adminOptions = array();
 		}
-
-		if ( empty( $this->allOptions[ $this->optionNamespace ] ) ) {
-			$this->allOptions[ $this->optionNamespace ] = array();
-		} else {
-			return $this->allOptions[ $this->optionNamespace ];
+		
+		if ( ! empty( $this->adminOptions ) ) {
+			return $this->adminOptions;
 		}
 
 		// Check if we have options saved already.
@@ -268,15 +266,15 @@ class TitanFramework {
 		}
 
 		// Put all the available options in our global variable for future checking.
-		if ( ! empty( $currentOptions ) && ! count( $this->allOptions[ $this->optionNamespace ] ) ) {
-			$this->allOptions[ $this->optionNamespace ] = unserialize( $currentOptions );
+		if ( ! empty( $currentOptions ) && ! count( $this->adminOptions ) ) {
+			$this->adminOptions = unserialize( $currentOptions );
 		}
 
-		if ( empty( $this->allOptions[ $this->optionNamespace ] ) ) {
-			$this->allOptions[ $this->optionNamespace ] = array();
+		if ( empty( $this->adminOptions ) ) {
+			$this->adminOptions = array();
 		}
-
-		return $this->allOptions[ $this->optionNamespace ];
+		
+		return $this->adminOptions;
 	}
 
 
@@ -297,8 +295,8 @@ class TitanFramework {
 		// Run this first to ensure that allOptions carries all our admin page options.
 		$this->getInternalAdminOptions();
 
-		if ( array_key_exists( $optionName, $this->allOptions[ $this->optionNamespace ] ) ) {
-			return $this->allOptions[ $this->optionNamespace ][ $optionName ];
+		if ( array_key_exists( $optionName, $this->adminOptions ) ) {
+			return $this->adminOptions[ $optionName ];
 		} else {
 			return $defaultValue;
 		}
@@ -319,7 +317,7 @@ class TitanFramework {
 	 * @see TitanFrameworkOption->setValue()
 	 */
 	public function setInternalAdminPageOption( $optionName, $value ) {
-		$this->allOptions[ $this->optionNamespace ][ $optionName ] = $value;
+		$this->adminOptions[ $optionName ] = $value;
 		return true;
 	}
 
@@ -332,9 +330,9 @@ class TitanFramework {
 	 * @return array All admin options currently in the instance
 	 */
 	public function saveInternalAdminPageOptions() {
-		update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[ $this->optionNamespace ] ) );
+		update_option( $this->optionNamespace . '_options', serialize( $this->adminOptions ) );
 		do_action( 'tf_save_options_' . $this->optionNamespace );
-		return $this->allOptions[ $this->optionNamespace ];
+		return $this->adminOptions;
 	}
 
 
@@ -582,7 +580,7 @@ class TitanFramework {
 		
 		// Delete all admin options.
 		delete_option( $this->optionNamespace . '_options' );
-		$this->allOptions[ $this->optionNamespace ] = array();
+		$this->adminOptions = array();
 		
 		// Delete all meta options.
         global $wpdb; 
