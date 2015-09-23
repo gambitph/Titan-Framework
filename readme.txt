@@ -167,6 +167,7 @@ and to everyone else in the GitHub repo!
 * Fixed: font text-shadows
 * Fixed: meta box css & js code from showing up in non-singular pages
 * Fixed: stray border in enable options in the customizer
+* Fixed: upload images misalign after saving in the customizer
 * Removed: references to old select-google-font option
 
 = 1.8.1 =
