@@ -19,10 +19,11 @@ class TitanFrameworkOptionHeading extends TitanFrameworkOption {
 	 * Display for options and meta
 	 */
 	public function display() {
+		$headingID = str_replace( ' ', '-', strtolower( $this->settings['name'] ) );
 		?>
 		<tr valign="top" class="even first tf-heading">
 			<th scope="row" class="first last" colspan="2">
-				<h3><?php echo $this->settings['name'] ?></h3>
+				<h3 id="<?php echo esc_attr( $headingID ) ?>"><?php echo $this->settings['name'] ?></h3>
 				<?php
 				if ( ! empty( $this->settings['desc'] ) ) {
 					?><p class='description'><?php echo $this->settings['desc'] ?></p><?php
