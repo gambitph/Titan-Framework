@@ -67,7 +67,7 @@ Titan is super new, so far the framework has been getting good feedback from the
 
 ## Are You Using Titan Framework in Your Project?
 
-Let us know so we can showcase it in the site! Send me an email at bf.intal@gambit.ph, send the name, a screenshot, a link and a short description of your project.
+Let us know so we can showcase it in the site! Send me a tweet at [@bfintal](http://twitter.com/bfintal)
 
 
 ## Contributing, Pull Requests Are Very Welcome
