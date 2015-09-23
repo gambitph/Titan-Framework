@@ -3,19 +3,21 @@ language: php
 
 # PHP version used in first build configuration.
 php:
-    - "5.2"
+    - "5.5"
+    - "5.4"
     - "5.3"
-    # - "5.4"
-    # - "5.5"
+    - "5.2"
 
 # WordPress version used in first build configuration.
 env:
+    - WP_VERSION=master WP_MULTISITE=0
     - WP_VERSION=latest WP_MULTISITE=0
+    - WP_VERSION=4.2 WP_MULTISITE=0
     - WP_VERSION=4.1 WP_MULTISITE=0
-    # - WP_VERSION=3.9 WP_MULTISITE=0
+    - WP_VERSION=master WP_MULTISITE=1
     - WP_VERSION=latest WP_MULTISITE=1
+    - WP_VERSION=4.2 WP_MULTISITE=1
     - WP_VERSION=4.1 WP_MULTISITE=1
-    # - WP_VERSION=3.9 WP_MULTISITE=1
 
 # Clones WordPress and configures our testing environment.
 before_script:
