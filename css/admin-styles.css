@@ -446,3 +446,15 @@
 	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
 	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
 }
+
+
+.tf-upload .tf-image-preview img {
+    margin-top: 0px;
+    margin-left: 0px;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+}

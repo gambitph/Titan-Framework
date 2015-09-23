@@ -171,8 +171,8 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
                             image = attachment.attributes.sizes.thumbnail;
                         }
                         var url = image.url;
-                        var marginTop = ( _preview.height() - image.height ) / 2;
-                        var marginLeft = ( _preview.width() - image.width ) / 2;
+                        // var marginTop = ( _preview.height() - image.height ) / 2;
+                        // var marginLeft = ( _preview.width() - image.width ) / 2;
 
                         $("<div data-attachment-id='"+attachment.id+"' class='thumbnail used-thumbnail tf-image-preview'><i class='dashicons dashicons-no-alt remove'></i><img style='max-width: 150px; max-height: 150px; margin-top: 0px; margin-left: 0px;' src='" + url + "'/></div>").prependTo(_preview);
 

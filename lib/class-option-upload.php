@@ -281,13 +281,8 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 								image = attachment.attributes.sizes.thumbnail;
 							}
 							var url = image.url;
-							var marginTop = ( _preview.height() - image.height ) / 2;
-							var marginLeft = ( _preview.width() - image.width ) / 2;
 
-							$("<img src='" + url + "'/>")
-								.css('marginTop', marginTop)
-								.css('marginLeft', marginLeft)
-								.appendTo(_preview);
+							$("<img src='" + url + "'/>").appendTo(_preview);
 							$("<i class='dashicons dashicons-no-alt remove'></i>").prependTo(_preview);
 						}
 						// we need to trigger a change so that WP would detect that we changed the value
