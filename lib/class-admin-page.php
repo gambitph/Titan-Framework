@@ -33,11 +33,6 @@ class TitanFrameworkAdminPage {
 			return;
 		}
 
-		// If we are just initializing, do not create our admin panels yet. During this phase all we want is to get all the options to create
-		if ( TitanFramework::$initializing ) {
-			return;
-		}
-
 		$this->settings = array_merge( $this->defaultSettings, $settings );
 		// $this->options = $options;
 		if ( empty( $this->settings['name'] ) ) {
@@ -151,8 +146,8 @@ class TitanFrameworkAdminPage {
 					} else {
 						$value = '';
 					}
-					// $value = $option->cleanValueForSaving( $value );
-					$this->owner->setOption( $option->settings['id'], $value );
+
+					$option->setValue( $value );
 				}
 			}
 
@@ -166,14 +161,15 @@ class TitanFrameworkAdminPage {
 				} else {
 					$value = '';
 				}
-				$this->owner->setOption( $option->settings['id'], $value );
+
+				$option->setValue( $value );
 			}
 
 			// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
 			do_action( 'tf_pre_save_options_' . $this->getOptionNamespace(), $this );
 			do_action( 'tf_pre_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
-			$this->owner->saveOptions();
+			$this->owner->saveInternalAdminPageOptions();
 
 			do_action( 'tf_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
@@ -192,7 +188,7 @@ class TitanFrameworkAdminPage {
 						continue;
 					}
 
-					$this->owner->setOption( $option->settings['id'], $option->settings['default'] );
+					$option->setValue( $option->settings['default'] );
 				}
 			}
 
@@ -201,14 +197,14 @@ class TitanFrameworkAdminPage {
 					continue;
 				}
 
-				$this->owner->setOption( $option->settings['id'], $option->settings['default'] );
+				$option->setValue( $option->settings['default'] );
 			}
 
 			// Hook 'tf_pre_reset_options_{namespace}' - action pre-saving
 			do_action( 'tf_pre_reset_options_' . $this->getOptionNamespace(), $this );
 			do_action( 'tf_pre_reset_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 
-			$this->owner->saveOptions();
+			$this->owner->saveInternalAdminPageOptions();
 
 			do_action( 'tf_reset_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
 

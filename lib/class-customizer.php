@@ -22,7 +22,7 @@ class TitanFrameworkCustomizer {
 	public $owner;
 
 	// Makes sure we only load live previewing CSS only once
-	private static $generatedHeadCSSPreview = false;
+	private static $namespacesWithPrintedPreviewCSS = array();
 
 	function __construct( $settings, $owner ) {
 		$this->owner = $owner;
@@ -41,12 +41,8 @@ class TitanFrameworkCustomizer {
 			$this->settings['panel_id'] = str_replace( ' ', '-', trim( strtolower( $this->settings['panel'] ) ) );
 		}
 
-		if ( TitanFramework::$initializing ) {
-			return;
-		}
-
 		add_action( 'customize_register', array( $this, 'register' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadUploaderScript' ) );
+		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'loadUploaderScript' ) );
 	}
 
 	public function loadUploaderScript() {
@@ -97,17 +93,24 @@ class TitanFrameworkCustomizer {
 
 
 	/**
-	 * Prints out CSS styles for refresh previewing
+	 * Prints out CSS styles for the current namespace refresh previewing
+	 *
+	 * @since	1.3
 	 *
 	 * @return	void
-	 * @since	1.3
+	 *
+	 * @see self::$namespacesWithPrintedPreviewCSS
 	 */
 	public function printPreviewCSS() {
-		if ( self::$generatedHeadCSSPreview ) {
-			return;
+
+		// Only print the styles once per namespace
+		if ( ! in_array( $this->owner->optionNamespace, self::$namespacesWithPrintedPreviewCSS ) ) {
+			self::$namespacesWithPrintedPreviewCSS[] = $this->owner->optionNamespace;
+
+			echo '<style id="titan-preview-' . esc_attr( $this->owner->optionNamespace ) . '">';
+			echo $this->owner->cssInstance->generateCSS();
+			echo '</style>';
 		}
-		self::$generatedHeadCSSPreview = true;
-		echo '<style>' . $this->owner->cssInstance->generateCSS() . '</style>';
 	}
 
 	public function register( $wp_customize ) {
@@ -143,7 +146,7 @@ class TitanFrameworkCustomizer {
 		// Unfortunately we have to call each option's register from here
 		foreach ( $this->options as $index => $option ) {
 			if ( ! empty( $option->settings['id'] ) ) {
-				$wp_customize->add_setting( $option->getID() , array(
+				$wp_customize->add_setting( $option->getID(), array(
 					'default' => $option->settings['default'],
 					'transport' => empty( $option->settings['livepreview'] ) ? 'refresh' : 'postMessage',
 				) );

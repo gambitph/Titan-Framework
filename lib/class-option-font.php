@@ -86,8 +86,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
+		tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
+		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 		add_action( 'admin_head', array( __CLASS__, 'createFontScript' ) );
 		add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, 'rememberGoogleFonts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueGooglefonts' ) );
@@ -126,7 +126,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		// load them once after gathering them
 		$fontsToLoad = array();
 		foreach ( self::$googleFontsOptions as $option ) {
-			$fontValue = $option->getFramework()->getOption( $option->settings['id'] );
+			$fontValue = $option->getValue();
 
 			if ( empty( $fontValue['font-family'] ) ) {
 				continue;
@@ -201,21 +201,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			return $css;
 		}
 
-		$value = $this->getFramework()->getOption( $option->settings['id'] );
-
 		$skip = array( 'dark', 'font-type', 'text-shadow-distance', 'text-shadow-blur', 'text-shadow-color', 'text-shadow-opacity' );
 
 		// If the value is blank, use the defaults
-		if ( empty( $value ) ) {
-			$value = $this->getValue();
-			if ( is_serialized( $value ) ) {
-				$value = unserialize( $value );
-			}
-			if ( ! is_array( $value ) ) {
-				$value = array();
-			}
-			$value = array_merge( self::$defaultStyling, $value );
-		}
+		$value = $this->getValue();
+		$value = array_merge( self::$defaultStyling, $value );
 
 		foreach ( $value as $key => $val ) {
 
@@ -244,17 +234,17 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			if ( $key == 'text-shadow-location' ) {
 				$textShadow = '';
 				if ( $value[ $key ] != 'none' ) {
-					if ( stripos( $value[ $key ], 'left' ) != false ) {
+					if ( stripos( $value[ $key ], 'left' ) !== false ) {
 						$textShadow .= '-' . $value['text-shadow-distance'];
-					} else if ( stripos( $value[ $key ], 'right' ) != false ) {
+					} else if ( stripos( $value[ $key ], 'right' ) !== false ) {
 						$textShadow .= $value['text-shadow-distance'];
 					} else {
 						$textShadow .= '0';
 					}
 					$textShadow .= ' ';
-					if ( stripos( $value[ $key ], 'top' ) != false ) {
+					if ( stripos( $value[ $key ], 'top' ) !== false ) {
 						$textShadow .= '-' . $value['text-shadow-distance'];
-					} else if ( stripos( $value[ $key ], 'bottom' ) != false ) {
+					} else if ( stripos( $value[ $key ], 'bottom' ) !== false ) {
 						$textShadow .= $value['text-shadow-distance'];
 					} else {
 						$textShadow .= '0';
@@ -494,12 +484,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		// Get the current value and merge with defaults
 		$value = $this->getValue();
-		if ( is_serialized( $value ) ) {
-			$value = unserialize( $value );
-		}
-		if ( ! is_array( $value ) ) {
-			$value = array();
-		}
 		$value = array_merge( self::$defaultStyling, $value );
 
 		/*

@@ -14,7 +14,7 @@ msgstr ""
 "\n"
 "Language: en_US\n"
 
-#: lib/class-admin-panel.php:119
+#: lib/class-admin-page.php:114
 msgid ""
 "<em>Options Page Created with <a href='http://titanframework.net?"
 "utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
@@ -22,15 +22,15 @@ msgstr ""
 "<em>Options Page Created with <a href='http://titanframework.net?"
 "utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
 
-#: lib/class-admin-panel.php:329
+#: lib/class-admin-page.php:325
 msgid "Settings saved."
 msgstr "Settings saved."
 
-#: lib/class-admin-panel.php:331
+#: lib/class-admin-page.php:327
 msgid "Settings reset to default."
 msgstr "Settings reset to default."
 
-#: lib/class-meta-box.php:36, lib/class-theme-customizer-section.php:33
+#: lib/class-customizer.php:33, lib/class-meta-box.php:36
 msgid "More Options"
 msgstr "More Options"
 
@@ -80,19 +80,19 @@ msgstr ""
 msgid "Entering your license key is mandatory to get the product updates."
 msgstr "Entering your license key is mandatory to get the product updates."
 
-#: lib/class-option-enable.php:21, lib/class-option-enable.php:96
+#: lib/class-option-enable.php:21, lib/class-option-enable.php:100
 msgid "Enabled"
 msgstr "Enabled"
 
-#: lib/class-option-enable.php:24, lib/class-option-enable.php:99
+#: lib/class-option-enable.php:24, lib/class-option-enable.php:103
 msgid "Disabled"
 msgstr "Disabled"
 
-#: lib/class-option-gallery.php:148, lib/class-option-upload.php:257
+#: lib/class-option-gallery.php:148, lib/class-option-upload.php:255
 msgid "Select Image"
 msgstr "Select Image"
 
-#: lib/class-option-gallery.php:151, lib/class-option-upload.php:260
+#: lib/class-option-gallery.php:151, lib/class-option-upload.php:258
 msgid "Use image"
 msgstr "Use image"
 
@@ -127,34 +127,26 @@ msgstr "Select"
 msgid "Option type or extended class %s does not exist."
 msgstr "Option type or extended class %s does not exist."
 
-#: lib/class-titan-framework.php:197
+#: lib/class-titan-framework.php:175
 msgid "All option IDs must be unique. The id %s has been used multiple times."
 msgstr "All option IDs must be unique. The id %s has been used multiple times."
 
-#: lib/class-titan-framework.php:568
+#: lib/class-titan-framework.php:594
 msgid "%s needs a %s parameter."
 msgstr "%s needs a %s parameter."
 
-#: lib/class-titan-framework.php:578
+#: lib/class-titan-framework.php:604
 msgid "Container of type %s, does not exist."
 msgstr "Container of type %s, does not exist."
 
-#: lib/class-titan-framework.php:781
-msgid ""
-"Wrong usage of %s, this should be called inside a hook or from within a "
-"theme file."
-msgstr ""
-"Wrong usage of %s, this should be called inside a hook or from within a "
-"theme file."
-
-#: titan-framework.php:188
+#: titan-framework.php:170
 msgid "Documentation"
 msgstr "Documentation"
 
-#: titan-framework.php:192
+#: titan-framework.php:174
 msgid "GitHub Repo"
 msgstr "GitHub Repo"
 
-#: titan-framework.php:196
+#: titan-framework.php:178
 msgid "Issue Tracker"
 msgstr "Issue Tracker"

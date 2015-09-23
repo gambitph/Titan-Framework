@@ -34,9 +34,9 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueueSortable' ) );
 		add_action( 'admin_head', array( __CLASS__, 'createSortableScript' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueueSortable' ) );
+		tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'enqueueSortable' ) );
+		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'enqueueSortable' ) );
 	}
 
 
@@ -140,9 +140,6 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 		$values = $this->getValue();
 		if ( $values == '' ) {
 			$values = array_keys( $this->settings['options'] );
-		}
-		if ( is_serialized( $values ) ) {
-			$values = unserialize( $values );
 		}
 		if ( count( $values ) != count( $this->settings['options'] ) ) {
 			$this->settings['visible_button'] = true;

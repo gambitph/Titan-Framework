@@ -29,12 +29,6 @@ class TitanFrameworkOptionRadioPalette extends TitanFrameworkOption {
 
 		// Get the correct value, since we are accepting indices in the default setting
 		$value = $this->getValue();
-		if ( $value == '' ) {
-			$value = 0;
-		}
-		if ( ! is_array( $value ) ) {
-			$value = $this->settings['options'][ $value ];
-		}
 
 		// print the palettes
 		foreach ( $this->settings['options'] as $key => $colorSet ) {

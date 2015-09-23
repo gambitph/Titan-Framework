@@ -100,6 +100,16 @@ gulp.task( 'ace-update', [ 'bower' ], function() {
 	return gulp.src( aceFiles, { base: 'bower_components/ace-builds/src-min-noconflict' } )
 		.pipe( gulp.dest( 'js/ace-min-noconflict' ) );
 });
+gulp.task( 'color-picker-alpha-update', [ 'bower' ], function() {
+	return gulp.src( 'bower_components/wp-color-picker-alpha/src/wp-color-picker-alpha.js' )
+		.pipe( gulp.dest( 'js' ) );
+});
+gulp.task( 'jquery-ui-timepicker-addon-update', [ 'bower' ], function() {
+	return gulp.src( 'bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.js' )
+		.pipe( gulp.dest( 'js' ) );
+});
+gulp.task( 'bower-update-indiv', [ 'ace-update', 'color-picker-alpha-update', 'jquery-ui-timepicker-addon-update' ] );
+gulp.task( 'bower-update', [ 'bower-update-indiv', 'scripts' ] );
 
 
 /**

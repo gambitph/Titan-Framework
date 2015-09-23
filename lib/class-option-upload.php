@@ -23,10 +23,8 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 		add_filter( 'tf_generate_css_upload_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
 
-		if ( ! TitanFramework::$initializing ) {
-			add_action( 'tf_livepreview_pre_' . $this->getOptionNamespace(), array( $this, 'preLivePreview' ), 10, 3 );
-			add_action( 'tf_livepreview_post_' . $this->getOptionNamespace(), array( $this, 'postLivePreview' ), 10, 3 );
-		}
+		add_action( 'tf_livepreview_pre_' . $this->getOptionNamespace(), array( $this, 'preLivePreview' ), 10, 3 );
+		add_action( 'tf_livepreview_post_' . $this->getOptionNamespace(), array( $this, 'postLivePreview' ), 10, 3 );
 	}
 
 
@@ -43,7 +41,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			return $css;
 		}
 
-		$value = $this->getFramework()->getOption( $option->settings['id'] );
+		$value = $this->getValue();
 
 		if ( empty( $value ) ) {
 			return $css;

@@ -236,36 +236,35 @@ class TitanFrameworkCSS {
 		require_once( trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'inc/scssphp/scss.inc.php' );
 		$scss = new titanscssc();
 
-		// Get all the CSS
+		// Get all the CSS.
 		foreach ( $this->allOptionsWithIDs as $option ) {
-			// Only do this for the allowed types
+
+			// Only do this for the allowed types.
 			if ( in_array( $option->settings['type'], $noCSSOptionTypes ) ) {
 				continue;
 			}
 
-			// Decide whether or not we should continue to generate CSS for this option
+			// Decide whether or not we should continue to generate CSS for this option.
 			if ( ! apply_filters( 'tf_continue_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), true, $option ) ) {
 				continue;
 			}
 
-			// Custom generated CSS
+			// Custom generated CSS.
 			$generatedCSS = apply_filters( 'tf_generate_css_' . $option->settings['type'] . '_' . $option->getOptionNamespace(), '', $option );
 			if ( ! empty( $generatedCSS ) ) {
-				try {
-					$testerForValidCSS = $scss->compile( $generatedCSS );
-					$cssString .= $generatedCSS;
-				} catch (Exception $e) {
-				}
+				$cssString .= $generatedCSS;
+
+				// Don't continue the default CSS generation since it was handled by the filter already.
 				continue;
 			}
 
-			// Don't render CSS for this option if it doesn't have a value
-			$optionValue = $this->frameworkInstance->getOption( $option->settings['id'] );
+			// Don't render CSS for this option if it doesn't have a value.
+			$optionValue = $option->getValue();
 			if ( $optionValue == '' || $optionValue == false ) {
 				continue;
 			}
 
-			// Add the values as SaSS variables
+			// Add the values as SaSS variables.
 			$generatedCSS = $this->formCSSVariables(
 				$option->settings['id'],
 				$option->settings['type'],
@@ -280,8 +279,7 @@ class TitanFrameworkCSS {
 				}
 			}
 
-			// In the css parameter, we accept the term `value` as our current value,
-			// translate it into the SaSS variable for the current option
+			// In the css parameter, we accept the term `value` as our current value, translate it into the SaSS variable for the current option.
 			if ( ! empty( $option->settings['css'] ) ) {
 				$cssString .= str_replace( 'value', '#{$' . $option->settings['id'] . '}', $option->settings['css'] );
 			}
@@ -292,7 +290,7 @@ class TitanFrameworkCSS {
 			$cssString .= $css . "\n";
 		}
 
-		// Compile as SCSS & minify
+		// Compile as SCSS & minify.
 		if ( ! empty( $cssString ) ) {
 			$scss->setFormatter( self::SCSS_COMPRESSION );
 			try {

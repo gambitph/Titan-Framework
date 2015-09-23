@@ -231,6 +231,7 @@
 	float: right;
 	z-index: -9999;
 	position: absolute;
+	border: 0;
 }
 .tf-enable .button {
 	-moz-user-select: none;

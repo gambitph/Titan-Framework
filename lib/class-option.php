@@ -58,13 +58,6 @@ class TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		$this->owner = $owner;
 
-		// remove blank settings to make it ready for merging with the defaults
-		foreach ( $settings as $key => $value ) {
-			if ( $value == '' ) {
-				unset( $settings[ $key ] );
-			}
-		}
-
 		$this->settings = array_merge( self::$defaultSettings, $this->defaultSecondarySettings );
 		$this->settings = array_merge( $this->settings, $settings );
 
@@ -77,32 +70,79 @@ class TitanFrameworkOption {
 		}
 	}
 
-	public function getValue() {
-		if ( $this->type == self::TYPE_ADMIN ) {
-			
-			if ( is_a( $this->owner, 'TitanFrameworkAdminTab' ) ) {
-				$allOptions = $this->owner->owner->owner->getAllOptions();
-			} else {
-				$allOptions = $this->owner->owner->getAllOptions();
-			}
-			if ( array_key_exists( $this->settings['id'], $allOptions ) ) {
-				return $allOptions[ $this->settings['id'] ];
-			}
-			return '';
-			
-		} else if ( $this->type == self::TYPE_META ) {
-			
-			// for meta options, use the default value for new posts/pages
-			if ( metadata_exists( 'post', $this->owner->postID, $this->getID() ) ) {
-				return get_post_meta( $this->owner->postID, $this->getID(), true );
-			} else {
-				return $this->settings['default'];
-			}
-			
-		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
-			return get_theme_mod( $this->getID() );
+
+	public function getValue( $postID = null ) {
+
+		$value = false;
+
+		if ( empty( $this->settings['id'] ) ) {
+			return $value;
 		}
-		return false;
+
+		if ( $this->type == self::TYPE_ADMIN ) {
+
+			$value = $this->getFramework()->getInternalAdminPageOption( $this->settings['id'], $this->settings['default'] );
+
+		} else if ( $this->type == self::TYPE_META ) {
+
+			if ( empty( $postID ) ) {
+				$postID = $this->owner->postID;
+			}
+			// If no $postID is given, try and get it if we are in a loop.
+			if ( empty( $postID ) && ! is_admin() && get_post() != null ) {
+				$postID = get_the_ID();
+			}
+
+			// for meta options, use the default value for new posts/pages
+			if ( metadata_exists( 'post', $postID, $this->getID() ) ) {
+				$value = get_post_meta( $postID, $this->getID(), true );
+			} else {
+				$value = $this->settings['default'];
+			}
+		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
+			$value = get_theme_mod( $this->getID(), $this->settings['default'] );
+		}
+
+		// Apply cleaning method for the value (for serialized data, slashes, etc).
+		$value = $this->cleanValueForGetting( $value );
+
+		return apply_filters( 'tf_get_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID, $this );
+	}
+
+
+	/**
+	 *
+	 */
+	public function setValue( $value, $postID = null ) {
+
+		// Apply cleaning method for the value (for serialized data, slashes, etc).
+		$value = $this->cleanValueForSaving( $value );
+
+		if ( $this->type == self::TYPE_ADMIN ) {
+
+			$this->getFramework()->setInternalAdminPageOption( $this->settings['id'], $value );
+
+		} else if ( $this->type == self::TYPE_META ) {
+
+			if ( empty( $postID ) ) {
+				$postID = $this->owner->postID;
+			}
+			// If no $postID is given, try and get it if we are in a loop.
+			if ( empty( $postID ) && ! is_admin() && get_post() != null ) {
+				$postID = get_the_ID();
+			}
+
+			update_post_meta( $postID, $this->getID(), $value );
+
+		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
+
+			set_theme_mod( $this->getID(), $value );
+
+		}
+
+		do_action( 'tf_set_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID, $this );
+
+		return true;
 	}
 
 
