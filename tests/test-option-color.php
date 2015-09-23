@@ -1,11 +1,11 @@
 <?php
 /**
- * Tests for class-option-text.php
+ * Tests for class-option-color.php
  *
  * @package Titan Framework Tests
  */
 
-class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
+class Titan_Framework_Option_Color_Test extends WP_UnitTestCase {
 	
 	public $adminPageOption;
 	public $adminTabOption;
@@ -37,8 +37,8 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		) );
 		$this->adminPageOption = $container->createOption( array(
 			'id' => 'test1',
-			'type' => 'text',
-			'default' => 'default',
+			'type' => 'color',
+			'default' => '#123456',
 		) );
 		
 		$container = $container->createTab( array(
@@ -46,28 +46,28 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		) );
 		$this->adminTabOption = $container->createOption( array(
 			'id' => 'test2',
-			'type' => 'text',
-			'default' => 'default',
+			'type' => 'color',
+			'default' => '#123456',
 		) );
-		
+
 
 		$container = $titan->createCustomizer( array(
 			'name' => 'test container',
 		) );
 		$this->customizerOption = $container->createOption( array(
 			'id' => 'test3',
-			'type' => 'text',
-			'default' => 'default',
+			'type' => 'color',
+			'default' => '#123456',
 		) );
-		
+
 
 		$container = $titan->createMetaBox( array(
 			'name' => 'test container',
 		) );
 		$this->metaOption = $container->createOption( array(
 			'id' => 'test4',
-			'type' => 'text',
-			'default' => 'default',
+			'type' => 'color',
+			'default' => '#123456',
 		) );
 	}
 	
@@ -75,19 +75,15 @@ class Titan_Framework_Option_Text_Test extends WP_UnitTestCase {
 		$titan = TitanFramework::getInstance( 'testing' );
 	
 		$id = $option->settings['id'];
-		$this->assertEquals( 'default', $titan->getOption( $id ) );
-		
-		$option->setValue( 'modified' );
+		$this->assertEquals( '#123456', $titan->getOption( $id ) );
+	
+		$option->setValue( 'rgba(0,0,0,.5)' );
 		$titan->saveInternalAdminPageOptions(); // Does nothing for non-admin options
-		$this->assertEquals( 'modified', $titan->getOption( $id ) );
-		
+		$this->assertEquals( 'rgba(0,0,0,.5)', $titan->getOption( $id ) );
+	
 		$option->setValue( '' );
 		$titan->saveInternalAdminPageOptions(); // Does nothing for non-admin options
 		$this->assertEquals( '', $titan->getOption( $id ) );
-		
-		$option->setValue( '0' );
-		$titan->saveInternalAdminPageOptions(); // Does nothing for non-admin options
-		$this->assertEquals( '0', $titan->getOption( $id ) );
 	}
 	
 	function test_option_save_get_admin_page() {

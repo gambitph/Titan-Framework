@@ -730,6 +730,50 @@ class TitanFramework {
 
 		return true;
 	}
+	
+	
+	/**
+	 * Deletes ALL the options for the namespace. Even deletes all meta found in all posts.
+	 * Mainly used for unit tests
+	 *
+	 * @since 1.9
+	 *
+	 * @return void
+	 */
+	public function deleteAllOptions() {
+		
+		// Delete all admin options.
+		delete_option( $this->optionNamespace . '_options' );
+		$this->allOptions[ $this->optionNamespace ] = array();
+		
+		// Delete all meta options.
+        global $wpdb; 
+		$allPosts = $wpdb->get_results( "SELECT ID FROM " . $wpdb->posts, ARRAY_A );
+		if ( ! empty( $allPosts ) ) {
+			foreach ( $allPosts as $row ) {
+				$allMeta = get_post_meta( $row['ID'] );
+				
+				// Only remove meta data that the framework created.
+				foreach ( $allMeta as $metaName => $dummy ) {
+					if ( stripos( $metaName, $this->optionNamespace . '_' ) === 0 ) {
+						delete_post_meta( $row['ID'], $metaName );
+					}
+				}
+			}
+		}
+
+		// Delete all theme mods.
+		$allThemeMods = get_theme_mods();
+		if ( ! empty( $allThemeMods ) && is_array( $allThemeMods ) ) {
+			foreach ( $allThemeMods as $optionName => $dummy ) {
+
+				// Only remove theme mods that the framework created.
+				if ( stripos( $optionName, $this->optionNamespace . '_' ) === 0 ) {
+					remove_theme_mod( $optionName );
+				}
+			}
+		}
+	}
 
 
 	/**
