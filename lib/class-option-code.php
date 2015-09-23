@@ -89,7 +89,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 
 		// Don't generate CSS for non-pages and non-posts
 		$id = get_the_ID();
-		if ( empty( $id ) || 1 == $id ) {
+		if ( empty( $id ) || 1 == $id || ! is_singular() ) {
 			return;
 		}
 
@@ -120,7 +120,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 
 		// Don't generate CSS for non-pages and non-posts
 		$id = get_the_ID();
-		if ( empty( $id ) || 1 == $id ) {
+		if ( empty( $id ) || 1 == $id || ! is_singular() ) {
 			return;
 		}
 
