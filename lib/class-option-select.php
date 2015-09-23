@@ -92,7 +92,7 @@ function registerTitanFrameworkOptionSelectControl() {
  * This function is used to reduce duplicated code between the TF option
  * and the customizer control.
  *
- * @since 1.8.2
+ * @since 1.9
  *
  * @param array $options List of options
  * @param array $val     Current value

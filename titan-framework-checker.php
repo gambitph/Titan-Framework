@@ -13,7 +13,7 @@
  * require_once( 'titan-framework-checker.php' );
  *
  * Changelog:
- * v1.8.2
+ * v1.9
  *      * Simplified class
  * v1.7.4
  *		* Now integrates with TGM Plugin Activation - uses TGM instead of displaying
