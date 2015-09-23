@@ -49,12 +49,6 @@ class TitanFramework {
 	private $optionsToRemove = array();
 
 	/**
-	 * List of all option IDs created
-	 * @var array
-	 */
-	private $allOptionIDs = array();
-
-	/**
 	 * All options created & used
 	 * @var array of TitanFrameworkOption
 	 */
@@ -137,14 +131,6 @@ class TitanFramework {
 
 		$this->cssInstance = new TitanFrameworkCSS( $this );
 
-		// add_action( 'after_setup_theme', array( $this, 'getInternalAdminOptions' ), 7 );
-		// add_action( 'init', array( $this, 'updateOptionDBListing' ), 12 );
-		if ( is_admin() ) {
-			// add_action( 'init', array( $this, 'updateThemeModListing' ), 12 );
-			// add_action( 'init', array( $this, 'updateMetaDbListing' ), 12 );
-			add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, 'verifyUniqueIDs' ) );
-		}
-
 		add_action( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'loadFrontEndScripts' ) );
 		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, 'rememberGoogleFonts' ) );
@@ -153,32 +139,6 @@ class TitanFramework {
 
 		// Create a save option filter for customizer options.
 		add_filter( 'pre_update_option', array( $this, 'addCustomizerSaveFilter' ), 10, 3 );
-	}
-
-	/**
-	 * Checks all the ids and shows a warning when multiple occurances of an id is found.
-	 * This is to ensure that there won't be any option conflicts
-	 *
-	 * @since 1.1.1
-	 *
-	 * @param TitanFrameworkOption $option The object just created.
-	 *
-	 * @return void
-	 */
-	public function verifyUniqueIDs( $option ) {
-		if ( empty( $option->settings['id'] ) ) {
-			return;
-		}
-
-		if ( in_array( $option->settings['id'], $this->allOptionIDs ) ) {
-			self::displayFrameworkError(
-				sprintf( __( 'All option IDs must be unique. The id %s has been used multiple times.', TF_I18NDOMAIN ),
-					'<code>' . $option->settings['id'] . '</code>'
-				)
-			);
-		} else {
-			$this->allOptionIDs[] = $option->settings['id'];
-		}
 	}
 
 
@@ -215,6 +175,15 @@ class TitanFramework {
 	 */
 	public function rememberAllOptions( $option ) {
 		if ( ! empty( $option->settings['id'] ) ) {
+
+			if ( is_admin() && isset( $this->optionsUsed[ $option->settings['id'] ] ) ) {
+				self::displayFrameworkError(
+					sprintf( __( 'All option IDs per namespace must be unique. The id %s has been used multiple times.', TF_I18NDOMAIN ),
+						'<code>' . $option->settings['id'] . '</code>'
+					)
+				);
+			}
+			
 			$this->optionsUsed[ $option->settings['id'] ] = $option;
 		}
 	}
@@ -366,135 +335,6 @@ class TitanFramework {
 		update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[ $this->optionNamespace ] ) );
 		do_action( 'tf_save_options_' . $this->optionNamespace );
 		return $this->allOptions[ $this->optionNamespace ];
-	}
-
-
-	/**
-	 * Cleans up the meta options in the database for our namespace.
-	 * Remove unused stuff and add in the default values for new stuff.
-	 *
-	 * @since 1.0
-	 *
-	 * @return void
-	 */
-	public function updateMetaDbListing() {
-		// TODO.
-	}
-
-
-	/**
-	 * Cleans up the theme mods in the database for our namespace.
-	 * Remove unused stuff and add in the default values for new stuff.
-	 *
-	 * @since 1.0
-	 *
-	 * @return void
-	 */
-	public function updateThemeModListing() {
-		$allThemeMods = get_theme_mods();
-
-		// For fresh installs there won't be any theme mods yet.
-		if ( false === $allThemeMods ) {
-			$allThemeMods = array();
-		}
-
-		$allThemeModKeys = array_fill_keys( array_keys( $allThemeMods ), null );
-
-		// Check existing theme mods.
-		if ( ! empty( $this->mainContainers['customizer'] ) ) {
-			foreach ( $this->mainContainers['customizer'] as $section ) {
-				foreach ( $section->options as $option ) {
-					if ( ! isset( $allThemeMods[ $option->getID() ] ) ) {
-						set_theme_mod( $option->getID(), $option->settings['default'] );
-					}
-
-					unset( $allThemeModKeys[ $option->getID() ] );
-				}
-			}
-		}
-
-		// Remove all unused theme mods.
-		if ( count( $allThemeModKeys ) ) {
-			foreach ( $allThemeModKeys as $optionName => $dummy ) {
-
-				// Only remove theme mods that the framework created.
-				if ( stripos( $optionName, $this->optionNamespace . '_' ) === 0 ) {
-					remove_theme_mod( $optionName );
-				}
-			}
-		}
-	}
-
-
-	/**
-	 * Cleans up the options present in the database for our namespace.
-	 * Remove unused stuff and add in the default values for new stuff
-	 *
-	 * @since 1.0
-	 *
-	 * @return void
-	 */
-	public function updateOptionDBListing() {
-
-		// Get also a list of all option keys.
-		$allOptionKeys = array();
-		if ( ! empty( $this->allOptions[ $this->optionNamespace ] ) ) {
-			$allOptionKeys = array_fill_keys( array_keys( $this->allOptions[ $this->optionNamespace ] ), null );
-		}
-
-		// Check whether options have changed / added.
-		$changed = false;
-		if ( ! empty( $this->mainContainers['admin-page'] ) ) {
-			foreach ( $this->mainContainers['admin-page'] as $panel ) {
-
-				// Check existing options.
-				foreach ( $panel->options as $option ) {
-					if ( empty( $option->settings['id'] ) ) {
-						continue;
-					}
-					if ( ! isset( $this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] ) ) {
-						$this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] = $option->settings['default'];
-						$changed = true;
-					}
-					unset( $allOptionKeys[ $option->settings['id'] ] );
-
-					// Clean the value for retrieval.
-					$this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] =
-						$option->cleanValueForGetting( $this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] );
-				}
-
-				// Check existing options.
-				foreach ( $panel->tabs as $tab ) {
-					foreach ( $tab->options as $option ) {
-						if ( empty( $option->settings['id'] ) ) {
-							continue;
-						}
-						if ( ! isset( $this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] ) ) {
-							$this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] = $option->settings['default'];
-							$changed = true;
-						}
-						unset( $allOptionKeys[ $option->settings['id'] ] );
-
-						// Clean the value for retrieval.
-						$this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] =
-							$option->cleanValueForGetting( $this->allOptions[ $this->optionNamespace ][ $option->settings['id'] ] );
-					}
-				}
-			}
-		}
-
-		// Remove all unused keys.
-		if ( count( $allOptionKeys ) ) {
-			foreach ( $allOptionKeys as $optionName => $dummy ) {
-				unset( $this->allOptions[ $this->optionNamespace ][ $optionName ] );
-			}
-			$changed = true;
-		}
-
-		// New options have been added, save the default values.
-		if ( $changed ) {
-			update_option( $this->optionNamespace . '_options', serialize( $this->allOptions[ $this->optionNamespace ] ) );
-		}
 	}
 
 
@@ -672,7 +512,7 @@ class TitanFramework {
 	 * @return mixed The option value
 	 */
 	public function getOption( $optionName, $postID = null ) {
-		$value = null;
+		$value = false;
 
 		// Get the option value.
 		if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
@@ -699,9 +539,7 @@ class TitanFramework {
 	 */
 	public function getOptions( $optionArray, $postID = null ) {
 		foreach ( $optionArray as $optionName => $originalValue ) {
-			if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
-				$optionArray[ $optionName ] = $this->getOption( $optionName, $postID );
-			}
+			$optionArray[ $optionName ] = $this->getOption( $optionName, $postID );
 		}
 		return apply_filters( 'tf_get_options_' . $this->optionNamespace, $optionArray, $postID );
 	}
@@ -812,7 +650,7 @@ class TitanFramework {
 
 		// Display an error message.
 		?>
-		<div style='margin: 20px'><strong><?php echo TF_NAME ?> Error:</strong>
+		<div style='margin: 20px; text-align: center;'><strong><?php echo TF_NAME ?> Error:</strong>
 			<?php echo $message ?>
 			<?php
 			if ( ! empty( $errorObject ) ) :
