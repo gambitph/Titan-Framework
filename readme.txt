@@ -2,9 +2,9 @@
 Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
-Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: 1.8.2
+Requires at least: 4.1
+Tested up to: 4.3.1
+Stable tag: 1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,12 +60,14 @@ The generated theme comes with sample pre-created options in the admin and theme
 * Checkbox
 * Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
+* Custom
 * Date
 * EDD License (Easy Digital Downloads license)
 * Editor (WYSIWYG)
 * Enable
 * Font Style (Web safe fonts and Google WebFonts)
 * Heading
+* Iframe
 * Media uploader
 * Multicheck
 * Multicheck categories and taxonomies
@@ -113,7 +115,7 @@ If Titan Framework has helped you in any way, we would appreciate any amount of 
 
 = Special Thanks to all the Contributors =
 
-@ardallan, @BrazenlyGeek, @csloisel, @DavideVogliotti, @davidossahdez, @desaiuditd, @dovy, @kevinlangleyjr, @manishsongirkar, @mendezcode, @MickeyKay, @sagarjadhav, and @smccafferty
+@ahansson89, @ahmadawais, @ardallan, @BrazenlyGeek, @csloisel, @DavideVogliotti, @davidossahdez, @desaiuditd, @dovy, @fabiorphp, @iografica, @jaeh, @kevinlangleyjr, @manishsongirkar, @mendezcode, @MickeyKay, @nemke, @sagarjadhav, @smccafferty, @tojibon
 
 and to everyone else in the GitHub repo!
 
@@ -140,6 +142,38 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.9 =
+* Major performance and speed optimizations, now is less process & memory intensive
+* New `iframe` option
+* New `custom` option
+* New `multiple` attribute in select options for selecting multiple values
+* New `desc` attribute in heading options for displaying short descriptions
+* New `alpha` attribute in color options for picking rgba colors
+* New `editor_options` attribute in editor options for specifying editor settings
+* New `tf_admin_tab_created_{namespace}` action
+* New `$titan->getOptions()` function for getting multiple options at once
+* Updated Google Font list
+* Heading options now generate an `id` attribute
+* Now using Gulp for development and building
+* Started using WordPress PHP Coding Standards
+* Started unit testing. Coverage currently at 8%
+* Removed initializing state which could cause duplication problems
+* Bumped minimum version to 4.1
+* Simplified Titan Framework checker code
+* Fixed: notice for newly added options
+* Fixed: upload option now uses attachment url in `livePreview` attribute
+* Fixed: meta boxes now save properly for attachment post_types
+* Fixed: font text-shadows
+* Fixed: meta box css & js code from showing up in non-singular pages
+* Fixed: stray border in enable options in the customizer
+* Removed: references to old select-google-font option
+
+= 1.8.1 =
+* Duplicated CSS rules #271
+* Generated css contains duplicated declarations #232
+* Add support for checking item ID #267
+* Removed missing gallery since we still need to work on it bd23623
 
 = 1.8 =
 * New option: ajax-button
