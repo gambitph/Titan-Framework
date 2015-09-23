@@ -38,41 +38,9 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar create-project gambitph/titan-framework titan-framework
 ```
 
-## Recent Changelog
+## Developing
 
-#### Version 1.8
-* Added two new Meta options; Gallery and Separator. Functionality provided by @tojibon
-  Gallery is the multiple version of uploads while separator is, well, you know what that is.
-* Changed schema part of Google Fonts API url, so it can be used on http and https sites without "Blocking non https content" issues in browsers; fix provided by @nemke.
-* Fixes an error that occurs when array value is no present but option is set, fix provided by @ahansson89  
-
-#### Version 1.7.6
-* The Note option can now be placed in the Customizer
-* Prefixing a select value with `!` now displays the drop down value as disabled
-* Added new argument `panel_desc` for panel descriptions
-* Updated & namespaced EDD updater files
-* Fixed bug where options with the value 0 were not properly returned
-* Fixed bug where double descriptions showed up in the Customizer
-* Minor XSS security fixes, shouldn't be affected really, but it's better to be safe
-
-#### Version 1.7.5
-* Added `hidden` parameter for all options
-* Fixed 4.1 display issues with the upload option
-* Fixed an undefined notice that sometimes appears
-
-#### Version 1.7.4
-* Faster SCSS parsing
-* Faster loading time
-* Unit parameter for number options now supported in the Theme Customizer
-* Better font color option handling in Theme Customizer
-* Now prevents SCSS errors from showing up
-* Fixed name label issues with the enable option
-* Better plugin checking method
-* Plugin checker now integrates with TGM Plugin Activation
-* Updated Ace
-
-#### Version 1.7.3
-* Fixed bug introduced in 1.7.2 where admin options sometimes were not being saved
+If you want to help with the development of Titan Framework, we have a [Developing guide in the wiki](https://github.com/gambitph/Titan-Framework/wiki/Developing)
 
 ## Creating a WordPress Theme?
 
@@ -113,15 +81,6 @@ PRs on these are welcome:
 * WordPress standardization
 * Code optimizations
 * Anything under the sun as long as it's helpful :)
-
-
-## Packaging
-
-Code cleanup can be performed by Composer with:
-
-```
-php composer.phar archive --format=zip
-```
 
 ## Translations
 
