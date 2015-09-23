@@ -49,7 +49,9 @@ function tf_add_action_once( $tag, $function_to_add, $priority = 10, $accepted_a
 	// Since references to $this produces a unique id, just use the class for identification purposes
 	$idxFunc = $function_to_add;
 	if ( is_array( $function_to_add ) ) {
-		$idxFunc[0] = get_class( $function_to_add[0] );
+		if ( ! is_string( $function_to_add[0] ) ) {
+			$idxFunc[0] = get_class( $function_to_add[0] );
+		}
 	}
 	$idx = _wp_filter_build_unique_id( $tag, $idxFunc, $priority );
 
@@ -91,7 +93,9 @@ function tf_add_filter_once( $tag, $function_to_add, $priority = 10, $accepted_a
 	// Since references to $this produces a unique id, just use the class for identification purposes
 	$idxFunc = $function_to_add;
 	if ( is_array( $function_to_add ) ) {
-		$idxFunc[0] = get_class( $function_to_add[0] );
+		if ( ! is_string( $function_to_add[0] ) ) {
+			$idxFunc[0] = get_class( $function_to_add[0] );
+		}
 	}
 	$idx = _wp_filter_build_unique_id( $tag, $idxFunc, $priority );
 

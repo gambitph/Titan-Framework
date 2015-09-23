@@ -132,34 +132,11 @@ class TitanFramework {
 		$this->cssInstance = new TitanFrameworkCSS( $this );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'loadFrontEndScripts' ) );
-		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, 'rememberGoogleFonts' ) );
 		add_action( 'tf_create_option_' . $this->optionNamespace, array( $this, 'rememberAllOptions' ) );
 		add_filter( 'tf_create_option_continue_' . $this->optionNamespace, array( $this, 'removeChildThemeOptions' ), 10, 2 );
 
 		// Create a save option filter for customizer options.
 		add_filter( 'pre_update_option', array( $this, 'addCustomizerSaveFilter' ), 10, 3 );
-	}
-
-
-	/**
-	 * Action hook on tf_create_option to remember all the options, used to ensure that our
-	 * serialized option does not get cluttered with unused options
-	 *
-	 * @since 1.0
-	 *
-	 * @param TitanFrameworkOption $option The current option being processed.
-	 *
-	 * @return void
-	 *
-	 * @see action tf_create_option_{namespace}
-	 */
-	public function rememberGoogleFonts( $option ) {
-		if ( is_a( $option, 'TitanFrameworkOptionSelectGooglefont' ) ) {
-			if ( $option->settings['enqueue'] ) {
-				$this->googleFontsOptions[] = $option;
-			}
-		}
 	}
 
 
@@ -185,28 +162,6 @@ class TitanFramework {
 			}
 			
 			$this->optionsUsed[ $option->settings['id'] ] = $option;
-		}
-	}
-
-
-	/**
-	 * Loads all the front end scripts depending on the options set by users. e.g. Google Fonts
-	 * if any.
-	 *
-	 * @since 1.0
-	 *
-	 * @return void
-	 */
-	public function loadFrontEndScripts() {
-		foreach ( $this->googleFontsOptions as $googleFontOption ) {
-			$font = $this->getOption( $googleFontOption->settings['id'] );
-			if ( empty( $font ) ) {
-				continue;
-			}
-			wp_enqueue_style(
-				'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $font['name'] ) ),
-				TitanFrameworkOptionSelectGooglefont::formScript( $font )
-			);
 		}
 	}
 
