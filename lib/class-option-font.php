@@ -71,10 +71,9 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		'Verdana, Geneva, sans-serif' => 'Verdana',
 	);
 
-	// Holds all the Google Fonts for enqueuing
-	private static $googleFontsOptions = array();
-
-	private static $firstLoad = true;
+	// Holds all the options with Google Fonts for enqueuing.
+	// We need to do this since we want to gather all the fonts first then enqueue only the unique fonts
+	private static $optionsToEnqueue = array();
 
 
 	/**
@@ -88,25 +87,12 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
-		add_action( 'admin_head', array( __CLASS__, 'createFontScript' ) );
-		add_action( 'tf_create_option_' . $this->getOptionNamespace(), array( $this, 'rememberGoogleFonts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueGooglefonts' ) );
+		tf_add_action_once( 'admin_head', array( __CLASS__, 'createFontScript' ) );
+		tf_add_action_once( 'wp_enqueue_scripts', array( $this, 'enqueueGooglefonts' ) );
 		add_filter( 'tf_generate_css_font_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
-	}
-
-
-	/**
-	 * Keeps track of all the Google Fonts used for enqueueing later in wp_enqueue_scripts
-	 *
-	 * @param	TitanFramework $option The option being enqueued
-	 * @return	void
-	 * @since	1.4
-	 */
-	public function rememberGoogleFonts( $option ) {
-		if ( is_a( $option, __CLASS__ ) ) {
-			if ( $option->settings['enqueue'] ) {
-				self::$googleFontsOptions[] = $option;
-			}
+		
+		if ( $this->settings['enqueue'] ) {
+			self::$optionsToEnqueue[] = $this;
 		}
 	}
 
@@ -118,14 +104,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public function enqueueGooglefonts() {
-		if ( ! count( self::$googleFontsOptions ) ) {
-			return;
-		}
 
 		// Gather all the fonts that we need to load, some may be repeated so we need to
 		// load them once after gathering them
 		$fontsToLoad = array();
-		foreach ( self::$googleFontsOptions as $option ) {
+		foreach ( self::$optionsToEnqueue as $option ) {
 			$fontValue = $option->getValue();
 
 			if ( empty( $fontValue['font-family'] ) ) {
@@ -182,9 +165,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $fontUrl );
 			}
 		}
-
-		// Don't repeat
-		self::$googleFontsOptions = array();
+		
 	}
 
 
@@ -326,10 +307,6 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public static function createFontScript() {
-		if ( ! self::$firstLoad ) {
-			return;
-		}
-		self::$firstLoad = false;
 
 		?>
 		<script>
