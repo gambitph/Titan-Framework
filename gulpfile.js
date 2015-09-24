@@ -59,7 +59,7 @@ var url = 'local.wordpress.dev',
 	unitTestDatabase = 'wordpress_unit_tests',
 	performUnitTestEvery = 5, // every N calls
 	buildInclude = [
-		'./*.+(txt|php|md)', // All files in the root
+		'./*.+(txt|php)', // All files in the root
 		'languages/*.+(po|mo|pot)', // Translation files
 		'lib/**/*', // Include files
 		'inc/**/*', // Include files
