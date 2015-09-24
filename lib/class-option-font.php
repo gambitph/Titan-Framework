@@ -90,7 +90,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		tf_add_action_once( 'admin_head', array( __CLASS__, 'createFontScript' ) );
 		tf_add_action_once( 'wp_enqueue_scripts', array( $this, 'enqueueGooglefonts' ) );
 		add_filter( 'tf_generate_css_font_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
-		
+
 		if ( $this->settings['enqueue'] ) {
 			self::$optionsToEnqueue[] = $this;
 		}
@@ -165,7 +165,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $fontUrl );
 			}
 		}
-		
+
 	}
 
 

@@ -15,17 +15,17 @@ class TitanFrameworkOptionEditor extends TitanFrameworkOption {
 	 * Display for options and meta
 	 */
 	public function display() {
-		
+
 		$editorSettings = array(
 			'wpautop' => $this->settings['wpautop'],
 			'media_buttons' => $this->settings['media_buttons'],
 			'textarea_rows' => $this->settings['rows'],
 		);
-		
+
 		if ( is_array( $this->settings['editor_settings'] ) ) {
 			$editorSettings = array_merge( $editorSettings, $this->settings['editor_settings'] );
 		}
-		
+
 		$this->echoOptionHeader();
 
 		wp_editor( $this->getValue(), $this->getID(), $editorSettings );

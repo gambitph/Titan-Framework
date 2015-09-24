@@ -160,7 +160,7 @@ class TitanFramework {
 					)
 				);
 			}
-			
+
 			$this->optionsUsed[ $option->settings['id'] ] = $option;
 		}
 	}
@@ -207,7 +207,7 @@ class TitanFramework {
 		if ( empty( $this->adminOptions ) ) {
 			$this->adminOptions = array();
 		}
-		
+
 		if ( ! empty( $this->adminOptions ) ) {
 			return $this->adminOptions;
 		}
@@ -228,7 +228,7 @@ class TitanFramework {
 		if ( empty( $this->adminOptions ) ) {
 			$this->adminOptions = array();
 		}
-		
+
 		return $this->adminOptions;
 	}
 
@@ -521,8 +521,8 @@ class TitanFramework {
 
 		return true;
 	}
-	
-	
+
+
 	/**
 	 * Deletes ALL the options for the namespace. Even deletes all meta found in all posts.
 	 * Mainly used for unit tests
@@ -532,18 +532,18 @@ class TitanFramework {
 	 * @return void
 	 */
 	public function deleteAllOptions() {
-		
+
 		// Delete all admin options.
 		delete_option( $this->optionNamespace . '_options' );
 		$this->adminOptions = array();
-		
+
 		// Delete all meta options.
-        global $wpdb; 
-		$allPosts = $wpdb->get_results( "SELECT ID FROM " . $wpdb->posts, ARRAY_A );
+		global $wpdb;
+		$allPosts = $wpdb->get_results( 'SELECT ID FROM ' . $wpdb->posts, ARRAY_A );
 		if ( ! empty( $allPosts ) ) {
 			foreach ( $allPosts as $row ) {
 				$allMeta = get_post_meta( $row['ID'] );
-				
+
 				// Only remove meta data that the framework created.
 				foreach ( $allMeta as $metaName => $dummy ) {
 					if ( stripos( $metaName, $this->optionNamespace . '_' ) === 0 ) {
