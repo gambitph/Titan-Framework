@@ -16,13 +16,13 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 This means faster theme & plugin creation for everyone.
 
+[What is Titan Framework and how does it work?](http://www.titanframework.net/what/)
+
 = The Goal =
 
 Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. 
 
-Read an overview on [How Titan Framework works](http://www.titanframework.net/what/)
-
-Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/how/)
+[How to start developing with Titan Framework](http://www.titanframework.net/how/)
 
 * [Documentation and Tutorials for Developers](http://www.titanframework.net/docs)
 * [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
