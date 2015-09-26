@@ -247,7 +247,7 @@ class TitanFramework {
 	 */
 	public function getInternalAdminPageOption( $optionName, $defaultValue = false ) {
 
-		// Run this first to ensure that allOptions carries all our admin page options.
+		// Run this first to ensure that adminOptions carries all our admin page options.
 		$this->getInternalAdminOptions();
 
 		if ( array_key_exists( $optionName, $this->adminOptions ) ) {
@@ -273,7 +273,7 @@ class TitanFramework {
 	 */
 	public function setInternalAdminPageOption( $optionName, $value ) {
 		
-		// Run this first to ensure that allOptions carries all our admin page options.
+		// Run this first to ensure that adminOptions carries all our admin page options.
 		$this->getInternalAdminOptions();
 		
 		$this->adminOptions[ $optionName ] = $value;
@@ -290,7 +290,7 @@ class TitanFramework {
 	 */
 	public function saveInternalAdminPageOptions() {
 		
-		// Run this first to ensure that allOptions carries all our admin page options.
+		// Run this first to ensure that adminOptions carries all our admin page options.
 		$this->getInternalAdminOptions();
 		
 		update_option( $this->optionNamespace . '_options', serialize( $this->adminOptions ) );
