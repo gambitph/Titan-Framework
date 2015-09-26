@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 4.1
 Tested up to: 4.3.1
-Stable tag: 1.9
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,7 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 
 [How to start developing with Titan Framework](http://www.titanframework.net/how/)
 
+* [Join the Community in Slack](https://gambit-slackin.herokuapp.com/)
 * [Documentation and Tutorials for Developers](http://www.titanframework.net/docs)
 * [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
 * [Issue Tracker](https://github.com/gambitph/Titan-Framework/issues)
@@ -86,10 +87,6 @@ The generated theme comes with sample pre-created options in the admin and theme
 * Text
 * Textarea
 
-= Are You Using Titan Framework in Your Project? =
-
-Let me know, send me an email at bf.intal@gambit.ph with the details of your project along with a screenshot and I'll add it to the showcase here and in the site.
-
 = Supporting the Framework =
 
 Titan is super new, so far the framework has been getting good feedback from the community. Help out and spread the word by starring this repo, sending tweets, writing blog posts about what you think about Titan, and [review the plugin](http://wordpress.org/support/view/plugin-reviews/titan-framework).
@@ -142,6 +139,9 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.9.1 =
+* Fixed: in some setups, saving options in a tab resets other tabs
 
 = 1.9 =
 * Major performance and speed optimizations, now is less process & memory intensive

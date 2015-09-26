@@ -10,6 +10,13 @@ msgstr ""
 "PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 "Language: en_US\n"
@@ -135,11 +142,11 @@ msgstr ""
 "All option IDs per namespace must be unique. The id %s has been used "
 "multiple times."
 
-#: lib/class-titan-framework.php:387
+#: lib/class-titan-framework.php:395
 msgid "%s needs a %s parameter."
 msgstr "%s needs a %s parameter."
 
-#: lib/class-titan-framework.php:397
+#: lib/class-titan-framework.php:405
 msgid "Container of type %s, does not exist."
 msgstr "Container of type %s, does not exist."
 

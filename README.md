@@ -4,9 +4,9 @@ Titan Framework
 [![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
 [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
 [![Build Status](https://travis-ci.org/gambitph/Titan-Framework.svg?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
+[![Built with Gulp](https://img.shields.io/badge/built%20with-Gulp-red.svg)](http://gulpjs.com/)
 <!--[![Code Coverage](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/?branch=master)-->
 <!--[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/?branch=master)-->
-[![Built with Gulp](https://img.shields.io/badge/built%20with-Gulp-red.svg)](http://gulpjs.com/)
 
 *The easiest to use WordPress options framework.*
 
@@ -15,6 +15,8 @@ Titan Framework allows theme and plugin developers to create admin pages, option
 [Get it in the WordPress plugin repo](https://wordpress.org/plugins/titan-framework/)
 
 [Generate your own Underscores + Titan Framework based WordPress theme](http://www.titanframework.net)
+
+[Join the Community in Slack](https://gambit-slackin.herokuapp.com/)
 
 #### Features
 * Makes development unbelievably easy
