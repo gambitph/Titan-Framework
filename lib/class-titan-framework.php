@@ -272,6 +272,10 @@ class TitanFramework {
 	 * @see TitanFrameworkOption->setValue()
 	 */
 	public function setInternalAdminPageOption( $optionName, $value ) {
+		
+		// Run this first to ensure that allOptions carries all our admin page options.
+		$this->getInternalAdminOptions();
+		
 		$this->adminOptions[ $optionName ] = $value;
 		return true;
 	}
@@ -285,6 +289,10 @@ class TitanFramework {
 	 * @return array All admin options currently in the instance
 	 */
 	public function saveInternalAdminPageOptions() {
+		
+		// Run this first to ensure that allOptions carries all our admin page options.
+		$this->getInternalAdminOptions();
+		
 		update_option( $this->optionNamespace . '_options', serialize( $this->adminOptions ) );
 		do_action( 'tf_save_options_' . $this->optionNamespace );
 		return $this->adminOptions;
