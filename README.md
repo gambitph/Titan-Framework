@@ -7,7 +7,7 @@ Titan Framework
 <!--[![Code Coverage](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/?branch=master)-->
 <!--[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/?branch=master)-->
 <!--[![Built with Gulp](https://img.shields.io/badge/built%20with-Gulp-red.svg)](http://gulpjs.com/)-->
-![Slack](https://gambit-slackin.herokuapp.com/badge.svg)
+[![Slack](https://gambit-slackin.herokuapp.com/badge.svg)](https://gambit-slackin.herokuapp.com)
 
 *The easiest to use WordPress options framework.*
 
