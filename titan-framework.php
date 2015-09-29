@@ -108,7 +108,19 @@ class TitanFrameworkPlugin {
 	 * @return void
 	 */
 	public function trigger_option_creation() {
+
+		/**
+		 * Triggers the creation of options. Hook into this action and use the various create methods.
+		 *
+		 * @since 1.0
+		 */
 		do_action( 'tf_create_options' );
+
+		/**
+		 * Fires immediately after options are created.
+		 *
+		 * @since 1.8
+		 */
 		do_action( 'tf_done' );
 	}
 

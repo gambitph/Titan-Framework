@@ -104,8 +104,9 @@ class TitanFrameworkMetaBox {
 			return;
 		}
 
-		// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
-		do_action( 'tf_pre_save_options_' . $this->owner->optionNamespace, $this );
+		/** This action is documented in class-admin-page.php */
+		$namespace = $this->owner->optionNamespace;
+		do_action( "tf_pre_save_options_{$namespace}", $this );
 
 		// Save the options one by one
 		foreach ( $this->options as $option ) {

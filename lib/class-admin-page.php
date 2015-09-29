@@ -166,8 +166,16 @@ class TitanFrameworkAdminPage {
 			}
 
 			// Hook 'tf_pre_save_options_{namespace}' - action pre-saving
-			do_action( 'tf_pre_save_options_' . $this->getOptionNamespace(), $this );
-			do_action( 'tf_pre_save_admin_' . $this->getOptionNamespace(), $this, $activeTab, $this->options );
+			/**
+			 * Fired right before options are saved.
+			 *
+			 * @since 1.0
+			 *
+			 * @param TitanFrameworkAdminPage|TitanFrameworkCustomizer|TitanFrameworkMetaBox $this The container currently being saved.
+			 */
+			$namespace = $this->getOptionNamespace();
+			do_action( "tf_pre_save_options_{$namespace}", $this );
+			do_action( "tf_pre_save_admin_{$namespace}", $this, $activeTab, $this->options );
 
 			$this->owner->saveInternalAdminPageOptions();
 

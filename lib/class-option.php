@@ -19,17 +19,78 @@ class TitanFrameworkOption {
 
 	private static $rowIndex = 0;
 
+
+	/**
+	 * Default settings across all options
+	 * @var array
+	 */
 	private static $defaultSettings = array(
-		'name' => '', // Name of the option
-		'desc' => '', // Description of the option
-		'id' => '', // Unique ID of the option
-		'type' => 'text', //
-		'default' => '', // Menu icon for top level menus only
-		'example' => '', // An example value for this field, will be displayed in a <code>
+
+		'type' => 'text',
+
+		/**
+		 * The name of the option, for display purposes only.
+		 *
+		 * @since 1.0
+		 * @var string
+		 */
+		'name' => '',
+
+		/**
+		 * The description to display together with this option.
+		 *
+		 * @since 1.0
+		 * @var string
+		 */
+		'desc' => '',
+
+		/**
+		 * A unique ID for this option. This ID will be used to get the value for this option.
+		 *
+		 * @since 1.0
+		 * @var string
+		 */
+		'id' => '',
+
+		/**
+		 * (Optional) The default value for this option.
+		 *
+		 * @since 1.0
+		 * @var mixed
+		 */
+		'default' => '',
+
+		/**
+		 * (Optional) jQuery code that updates something in your site in the live preview. Only used when the option is placed in a theme customizer section.
+		 *
+		 * @since 1.0
+		 * @var string
+		 * @see http://www.titanframework.net/livepreview-parameter
+		 */
 		'livepreview' => '', // jQuery script to update something in the site. For theme customizer only
+
+		/**
+		 * (Optional) CSS rules to be used with this option. Only used when the option is placed in an admin page / panel or a theme customizer section.
+		 * @since 1.0
+		 * @var string
+		 * @see http://www.titanframework.net/generate-css-automatically-for-your-options/
+		 */
+		'css' => '',
+
+		/**
+		 * (Optional) If true, the option will not be displayed, but will still be accessible using `getOption`. This is helpful for deprecating old settings, while still making your project backward compatible.
+		 * @since 1.8
+		 * @var bool
+		 */
 		'hidden' => false,
+
+		'example' => '', // An example value for this field, will be displayed in a <code>
 	);
 
+	/**
+	 * Default settings specific for this option. This is overridden by each option class
+	 * @var array
+	 */
 	public $defaultSecondarySettings = array();
 
 	public static function factory( $settings, $owner ) {

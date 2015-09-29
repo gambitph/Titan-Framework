@@ -782,9 +782,10 @@ class TitanFramework {
 			}
 		}
 
-		// Hook 'tf_pre_save_options_{namespace}' - action pre-saving.
 		if ( $customizerUsed ) {
-			do_action( 'tf_pre_save_options_' . $this->optionNamespace, $this->mainContainers['customizer'] );
+			/** This action is documented in class-admin-page.php */
+			$namespace = $this->optionNamespace;
+			do_action( "tf_pre_save_options_{$namespace}", $this->mainContainers['customizer'] );
 		}
 
 		return $value;
