@@ -500,7 +500,9 @@ class TitanFramework {
 	 */
 	public function getOptions( $optionArray, $postID = null ) {
 		foreach ( $optionArray as $optionName => $originalValue ) {
-			$optionArray[ $optionName ] = $this->getOption( $optionName, $postID );
+			if ( array_key_exists( $optionName, $this->optionsUsed ) ) {
+				$optionArray[ $optionName ] = $this->getOption( $optionName, $postID );
+			}
 		}
 		return apply_filters( 'tf_get_options_' . $this->optionNamespace, $optionArray, $postID );
 	}
