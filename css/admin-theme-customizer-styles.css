@@ -294,3 +294,17 @@ p.description:empty {
     -moz-transform: translateX(-50%) translateY(-50%);
     -ms-transform: translateX(-50%) translateY(-50%);
 }
+
+
+.tf-heading {
+	border-top: 1px solid #dadada;
+    background-color: #e1e1e1;
+    padding: .5em 12px;
+    margin: 0 -12px;
+    border-bottom: 1px solid #ddd;
+}
+.tf-heading .description {
+	margin: 0;
+    color: #666;
+    font-weight: normal;
+}

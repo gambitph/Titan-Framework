@@ -9,9 +9,21 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
 }
 
 /**
- * Heading option class
+ * Heading Option
+ *
+ * A heading for separating your options in an admin page or meta box
+ *
+ * <strong>Creating a heading option with a description:</strong>
+ * <pre>$adminPage->createOption( array(
+ *     'name' => __( 'General Settings', 'default' ),
+ *     'type' => 'heading',
+ *     'desc' => __( 'Settings for the general usage of the plugin', 'default' ),
+ * ) );</pre>
  *
  * @since 1.0
+ * @type heading
+ * @availability Admin Pages|Meta Boxes|Customizer
+ * @no id,default,livepreview,css,hidden
  */
 class TitanFrameworkOptionHeading extends TitanFrameworkOption {
 
@@ -81,12 +93,16 @@ function register_titan_framework_option_heading_control() {
 		 */
 		public function render_content() {
 
-			?><span class="customize-control-title"><?php echo esc_html( $this->label ) ?></span><?php
-
-if ( ! empty( $this->description ) ) {
-	echo "<p class='description'>" . wp_kses_post( $this->description ) . '</p>';
-}
-
+			?>
+			<h3 class="customize-control-title tf-heading">
+				<?php echo esc_html( $this->label ) ?>
+				<?php
+				if ( ! empty( $this->description ) ) {
+					echo "<p class='description'>" . wp_kses_post( $this->description ) . '</p>';
+				}
+				?>
+			</h3>
+			<?php
 		}
 	}
 }
