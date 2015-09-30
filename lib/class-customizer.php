@@ -41,8 +41,17 @@ class TitanFrameworkCustomizer {
 			$this->settings['panel_id'] = str_replace( ' ', '-', trim( strtolower( $this->settings['panel'] ) ) );
 		}
 
+		// Register the customizer control.
 		add_action( 'customize_register', array( $this, 'register' ) );
+
+		// Enqueue required customizer styles & scripts.
 		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'loadUploaderScript' ) );
+
+		// Clear local storage, we use it for remembering modified customizer values.
+		tf_add_action_once( 'customize_controls_print_footer_scripts', array( $this, 'initLocalStorage' ) );
+
+		// Generate the custom CSS for live previews.
+		tf_add_action_once( 'wp_ajax_tf_generate_customizer_css', array( $this, 'ajaxGenerateCustomizerCSS' ) );
 	}
 
 	public function loadUploaderScript() {
@@ -55,13 +64,123 @@ class TitanFrameworkCustomizer {
 		return $this->settings['id'];
 	}
 
+
+	/**
+	 * Ajax handler for generating CSS based on the existing options with values changed to
+	 * match the customizer modified values.
+	 *
+	 * @since 1.9.2
+	 *
+	 * @return void
+	 */
+	public function ajaxGenerateCustomizerCSS() {
+
+		// Modify the values of the options for the generation of CSS with the values from the customizer $_POST.
+		add_filter( 'tf_pre_get_value_' . $this->owner->optionNamespace, array( $this, 'useCustomizerModifiedValue' ), 10, 3 );
+
+		// Generate our new CSS based on the customizer values
+		$css = $this->owner->cssInstance->generateCSS();
+		wp_send_json_success( $css );
+	}
+
+
+	/**
+	 * Override the getOption value with the customizer value which comes from the $_POST array
+	 *
+	 * @since 1.9.2
+	 *
+	 * @param mixed                $value The value of the option.
+	 * @param int                  $postID The post ID if there is one (always null in this case).
+	 * @param TitanFrameworkOption $option The option being parsed.
+	 *
+	 * @return mixed The new value
+	 *
+	 * @see tf_pre_get_value_{namespace}
+	 */
+	public function useCustomizerModifiedValue( $value, $postID, $option ) {
+		if ( empty( $_POST ) ) {
+			return $value;
+		}
+		if ( ! is_array( $_POST ) ) {
+			return $value;
+		}
+		if ( array_key_exists( $option->getID(), $_POST ) ) {
+			return $_POST[ $option->getID() ];
+		}
+		return $value;
+	}
+
+
+	/**
+	 * Prints the script that clears the JS local storage when customizer loads, this ensures we start fresh.
+	 * Use localStorage so we can still use values when the customizer refreshes.
+	 *
+	 * @since 1.9.2
+	 *
+	 * @return void
+	 */
+	public function initLocalStorage() {
+		?>
+		<script>
+		if ( typeof localStorage !== 'undefined' ) {
+			localStorage.clear();
+		}
+		</script>
+		<?php
+	}
+
+
+	/**
+	 * Prints the script that uses ajax to adjust the live customizer CSS.
+	 * Use localStorage so we can still use values when the customizer refreshes.
+	 *
+	 * @since 1.9.2
+	 *
+	 * @return void
+	 */
+	public function livePreviewMainScript() {
+		?>
+		<script>
+		window.tf_refresh_css = function() {
+			var optionsModified = {}
+			if ( typeof localStorage !== 'undefined' ) {
+				
+				wp.ajax.send( 'tf_generate_customizer_css', {
+				    success: function( data ) {
+						var style = document.querySelector('style#tf_live_preview');
+						if ( ! style ) {
+							var style = document.createElement('STYLE');
+							style.setAttribute( 'id', 'tf_live_preview' );
+							style.innerHTML = data;
+							document.head.appendChild( style );
+						} else {
+							style.innerHTML = data;
+						}
+				    },
+					data: localStorage
+				  });
+				  
+			}
+		};
+		</script>
+		<?php
+	}
+
+
+	/**
+	 * Prints the script PER option that handles customizer option changes for live previews
+	 *
+	 * @since 1.0
+	 *
+	 * @return void
+	 */
 	public function livePreview() {
 		?>
 		<script>
 		jQuery(document).ready(function($) {
 			<?php
 			foreach ( $this->options as $option ) :
-				if ( empty( $option->settings['livepreview'] ) ) :
+				if ( empty( $option->settings['css'] ) && empty( $option->settings['livepreview'] ) ) :
 					continue;
 				endif;
 				?>
@@ -69,17 +188,37 @@ class TitanFrameworkCustomizer {
 					v.bind( function( value ) {
 						<?php
 
-						// Some options may want to insert custom jQuery code before manipulation of live preview
-						if ( ! empty( $option->settings['id'] ) ) {
-							do_action( 'tf_livepreview_pre_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
+						if ( empty( $option->settings['livepreview'] ) ) {
+
+							/**
+							 * If css parameter is given and there is no custom livepreview,
+							 * we can simulate live previewing using just the css parameter.
+							 */
+							?>
+							if ( typeof localStorage !== 'undefined' ) {
+								localStorage.setItem( '<?php echo $option->getID() ?>', value );
+							}
+							window.tf_refresh_css();
+							<?php
+
+						} else {
+
+							/**
+							 * If the livepreview parameter is given, use that. This is the original behavior.
+							 */
+							// Some options may want to insert custom jQuery code before manipulation of live preview/
+							if ( ! empty( $option->settings['id'] ) ) {
+								do_action( 'tf_livepreview_pre_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
+							}
+
+							echo $option->settings['livepreview'];
+
+							// Some options may want to insert custom jQuery code after manipulation of live preview.
+							if ( ! empty( $option->settings['id'] ) ) {
+								do_action( 'tf_livepreview_post_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
+							}
 						}
 
-						echo $option->settings['livepreview'];
-
-						// Some options may want to insert custom jQuery code after manipulation of live preview
-						if ( ! empty( $option->settings['id'] ) ) {
-							do_action( 'tf_livepreview_post_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
-						}
 						?>
 					} );
 				} );
@@ -148,7 +287,7 @@ class TitanFrameworkCustomizer {
 			if ( ! empty( $option->settings['id'] ) ) {
 				$wp_customize->add_setting( $option->getID(), array(
 					'default' => $option->settings['default'],
-					'transport' => empty( $option->settings['livepreview'] ) ? 'refresh' : 'postMessage',
+					'transport' => empty( $option->settings['livepreview'] ) && empty( $option->settings['css'] ) ? 'refresh' : 'postMessage',
 				) );
 			}
 
@@ -158,6 +297,7 @@ class TitanFrameworkCustomizer {
 		}
 
 		add_action( 'wp_footer', array( $this, 'livePreview' ) );
+		tf_add_action_once( 'wp_footer', array( $this, 'livePreviewMainScript' ) );
 	}
 
 	public function createOption( $settings ) {

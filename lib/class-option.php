@@ -164,9 +164,21 @@ class TitanFrameworkOption {
 			$value = get_theme_mod( $this->getID(), $this->settings['default'] );
 		}
 
+		/**
+		 * Allow others to change the value of the option before it gets cleaned
+		 *
+		 * @since 1.9.2
+		 */
+		$value = apply_filters( 'tf_pre_get_value_' . $this->getOptionNamespace(), $value, $postID, $this );
+
 		// Apply cleaning method for the value (for serialized data, slashes, etc).
 		$value = $this->cleanValueForGetting( $value );
 
+		/**
+		 * Allow others to change the value of the option after it gets cleaned
+		 *
+		 * @since 1.9
+		 */
 		return apply_filters( 'tf_get_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID, $this );
 	}
 
