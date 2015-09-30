@@ -1,13 +1,54 @@
 <?php
+/**
+ * Enable option
+ *
+ * @package Titan Framework
+ */
 
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
+
+/**
+ * Enable Option
+ *
+ * A heading for separating your options in an admin page or meta box
+ *
+ * <strong>Creating a heading option with a description:</strong>
+ * <pre>$adminPage->createOption( array(
+ *     'name' => __( 'Enable Feature', 'default' ),
+ *     'type' => 'enable',
+ *     'default' => true,
+ *     'desc' => __( 'You can disable this feature if you do not like it', 'default' ),
+ * ) );</pre>
+ *
+ * @since 1.0
+ * @type enable
+ * @availability Admin Pages|Meta Boxes|Customizer
+ */
 class TitanFrameworkOptionEnable extends TitanFrameworkOption {
 
 	private static $firstLoad = true;
 
+	/**
+	 * Default settings specific for this option
+	 * @var array
+	 */
 	public $defaultSecondarySettings = array(
+
+		/**
+		 * (Optional) The label to display in the enable portion of the buttons
+		 *
+		 * @since 1.0
+		 * @var string
+		 */
 		'enabled' => '',
+
+		/**
+		 * (Optional) The label to display in the disable portion of the buttons
+		 *
+		 * @since 1.0
+		 * @var string
+		 */
 		'disabled' => '',
 	);
 

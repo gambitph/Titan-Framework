@@ -9,8 +9,14 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 	 * @var array
 	 */
 	public $defaultSecondarySettings = array(
-		'placeholder' => '', // show this when blank
-		'alpha' => false, // If true, then you can pick an alpha value for the color
+
+		/**
+		 * (Optional) If true, an additional control will become available in the color picker for adjusting the alpha/opacity value of the color. You can get rgba colors with the option.
+		 *
+		 * @since 1.9
+		 * @var boolean
+		 */
+		'alpha' => false,
 	);
 
 	function __construct( $settings, $owner ) {

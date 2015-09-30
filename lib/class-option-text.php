@@ -74,7 +74,7 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		 *
 		 * @since 1.5.2
 		 * @var string
-		 * @example 'px', '%'
+		 * @example 'px' or '%'
 		 */
 		'unit' => '',
 	);
