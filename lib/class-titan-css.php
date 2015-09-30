@@ -139,7 +139,8 @@ class TitanFrameworkCSS {
 	private function getCSSFilePath() {
 		$uploads = wp_upload_dir();
 		$uploadsFolder = trailingslashit( $uploads['basedir'] );
-		return $uploadsFolder . $this->getCSSSlug() . '.css';
+		$namespace = $this->frameworkInstance->optionNamespace;
+		return apply_filters( "tf_css_get_css_file_path_{$namespace}", $uploadsFolder . $this->getCSSSlug() . '.css' );
 	}
 
 
