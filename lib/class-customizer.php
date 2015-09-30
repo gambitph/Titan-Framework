@@ -34,11 +34,11 @@ class TitanFrameworkCustomizer {
 		}
 
 		if ( empty( $this->settings['id'] ) ) {
-			$this->settings['id'] = str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
+			$this->settings['id'] = $this->owner->optionNamespace . '_' . str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
 		}
 
 		if ( empty( $this->settings['panel_id'] ) ) {
-			$this->settings['panel_id'] = str_replace( ' ', '-', trim( strtolower( $this->settings['panel'] ) ) );
+			$this->settings['panel_id'] = $this->owner->optionNamespace . '_' . str_replace( ' ', '-', trim( strtolower( $this->settings['panel'] ) ) );
 		}
 
 		// Register the customizer control.
