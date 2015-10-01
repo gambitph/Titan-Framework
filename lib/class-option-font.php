@@ -90,6 +90,10 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		tf_add_action_once( 'admin_head', array( __CLASS__, 'createFontScript' ) );
 		tf_add_action_once( 'wp_enqueue_scripts', array( $this, 'enqueueGooglefonts' ) );
 		add_filter( 'tf_generate_css_font_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
+		
+		// Customizer preview handling
+		tf_add_action_once( 'tf_generate_customizer_preview_js', array( $this, 'generateCustomizerPreviewJS' ) );
+		tf_add_filter_once( 'tf_generate_customizer_preview_css_' . $this->getOptionNamespace(), array( $this, 'generateCustomizerPreviewCSS' ) );
 
 		if ( $this->settings['enqueue'] ) {
 			self::$optionsToEnqueue[] = $this;
@@ -98,12 +102,61 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 
 	/**
-	 * Enqueues all the Google fonts, used in wp_enqueue_scripts
+	 * Adds the Javascript code that adds Google fonts straight into the customizer preview.
 	 *
-	 * @return	void
-	 * @since	1.4
+	 * @since 1.9.2
+	 *
+	 * @return void
+	 *
+	 * @see TitanFrameworkCustomizer->livePreviewMainScript()
 	 */
-	public function enqueueGooglefonts() {
+	public function generateCustomizerPreviewJS() {
+		?>
+		for ( var fontName in data.google_fonts ) {
+			if ( document.querySelector( '#tf-preview-' + fontName ) ) {
+				continue;
+			}
+			var link = document.createElement('LINK');
+			link.setAttribute( 'rel', 'stylesheet' );
+			link.setAttribute( 'type', 'text/css' );
+			link.setAttribute( 'media', 'all' );
+			link.setAttribute( 'id', 'tf-preview' + fontName );
+			link.setAttribute( 'href', data.google_fonts[ fontName ] );
+			document.head.appendChild( link );
+		}
+		<?php
+	}
+
+
+	/**
+	 * Adds the list of all Google fonts into the customizer live preview
+	 *
+	 * @since 1.9.2
+	 *
+	 * @param array $generated The parameters to pass to the ajax handler during customizer live previews.
+	 *
+	 * @return array An array containing modified ajax values to pass
+	 */
+	public function generateCustomizerPreviewCSS( $generated ) {
+		if ( empty( $generated['google_fonts'] ) ) {
+			$generated['google_fonts'] = array();
+		}
+		$generated['google_fonts'] = array_merge( $generated['google_fonts'], $this->getGoogleFontURLs() );
+		return $generated;
+	}
+
+
+	/**
+	 * Gets all the Google font URLs for enqueuing. This was previously inside $this->enqueueGooglefonts()
+	 * but was split off so it can be used by other functions.
+	 *
+	 * @since 1.9.2
+	 *
+	 * @return array An array containing the font names as keys and the font URLs as values.
+	 */
+	public function getGoogleFontURLs() {
+		
+		$urls = array();
 
 		// Gather all the fonts that we need to load, some may be repeated so we need to
 		// load them once after gathering them
@@ -162,10 +215,27 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			$fontUrl = apply_filters( 'tf_enqueue_google_webfont_' . $this->getOptionNamespace(), $fontUrl, $fontName );
 
 			if ( $fontUrl != false ) {
-				wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $fontUrl );
+				$urls[ $fontName ] = $fontUrl;
 			}
 		}
+		
+		return $urls;
+	}
 
+
+	/**
+	 * Enqueues all the Google fonts, used in wp_enqueue_scripts
+	 *
+	 * @since	1.4
+	 *
+	 * @return	void
+	 */
+	public function enqueueGooglefonts() {
+		$urls = $this->getGoogleFontURLs();
+		
+		foreach ( $urls as $fontName => $url ) {
+			wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $url );
+		}
 	}
 
 
@@ -823,9 +893,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 */
 	public function cleanValueForGetting( $value ) {
 		if ( is_string( $value ) ) {
-			if ( is_serialized( stripslashes( $value ) ) ) {
-				$value = unserialize( $value );
-			}
+			$value = maybe_unserialize( stripslashes( $value ) );
 		}
 		if ( is_array( $value ) ) {
 			$value = array_merge( self::$defaultStyling, $value );

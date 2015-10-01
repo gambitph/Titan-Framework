@@ -112,6 +112,18 @@ class TitanFramework {
 
 
 	/**
+	 * Gets all active instances of Titan Framework
+	 *
+	 * @since 1.9.2
+	 *
+	 * @return array An array of TitanFramework objects
+	 */
+	public static function getAllInstances() {
+		return self::$instances;
+	}
+
+
+	/**
 	 * Creates a new TitanFramework object
 	 *
 	 * @since 1.0

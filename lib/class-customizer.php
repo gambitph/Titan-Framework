@@ -52,6 +52,13 @@ class TitanFrameworkCustomizer {
 
 		// Generate the custom CSS for live previews.
 		tf_add_action_once( 'wp_ajax_tf_generate_customizer_css', array( $this, 'ajaxGenerateCustomizerCSS' ) );
+		
+
+		// Modify the values of the options for the generation of CSS with the values from the customizer $_POST.
+		global $wp_customize;
+		if ( isset( $wp_customize ) ) {
+			tf_add_filter_once( 'tf_pre_get_value_' . $this->owner->optionNamespace, array( $this, 'useCustomizerModifiedValue' ), 10, 3 );
+		}
 	}
 
 	public function loadUploaderScript() {
@@ -74,13 +81,35 @@ class TitanFrameworkCustomizer {
 	 * @return void
 	 */
 	public function ajaxGenerateCustomizerCSS() {
+		
+		// This value is passed back to the live preview ajax handler in $this->livePreviewMainScript()
+		$generated = array(
+			'css' => '',
+		);
+		
+		foreach ( TitanFramework::getAllInstances() as $framework ) {
+			
+			// Modify the values of the options for the generation of CSS with the values from the customizer $_POST.
+			$namespace = $framework->optionNamespace;
+			add_filter( "tf_pre_get_value_{$namespace}", array( $this, 'useCustomizerModifiedValue' ), 10, 3 );
 
-		// Modify the values of the options for the generation of CSS with the values from the customizer $_POST.
-		add_filter( 'tf_pre_get_value_' . $this->owner->optionNamespace, array( $this, 'useCustomizerModifiedValue' ), 10, 3 );
+			// Generate our new CSS based on the customizer values
+			$css = $framework->cssInstance->generateCSS();
+		
+			$generated['css'] .= $css;
+			
+			/**
+			 * Allow options to add customizer live preview parameters. The tf_generate_customizer_preview_js hook allows for manipulating these values.
+			 *
+			 * @since 1.9.2
+			 *
+			 * @see tf_generate_customizer_preview_js
+			 */
+			$generated = apply_filters( "tf_generate_customizer_preview_css_{$namespace}", $generated );
+	
+		}
 
-		// Generate our new CSS based on the customizer values
-		$css = $this->owner->cssInstance->generateCSS();
-		wp_send_json_success( $css );
+		wp_send_json_success( $generated );
 	}
 
 
@@ -106,6 +135,15 @@ class TitanFrameworkCustomizer {
 		}
 		if ( array_key_exists( $option->getID(), $_POST ) ) {
 			return $_POST[ $option->getID() ];
+		}
+
+		if ( ! empty( $_POST['customized'] ) ) {
+			$customizedSettings = (array) json_decode( stripslashes( $_POST['customized'] ) );
+			if ( is_array( $customizedSettings ) && ! empty( $customizedSettings ) ) {
+				if ( array_key_exists( $option->getID(), $customizedSettings ) ) {
+					return $customizedSettings[ $option->getID() ];
+				}
+			}
 		}
 		return $value;
 	}
@@ -147,15 +185,29 @@ class TitanFrameworkCustomizer {
 				
 				wp.ajax.send( 'tf_generate_customizer_css', {
 				    success: function( data ) {
+						
+						// Add the modified CSS Titan has generated from the preview values.
 						var style = document.querySelector('style#tf_live_preview');
 						if ( ! style ) {
 							var style = document.createElement('STYLE');
 							style.setAttribute( 'id', 'tf_live_preview' );
-							style.innerHTML = data;
+							style.innerHTML = data.css;
 							document.head.appendChild( style );
 						} else {
-							style.innerHTML = data;
+							style.innerHTML = data.css;
 						}
+						
+						<?php
+						/**
+						 * Render additional Javascript code for handling different data received for
+						 * live previewing
+						 *
+						 * @since 1.9.2
+						 *
+						 * @see $this->ajaxGenerateCustomizerCSS()
+						 */
+						do_action( "tf_generate_customizer_preview_js" );
+						?>
 				    },
 					data: localStorage
 				  });
@@ -175,59 +227,73 @@ class TitanFrameworkCustomizer {
 	 * @return void
 	 */
 	public function livePreview() {
-		?>
-		<script>
-		jQuery(document).ready(function($) {
-			<?php
-			foreach ( $this->options as $option ) :
-				if ( empty( $option->settings['css'] ) && empty( $option->settings['livepreview'] ) ) :
-					continue;
-				endif;
+		
+		$printStart = false;
+		foreach ( $this->options as $option ) {
+			
+			if ( empty( $option->settings['css'] ) && empty( $option->settings['livepreview'] ) ) {
+				continue;
+			}
+		
+			// Print the starting script tag.
+			if ( ! $printStart ) {
+				$printStart = true;
 				?>
-				wp.customize( '<?php echo $option->getID() ?>', function( v ) {
-					v.bind( function( value ) {
+				<script>
+				jQuery(document).ready(function($) {
+				<?php
+			}
+			
+			?>
+			wp.customize( '<?php echo $option->getID() ?>', function( v ) {
+				v.bind( function( value ) {
+					<?php
+
+					if ( empty( $option->settings['livepreview'] ) ) {
+
+						/**
+						 * If css parameter is given and there is no custom livepreview,
+						 * we can simulate live previewing using just the css parameter.
+						 */
+						?>
+						if ( typeof localStorage !== 'undefined' ) {
+							localStorage.setItem( '<?php echo $option->getID() ?>', value );
+						}
+						window.tf_refresh_css();
 						<?php
 
-						if ( empty( $option->settings['livepreview'] ) ) {
+					} else {
 
-							/**
-							 * If css parameter is given and there is no custom livepreview,
-							 * we can simulate live previewing using just the css parameter.
-							 */
-							?>
-							if ( typeof localStorage !== 'undefined' ) {
-								localStorage.setItem( '<?php echo $option->getID() ?>', value );
-							}
-							window.tf_refresh_css();
-							<?php
-
-						} else {
-
-							/**
-							 * If the livepreview parameter is given, use that. This is the original behavior.
-							 */
-							// Some options may want to insert custom jQuery code before manipulation of live preview/
-							if ( ! empty( $option->settings['id'] ) ) {
-								do_action( 'tf_livepreview_pre_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
-							}
-
-							echo $option->settings['livepreview'];
-
-							// Some options may want to insert custom jQuery code after manipulation of live preview.
-							if ( ! empty( $option->settings['id'] ) ) {
-								do_action( 'tf_livepreview_post_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
-							}
+						/**
+						 * If the livepreview parameter is given, use that. This is the original behavior.
+						 */
+						// Some options may want to insert custom jQuery code before manipulation of live preview/
+						if ( ! empty( $option->settings['id'] ) ) {
+							do_action( 'tf_livepreview_pre_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
 						}
 
-						?>
-					} );
+						echo $option->settings['livepreview'];
+
+						// Some options may want to insert custom jQuery code after manipulation of live preview.
+						if ( ! empty( $option->settings['id'] ) ) {
+							do_action( 'tf_livepreview_post_' . $this->owner->optionNamespace, $option->settings['id'], $option->settings['type'], $option );
+						}
+					}
+
+					?>
 				} );
-				<?php
-			endforeach;
+			} );
+			<?php
+			
+		}
+		
+		// Print the ending script tag.
+		if ( $printStart ) {
 			?>
-		});
-		</script>
-		<?php
+			});
+			</script>
+			<?php
+		}
 	}
 
 
@@ -285,9 +351,21 @@ class TitanFrameworkCustomizer {
 		// Unfortunately we have to call each option's register from here
 		foreach ( $this->options as $index => $option ) {
 			if ( ! empty( $option->settings['id'] ) ) {
+				
+				$namespace = $this->owner->optionNamespace;
+				$option_type = $option->settings['type'];
+				$transport = empty( $option->settings['livepreview'] ) && empty( $option->settings['css'] ) ? 'refresh' : 'postMessage';
+				
+				/**
+				 * Allow options to override the transport mode of an option in the customizer
+				 *
+				 * @since 1.9.2
+				 */
+				$transport = apply_filters( "tf_customizer_transport_{$option_type}_{$namespace}", $transport, $option );
+
 				$wp_customize->add_setting( $option->getID(), array(
 					'default' => $option->settings['default'],
-					'transport' => empty( $option->settings['livepreview'] ) && empty( $option->settings['css'] ) ? 'refresh' : 'postMessage',
+					'transport' => $transport,
 				) );
 			}
 
