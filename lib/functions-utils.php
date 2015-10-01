@@ -53,7 +53,7 @@ function tf_add_action_once( $tag, $function_to_add, $priority = 10, $accepted_a
 			$idxFunc[0] = get_class( $function_to_add[0] );
 		}
 	}
-	$idx = _wp_filter_build_unique_id( $tag, $idxFunc, $priority );
+	$idx = $tag . ':' . _wp_filter_build_unique_id( $tag, $idxFunc, $priority );
 
 	if ( ! in_array( $idx, $_gambitFiltersRan ) ) {
 		add_action( $tag, $function_to_add, $priority, $accepted_args );
@@ -97,7 +97,7 @@ function tf_add_filter_once( $tag, $function_to_add, $priority = 10, $accepted_a
 			$idxFunc[0] = get_class( $function_to_add[0] );
 		}
 	}
-	$idx = _wp_filter_build_unique_id( $tag, $idxFunc, $priority );
+	$idx = $tag . ':' . _wp_filter_build_unique_id( $tag, $idxFunc, $priority );
 
 	if ( ! in_array( $idx, $_gambitFiltersRan ) ) {
 		add_filter( $tag, $function_to_add, $priority, $accepted_args );
