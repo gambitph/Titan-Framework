@@ -180,8 +180,13 @@ class TitanFrameworkCustomizer {
 		?>
 		<script>
 		window.tf_refresh_css = function() {
-			var optionsModified = {}
 			if ( typeof localStorage !== 'undefined' ) {
+				
+				// Using localStorage directly as an object-value dictionary doesn't work in FF, create a new object
+				var localStorageData = {}, keys = Object.keys( localStorage );
+				for ( var i in keys ) {
+			        localStorageData[ keys[ i ] ] = localStorage.getItem( keys[ i ] );
+			    }
 				
 				wp.ajax.send( 'tf_generate_customizer_css', {
 				    success: function( data ) {
@@ -209,7 +214,7 @@ class TitanFrameworkCustomizer {
 						do_action( "tf_generate_customizer_preview_js" );
 						?>
 				    },
-					data: localStorage
+					data: localStorageData
 				  });
 				  
 			}
