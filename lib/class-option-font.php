@@ -167,6 +167,9 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			if ( empty( $fontValue['font-family'] ) ) {
 				continue;
 			}
+			if ( $fontValue['font-family'] == 'inherit' ) {
+				continue;
+			}
 
 			if ( $fontValue['font-type'] != 'google' ) {
 				continue;
@@ -272,6 +275,10 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			}
 
 			if ( $key == 'font-family' ) {
+				if ( $value[ $key ] == 'inherit' ) {
+					$css .= '$' . $option->settings['id'] . '-' . $key . ': ' . $value[ $key ] . ';';
+					continue;
+				}
 				if ( ! empty( $value['font-type'] ) ) {
 					if ( $value['font-type'] == 'google' ) {
 						$css .= '$' . $option->settings['id'] . '-' . $key . ': "' . $value[ $key ] . '";';
@@ -546,6 +553,10 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			Font Family
 			<select class='tf-font-sel-family'>
 				<?php
+				
+				?><option value='inherit'>inherit</option><?php
+				
+				
 				if ( $this->settings['show_websafe_fonts'] ) {
 					?>
 				    <optgroup label="Web Safe Fonts" class='safe'>
@@ -976,6 +987,7 @@ function registerTitanFrameworkOptionFontControl() {
 			<label <?php echo $visibilityAttrs ?>>
 				Font Family
 				<select class='tf-font-sel-family'>
+					<option value='inherit'>inherit</option>
 				    <optgroup label="Web Safe Fonts" class='safe'>
 						<?php
 						foreach ( TitanFrameworkOptionFont::$webSafeFonts as $family => $label ) {
