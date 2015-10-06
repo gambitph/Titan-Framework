@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 4.1
 Tested up to: 4.3.1
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -139,6 +139,17 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.9.2 =
+* New: `tf_css_get_css_file_path_{$namespace}` filter
+* Enhanced: Heading options in Customizer now look great
+* Enhanced: The `css` parameter now performs live preview changes instead of reloading the page
+* Enhanced: Added `inherit` values for some styles in the font option
+* Enhanced: Changed some default style values in the font option to `inherit` 
+* Fixed: Options with a value of zero do not generate CSS properly (they wrongly reset to their default value before)
+* Fixed: `getOptions` function turned non-existent keys to false
+* Fixed: Existing panel names (not panel IDs) across different namespaces that match get shown in the wrong section
+* Fixed: Removed remnance of a checkbox in the enable option while in the Customizer in Firefox
 
 = 1.9.1 =
 * Fixed: in some setups, saving options in a tab resets other tabs
