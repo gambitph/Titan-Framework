@@ -36,10 +36,10 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 	// Default style options
 	public static $defaultStyling = array(
-		'font-family' => 'Open Sans',
+		'font-family' => 'inherit',
 		'color' => '#333333',
-		'font-size' => '13px',
-		'font-weight' => 'normal',
+		'font-size' => 'inherit',
+		'font-weight' => 'inherit',
 		'font-style' => 'normal',
 		'line-height' => '1.5em',
 		'letter-spacing' => 'normal',
