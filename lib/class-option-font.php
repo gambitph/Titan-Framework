@@ -639,6 +639,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		<label <?php echo $visibilityAttrs ?>>
 			Font Size
 			<select class='tf-font-sel-size'>
+				<option value='inherit'>inherit</option>
 				<?php
 				for ( $i = 1; $i <= 150; $i++ ) {
 					printf( "<option value='%s'%s>%s</option>",
@@ -660,6 +661,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		<label <?php echo $visibilityAttrs ?>>
 			Font Weight
 			<select class='tf-font-sel-weight'>
+				<option value='inherit'>inherit</option>
 				<?php
 				$options = array( 'normal', 'bold', 'bolder', 'lighter', '100', '200', '300', '400', '500', '600', '700', '800', '900' );
 				foreach ( $options as $option ) {
@@ -1034,6 +1036,7 @@ function registerTitanFrameworkOptionFontControl() {
 			<label <?php echo $visibilityAttrs ?>>
 				Font Size
 				<select class='tf-font-sel-size'>
+					<option value='inherit'>inherit</option>
 					<?php
 					for ( $i = 1; $i <= 150; $i++ ) {
 						printf( "<option value='%s'%s>%s</option>",
@@ -1055,6 +1058,7 @@ function registerTitanFrameworkOptionFontControl() {
 			<label <?php echo $visibilityAttrs ?>>
 				Font Weight
 				<select class='tf-font-sel-weight'>
+					<option value='inherit'>inherit</option>
 					<?php
 					$options = array( 'normal', 'bold', 'bolder', 'lighter', '100', '200', '300', '400', '500', '600', '700', '800', '900' );
 					foreach ( $options as $option ) {
