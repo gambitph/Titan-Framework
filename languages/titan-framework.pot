@@ -21,11 +21,11 @@ msgstr ""
 msgid "<em>Options Page Created with <a href='http://titanframework.net?utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
 msgstr ""
 
-#: lib/class-admin-page.php:325
+#: lib/class-admin-page.php:333
 msgid "Settings saved."
 msgstr ""
 
-#: lib/class-admin-page.php:327
+#: lib/class-admin-page.php:335
 msgid "Settings reset to default."
 msgstr ""
 
@@ -73,11 +73,11 @@ msgstr ""
 msgid "Entering your license key is mandatory to get the product updates."
 msgstr ""
 
-#: lib/class-option-enable.php:21, lib/class-option-enable.php:100
+#: lib/class-option-enable.php:62, lib/class-option-enable.php:141
 msgid "Enabled"
 msgstr ""
 
-#: lib/class-option-enable.php:24, lib/class-option-enable.php:103
+#: lib/class-option-enable.php:65, lib/class-option-enable.php:144
 msgid "Disabled"
 msgstr ""
 
@@ -109,30 +109,30 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: lib/class-option.php:43
+#: lib/class-option.php:104
 msgid "Option type or extended class %s does not exist."
 msgstr ""
 
-#: lib/class-titan-framework.php:158
+#: lib/class-titan-framework.php:170
 msgid "All option IDs per namespace must be unique. The id %s has been used multiple times."
 msgstr ""
 
-#: lib/class-titan-framework.php:395
+#: lib/class-titan-framework.php:407
 msgid "%s needs a %s parameter."
 msgstr ""
 
-#: lib/class-titan-framework.php:405
+#: lib/class-titan-framework.php:417
 msgid "Container of type %s, does not exist."
 msgstr ""
 
-#: titan-framework.php:170
+#: titan-framework.php:182
 msgid "Documentation"
 msgstr ""
 
-#: titan-framework.php:174
+#: titan-framework.php:186
 msgid "GitHub Repo"
 msgstr ""
 
-#: titan-framework.php:178
+#: titan-framework.php:190
 msgid "Issue Tracker"
 msgstr ""

@@ -52,7 +52,6 @@ class TitanFrameworkCustomizer {
 
 		// Generate the custom CSS for live previews.
 		tf_add_action_once( 'wp_ajax_tf_generate_customizer_css', array( $this, 'ajaxGenerateCustomizerCSS' ) );
-		
 
 		// Modify the values of the options for the generation of CSS with the values from the customizer $_POST.
 		global $wp_customize;
@@ -81,23 +80,23 @@ class TitanFrameworkCustomizer {
 	 * @return void
 	 */
 	public function ajaxGenerateCustomizerCSS() {
-		
+
 		// This value is passed back to the live preview ajax handler in $this->livePreviewMainScript()
 		$generated = array(
 			'css' => '',
 		);
-		
+
 		foreach ( TitanFramework::getAllInstances() as $framework ) {
-			
+
 			// Modify the values of the options for the generation of CSS with the values from the customizer $_POST.
 			$namespace = $framework->optionNamespace;
 			add_filter( "tf_pre_get_value_{$namespace}", array( $this, 'useCustomizerModifiedValue' ), 10, 3 );
 
 			// Generate our new CSS based on the customizer values
 			$css = $framework->cssInstance->generateCSS();
-		
+
 			$generated['css'] .= $css;
-			
+
 			/**
 			 * Allow options to add customizer live preview parameters. The tf_generate_customizer_preview_js hook allows for manipulating these values.
 			 *
@@ -106,7 +105,7 @@ class TitanFrameworkCustomizer {
 			 * @see tf_generate_customizer_preview_js
 			 */
 			$generated = apply_filters( "tf_generate_customizer_preview_css_{$namespace}", $generated );
-	
+
 		}
 
 		wp_send_json_success( $generated );
@@ -211,7 +210,7 @@ class TitanFrameworkCustomizer {
 						 *
 						 * @see $this->ajaxGenerateCustomizerCSS()
 						 */
-						do_action( "tf_generate_customizer_preview_js" );
+						do_action( 'tf_generate_customizer_preview_js' );
 						?>
 				    },
 					data: localStorageData
@@ -232,14 +231,14 @@ class TitanFrameworkCustomizer {
 	 * @return void
 	 */
 	public function livePreview() {
-		
+
 		$printStart = false;
 		foreach ( $this->options as $option ) {
-			
+
 			if ( empty( $option->settings['css'] ) && empty( $option->settings['livepreview'] ) ) {
 				continue;
 			}
-		
+
 			// Print the starting script tag.
 			if ( ! $printStart ) {
 				$printStart = true;
@@ -248,7 +247,7 @@ class TitanFrameworkCustomizer {
 				jQuery(document).ready(function($) {
 				<?php
 			}
-			
+
 			?>
 			wp.customize( '<?php echo $option->getID() ?>', function( v ) {
 				v.bind( function( value ) {
@@ -289,9 +288,9 @@ class TitanFrameworkCustomizer {
 				} );
 			} );
 			<?php
-			
+
 		}
-		
+
 		// Print the ending script tag.
 		if ( $printStart ) {
 			?>
@@ -356,11 +355,11 @@ class TitanFrameworkCustomizer {
 		// Unfortunately we have to call each option's register from here
 		foreach ( $this->options as $index => $option ) {
 			if ( ! empty( $option->settings['id'] ) ) {
-				
+
 				$namespace = $this->owner->optionNamespace;
 				$option_type = $option->settings['type'];
 				$transport = empty( $option->settings['livepreview'] ) && empty( $option->settings['css'] ) ? 'refresh' : 'postMessage';
-				
+
 				/**
 				 * Allow options to override the transport mode of an option in the customizer
 				 *

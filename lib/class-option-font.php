@@ -90,7 +90,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		tf_add_action_once( 'admin_head', array( __CLASS__, 'createFontScript' ) );
 		tf_add_action_once( 'wp_enqueue_scripts', array( $this, 'enqueueGooglefonts' ) );
 		add_filter( 'tf_generate_css_font_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
-		
+
 		// Customizer preview handling
 		tf_add_action_once( 'tf_generate_customizer_preview_js', array( $this, 'generateCustomizerPreviewJS' ) );
 		tf_add_filter_once( 'tf_generate_customizer_preview_css_' . $this->getOptionNamespace(), array( $this, 'generateCustomizerPreviewCSS' ) );
@@ -155,7 +155,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 * @return array An array containing the font names as keys and the font URLs as values.
 	 */
 	public function getGoogleFontURLs() {
-		
+
 		$urls = array();
 
 		// Gather all the fonts that we need to load, some may be repeated so we need to
@@ -221,7 +221,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				$urls[ $fontName ] = $fontUrl;
 			}
 		}
-		
+
 		return $urls;
 	}
 
@@ -235,7 +235,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 	 */
 	public function enqueueGooglefonts() {
 		$urls = $this->getGoogleFontURLs();
-		
+
 		foreach ( $urls as $fontName => $url ) {
 			wp_enqueue_style( 'tf-google-webfont-' . strtolower( str_replace( ' ', '-', $fontName ) ), $url );
 		}
@@ -552,14 +552,12 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		<label <?php echo $visibilityAttrs ?>>
 			Font Family
 			<select class='tf-font-sel-family'>
+				<option value='inherit'>inherit</option>
 				<?php
-				
-				?><option value='inherit'>inherit</option><?php
-				
-				
+
 				if ( $this->settings['show_websafe_fonts'] ) {
 					?>
-				    <optgroup label="Web Safe Fonts" class='safe'>
+					<optgroup label="Web Safe Fonts" class='safe'>
 						<?php
 						foreach ( self::$webSafeFonts as $family => $label ) {
 							printf( "<option value='%s'%s>%s</option>",
@@ -575,35 +573,35 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 				if ( $this->settings['show_google_fonts'] ) {
 					?>
-				    <optgroup label="Google WebFonts" class='google'>
+					<optgroup label="Google WebFonts" class='google'>
 						<?php
 						$allFonts = titan_get_googlefonts();
 						foreach ( $allFonts as $key => $fontStuff ) {
 
-	                        // Show only the include_fonts (font names) if provided, uses regex
-	                        if ( ! empty( $this->settings['include_fonts'] ) ) {
-	                            if ( is_array( $this->settings['include_fonts'] ) ) {
-	                                $fontNameMatch = false;
-	                                foreach ( $this->settings['include_fonts'] as $fontNamePattern ) {
-	                                    if ( ! is_string( $fontNamePattern ) ) {
-	                                        continue;
-	                                    }
-	                                    $fontNamePattern = '/' . trim( $fontNamePattern, '/' ) . '/';
-	                                    if ( preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
-	                                        $fontNameMatch = true;
-	                                        break;
-	                                    }
-	                                }
-	                                if ( ! $fontNameMatch ) {
-	                                    continue;
-	                                }
-	                            } else if ( is_string( $this->settings['include_fonts'] ) ) {
-	                                $fontNamePattern = '/' . trim( $this->settings['include_fonts'], '/' ) . '/';
-	                                if ( ! preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
-	                                    continue;
-	                                }
-	                            }
-	                        }
+							// Show only the include_fonts (font names) if provided, uses regex.
+							if ( ! empty( $this->settings['include_fonts'] ) ) {
+								if ( is_array( $this->settings['include_fonts'] ) ) {
+									$fontNameMatch = false;
+									foreach ( $this->settings['include_fonts'] as $fontNamePattern ) {
+										if ( ! is_string( $fontNamePattern ) ) {
+											continue;
+										}
+										$fontNamePattern = '/' . trim( $fontNamePattern, '/' ) . '/';
+										if ( preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+											$fontNameMatch = true;
+											break;
+										}
+									}
+									if ( ! $fontNameMatch ) {
+										continue;
+									}
+								} else if ( is_string( $this->settings['include_fonts'] ) ) {
+									$fontNamePattern = '/' . trim( $this->settings['include_fonts'], '/' ) . '/';
+									if ( ! preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+										continue;
+									}
+								}
+							}
 
 							printf( "<option value='%s'%s>%s</option>",
 								esc_attr( $fontStuff['name'] ),
