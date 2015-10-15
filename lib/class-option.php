@@ -84,6 +84,13 @@ class TitanFrameworkOption {
 		 */
 		'hidden' => false,
 
+		/**
+		 * (Optional) The transport parameter in the Customizer is automatically set. Use this to override the transport value. Value can be blank, 'refresh' or 'postMessage'
+		 * @since 1.9.3
+		 * @var string
+		 */
+		'transport' => '',
+
 		'example' => '', // An example value for this field, will be displayed in a <code>
 	);
 

@@ -359,6 +359,11 @@ class TitanFrameworkCustomizer {
 				$namespace = $this->owner->optionNamespace;
 				$option_type = $option->settings['type'];
 				$transport = empty( $option->settings['livepreview'] ) && empty( $option->settings['css'] ) ? 'refresh' : 'postMessage';
+				
+				// Allow options to override the transport parameter
+				if ( ! empty( $option->settings['transport'] ) ) {
+					$transport = $option->settings['transport'];
+				}
 
 				/**
 				 * Allow options to override the transport mode of an option in the customizer
