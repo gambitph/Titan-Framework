@@ -4,11 +4,32 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
 class TitanFrameworkAdminTab {
 
+	/**
+	 * Default settings specific for this container
+	 * @var array
+	 */
 	private $defaultSettings = array(
-		'name' => '', // Name of the tab
-		'id' => '', // Unique ID of the tab
-		'title' => '', // Title to display in the admin panel when tab is active
-		'desc' => '', // Description shown just below the tab when open
+
+		/**
+		 * The name of the tab, this is used as the label for the tab.
+		 * @since 1.0
+		 * @var string
+		 */
+		'name' => '',
+
+		/**
+		 * (Optional) A unique slug for this admin tab. Defaults to a generated slug based from the name parameter. This is appended to the url such as <code>admin.php?page=current_page&tab=id</code>
+		 * @since 1.0
+		 * @var string
+		 */
+		'id' => '',
+
+		/**
+		 * (Optional) A description displayed just below the tab when it’s active. You can use HTML tags here.
+		 * @since 1.0
+		 * @var string
+		 */
+		'desc' => '',
 	);
 
 	public $options = array();
@@ -18,13 +39,6 @@ class TitanFrameworkAdminTab {
 	function __construct( $settings, $owner ) {
 		$this->owner = $owner;
 		$this->settings = array_merge( $this->defaultSettings, $settings );
-
-		if ( empty( $this->settings['title'] ) && ! empty( $this->settings['name'] ) ) {
-			$this->settings['title'] = $this->settings['name'];
-		}
-		if ( ! empty( $this->settings['title'] ) && empty( $this->settings['name'] ) ) {
-			$this->settings['name'] = $this->settings['title'];
-		}
 
 		if ( empty( $this->settings['id'] ) ) {
 			$this->settings['id'] = str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
