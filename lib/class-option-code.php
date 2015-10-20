@@ -16,11 +16,40 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
  **/
 class TitanFrameworkOptionCode extends TitanFrameworkOption {
 
-	// Default settings specific to this option
+
+	/**
+	 * Default settings specific for this container
+	 * @var array
+	 */
 	public $defaultSecondarySettings = array(
+
+		/**
+		 * (Optional) The language used for syntax highlighting for this option. The list of all supported languages are available in the Ace GitHub repo.
+		 * @since 1.0
+		 * @var string
+		 */
 		'lang' => 'css',
+
+		/**
+		 * (Optional) The color theme used in the option. The list of all supported themes are available in the Ace GitHub repo.
+		 * @since 1.0
+		 * @var string
+		 */
 		'theme' => 'chrome',
+
+		/**
+		 * (Optional) The height of the editor in pixels.
+		 * @since 1.0
+		 * @var string
+		 */
 		'height' => 200,
+
+		/**
+		 * (Optional) The inputted code is automatically included in the frontend if the <code>lang</code> parameter is <code>css</code> or <code>javascript</code>. Setting this to false forces the option to stop including the code in the front end. This is useful if you want to use the option value in the back end or somewhere else.
+		 * @since 1.9.3
+		 * @var bool
+		 */
+		'enqueue' => true,
 	);
 
 
@@ -52,6 +81,12 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function printJS() {
+		
+		// Allow the enqueue setting to stop this.
+		if ( ! $this->settings['enqueue'] ) {
+			return;
+		}
+
 		// For CSS langs only
 		if ( $this->settings['lang'] != 'javascript' ) {
 			return;
@@ -77,6 +112,12 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function printJSForPagesAndPosts() {
+
+		// Allow the enqueue setting to stop this.
+		if ( ! $this->settings['enqueue'] ) {
+			return;
+		}
+
 		// This is for meta box options only, other types get generated normally
 		if ( TitanFrameworkOption::TYPE_META != $this->type ) {
 			return;
@@ -108,6 +149,12 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function printCSSForPagesAndPosts() {
+
+		// Allow the enqueue setting to stop this.
+		if ( ! $this->settings['enqueue'] ) {
+			return;
+		}
+
 		// This is for meta box options only, other types get generated normally
 		if ( TitanFrameworkOption::TYPE_META != $this->type ) {
 			return;
@@ -154,6 +201,12 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		if ( $this->settings['id'] != $option->settings['id'] ) {
 			return $css;
 		}
+
+		// Allow the enqueue setting to stop this.
+		if ( ! $this->settings['enqueue'] ) {
+			return $css;
+		}
+
 		if ( TitanFrameworkOption::TYPE_META != $option->type ) {
 			$css = $this->getValue();
 		}
