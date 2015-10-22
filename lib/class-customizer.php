@@ -375,6 +375,7 @@ class TitanFrameworkCustomizer {
 				$wp_customize->add_setting( $option->getID(), array(
 					'default' => $option->settings['default'],
 					'transport' => $transport,
+					'sanitize_callback' => $option->settings['sanitize'], // Sanitize callback function can be used before storing to DB
 				) );
 			}
 
