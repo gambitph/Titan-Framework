@@ -2,9 +2,9 @@
 Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
-Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 1.7.4
+Requires at least: 4.1
+Tested up to: 4.3.1
+Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,10 +16,15 @@ Titan Framework allows theme and plugin developers to create a admin pages, opti
 
 This means faster theme & plugin creation for everyone.
 
+[What is Titan Framework and how does it work?](http://www.titanframework.net/what/)
+
 = The Goal =
 
-Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. Read our guide on how to [Get Started with Titan Framework](http://www.titanframework.net/how/)
+Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. 
 
+[How to start developing with Titan Framework](http://www.titanframework.net/how/)
+
+* [Join the Community in Slack](https://gambit-slackin.herokuapp.com/)
 * [Documentation and Tutorials for Developers](http://www.titanframework.net/docs)
 * [Titan Framework GitHub Repository](https://github.com/gambitph/Titan-Framework)
 * [Issue Tracker](https://github.com/gambitph/Titan-Framework/issues)
@@ -52,15 +57,18 @@ The generated theme comes with sample pre-created options in the admin and theme
 
 = Options available in admin pages, meta boxes and theme customizer: =
 
+* Ajax button
 * Checkbox
 * Code (using [Ace](http://ace.c9.io/#nav=about))
 * Color picker
+* Custom
 * Date
 * EDD License (Easy Digital Downloads license)
 * Editor (WYSIWYG)
 * Enable
 * Font Style (Web safe fonts and Google WebFonts)
 * Heading
+* Iframe
 * Media uploader
 * Multicheck
 * Multicheck categories and taxonomies
@@ -78,10 +86,6 @@ The generated theme comes with sample pre-created options in the admin and theme
 * Sortable
 * Text
 * Textarea
-
-= Are You Using Titan Framework in Your Project? =
-
-Let me know, send me an email at bf.intal@gambit.ph with the details of your project along with a screenshot and I'll add it to the showcase here and in the site.
 
 = Supporting the Framework =
 
@@ -108,7 +112,7 @@ If Titan Framework has helped you in any way, we would appreciate any amount of 
 
 = Special Thanks to all the Contributors =
 
-@ardallan, @BrazenlyGeek, @csloisel, @DavideVogliotti, @davidossahdez, @desaiuditd, @dovy, @kevinlangleyjr, @manishsongirkar, @mendezcode, @MickeyKay, @sagarjadhav, and @smccafferty
+@ahansson89, @ahmadawais, @ardallan, @BrazenlyGeek, @csloisel, @DavideVogliotti, @davidossahdez, @desaiuditd, @dovy, @fabiorphp, @iografica, @jaeh, @kevinlangleyjr, @manishsongirkar, @mendezcode, @MickeyKay, @nemke, @sagarjadhav, @smccafferty, @tojibon
 
 and to everyone else in the GitHub repo!
 
@@ -135,6 +139,92 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.9.2 =
+* New: `tf_css_get_css_file_path_{$namespace}` filter
+* Enhanced: Heading options in Customizer now look great
+* Enhanced: The `css` parameter now performs live preview changes instead of reloading the page
+* Enhanced: Added `inherit` values for some styles in the font option
+* Enhanced: Changed some default style values in the font option to `inherit` 
+* Fixed: Options with a value of zero do not generate CSS properly (they wrongly reset to their default value before)
+* Fixed: `getOptions` function turned non-existent keys to false
+* Fixed: Existing panel names (not panel IDs) across different namespaces that match get shown in the wrong section
+* Fixed: Removed remnance of a checkbox in the enable option while in the Customizer in Firefox
+
+= 1.9.1 =
+* Fixed: in some setups, saving options in a tab resets other tabs
+
+= 1.9 =
+* Major performance and speed optimizations, now is less process & memory intensive
+* New `iframe` option
+* New `custom` option
+* New `multiple` attribute in select options for selecting multiple values
+* New `desc` attribute in heading options for displaying short descriptions
+* New `alpha` attribute in color options for picking rgba colors
+* New `editor_options` attribute in editor options for specifying editor settings
+* New `tf_admin_tab_created_{namespace}` action
+* New `$titan->getOptions()` function for getting multiple options at once
+* Updated Google Font list
+* Heading options now generate an `id` attribute
+* Now using Gulp for development and building
+* Started using WordPress PHP Coding Standards
+* Started unit testing. Coverage currently at 8%
+* Removed initializing state which could cause duplication problems
+* Bumped minimum version to 4.1
+* Simplified Titan Framework checker code
+* Fixed: notice for newly added options
+* Fixed: upload option now uses attachment url in `livePreview` attribute
+* Fixed: meta boxes now save properly for attachment post_types
+* Fixed: font text-shadows
+* Fixed: meta box css & js code from showing up in non-singular pages
+* Fixed: stray border in enable options in the customizer
+* Fixed: upload images misalign after saving in the customizer
+* Removed: references to old select-google-font option
+
+= 1.8.1 =
+* Duplicated CSS rules #271
+* Generated css contains duplicated declarations #232
+* Add support for checking item ID #267
+* Removed missing gallery since we still need to work on it bd23623
+
+= 1.8 =
+* New option: ajax-button
+* Added new hooks:
+ * tf_done
+ * tf_pre_save_admin_{namespace}
+ * tf_save_admin_{namespace}
+ * tf_pre_reset_admin_{namespace}
+ * tf_reset_admin_{namespace}
+* Added `desc` option for headers
+* Removed unused tracking code
+* Tweaked customizer font css
+* Updated SCSSPHP to v0.0.15
+* Added label for blank page/post titles for page/post options
+* Updated & namespaced SCSSPHP
+* Saving '0' values now work (e.g. in select options)
+* Additional check to prevent scss compile of empty string
+* Fixed bug where sometimes options without IDs (e.g. note) produce errors in the Customizer
+* Fixed possible JS running in iframe-font-preview + empty checks for CWE-200
+* getOption no longer throws a "called too early" warning and can now be called anywhere
+* #240 Update class-option-font.php
+* #235 Update class-option-checkbox.php
+* #262 Namespace invisible class
+* #264 Switch to strpos instead of preg_match
+* #253 Remove timepicker from requirements
+
+= 1.7.6 =
+* The Note option can now be placed in the Customizer
+* Prefixing a select value with `!` now displays the drop down value as disabled
+* Added new argument `panel_desc` for panel descriptions
+* Updated & namespaced EDD updater files
+* Fixed bug where options with the value 0 were not properly returned
+* Fixed bug where double descriptions showed up in the Customizer
+* Minor XSS security fixes, shouldn't be affected really, but it's better to be safe
+
+= 1.7.5 =
+* Added `hidden` parameter for all options
+* Fixed 4.1 display issues with the upload option
+* Fixed an undefined notice that sometimes appears
 
 = 1.7.4 =
 * Faster SCSS parsing

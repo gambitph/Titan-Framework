@@ -2,7 +2,25 @@
     <testsuites>
         <!-- Default test suite to run all tests -->
         <testsuite>
-            <directory prefix="test_" suffix=".php">tests</directory>
+            <directory prefix="test-" suffix=".php">tests</directory>
         </testsuite>
     </testsuites>
+	<logging>
+        <log type="coverage-html" target="coverage"/>
+		<log type="coverage-clover" target="coverage.clover"/>
+		<log type="coverage-text" target="php://stdout"/>
+	</logging>
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<!-- Do not do ./ since it will take forever -->
+			<directory suffix=".php">lib</directory>
+			<file>titan-framework.php</file>
+			<file>titan-framework-embedder.php</file>
+			<file>titan-framework-checker.php</file>
+		</whitelist>
+    </filter>
+	<php>
+        <ini name="display_errors" value="On" />
+        <ini name="display_startup_errors" value="On" />
+    </php>
 </phpunit>

@@ -1,0 +1,76 @@
+{
+  "name": "Titan-Framework",
+  "version": "1.9.2",
+  "description": "Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.",
+  "main": "titan-framework.php",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gambitph/Titan-Framework.git"
+  },
+  "keywords": [
+    "framework",
+    "options",
+    "admin",
+    "admin",
+    "panel",
+    "meta",
+    "box",
+    "theme",
+    "customizer",
+    "option",
+    "framework",
+    "library",
+    "sdk",
+    "edd",
+    "settings",
+    "api",
+    "theme",
+    "creator",
+    "theme",
+    "framework"
+  ],
+  "author": "Benjamin Intal, Gambit",
+  "license": "GPLv2",
+  "bugs": {
+    "url": "https://github.com/gambitph/Titan-Framework/issues"
+  },
+  "homepage": "https://github.com/gambitph/Titan-Framework",
+  "devDependencies": {
+    "browser-sync": "^2.8.2",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-bower": "0.0.10",
+    "gulp-combine-media-queries": "^0.2.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-debug": "^2.1.0",
+    "gulp-if": "^1.2.5",
+    "gulp-ignore": "^1.2.1",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-include": "^2.0.2",
+    "gulp-jshint": "^1.11.2",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-phpcs": "^0.7.0",
+    "gulp-prompt": "^0.1.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-ruby-sass": "^1.4.0",
+    "gulp-run": "^1.6.10",
+    "gulp-sass": "^2.0.4",
+    "gulp-shell": "^0.4.3",
+    "gulp-sort": "^1.1.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.4.0",
+    "gulp-watch": "^4.3.5",
+    "gulp-wp-pot": "^1.0.3",
+    "gulp-zip": "^3.0.2",
+    "jshint-stylish": "^2.0.1",
+    "merge-stream": "^1.0.0"
+  }
+}

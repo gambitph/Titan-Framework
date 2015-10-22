@@ -1,0 +1,138 @@
+# Copyright (C) 2015 Titan Framework
+# This file is distributed under the same license as the Titan Framework package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Titan Framework\n"
+"Report-Msgid-Bugs-To: http://titanframework.net\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Benjamin Intal <bf.intal@gambit.ph>\n"
+"Language-Team: Gambit Technologies Inc <info@gambit.ph>\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+
+#: lib/class-admin-page.php:114
+msgid "<em>Options Page Created with <a href='http://titanframework.net?utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
+msgstr ""
+
+#: lib/class-admin-page.php:333
+msgid "Settings saved."
+msgstr ""
+
+#: lib/class-admin-page.php:335
+msgid "Settings reset to default."
+msgstr ""
+
+#: lib/class-customizer.php:33, lib/class-meta-box.php:36
+msgid "More Options"
+msgstr ""
+
+#: lib/class-option-ajax-button.php:29, lib/class-option-ajax-button.php:32
+msgid "Security check failed, please refresh the page and try again."
+msgstr ""
+
+#: lib/class-option-ajax-button.php:86
+msgid "Something went wrong"
+msgstr ""
+
+#: lib/class-option-ajax-button.php:91
+msgid "Click me"
+msgstr ""
+
+#: lib/class-option-ajax-button.php:96
+msgid "Please wait..."
+msgstr ""
+
+#: lib/class-option-edd-license.php:131
+msgid "Your license is valid and active."
+msgstr ""
+
+#: lib/class-option-edd-license.php:135
+msgid "Your license is invalid."
+msgstr ""
+
+#: lib/class-option-edd-license.php:149
+msgid "Activate"
+msgstr ""
+
+#: lib/class-option-edd-license.php:150
+msgid "Your license is valid but inactive. Click the button above to activate it."
+msgstr ""
+
+#: lib/class-option-edd-license.php:155
+msgid "The remote server did not return a valid response. You can retry by hitting the &laquo;Save&raquo; button again."
+msgstr ""
+
+#: lib/class-option-edd-license.php:160
+msgid "Entering your license key is mandatory to get the product updates."
+msgstr ""
+
+#: lib/class-option-enable.php:62, lib/class-option-enable.php:141
+msgid "Enabled"
+msgstr ""
+
+#: lib/class-option-enable.php:65, lib/class-option-enable.php:144
+msgid "Disabled"
+msgstr ""
+
+#: lib/class-option-gallery.php:148, lib/class-option-upload.php:255
+msgid "Select Image"
+msgstr ""
+
+#: lib/class-option-gallery.php:151, lib/class-option-upload.php:258
+msgid "Use image"
+msgstr ""
+
+#: lib/class-option-multicheck-pages.php:27, lib/class-option-multicheck-pages.php:48, lib/class-option-multicheck-posts.php:34, lib/class-option-multicheck-posts.php:60, lib/class-option-select-pages.php:38, lib/class-option-select-posts.php:46
+msgid "Untitled %s"
+msgstr ""
+
+#: lib/class-option-save.php:21
+msgid "Save Changes"
+msgstr ""
+
+#: lib/class-option-save.php:24
+msgid "Reset to Defaults"
+msgstr ""
+
+#: lib/class-option-save.php:27
+msgid "Are you sure you want to reset ALL options to their default values?"
+msgstr ""
+
+#: lib/class-option-select-categories.php:37, lib/class-option-select-categories.php:104, lib/class-option-select-pages.php:30, lib/class-option-select-posts.php:38, lib/class-option-select-posts.php:112
+msgid "Select"
+msgstr ""
+
+#: lib/class-option.php:104
+msgid "Option type or extended class %s does not exist."
+msgstr ""
+
+#: lib/class-titan-framework.php:170
+msgid "All option IDs per namespace must be unique. The id %s has been used multiple times."
+msgstr ""
+
+#: lib/class-titan-framework.php:407
+msgid "%s needs a %s parameter."
+msgstr ""
+
+#: lib/class-titan-framework.php:417
+msgid "Container of type %s, does not exist."
+msgstr ""
+
+#: titan-framework.php:182
+msgid "Documentation"
+msgstr ""
+
+#: titan-framework.php:186
+msgid "GitHub Repo"
+msgstr ""
+
+#: titan-framework.php:190
+msgid "Issue Tracker"
+msgstr ""

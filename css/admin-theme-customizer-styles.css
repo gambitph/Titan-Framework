@@ -97,7 +97,7 @@
 .tf-sortable ul li i:last-of-type {
 	margin-left: 50px;
 }
-.tf-sortable li.invisible {
+.tf-sortable li.tf-invisible {
 	color: #ccc;
 	background: transparent;
 }
@@ -140,17 +140,17 @@
 }
 /* google webfont new */
 .tf-font label {
-	border: 1px solid #DDD;
 	vertical-align: middle;
 	padding: 4px 4px 4px 13px;
-	background: #fcfcfc;
-	margin-bottom: 4px;
+	background: transparent;
+	margin-bottom: 0;
 	display: block;
 	text-align: right;
 	white-space: nowrap;
 	margin-right: 0;
 	font-size: 12px;
 	line-height: 28px;
+	border: 0;
 }
 .tf-font label.tf-picker-open {
 	color: #fcfcfc;
@@ -161,7 +161,7 @@
 }
 .tf-font label.tf-picker-open .wp-picker-container {
 	position: absolute;
-	left: 0px;
+	left: 10px;
 }
 .tf-font label.tf-picker-open .wp-picker-container .wp-color-result {
 	margin-left: 0;
@@ -188,6 +188,11 @@
 }
 .tf-font div {
 	position: relative;
+}
+.tf-font > div {
+    padding: 5px 0;
+    background-color: rgba(255,255,255,.5);
+    margin-bottom: 4px;
 }
 .tf-font i {
 	position: absolute;
@@ -226,6 +231,8 @@
 	float: right;
 	z-index: -9999;
 	position: absolute;
+	border: 0;
+	opacity: 0;
 }
 .tf-enable .button {
 	-moz-user-select: none;
@@ -262,9 +269,43 @@
 	left: 270px !important;
 }
 
+
+.tf-ajax-button .button {
+	display: block;
+    width: 100%;
+}
+.tf-ajax-button .button + .button {
+    margin-top: 5px;
+}
+
 p.description {
 	margin-bottom: 30px;
 }
 p.description:empty {
 	margin-bottom: 5px;
+}
+
+.tf-upload .tf-image-preview img {
+    margin-top: 0px;
+    margin-left: 0px;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+}
+
+
+.tf-heading {
+	border-top: 1px solid #dadada;
+    background-color: #e1e1e1;
+    padding: .5em 12px;
+    margin: 0 -12px;
+    border-bottom: 1px solid #ddd;
+}
+.tf-heading .description {
+	margin: 0;
+    color: #666;
+    font-weight: normal;
 }
