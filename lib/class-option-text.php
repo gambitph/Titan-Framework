@@ -42,6 +42,14 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		'placeholder' => '',
 
 		/**
+		 * (Optional) Set size of the field
+		 *
+		 * @since 1.9.3
+		 * @var string (large, regular, small)
+		 */
+		'size' => 'regular',
+
+		/**
 		 * (Optional) If true, the value of the input field will be hidden while typing.
 		 *
 		 * @since 1.0
@@ -84,7 +92,8 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 	 */
 	public function display() {
 		$this->echoOptionHeader();
-		printf('<input class="regular-text" name="%s" placeholder="%s" maxlength="%s" id="%s" type="%s" value="%s"\> %s',
+		printf('<input class="%s-text" name="%s" placeholder="%s" maxlength="%s" id="%s" type="%s" value="%s"\> %s',
+			empty($this->settings['size']) ? 'regular' : $this->settings['size'],
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->settings['maxlength'],
