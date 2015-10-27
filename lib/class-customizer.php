@@ -37,7 +37,7 @@ class TitanFrameworkCustomizer {
 			$this->settings['id'] = $this->owner->optionNamespace . '_' . str_replace( ' ', '-', trim( strtolower( $this->settings['name'] ) ) );
 		}
 
-		if ( empty( $this->settings['panel_id'] ) ) {
+		if ( empty( $this->settings['panel_id'] ) && ! empty( $this->settings['panel'] ) ) {
 			$this->settings['panel_id'] = $this->owner->optionNamespace . '_' . str_replace( ' ', '-', trim( strtolower( $this->settings['panel'] ) ) );
 		}
 
