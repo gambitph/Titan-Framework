@@ -111,7 +111,7 @@ class TitanFrameworkAdminPage {
 
 
 	public function addTitanCreditText() {
-		echo __( "<em>Options Page Created with <a href='http://titanframework.net?utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>", TF_I18NDOMAIN );
+		return __( "<em>Options Page Created with <a href='http://titanframework.net?utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>", TF_I18NDOMAIN );
 	}
 
 
