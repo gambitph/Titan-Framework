@@ -162,7 +162,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		<script>
 		jQuery(document).ready(function($) {
 			"use strict";
-			
+
 			$('.form-table, .customize-control').on( 'click', '.tf-ajax-button .button', function( e ) {
 
 				// Only perform one ajax at a time
@@ -174,7 +174,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 					return false;
 				}
 				this.doingAjax = true;
-				
+
 				// Form the data to send, we send the nonce and the post ID if possible
 				var data = { nonce: $(this).attr('data-nonce') };
 				<?php
@@ -183,61 +183,73 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 					?>data['id'] = <?php echo esc_attr( $post->ID ) ?>;<?php
 				}
 				?>
-				
+
 				// Perform the ajax call
 				wp.ajax.send( $(this).attr('data-action'), {
-					
+
 					// Success callback
-					success: function( successMessage ) {
-						
-						this.labelTimer = setTimeout(function() {
-							$(this).text( $(this).attr('data-label') );
-							this.labelTimer = undefined;
-						}.bind(this), 3000 );
-						
-						$(this).text( successMessage || $(this).attr('data-success-label') );
-						
-						// Call the error callback
-						if ( $(this).attr('data-success-callback') != '' ) {
-							if ( typeof window[ $(this).attr('data-success-callback') ] != 'undefined' ) {
-								window[ $(this).attr('data-success-callback') ]();
-							}
-						}
-						this.doingAjax = false;
-						
-					}.bind(this),
-					
-					// Error callback
-					error: function( errorMessage ) {
+					success: function( data ) {
+
 						this.labelTimer = setTimeout(function() {
 							$(this).text( $(this).attr('data-label') );
 							this.labelTimer = undefined;
 						}.bind(this), 3000 );
 
-						$(this).text( errorMessage || $(this).attr('data-error-label') );
-						
+						var successMessage = $(this).attr('data-success-label');
+						if (typeof data === 'string' || data instanceof String) {
+							successMessage = data;
+						} else if (typeof data.message !== 'undefined') {
+							successMessage = data.message;
+						}
+						$(this).text( successMessage );
+
 						// Call the error callback
-						if ( $(this).attr('data-error-callback') != '' ) {
-							if ( typeof window[ $(this).attr('data-error-callback') ] != 'undefined' ) {
-								window[ $(this).attr('data-error-callback') ]();
+						if ( $(this).attr('data-success-callback') != '' ) {
+							if ( typeof window[ $(this).attr('data-success-callback') ] != 'undefined' ) {
+								window[ $(this).attr('data-success-callback') ]( data );
 							}
 						}
 						this.doingAjax = false;
-						
+
 					}.bind(this),
-				
+
+					// Error callback
+					error: function( data ) {
+						this.labelTimer = setTimeout(function() {
+							$(this).text( $(this).attr('data-label') );
+							this.labelTimer = undefined;
+						}.bind(this), 3000 );
+
+						var errorMessage = $(this).attr('data-error-label');
+						if (typeof data === 'string' || data instanceof String) {
+							errorMessage = data;
+						} else if (typeof data.message !== 'undefined') {
+							errorMessage = data.message;
+						}
+						$(this).text( errorMessage );
+
+						// Call the error callback
+						if ( $(this).attr('data-error-callback') != '' ) {
+							if ( typeof window[ $(this).attr('data-error-callback') ] != 'undefined' ) {
+								window[ $(this).attr('data-error-callback') ]( data );
+							}
+						}
+						this.doingAjax = false;
+
+					}.bind(this),
+
 					// Pass the data
 					data: data
-					
+
 				});
-				
+
 				// Clear the label timer
 				if ( typeof this.labelTimer != 'undefined' ) {
 					clearTimeout( this.labelTimer );
 					this.labelTimer = undefined;
 				}
 				$(this).text( $(this).attr('data-wait-label') );
-				
+
 				return false;
 			} );
 		});
