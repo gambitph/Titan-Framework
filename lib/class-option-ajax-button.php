@@ -15,6 +15,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		'error_label' => '',
 		'success_callback' => '',
 		'error_callback' => '',
+		'data_filter_callback' => '',
 	);
 
 
@@ -85,6 +86,9 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		while ( count( $this->settings['error_callback'] ) < count( $this->settings['action'] ) ) {
 			$this->settings['error_callback'][] = __( 'Something went wrong', TF_I18NDOMAIN );
 		}
+		while ( count( $this->settings['data_filter_callback'] ) < count( $this->settings['action'] ) ) {
+			$this->settings['data_filter_callback'][] = '';
+		}
 
 		foreach ( $this->settings['label'] as $i => $label ) {
 			if ( empty( $label ) ) {
@@ -129,7 +133,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 		$this->echoOptionHeader();
 
 		foreach ( $this->settings['action'] as $i => $action ) {
-			printf( '<button class="button %s" data-action="%s" data-label="%s" data-wait-label="%s" data-error-label="%s" data-success-label="%s" data-nonce="%s" data-success-callback="%s" data-error-callback="%s">%s</button>',
+			printf( '<button class="button %s" data-action="%s" data-label="%s" data-wait-label="%s" data-error-label="%s" data-success-label="%s" data-nonce="%s" data-success-callback="%s" data-error-callback="%s" data-data-filter-callback="%s">%s</button>',
 				$this->settings['class'][ $i ],
 				esc_attr( $action ),
 				esc_attr( $this->settings['label'][ $i ] ),
@@ -139,6 +143,7 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 				esc_attr( wp_create_nonce( 'tf-ajax-button' ) ),
 				esc_attr( $this->settings['success_callback'][ $i ] ),
 				esc_attr( $this->settings['error_callback'][ $i ] ),
+				esc_attr( $this->settings['data_filter_callback'][ $i ] ),
 				esc_attr( $this->settings['label'][ $i ] )
 			);
 		}
@@ -184,6 +189,9 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 				}
 				?>
 
+				if ( $(this).attr('data-data-filter-callback') !== '' && typeof window[ $(this).attr('data-data-filter-callback') ] !== 'undefined' ) {
+					data = window[ $(this).attr('data-data-filter-callback') ]( data );
+				}
 				// Perform the ajax call
 				wp.ajax.send( $(this).attr('data-action'), {
 
