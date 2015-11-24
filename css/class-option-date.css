@@ -131,14 +131,18 @@
 .tf-date-datepicker .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .tf-date-datepicker .ui-timepicker-div dl { text-align: left; }
 .tf-date-datepicker .ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
-.tf-date-datepicker .ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+.tf-date-datepicker .ui-timepicker-div dl dd { margin: 0 10px 10px 40%; }
 .tf-date-datepicker .ui-timepicker-div td { font-size: 90%; }
 .tf-date-datepicker .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+.tf-date-datepicker .ui-timepicker-div .ui_tpicker_unit_hide{ display: none; }
+
+.tf-date-datepicker .ui-timepicker-div .ui_tpicker_time .ui_tpicker_time_input { background: none; color: inherit; border: none; outline: none; border-bottom: solid 1px #555; width: 95%; }
+.tf-date-datepicker .ui-timepicker-div .ui_tpicker_time .ui_tpicker_time_input:focus { border-bottom-color: #aaa; }
 
 .tf-date-datepicker .ui-timepicker-rtl{ direction: rtl; }
 .tf-date-datepicker .ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
 .tf-date-datepicker .ui-timepicker-rtl dl dt{ float: right; clear: right; }
-.tf-date-datepicker .ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+.tf-date-datepicker .ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }
 
 /*
  * Styles for Timepicker addon number slider
