@@ -184,11 +184,17 @@
 	margin-bottom: 6px;
 }
 .tf-date-datepicker .ui-datepicker-buttonpane {
-	border-top:1px solid rgb(204, 204, 204);
+	border: none;
 	margin-left: -10px;
 	margin-right: -10px;
 	padding: 10px 10px 0;
 }
 .tf-date-datepicker .ui-datepicker-buttonpane .ui-priority-primary {
 	float:right;
+	box-shadow: 0px 1px 0px #FFF inset, 0px 1px 0px rgba(0, 0, 0, 0.08);
+}
+.tf-date-datepicker .ui-datepicker-buttonpane .ui-priority-primary:hover,
+.tf-date-datepicker .ui-datepicker-buttonpane .ui-priority-primary:active,
+.tf-date-datepicker .ui-datepicker-buttonpane .ui-priority-primary:focus {
+	box-shadow: none;
 }
