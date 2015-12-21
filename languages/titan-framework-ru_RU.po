@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-12-21 23:38+0100\n"
+"PO-Revision-Date: 2015-12-21 23:41+0100\n"
 "Last-Translator: Benjamin Intal <bf.intal@gambit.ph>\n"
 "Language-Team: Gambit Technologies Inc <info@gambit.ph>\n"
 "X-Poedit-Basepath: ..\n"
@@ -66,7 +66,7 @@ msgstr "Активировать"
 
 #: lib/class-option-edd-license.php:150
 msgid "Your license is valid but inactive. Click the button above to activate it."
-msgstr "Ваша лицензия действительна, но еще не активирована. Нажмите кнопку выше чтобы активировать ее."
+msgstr "Ваша лицензия действительна, но еще не активирована. Нажмите кнопку выше, чтобы активировать ее."
 
 #: lib/class-option-edd-license.php:155
 msgid "The remote server did not return a valid response. You can retry by hitting the &laquo;Save&raquo; button again."
@@ -74,7 +74,7 @@ msgstr "Удаленный сервер не отвечает. Вы можете
 
 #: lib/class-option-edd-license.php:160
 msgid "Entering your license key is mandatory to get the product updates."
-msgstr "Введите вашу лицензию чтобы в будущем получать обновления."
+msgstr "Введите вашу лицензию, чтобы в будущем получать обновления."
 
 #: lib/class-option-enable.php:62, lib/class-option-enable.php:141
 msgid "Enabled"
@@ -110,7 +110,7 @@ msgstr "Сбросить"
 
 #: lib/class-option-save.php:27
 msgid "Are you sure you want to reset ALL options to their default values?"
-msgstr "Вы уверены что хотите сбросить ВСЕ настройки к значениям по умолчанию?"
+msgstr "Вы уверены, что хотите сбросить ВСЕ настройки к значениям по умолчанию?"
 
 #: lib/class-option-select-categories.php:37,
 #: lib/class-option-select-categories.php:104,
