@@ -92,8 +92,6 @@ class TitanFrameworkOption {
 		'transport' => '',
 
 		'example' => '', // An example value for this field, will be displayed in a <code>
-            
-                'save_type' => 'option'
 	);
 
 	/**
@@ -150,11 +148,9 @@ class TitanFrameworkOption {
 		}
 
 		if ( $this->type == self::TYPE_ADMIN ) {
-                        if($this->settings['save_type'] == 'theme_mod'){
-                            $value = get_theme_mod( $this->getID(), $this->settings['default'] );
-                        }else{
-                            $value = $this->getFramework()->getInternalAdminPageOption( $this->settings['id'], $this->settings['default'] );
-                        }
+
+			$value = $this->getFramework()->getInternalAdminPageOption( $this->settings['id'], $this->settings['default'] );
+
 		} else if ( $this->type == self::TYPE_META ) {
 
 			if ( empty( $postID ) ) {
@@ -171,11 +167,9 @@ class TitanFrameworkOption {
 			} else {
 				$value = $this->settings['default'];
 			}
-		} else if ( $this->type == self::TYPE_CUSTOMIZER && $this->settings['save_type'] == 'theme_mod') {
+		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
 			$value = get_theme_mod( $this->getID(), $this->settings['default'] );
-		}else if($this->type == self::TYPE_CUSTOMIZER){
-                    $value = $this->getFramework()->getInternalAdminPageOption( $this->settings['id'], $this->settings['default'] );
-                }
+		}
 
 		/**
 		 * Allow others to change the value of the option before it gets cleaned
@@ -205,11 +199,8 @@ class TitanFrameworkOption {
 		$value = $this->cleanValueForSaving( $value );
 
 		if ( $this->type == self::TYPE_ADMIN ) {
-                        if($this->settings['save_type'] == 'theme_mod'){
-                            $value = set_theme_mod( $this->getID(), $value );
-                        }else{
+
 			$this->getFramework()->setInternalAdminPageOption( $this->settings['id'], $value );
-                        }
 
 		} else if ( $this->type == self::TYPE_META ) {
 
@@ -223,13 +214,11 @@ class TitanFrameworkOption {
 
 			update_post_meta( $postID, $this->getID(), $value );
 
-		} else if ( $this->type == self::TYPE_CUSTOMIZER && $this->settings['save_type'] == 'theme_mod' ) {
+		} else if ( $this->type == self::TYPE_CUSTOMIZER ) {
 
 			set_theme_mod( $this->getID(), $value );
 
-		}else if($this->type == self::TYPE_CUSTOMIZER){
-                    $this->getFramework()->setInternalAdminPageOption( $this->settings['id'], $value );
-                }
+		}
 
 		do_action( 'tf_set_value_' . $this->settings['type'] . '_' . $this->getOptionNamespace(), $value, $postID, $this );
 
@@ -267,9 +256,6 @@ class TitanFrameworkOption {
 	}
 
 	public function getID() {
-                if($this->type == self::TYPE_CUSTOMIZER && $this->settings['save_type'] == 'option'){
-                    return $this->getOptionNamespace().'_options['.$this->settings['id'].']';
-                }
 		return $this->getOptionNamespace() . '_' . $this->settings['id'];
 	}
 

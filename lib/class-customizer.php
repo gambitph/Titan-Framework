@@ -375,7 +375,6 @@ class TitanFrameworkCustomizer {
 				$wp_customize->add_setting( $option->getID(), array(
 					'default' => $option->settings['default'],
 					'transport' => $transport,
-                                        'type' =>$option->settings['save_type']
 				) );
 			}
 

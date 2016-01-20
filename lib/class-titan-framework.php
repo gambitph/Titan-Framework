@@ -234,7 +234,7 @@ class TitanFramework {
 
 		// Put all the available options in our global variable for future checking.
 		if ( ! empty( $currentOptions ) && ! count( $this->adminOptions ) ) {
-			$this->adminOptions = $currentOptions;
+			$this->adminOptions = unserialize( $currentOptions );
 		}
 
 		if ( empty( $this->adminOptions ) ) {
@@ -305,7 +305,7 @@ class TitanFramework {
 		// Run this first to ensure that adminOptions carries all our admin page options.
 		$this->getInternalAdminOptions();
 
-		update_option( $this->optionNamespace . '_options', $this->adminOptions );
+		update_option( $this->optionNamespace . '_options', serialize( $this->adminOptions ) );
 		do_action( 'tf_save_options_' . $this->optionNamespace );
 		return $this->adminOptions;
 	}

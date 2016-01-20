@@ -39,14 +39,13 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 			return array();
 		}
 		if ( is_serialized( $value ) ) {
-                    $value = unserialize($value);
 			return $value;
 		}
 		// CSV
 		if ( is_string( $value ) ) {
 			$value = explode( ',', $value );
 		}
-		return implode( ',',$value );
+		return serialize( $value );
 	}
 
 	public function cleanValueForGetting( $value ) {
