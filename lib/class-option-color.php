@@ -73,10 +73,13 @@ class TitanFrameworkOptionColor extends TitanFrameworkOption {
 	public function startColorPicker() {
 		?>
 		<script>
-		jQuery(document).ready(function($) {
-			"use strict";
-			$('.tf-colorpicker').wpColorPicker();
-		});
+			jQuery(document).ready(function ($) {
+				"use strict";
+				// limit usage of colorpicker if wpColorPicker module is not loaded
+				if ($.fn.wpColorPicker)
+					$('.tf-colorpicker').wpColorPicker();
+
+			});
 		</script>
 		<?php
 	}
