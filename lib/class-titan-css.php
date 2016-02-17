@@ -241,8 +241,7 @@ class TitanFrameworkCSS {
 		foreach ( $this->allOptionsWithIDs as $option ) {
 
 			// Only do this for the allowed types.
-			// Added extra validation for disabling the print of more then needed data! Ex. of extra css generated: "$enabled: 1;"
-			if ( in_array( $option->settings['type'], $noCSSOptionTypes )  or !$option->settings['css']) {
+			if ( in_array( $option->settings['type'], $noCSSOptionTypes ) ) {
 				continue;
 			}
 
