@@ -81,118 +81,119 @@ require_once( TF_PATH . 'lib/functions-utils.php' );
  *
  * @since 1.0
  */
-class TitanFrameworkPlugin {
 
+if (!class_exists('TitanFrameworkPlugin')) {
+	class TitanFrameworkPlugin {
 
-	/**
-	 * Constructor, add hooks
-	 *
-	 * @since 1.0
-	 */
-	function __construct() {
-		add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
-		add_action( 'plugins_loaded', array( $this, 'force_load_first' ), 10, 1 );
-		add_filter( 'plugin_row_meta', array( $this, 'plugin_links' ), 10, 2 );
-
-		// Create the options.
-		add_action( 'init', array( $this, 'trigger_option_creation' ), 1 );
-	}
-
-
-	/**
-	 * Trigger the creation of the options
-	 *
-	 * @since 1.9
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function trigger_option_creation() {
 
 		/**
-		 * Triggers the creation of options. Hook into this action and use the various create methods.
+		 * Constructor, add hooks
 		 *
 		 * @since 1.0
 		 */
-		do_action( 'tf_create_options' );
+		function __construct() {
+			add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
+			add_action( 'plugins_loaded', array( $this, 'force_load_first' ), 10, 1 );
+			add_filter( 'plugin_row_meta', array( $this, 'plugin_links' ), 10, 2 );
+
+			// Create the options.
+			add_action( 'init', array( $this, 'trigger_option_creation' ), 1 );
+		}
+
 
 		/**
-		 * Fires immediately after options are created.
+		 * Trigger the creation of the options
 		 *
-		 * @since 1.8
+		 * @since 1.9
+		 * @access public
+		 *
+		 * @return void
 		 */
-		do_action( 'tf_done' );
-	}
+		public function trigger_option_creation() {
+
+			/**
+			 * Triggers the creation of options. Hook into this action and use the various create methods.
+			 *
+			 * @since 1.0
+			 */
+			do_action( 'tf_create_options' );
+
+			/**
+			 * Fires immediately after options are created.
+			 *
+			 * @since 1.8
+			 */
+			do_action( 'tf_done' );
+		}
 
 
-	/**
-	 * Load plugin translations
-	 *
-	 * @since 1.0
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function load_text_domain() {
-		load_plugin_textdomain( TF_I18NDOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages/' );
-	}
+		/**
+		 * Load plugin translations
+		 *
+		 * @since 1.0
+		 * @access public
+		 *
+		 * @return void
+		 */
+		public function load_text_domain() {
+			load_plugin_textdomain( TF_I18NDOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages/' );
+		}
 
 
-	/**
-	 * Forces our plugin to be loaded first. This is to ensure that plugins that use the framework have access to
-	 * this class from almost anywhere
-	 *
-	 * @since 1.0
-	 * @access public
-	 *
-	 * @return void
-	 *
-	 * @see	initially based on http://snippets.khromov.se/modify-wordpress-plugin-load-order/
-	 */
-	public function force_load_first( $plugins = null ) {
-		$plugins = $plugins == null ? (array) get_option( 'active_plugins' ) : $plugins;
+		/**
+		 * Forces our plugin to be loaded first. This is to ensure that plugins that use the framework have access to
+		 * this class from almost anywhere
+		 *
+		 * @since 1.0
+		 * @access public
+		 *
+		 * @return void
+		 *
+		 * @see	initially based on http://snippets.khromov.se/modify-wordpress-plugin-load-order/
+		 */
+		public function force_load_first( $plugins = null ) {
+			$plugins = $plugins == null ? (array) get_option( 'active_plugins' ) : $plugins;
 
-		if ( ! empty( $plugins ) ) {
-			$index = array_search( TF_PLUGIN_BASENAME, $plugins );
-			if ( false !== $index && 0 !== $index ) {
-				array_splice( $plugins, $index, 1 );
-				array_unshift( $plugins, TF_PLUGIN_BASENAME );
-				update_option( 'active_plugins', $plugins );
+			if ( ! empty( $plugins ) ) {
+				$index = array_search( TF_PLUGIN_BASENAME, $plugins );
+				if ( false !== $index && 0 !== $index ) {
+					array_splice( $plugins, $index, 1 );
+					array_unshift( $plugins, TF_PLUGIN_BASENAME );
+					update_option( 'active_plugins', $plugins );
+				}
 			}
+
+			return $plugins;
 		}
 
-		return $plugins;
-	}
 
-
-	/**
-	 * Adds links to the docs and GitHub
-	 *
-	 * @since 1.1.1
-	 * @access public
-	 *
-	 * @param	array  $plugin_meta The current array of links.
-	 * @param	string $plugin_file The plugin file.
-	 * @return	array  The current array of links together with our additions
-	 **/
-	public function plugin_links( $plugin_meta, $plugin_file ) {
-		if ( TF_PLUGIN_BASENAME == $plugin_file ) {
-			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-				'http://www.titanframework.net/docs',
-				__( 'Documentation', TF_I18NDOMAIN )
-			);
-			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-				'https://github.com/gambitph/Titan-Framework',
-				__( 'GitHub Repo', TF_I18NDOMAIN )
-			);
-			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
-				'https://github.com/gambitph/Titan-Framework/issues',
-				__( 'Issue Tracker', TF_I18NDOMAIN )
-			);
+		/**
+		 * Adds links to the docs and GitHub
+		 *
+		 * @since 1.1.1
+		 * @access public
+		 *
+		 * @param	array  $plugin_meta The current array of links.
+		 * @param	string $plugin_file The plugin file.
+		 * @return	array  The current array of links together with our additions
+		 **/
+		public function plugin_links( $plugin_meta, $plugin_file ) {
+			if ( TF_PLUGIN_BASENAME == $plugin_file ) {
+				$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
+					'http://www.titanframework.net/docs',
+					__( 'Documentation', TF_I18NDOMAIN )
+				);
+				$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
+					'https://github.com/gambitph/Titan-Framework',
+					__( 'GitHub Repo', TF_I18NDOMAIN )
+				);
+				$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
+					'https://github.com/gambitph/Titan-Framework/issues',
+					__( 'Issue Tracker', TF_I18NDOMAIN )
+				);
+			}
+			return $plugin_meta;
 		}
-		return $plugin_meta;
 	}
+	new TitanFrameworkPlugin();
 }
-
-
-new TitanFrameworkPlugin();
