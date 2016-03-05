@@ -89,6 +89,11 @@
 .titan-framework-panel-wrap .form-table {
 	margin: 20px 0 0;
 }
+
+.titan-framework-panel-wrap .form-table .toggle-button {
+    float: right;
+}
+
 .titan-framework-panel-wrap .form-table tr {
 	background: white;
 	border-bottom: 1px solid #eee;

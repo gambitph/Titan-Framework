@@ -28,6 +28,19 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
 class TitanFrameworkOptionHeading extends TitanFrameworkOption {
 
 	/**
+	 * Default settings specific to this option
+	 * @var array
+	 */
+	public $defaultSecondarySettings = array(
+		/**
+		 * (Optional) Adds a button to toggle section.
+		 * @since 1.9.3
+		 * @var bool
+		 */
+		'toggle' => false,
+	);
+
+	/**
 	 * Display for options and meta
 	 */
 	public function display() {
@@ -35,7 +48,14 @@ class TitanFrameworkOptionHeading extends TitanFrameworkOption {
 		?>
 		<tr valign="top" class="even first tf-heading">
 			<th scope="row" class="first last" colspan="2">
-				<h3 id="<?php echo esc_attr( $headingID ) ?>"><?php echo $this->settings['name'] ?></h3>
+				<h3 id="<?php echo esc_attr( $headingID ) ?>">
+					<?php 
+					echo $this->settings['name'];
+					if ( $this->settings['toggle'] == true ) {
+						echo '<button class="toggle-button open">-</button>';
+					}
+					?>
+				</h3>
 				<?php
 				if ( ! empty( $this->settings['desc'] ) ) {
 					?><p class='description'><?php echo $this->settings['desc'] ?></p><?php
