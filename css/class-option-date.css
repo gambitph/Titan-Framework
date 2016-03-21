@@ -41,7 +41,10 @@
 	top: 10px;
 }
 .tf-date-datepicker .ui-datepicker-prev span,
-.tf-date-datepicker .ui-datepicker-next span {
+.tf-date-datepicker .ui-datepicker-next span,
+.tf-date-datepicker .ui_tpicker_time_label,
+.tf-date-datepicker .ui_tpicker_time,
+.tf-date-datepicker .ui_tpicker_unit_hide {
 	display: none;
 }
 .tf-date-datepicker .ui-datepicker-prev:before,
