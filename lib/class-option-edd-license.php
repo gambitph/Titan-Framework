@@ -311,15 +311,19 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				return false;
 			}
 
+			/* Retrieve license key */
+			$license_key = trim( esc_attr( $this->getValue() ) );
+
+			if ( empty( $license_key ) ) {
+				return false;
+			}
+
 			/* Check what type of item the file is */
 			$item_is = $this->item_is( $this->settings['file'] );
 
 			/* Item name */
 			$item_name = isset( $this->settings['item_name'] ) ? sanitize_text_field( $this->settings['item_name'] ) : false;
 			$item_id   = isset( $this->settings['item_id'] ) ? (int) $this->settings['item_id'] : false;
-
-			/* Retrieve license key */
-			$license_key = trim( esc_attr( $this->getValue() ) );
 
 			/* Prepare updater arguments */
 			$args = array(
