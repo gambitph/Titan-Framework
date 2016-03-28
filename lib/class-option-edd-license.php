@@ -27,9 +27,11 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 	class TitanFrameworkOptionEddLicense extends TitanFrameworkOption {
 
 		public $defaultSecondarySettings = array(
-			'placeholder' => '', // show this when blank
-			'is_password' => false,
-			'server'      => false,
+			'placeholder'                   => '',
+			'is_password'                   => false,
+			'server'                        => false,
+			// Whether or not a license number is mandatory for checking for new version. Without license number it still won't be possible to update though. Users will just see that there is a new version available.
+			'update_check_license_required' => false,
 		);
 
 		/**
@@ -314,7 +316,8 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 			/* Retrieve license key */
 			$license_key = trim( esc_attr( $this->getValue() ) );
 
-			if ( empty( $license_key ) ) {
+			// Abort if license key is empty and one is required for update check
+			if ( empty( $license_key ) && true === $this->settings['update_check_license_required'] ) {
 				return false;
 			}
 
@@ -481,3 +484,4 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		}
 	}
 }
+
