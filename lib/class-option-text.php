@@ -93,7 +93,7 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 	public function display() {
 		$this->echoOptionHeader();
 		printf('<input class="%s-text" name="%s" placeholder="%s" maxlength="%s" id="%s" type="%s" value="%s"\> %s',
-			empty($this->settings['size']) ? 'regular' : $this->settings['size'],
+			empty( $this->settings['size'] ) ? 'regular' : $this->settings['size'],
 			$this->getID(),
 			$this->settings['placeholder'],
 			$this->settings['maxlength'],

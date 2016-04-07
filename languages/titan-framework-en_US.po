@@ -1,4 +1,4 @@
-# Copyright (C) 2015 Titan Framework
+# Copyright (C) 2016 Titan Framework
 # This file is distributed under the same license as the Titan Framework package.
 msgid ""
 msgstr ""
@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "X-Poedit-Basepath: ..\n"
@@ -130,7 +130,7 @@ msgstr "Are you sure you want to reset ALL options to their default values?"
 msgid "Select"
 msgstr "Select"
 
-#: lib/class-option.php:104
+#: lib/class-option.php:111
 msgid "Option type or extended class %s does not exist."
 msgstr "Option type or extended class %s does not exist."
 
