@@ -3,8 +3,8 @@ Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 4.1
-Tested up to: 4.3.1
-Stable tag: 1.9.2
+Tested up to: 4.5
+Stable tag: 1.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ This means faster theme & plugin creation for everyone.
 
 = The Goal =
 
-Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. 
+Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options.
 
 [How to start developing with Titan Framework](http://www.titanframework.net/how/)
 
@@ -140,12 +140,20 @@ and to everyone else in the GitHub repo!
 
 == Changelog ==
 
+= 1.9.3 =
+* New: Transport parameter for overriding the Customizer transport parameter
+* New: Added `enqueue` parameter for the code option
+* New: Added `size` parameter to the Text option
+* Change: Removed `title` parameter in admin tabs
+* Fixed: Fixed bug where a blank panel was being created
+* Fixed: Removed seconds, and other more precise controls in the date option.
+
 = 1.9.2 =
 * New: `tf_css_get_css_file_path_{$namespace}` filter
 * Enhanced: Heading options in Customizer now look great
 * Enhanced: The `css` parameter now performs live preview changes instead of reloading the page
 * Enhanced: Added `inherit` values for some styles in the font option
-* Enhanced: Changed some default style values in the font option to `inherit` 
+* Enhanced: Changed some default style values in the font option to `inherit`
 * Fixed: Options with a value of zero do not generate CSS properly (they wrongly reset to their default value before)
 * Fixed: `getOptions` function turned non-existent keys to false
 * Fixed: Existing panel names (not panel IDs) across different namespaces that match get shown in the wrong section
