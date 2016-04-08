@@ -81,7 +81,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function printJS() {
-		
+
 		// Allow the enqueue setting to stop this.
 		if ( ! $this->settings['enqueue'] ) {
 			return;
