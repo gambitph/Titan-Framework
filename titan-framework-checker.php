@@ -106,8 +106,8 @@ if ( ! class_exists( 'TitanFrameworkChecker' ) ) {
 
 			// Check plugin existence by checking if the name is registered as an array key. get_plugins collects all plugin path into arrays.
 			foreach ( $plugins as $slug => $plugin ) {
-				$searchRegex = apply_filters( 'tf_framework_checker_regex', self::SEARCH_REGEX );
-				if ( preg_match( $searchRegex, $slug, $matches ) ) {
+				$search_regex = apply_filters( 'tf_framework_checker_regex', self::SEARCH_REGEX );
+				if ( preg_match( $search_regex, $slug, $matches ) ) {
 					return true;
 				}
 			}
