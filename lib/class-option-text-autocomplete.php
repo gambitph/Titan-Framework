@@ -25,6 +25,17 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
  */
 class TitanFrameworkOptionTextAutocomplete extends TitanFrameworkOptionText {
 
+	public $defaultSecondarySettings = array(
+		'post_type' => 'post',
+		'target_id' => '',
+
+		'placeholder' => '',
+		'size' => 'regular',
+		'sanitize_callbacks' => array(),
+		'maxlength' => '',
+		'unit' => '',
+	);
+
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 		add_action('wp_ajax_option-text-autocomplete', array( $this, 'autocomplete_ajax_callback' ));
@@ -32,39 +43,40 @@ class TitanFrameworkOptionTextAutocomplete extends TitanFrameworkOptionText {
 
 	public function display() {
 
-
 		$this->register_autocomplete_script();
 		$this->echoOptionHeader();
 
 		$val = $this->getValue();
 		$title = '';
+		$isTargetItself = empty($this->settings['target_id']);
 
-		if (!empty($val)) {
-			$posts = get_posts(array(
-				'p' => $val,
-				'post_type' => $this->settings['post_type'])
-			);
-			if (!empty($posts)) {
-				$title = $posts[0]->post_title;
+		if ($isTargetItself) {
+			if (!empty($val)) {
+				$posts = get_posts(array(
+					'p' => $val,
+					'post_type' => $this->settings['post_type'])
+				);
+				if (!empty($posts)) {
+					$title = $posts[0]->post_title;
+				}
 			}
+
+			printf('<input name="%s" id="%s" type="hidden" value="%s" \>',
+				$this->getID(),
+				$this->getID(),
+				esc_attr( $val )
+			);
 		}
-		// echo '<pre>'.print_r($posts,1).'</pre>';
 
-		printf('<input name="%s" id="%s" type="hidden" value="%s" \>',
-			$this->getID(),
-			$this->getID(),
-			esc_attr( $val )
-		);
-
-		printf('<input class="%s-text autocomplete" name="%s-post_title" placeholder="%s" maxlength="%s" id="%s-post_title" type="text" value="%s" data-post-type="%s" data-target-id="%s" \>%s',
+		printf('<input class="%s-text autocomplete" name="%s" placeholder="%s" maxlength="%s" id="%s" type="text" value="%s" data-post-type="%s" data-target-id="%s" \>%s',
 			empty($this->settings['size']) ? 'regular' : $this->settings['size'],
-			$this->getID(),
+			$isTargetItself ? $this->getID().'-post_title' : $this->getID(),
 			$this->settings['placeholder'],
 			$this->settings['maxlength'],
-			$this->getID(),
-			esc_attr( $title ),
+			$isTargetItself ? $this->getID().'-post_title' : $this->getID(),
+			esc_attr( $isTargetItself ? $title : $val ),
 			$this->settings['post_type'],
-			$this->getID(),
+			$this->settings['target_id'] ? $this->getOptionNamespace() . '_' . $this->settings['target_id'] : $this->getID(),
 			$this->settings['hidden'] ? '' : ' ' . $this->settings['unit']
 		);
 		$this->echoOptionFooter();
@@ -84,10 +96,18 @@ class TitanFrameworkOptionTextAutocomplete extends TitanFrameworkOptionText {
 		// echo "string";
 		check_ajax_referer( 'autocomplete_params-nonce');
 
-		$query = new WP_Query( array(
+		$namespace = $this->getOptionNamespace();
+		$query = array(
 			's' => $_GET['term'],
 			'post_type' => $_GET['post_type']
-		));
-		wp_send_json($query->posts);
+		);
+
+		$posts = get_posts($query);
+
+		if (empty($posts)) {
+			$posts = apply_filters('tf_autocomplete_empty_result', $this, $query, $this->options );
+		}
+
+		wp_send_json($posts);
 	}
 }
