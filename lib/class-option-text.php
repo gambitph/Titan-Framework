@@ -64,6 +64,13 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		 * @var boolean
 		 */
 		'hidden' => false,
+		/**
+		 * (Optional) If true, the input field itself will be completely hidden. Takes precedence over password.
+		 *
+		 * @since 1.9.4
+		 * @var boolean
+		 */
+		'readonly' => false,
 
 		/**
 		 * (Optional) Callback function to call for additional input sanitization, this function will be called right before the option is saved.
