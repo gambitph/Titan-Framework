@@ -10,14 +10,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Allows plugins to use their own update API.
  *
  * @author Pippin Williamson
- * @version 1.6.3
+ * @version 1.6.4
  */
-class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
-	private $api_url   = '';
-	private $api_data  = array();
-	private $name      = '';
-	private $slug      = '';
-	private $version   = '';
+class EDD_SL_Plugin_Updater {
+
+	private $api_url     = '';
+	private $api_data    = array();
+	private $name        = '';
+	private $slug        = '';
+	private $version     = '';
+	private $wp_override = false;
 
 	/**
 	 * Class constructor.
@@ -29,15 +31,16 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 	 * @param string  $_plugin_file Path to the plugin file.
 	 * @param array   $_api_data    Optional data to send with API calls.
 	 */
-	function __construct( $_api_url, $_plugin_file, $_api_data = null ) {
+	public function __construct( $_api_url, $_plugin_file, $_api_data = null ) {
 
 		global $edd_plugin_data;
 
-		$this->api_url  = trailingslashit( $_api_url );
-		$this->api_data = $_api_data;
-		$this->name     = plugin_basename( $_plugin_file );
-		$this->slug     = basename( $_plugin_file, '.php' );
-		$this->version  = $_api_data['version'];
+		$this->api_url     = trailingslashit( $_api_url );
+		$this->api_data    = $_api_data;
+		$this->name        = plugin_basename( $_plugin_file );
+		$this->slug        = basename( $_plugin_file, '.php' );
+		$this->version     = $_api_data['version'];
+		$this->wp_override = isset( $_api_data['wp_override'] ) ? (bool) $_api_data['wp_override'] : false;
 
 		$edd_plugin_data[ $this->slug ] = $this->api_data;
 
@@ -76,34 +79,34 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 	 * @param array   $_transient_data Update array build by WordPress.
 	 * @return array Modified update array with custom plugin data.
 	 */
-	function check_update( $_transient_data ) {
+	public function check_update( $_transient_data ) {
 
 		global $pagenow;
 
-		if( ! is_object( $_transient_data ) ) {
+		if ( ! is_object( $_transient_data ) ) {
 			$_transient_data = new stdClass;
 		}
 
-		if( 'plugins.php' == $pagenow && is_multisite() ) {
+		if ( 'plugins.php' == $pagenow && is_multisite() ) {
 			return $_transient_data;
 		}
 
-		if ( empty( $_transient_data->response ) || empty( $_transient_data->response[ $this->name ] ) ) {
+		if ( ! empty( $_transient_data->response ) && ! empty( $_transient_data->response[ $this->name ] ) && false === $this->wp_override ) {
+			return $_transient_data;
+		}
 
-			$version_info = $this->api_request( 'plugin_latest_version', array( 'slug' => $this->slug ) );
+		$version_info = $this->api_request( 'plugin_latest_version', array( 'slug' => $this->slug ) );
 
-			if ( false !== $version_info && is_object( $version_info ) && isset( $version_info->new_version ) ) {
+		if ( false !== $version_info && is_object( $version_info ) && isset( $version_info->new_version ) ) {
 
-				if( version_compare( $this->version, $version_info->new_version, '<' ) ) {
+			if ( version_compare( $this->version, $version_info->new_version, '<' ) ) {
 
-					$_transient_data->response[ $this->name ] = $version_info;
-
-				}
-
-				$_transient_data->last_checked = time();
-				$_transient_data->checked[ $this->name ] = $this->version;
+				$_transient_data->response[ $this->name ] = $version_info;
 
 			}
+
+			$_transient_data->last_checked           = time();
+			$_transient_data->checked[ $this->name ] = $this->version;
 
 		}
 
@@ -134,7 +137,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 		remove_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ), 10 );
 
 		$update_cache = get_site_transient( 'update_plugins' );
-		
+
 		$update_cache = is_object( $update_cache ) ? $update_cache : new stdClass();
 
 		if ( empty( $update_cache->response ) || empty( $update_cache->response[ $this->name ] ) ) {
@@ -183,18 +186,21 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 
 			if ( empty( $version_info->download_link ) ) {
 				printf(
-					__( 'There is a new version of %1$s available. <a target="_blank" class="thickbox" href="%2$s">View version %3$s details</a>.', 'easy-digital-downloads' ),
+					__( 'There is a new version of %1$s available. %2$sView version %3$s details%4$s.', 'easy-digital-downloads' ),
 					esc_html( $version_info->name ),
-					esc_url( $changelog_link ),
-					esc_html( $version_info->new_version )
+					'<a target="_blank" class="thickbox" href="' . esc_url( $changelog_link ) . '">',
+					esc_html( $version_info->new_version ),
+					'</a>'
 				);
 			} else {
 				printf(
-					__( 'There is a new version of %1$s available. <a target="_blank" class="thickbox" href="%2$s">View version %3$s details</a> or <a href="%4$s">update now</a>.', 'easy-digital-downloads' ),
+					__( 'There is a new version of %1$s available. %2$sView version %3$s details%4$s or %5$supdate now%6$s.', 'easy-digital-downloads' ),
 					esc_html( $version_info->name ),
-					esc_url( $changelog_link ),
+					'<a target="_blank" class="thickbox" href="' . esc_url( $changelog_link ) . '">',
 					esc_html( $version_info->new_version ),
-					esc_url( wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $this->name, 'upgrade-plugin_' . $this->name ) )
+					'</a>',
+					'<a href="' . esc_url( wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' ) . $this->name, 'upgrade-plugin_' . $this->name ) ) .'">',
+					'</a>'
 				);
 			}
 
@@ -215,7 +221,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 	 * @param object  $_args
 	 * @return object $_data
 	 */
-	function plugins_api_filter( $_data, $_action = '', $_args = null ) {
+	public function plugins_api_filter( $_data, $_action = '', $_args = null ) {
 
 
 		if ( $_action != 'plugin_information' ) {
@@ -256,7 +262,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 	 * @param string  $url
 	 * @return object $array
 	 */
-	function http_request_args( $args, $url ) {
+	public function http_request_args( $args, $url ) {
 		// If it is an https request and we are performing a package download, disable ssl verification
 		if ( strpos( $url, 'https://' ) !== false && strpos( $url, 'edd_action=package_download' ) ) {
 			$args['sslverify'] = false;
@@ -285,7 +291,7 @@ class TITAN_EDD_SL_Plugin_Updater { // Namespaced to PBS for error protection
 			return;
 		}
 
-		if( $this->api_url == home_url() ) {
+		if( $this->api_url == trailingslashit (home_url() ) ) {
 			return false; // Don't allow a plugin to ping itself
 		}
 
