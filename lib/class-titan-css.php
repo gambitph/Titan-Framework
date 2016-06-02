@@ -71,14 +71,14 @@ class TitanFrameworkCSS {
 		if ( $this->frameworkInstance->settings['css'] == 'generate' ) {
 			$css = get_option( $this->getCSSSlug() );
 			if ( ! empty( $css ) ) {
-				echo "<style>{$css}</style>";
+				echo "<style id='$this->frameworkInstance->optionNamespace'>{$css}</style>";
 			}
 
 			// If the setting is 'print inline css', print it out if we have any
 		} else if ( $this->frameworkInstance->settings['css'] == 'inline' ) {
 			$css = $this->generateCSS();
 			if ( ! empty( $css ) ) {
-				echo "<style>{$css}</style>";
+				echo "<style id='$this->frameworkInstance->optionNamespace'>{$css}</style>";
 			}
 		}
 	}

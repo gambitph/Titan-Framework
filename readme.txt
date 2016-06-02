@@ -8,11 +8,11 @@ Stable tag: 1.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The most easy to use WordPress option framework.
+The easiest WordPress option framework to use.
 
 == Description ==
 
-Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
+Titan Framework allows theme and plugin developers to create admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 
 This means faster theme & plugin creation for everyone.
 
@@ -139,6 +139,10 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= pre-1.9.4 =
+* Enhanced: Generated Inline CSS now takes up ID value as the instance of the framework for easy parsing in the DOM.
+* Enhanced: Easy Digital Downloads product checking revised.
 
 = 1.9.3 =
 * New: Transport parameter for overriding the Customizer transport parameter
