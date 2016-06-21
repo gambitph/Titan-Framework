@@ -61,7 +61,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	function __construct( $settings, $owner ) {
 		parent::__construct( $settings, $owner );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
+		add_action('tf_admin_page_before', array( $this, 'loadAdminScripts' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'loadAdminScripts' ) );
 
 		// CSS generation for CSS code langs
