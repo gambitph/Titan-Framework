@@ -16,6 +16,7 @@ class TitanFrameworkOption {
 	public $settings;
 	public $type; // One of the TYPE_* constants above
 	public $owner;
+	public $echo_wrapper = true;
 
 	private static $rowIndex = 0;
 
@@ -269,6 +270,11 @@ class TitanFrameworkOption {
 	}
 
 	protected function echoOptionHeader( $showDesc = false ) {
+
+		if ( ! $this->echo_wrapper ) {
+			return;
+		}
+
 		// Allow overriding for custom styling
 		$useCustom = false;
 		$useCustom = apply_filters( 'tf_use_custom_option_header', $useCustom );
@@ -302,6 +308,11 @@ class TitanFrameworkOption {
 	}
 
 	protected function echoOptionHeaderBare() {
+
+		if ( ! $this->echo_wrapper ) {
+			return;
+		}
+
 		// Allow overriding for custom styling
 		$useCustom = false;
 		$useCustom = apply_filters( 'tf_use_custom_option_header', $useCustom );
@@ -325,6 +336,11 @@ class TitanFrameworkOption {
 	}
 
 	protected function echoOptionFooter( $showDesc = true ) {
+
+		if ( ! $this->echo_wrapper ) {
+			return;
+		}
+
 		// Allow overriding for custom styling
 		$useCustom = false;
 		$useCustom = apply_filters( 'tf_use_custom_option_footer', $useCustom );
@@ -356,6 +372,11 @@ class TitanFrameworkOption {
 	}
 
 	protected function echoOptionFooterBare( $showDesc = true ) {
+
+		if ( ! $this->echo_wrapper ) {
+			return;
+		}
+
 		// Allow overriding for custom styling
 		$useCustom = false;
 		$useCustom = apply_filters( 'tf_use_custom_option_footer', $useCustom );
