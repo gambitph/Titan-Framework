@@ -199,6 +199,9 @@ class TitanFrameworkOptionSortable extends TitanFrameworkOption {
 	 * @since	1.4
 	 */
 	public function cleanValueForSaving( $value ) {
+		if ( is_array( $value ) ) {
+			return serialize( $value );
+		}
 		return stripslashes( $value );
 	}
 
