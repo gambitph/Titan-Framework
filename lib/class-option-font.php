@@ -988,6 +988,9 @@ function registerTitanFrameworkOptionFontControl() {
 				Font Family
 				<select class='tf-font-sel-family'>
 					<option value='inherit'>inherit</option>
+					<?php
+					if ( $this->params['show_websafe_fonts'] ) {
+					?>
 				    <optgroup label="Web Safe Fonts" class='safe'>
 						<?php
 						foreach ( TitanFrameworkOptionFont::$webSafeFonts as $family => $label ) {
@@ -999,6 +1002,9 @@ function registerTitanFrameworkOptionFontControl() {
 						}
 						?>
 					</optgroup>
+					<?php
+					}
+					?>	
 
 					<?php
 					if ( $this->params['show_google_fonts'] ) {
