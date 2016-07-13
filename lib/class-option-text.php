@@ -103,7 +103,7 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		// If hidden, takes precedence over password field.
 		$thePass = $this->settings['is_password'] ? 'password' : 'text';
 		$theType = $this->settings['hidden'] ? 'hidden' : $thePass;
-		printf('<input class="%s-text" name="%s" placeholder="%s" maxlength="%s" id="%s" type="%s" value="%s"\>%s',
+		printf('<input class="%s-text" name="%s" placeholder="%s" maxlength="%s" id="%s" type="%s" value="%s"/>%s',
 			empty($this->settings['size']) ? 'regular' : $this->settings['size'],
 			$this->getID(),
 			$this->settings['placeholder'],
