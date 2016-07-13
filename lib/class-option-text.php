@@ -56,7 +56,7 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		 * @var boolean
 		 */
 		'is_password' => false,
-		
+
 		/**
 		 * (Optional) If true, the input field itself will be completely hidden. Takes precedence over password.
 		 *
@@ -64,6 +64,13 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		 * @var boolean
 		 */
 		'hidden' => false,
+		/**
+		 * (Optional) If true, the input field itself will be completely hidden. Takes precedence over password.
+		 *
+		 * @since 1.9.4
+		 * @var boolean
+		 */
+		'readonly' => false,
 
 		/**
 		 * (Optional) Callback function to call for additional input sanitization, this function will be called right before the option is saved.
@@ -103,7 +110,7 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 		// If hidden, takes precedence over password field.
 		$thePass = $this->settings['is_password'] ? 'password' : 'text';
 		$theType = $this->settings['hidden'] ? 'hidden' : $thePass;
-		printf('<input class="%s-text" name="%s" placeholder="%s" maxlength="%s" id="%s" type="%s" value="%s"\>%s',
+		printf('<input class="%s-text" name="%s" placeholder="%s" maxlength="%s" id="%s" type="%s" value="%s" %s \>%s',
 			empty($this->settings['size']) ? 'regular' : $this->settings['size'],
 			$this->getID(),
 			$this->settings['placeholder'],
@@ -111,6 +118,7 @@ class TitanFrameworkOptionText extends TitanFrameworkOption {
 			$this->getID(),
 			$theType,
 			esc_attr( $this->getValue() ),
+			$this->settings['readonly'] ? 'readonly' : '',
 			$this->settings['hidden'] ? '' : ' ' . $this->settings['unit']
 		);
 		$this->echoOptionFooter();

@@ -69,6 +69,7 @@ require_once( TF_PATH . 'lib/class-option-select.php' );
 require_once( TF_PATH . 'lib/class-option-separator.php' );
 require_once( TF_PATH . 'lib/class-option-sortable.php' );
 require_once( TF_PATH . 'lib/class-option-text.php' );
+require_once( TF_PATH . 'lib/class-option-text-autocomplete.php' );
 require_once( TF_PATH . 'lib/class-option-textarea.php' );
 require_once( TF_PATH . 'lib/class-option-upload.php' );
 require_once( TF_PATH . 'lib/class-titan-css.php' );
