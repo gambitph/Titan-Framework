@@ -4,8 +4,8 @@
 
 /*
  * Table of Contents
- * 
- * 1.0 - Styles for metaboxes in the sidebar 
+ *
+ * 1.0 - Styles for metaboxes in the sidebar
  * 2.0 - Base styling for admin pages
  	* 2.1 - main wrapper
 	* 2.2 - Tabs
@@ -22,6 +22,7 @@
 	* 2.13 - number slider
 	* 2.14 - google webfont new
 	* 2.15 - We're using dashicons instead of font-awesome, this fixed the incompatibility
+	* 2.16 - group
  * 3.0 - Enable option styles
  */
 
@@ -423,6 +424,33 @@
 [class*=tf-] i.dashicons {
 	height: auto;
 }
+
+/*
+ * 2.16 - group
+ */
+
+ .tf-group .wp-color-result {
+ 	margin: 0 0 -2px;
+ }
+ .tf-group .wp-picker-active .wp-color-result {
+ 	margin: 2px 6px -2px 0;
+ }
+ .tf-group .wp-picker-active .wp-picker-input-wrap {
+ 	margin-top: 2px;
+ 	margin-bottom: -2px;
+ }
+ .tf-group .wp-picker-active .wp-picker-holder {
+ 	margin-top: 12px;
+ }
+ .tf-group {
+ 	padding-left: 16px;
+ 	padding-right: 16px;
+ }
+ .tf-group > * {
+ 	margin: 0 4px;
+ 	display: inline-block;
+ }
+
 
 /*
  * 3.0 - Enable option styles
