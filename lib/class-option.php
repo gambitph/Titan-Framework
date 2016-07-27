@@ -93,13 +93,13 @@ class TitanFrameworkOption {
 		'transport' => '',
 
 		'example' => '', // An example value for this field, will be displayed in a <code>
-		
+
 		/**
 		 * (Optional) Sanitization callback function
 		 * @since 1.9.4
 		 * @var string
 		 */
-		'sanitize' => '',
+		'sanitize_callback' => '',
 	);
 
 	/**
