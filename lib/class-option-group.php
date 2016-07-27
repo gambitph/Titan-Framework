@@ -75,7 +75,7 @@ class TitanFrameworkOptionGroup extends TitanFrameworkOption {
 
 				// Display the name of the option.
 				$name = $option->getName();
-				if ( ! empty( $name ) ) {
+				if ( ! empty( $name ) && ! $option->getHidden() ) {
 					echo '<span class="tf-group-name">' . esc_html( $name ) . '</span> ';
 				}
 
