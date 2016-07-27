@@ -2,6 +2,30 @@
  * TODO: separate styles into multiple imports
  */
 
+/*
+ * Table of Contents
+ *
+ * 1.0 - Styles for metaboxes in the sidebar
+ * 2.0 - Base styling for admin pages
+ 	* 2.1 - main wrapper
+	* 2.2 - Tabs
+	* 2.3 - option tables
+	* 2.4 - font options description
+	* 2.5 - google font iframe
+	* 2.6 - notifications
+	* 2.7 - notes
+	* 2.8 - heading
+	* 2.9 - radio-palette
+	* 2.10 - radio images
+	* 2.11 - code
+	* 2.12 - sortable
+	* 2.13 - number slider
+	* 2.14 - google webfont new
+	* 2.15 - We're using dashicons instead of font-awesome, this fixed the incompatibility
+	* 2.16 - group
+ * 3.0 - Enable option styles
+ */
+
 @import "class-option-font.css";
 @import "class-option-date.css";
 
@@ -26,7 +50,7 @@
 }
 
 /*
- * Styles for metaboxes in the sidebar
+ * 1.0 - Styles for metaboxes in the sidebar
  */
 #side-sortables .tf-form-table,
 #side-sortables .tf-form-table tbody,
@@ -56,18 +80,18 @@
 }
 
 /*
- * Base styling for admin pages
+ * 2.0 - Base styling for admin pages
  */
 
-/* main wrapper */
+/* 2.1 - main wrapper */
 .titan-framework-panel-wrap {
     margin-bottom: 20px;
 }
 
-/* Tabs */
+/* 2.2 - Tabs */
 .titan-framework-panel-wrap .nav-tab-wrapper { margin-bottom: 20px; }
 
-/* option tables */
+/* 2.3 - option tables */
 .titan-framework-panel-wrap .form-table th,
 .titan-framework-panel-wrap .form-table td {
 	padding: 20px 20px;
@@ -111,19 +135,19 @@
 	border-bottom: 1px solid #DFDFDF;
 }
 
-/* This line is for font options description */
+/* 2.4 - font options description */
 .titan-framework-panel-wrap .tf-font p.description,
 .titan-framework-panel-wrap .tf-radio p.description,
 .titan-framework-panel-wrap .tf-multicheck p.description {
 	margin-bottom: 8px;
 }
 
-/* google font iframe */
+/* 2.5 - google font iframe */
 .tf-select-googlefont iframe {
 	background: #fafafa;
 }
 
-/* notifications */
+/* 2.6 - notifications */
 .titan-framework-panel-wrap div.updated,
 .titan-framework-panel-wrap div.error {
 
@@ -137,12 +161,12 @@
 .titan-framework-panel-wrap h2 + div.error {
 }
 
-/* notes */
+/* 2.7 - notes */
 .titan-framework-panel-wrap .tf-note .updated {
 
 }
 
-/* heading */
+/* 2.8 - heading */
 .titan-framework-panel-wrap .tf-heading th {
     background: #F1F1F1;
     background: none repeat scroll 0 0 #F5F5F5;
@@ -183,7 +207,7 @@
 
 .titan-framework-panel-wrap .options-container h2 { margin-bottom: -6px; }
 
-/* radio-palette */
+/* 2.9 - radio-palette */
 .tf-radio-palette span {
 	display: inline-block;
 	height: 40px;
@@ -216,7 +240,7 @@
 	margin-left: 5px;
 }
 
-/* radio images */
+/* 2.10 - radio images */
 .tf-radio-image label {
 	white-space: nowrap;
 	display: inline-block;
@@ -232,7 +256,7 @@
 	vertical-align: middle;
 }
 
-/* code */
+/* 2.11 - code */
 .tf-code > div:first-of-type {
 	border-radius: 3px;
 	border: 1px solid #DDD;
@@ -244,7 +268,7 @@
 	font-size: 14px;
 }
 
-/* sortable */
+/* 2.12 - sortable */
 .tf-sortable li {
 	cursor: move;
 	background: #fafafa;
@@ -291,7 +315,7 @@
 	background: transparent;
 }
 
-/* number slider */
+/* 2.13 - number slider */
 .tf-number .ui-slider-handle {
     position: absolute;
     z-index: 2;
@@ -329,7 +353,7 @@
 	margin-bottom: 6px;
 }
 
-/* google webfont new */
+/* 2.14 - google webfont new */
 .tf-font label {
 	border: 1px solid #DDD;
 	vertical-align: middle;
@@ -401,11 +425,36 @@
 	height: auto;
 }
 
-
 /*
- * Enable option styles
+ * 2.16 - group
  */
 
+ .tf-group .wp-color-result {
+ 	margin: 0 0 -2px;
+ }
+ .tf-group .wp-picker-active .wp-color-result {
+ 	margin: 2px 6px -2px 0;
+ }
+ .tf-group .wp-picker-active .wp-picker-input-wrap {
+ 	margin-top: 2px;
+ 	margin-bottom: -2px;
+ }
+ .tf-group .wp-picker-active .wp-picker-holder {
+ 	margin-top: 12px;
+ }
+ .tf-group {
+ 	padding-left: 16px;
+ 	padding-right: 16px;
+ }
+ .tf-group > * {
+ 	margin: 0 4px;
+ 	display: inline-block;
+ }
+
+
+/*
+ * 3.0 - Enable option styles
+ */
 
 .tf-enable input {
 	width: 0;
@@ -446,8 +495,6 @@
 	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
 	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
 }
-
-
 .tf-upload .tf-image-preview img {
     margin-top: 0px;
     margin-left: 0px;
@@ -457,27 +504,4 @@
     transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
     -ms-transform: translateX(-50%) translateY(-50%);
-}
-
-
-.tf-group .wp-color-result {
-	margin: 0 0 -2px;
-}
-.tf-group .wp-picker-active .wp-color-result {
-	margin: 2px 6px -2px 0;
-}
-.tf-group .wp-picker-active .wp-picker-input-wrap {
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-.tf-group .wp-picker-active .wp-picker-holder {
-	margin-top: 12px;
-}
-.tf-group {
-	padding-left: 16px;
-	padding-right: 16px;
-}
-.tf-group > * {
-	margin: 0 4px;
-	display: inline-block;
 }
