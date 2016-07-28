@@ -988,6 +988,9 @@ function registerTitanFrameworkOptionFontControl() {
 				Font Family
 				<select class='tf-font-sel-family'>
 					<option value='inherit'>inherit</option>
+					<?php
+					if ( $this->params['show_websafe_fonts'] ) {
+					?>
 				    <optgroup label="Web Safe Fonts" class='safe'>
 						<?php
 						foreach ( TitanFrameworkOptionFont::$webSafeFonts as $family => $label ) {
@@ -999,10 +1002,43 @@ function registerTitanFrameworkOptionFontControl() {
 						}
 						?>
 					</optgroup>
+					<?php
+					}
+					?>	
+
+					<?php
+					if ( $this->params['show_google_fonts'] ) {
+					?>
 				    <optgroup label="Google WebFonts" class='google'>
-						<?php
+				    <?php
 						$allFonts = titan_get_googlefonts();
 						foreach ( $allFonts as $key => $fontStuff ) {
+
+							// Show only the include_fonts (font names) if provided, uses regex.
+							if ( ! empty( $this->params['include_fonts'] ) ) {
+								if ( is_array( $this->params['include_fonts'] ) ) {
+									$fontNameMatch = false;
+									foreach ( $this->params['include_fonts'] as $fontNamePattern ) {
+										if ( ! is_string( $fontNamePattern ) ) {
+											continue;
+										}
+										$fontNamePattern = '/' . trim( $fontNamePattern, '/' ) . '/';
+										if ( preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+											$fontNameMatch = true;
+											break;
+										}
+									}
+									if ( ! $fontNameMatch ) {
+										continue;
+									}
+								} else if ( is_string( $this->params['include_fonts'] ) ) {
+									$fontNamePattern = '/' . trim( $this->params['include_fonts'], '/' ) . '/';
+									if ( ! preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+										continue;
+									}
+								}
+							}
+
 							printf( "<option value='%s'%s>%s</option>",
 								esc_attr( $fontStuff['name'] ),
 								selected( $value['font-family'], $fontStuff['name'], false ),
@@ -1011,6 +1047,10 @@ function registerTitanFrameworkOptionFontControl() {
 						}
 						?>
 					</optgroup>
+					<?php 
+					// End the show_google_fonts conditional
+					} 
+					?>
 				</select>
 			</label>
 			<?php
