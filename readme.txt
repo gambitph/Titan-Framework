@@ -143,6 +143,7 @@ and to everyone else in the GitHub repo!
 = 1.10 =
 * New: Added new options Multicheck-posttype and Select-posttype.
 * New: Added include_fonts in Theme Customizer.
+* New: Added Group Option.
 * Enhanced: Generated Inline CSS now takes up ID value as the instance of the framework for easy parsing in the DOM.
 * Enhanced: Easy Digital Downloads product checking revised.
 * Enhanced: Timepicker styles.
