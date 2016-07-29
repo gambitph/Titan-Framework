@@ -140,9 +140,16 @@ and to everyone else in the GitHub repo!
 
 == Changelog ==
 
-= pre-1.9.4 =
+= 1.10 =
+* New: Added new options Multicheck-posttype and Select-posttype.
+* New: Added include_fonts in Theme Customizer.
 * Enhanced: Generated Inline CSS now takes up ID value as the instance of the framework for easy parsing in the DOM.
 * Enhanced: Easy Digital Downloads product checking revised.
+* Enhanced: Timepicker styles.
+* Enhanced: EDD option.
+* Change: Footer Text should be returned not echoed.
+* Change: class_exists to function_exists of googlefonts function.
+* Fixed: Input tag.
 
 = 1.9.3 =
 * New: Transport parameter for overriding the Customizer transport parameter
