@@ -136,7 +136,7 @@ msgstr "Select"
 msgid "Option type or extended class %s does not exist."
 msgstr "Option type or extended class %s does not exist."
 
-#: lib/class-titan-framework.php:170
+#: lib/class-titan-framework.php:181
 msgid ""
 "All option IDs per namespace must be unique. The id %s has been used "
 "multiple times."
@@ -144,22 +144,22 @@ msgstr ""
 "All option IDs per namespace must be unique. The id %s has been used "
 "multiple times."
 
-#: lib/class-titan-framework.php:407
+#: lib/class-titan-framework.php:418
 msgid "%s needs a %s parameter."
 msgstr "%s needs a %s parameter."
 
-#: lib/class-titan-framework.php:417
+#: lib/class-titan-framework.php:428
 msgid "Container of type %s, does not exist."
 msgstr "Container of type %s, does not exist."
 
-#: titan-framework.php:185
+#: titan-framework.php:187
 msgid "Documentation"
 msgstr "Documentation"
 
-#: titan-framework.php:189
+#: titan-framework.php:191
 msgid "GitHub Repo"
 msgstr "GitHub Repo"
 
-#: titan-framework.php:193
+#: titan-framework.php:195
 msgid "Issue Tracker"
 msgstr "Issue Tracker"

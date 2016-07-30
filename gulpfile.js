@@ -119,7 +119,7 @@ gulp.task( 'buildStart', [ 'unit-test-init' ], function () {
 		.pipe( notify( { message: 'Cleared dist folder complete', onLast: true } ) );
 });
 // Copy all project files into the build directory for packaging
-gulp.task( 'buildFiles', [ 'buildStart', 'styles', 'scripts', 'translations', 'unit-test-coverage' ], function () {
+gulp.task( 'buildFiles', [ 'buildStart', 'styles', 'scripts', 'translations' ], function () {
 	return gulp.src( buildInclude, { base: './' } )
 		.pipe( gulp.dest( 'dist/build' ) )
 		.pipe( notify( { message: 'Copy build files complete', onLast: true } ) );
