@@ -29,11 +29,11 @@ msgstr ""
 "<em>Options Page Created with <a href='http://titanframework.net?"
 "utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>"
 
-#: lib/class-admin-page.php:333
+#: lib/class-admin-page.php:360
 msgid "Settings saved."
 msgstr "Settings saved."
 
-#: lib/class-admin-page.php:335
+#: lib/class-admin-page.php:362
 msgid "Settings reset to default."
 msgstr "Settings reset to default."
 
@@ -57,25 +57,25 @@ msgstr "Click me"
 msgid "Please wait..."
 msgstr "Please wait..."
 
-#: lib/class-option-edd-license.php:131
+#: lib/class-option-edd-license.php:134
 msgid "Your license is valid and active."
 msgstr "Your license is valid and active."
 
-#: lib/class-option-edd-license.php:135
+#: lib/class-option-edd-license.php:138
 msgid "Your license is invalid."
 msgstr "Your license is invalid."
 
-#: lib/class-option-edd-license.php:149
+#: lib/class-option-edd-license.php:152
 msgid "Activate"
 msgstr "Activate"
 
-#: lib/class-option-edd-license.php:150
+#: lib/class-option-edd-license.php:153
 msgid ""
 "Your license is valid but inactive. Click the button above to activate it."
 msgstr ""
 "Your license is valid but inactive. Click the button above to activate it."
 
-#: lib/class-option-edd-license.php:155
+#: lib/class-option-edd-license.php:158
 msgid ""
 "The remote server did not return a valid response. You can retry by hitting "
 "the &laquo;Save&raquo; button again."
@@ -83,7 +83,7 @@ msgstr ""
 "The remote server did not return a valid response. You can retry by hitting "
 "the &laquo;Save&raquo; button again."
 
-#: lib/class-option-edd-license.php:160
+#: lib/class-option-edd-license.php:163
 msgid "Entering your license key is mandatory to get the product updates."
 msgstr "Entering your license key is mandatory to get the product updates."
 
@@ -125,12 +125,14 @@ msgstr "Are you sure you want to reset ALL options to their default values?"
 
 #: lib/class-option-select-categories.php:37,
 #: lib/class-option-select-categories.php:104,
-#: lib/class-option-select-pages.php:30, lib/class-option-select-posts.php:38,
-#: lib/class-option-select-posts.php:112
+#: lib/class-option-select-pages.php:30,
+#: lib/class-option-select-post-types.php:29,
+#: lib/class-option-select-post-types.php:98,
+#: lib/class-option-select-posts.php:38, lib/class-option-select-posts.php:112
 msgid "Select"
 msgstr "Select"
 
-#: lib/class-option.php:111
+#: lib/class-option.php:119
 msgid "Option type or extended class %s does not exist."
 msgstr "Option type or extended class %s does not exist."
 
@@ -150,14 +152,14 @@ msgstr "%s needs a %s parameter."
 msgid "Container of type %s, does not exist."
 msgstr "Container of type %s, does not exist."
 
-#: titan-framework.php:182
+#: titan-framework.php:185
 msgid "Documentation"
 msgstr "Documentation"
 
-#: titan-framework.php:186
+#: titan-framework.php:189
 msgid "GitHub Repo"
 msgstr "GitHub Repo"
 
-#: titan-framework.php:190
+#: titan-framework.php:193
 msgid "Issue Tracker"
 msgstr "Issue Tracker"

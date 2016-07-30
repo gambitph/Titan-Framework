@@ -148,12 +148,14 @@ class TitanFrameworkPlugin {
 	 * @since 1.0
 	 * @access public
 	 *
-	 * @return void
+	 * @param array $plugins List of plugins loaded.
+	 *
+	 * @return array Modified list of plugins.
 	 *
 	 * @see	initially based on http://snippets.khromov.se/modify-wordpress-plugin-load-order/
 	 */
 	public function force_load_first( $plugins = null ) {
-		$plugins = $plugins == null ? (array) get_option( 'active_plugins' ) : $plugins;
+		$plugins = null === $plugins ? (array) get_option( 'active_plugins' ) : $plugins;
 
 		if ( ! empty( $plugins ) ) {
 			$index = array_search( TF_PLUGIN_BASENAME, $plugins );
@@ -179,7 +181,7 @@ class TitanFrameworkPlugin {
 	 * @return	array  The current array of links together with our additions
 	 **/
 	public function plugin_links( $plugin_meta, $plugin_file ) {
-		if ( TF_PLUGIN_BASENAME == $plugin_file ) {
+		if ( TF_PLUGIN_BASENAME === $plugin_file ) {
 			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
 				'http://www.titanframework.net/docs',
 				__( 'Documentation', TF_I18NDOMAIN )

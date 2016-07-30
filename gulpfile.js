@@ -8,7 +8,6 @@
 
 // List of modules used.
 var gulp = require('gulp'),
-	phpcs = require('gulp-phpcs'), // WordPress Standards
 	watch = require( 'gulp-watch' ), // Used for listening to changed files and executing tasks on them
     rename = require('gulp-rename'),
     concat = require('gulp-concat'),
@@ -16,7 +15,6 @@ var gulp = require('gulp'),
     shell = require('gulp-shell'), // Execute terminal commands
 	zip = require('gulp-zip'), // Zip used for building
 	debug = require('gulp-debug'),
-	browserSync = require('browser-sync').create(),
 	bower = require('gulp-bower'),
 
 	// SCSS compilation
@@ -68,23 +66,10 @@ var url = 'local.wordpress.dev',
 	];
 
 
-/**
- * Browser Sync init & reloader
- */
-gulp.task( 'browser-sync', function() {
-    browserSync.init({
-        proxy: url
-    });
-});
 
-gulp.task( 'browser-reload', function() {
-	browserSync.reload();
-});
-	
-	
 /**
  * Bower Tasks
- */	
+ */
 gulp.task( 'bower', function() {
 	return bower( { cmd: 'update'} );
 });
@@ -134,7 +119,7 @@ gulp.task( 'buildStart', [ 'unit-test-init' ], function () {
 		.pipe( notify( { message: 'Cleared dist folder complete', onLast: true } ) );
 });
 // Copy all project files into the build directory for packaging
-gulp.task( 'buildFiles', [ 'buildStart', 'styles', 'scripts', 'standards', 'translations', 'unit-test-coverage' ], function () {
+gulp.task( 'buildFiles', [ 'buildStart', 'styles', 'scripts', 'translations', 'unit-test-coverage' ], function () {
 	return gulp.src( buildInclude, { base: './' } )
 		.pipe( gulp.dest( 'dist/build' ) )
 		.pipe( notify( { message: 'Copy build files complete', onLast: true } ) );
@@ -167,13 +152,13 @@ gulp.task( 'build', [ 'buildClean' ] );
  * SCSS Styles
  */
 gulp.task('styles', function () {
-	return sass( 'scss/', { 
+	return sass( 'scss/', {
 		sourcemap: true,
 		emitCompileError: true
 	} )
 	// Notice on error
 	.on( 'error', function( err ) {
-		notify.onError( { 
+		notify.onError( {
 			title: 'Error!',
 	        message: '<%= error.message %>',
 	        sound: 'Basso'
@@ -190,7 +175,6 @@ gulp.task('styles', function () {
     } ) )
     .pipe( gulp.dest( 'css' ) )
 	// Done
-	.pipe( browserSync.stream() )
 	.pipe( notify( { message: 'Styles task complete', onLast: true } ) );
 });
 
@@ -219,9 +203,9 @@ gulp.task( 'scripts', function() {
 				return "(" + data.error.line + ':' + data.error.character + ') ' + data.error.reason;
 			}
 		} ).join( "\n" );
-		  
+
 		hadJShintError = true;
-		  
+
 		return {
 			title: 'JSHint Error',
 			message: file.relative + " (" + file.jshint.results.length + " errors)\n" + errors,
@@ -241,45 +225,6 @@ gulp.task( 'scripts', function() {
     .pipe( notify( function() {
 		return ! hadJShintError ? { message: 'Scripts task complete', onLast: true } : false;
     } ) );
-});
-
-
-
-/**
- * WordPress coding standards.
- */
-gulp.task('standards', function() {
-  return gulp.src( [ '*.php', 'lib/**/*.php' ] )
-	// Run PHP CBF to fix easy errors first on the file being processed
-	.pipe( shell( [ 'phpcbf --standard=./ruleset.xml <%= file.path %>' ], {
-		// We only want PHPCS errors to notify
-		ignoreErrors: true,
-		// We don't want to see what was fixed
-		quiet: true
-	} ) )
-	.pipe( debug() )
-	// Run PHP Code Sniffer to check
-    .pipe(phpcs({
-		// standard: 'WordPress-Core,WordPress-Docs',
-		standard: './ruleset.xml',
-		colors: true
-    })) 
-	// Show PHPCS logs (this is where we check on how to fix stuff)
-    .pipe(phpcs.reporter('log'))
-	// Make it report an error (doesn't report an error if there is none)
-    // .pipe(phpcs.reporter('fail'))
-	// Notify desktop for errors
-	.on( 'error', function( err ) {
-		notify.onError( {
-			title: 'Error!',
-	        message: '<%= error.message %>',
-	        sound: 'Basso'
-		} ) ( err );
-		// Don't continue
-	    this.emit( 'end' );
-	})
-	// If all complete, notify
-	.pipe( notify( { message: 'WordPress coding standards complete', onLast: true } ) );
 });
 
 
@@ -303,7 +248,7 @@ gulp.task( 'translations-pot', function () {
 gulp.task( 'translations', [ 'translations-pot' ], function () {
 	return gulp.src( 'languages/titan-framework.pot')
 		// Do shell command instead of rimraf
-		.pipe( shell( [ 
+		.pipe( shell( [
 			'brew link gettext --force && ' + // Keg only, so we need to link before using
 			'msginit --no-translator -l en_US -o languages/titan-framework-en_US.po -i languages/titan-framework.pot && ' +
 			'msgfmt -o languages/titan-framework-en_US.mo languages/titan-framework-en_US.po && ' +
@@ -377,9 +322,9 @@ gulp.task( 'unit-test-sometimes', function () {
 /**
  * Watch changed files
  */
-gulp.task( 'watch', [ 'styles', 'scripts', 'translations', 'unit-test-init', 'browser-sync', 'unit-test' ], function() {
+gulp.task( 'watch', [ 'styles', 'scripts', 'translations', 'unit-test-init', 'unit-test' ], function() {
   gulp.watch( './scss/**/*.scss', [ 'styles' ] );
-  gulp.watch( [ './inc/**/*.php', './lib/**/*.php', './*.php' ], [ 'unit-test-sometimes', 'browser-reload' ] );
-  gulp.watch( [ './js/*.js' ], [ 'scripts', 'browser-reload' ] );
-  gulp.watch( [ './**/*.+(png|jpg|gif)' ], [ 'browser-reload' ] );
+  gulp.watch( [ './inc/**/*.php', './lib/**/*.php', './*.php' ], [ 'unit-test-sometimes' ] );
+  gulp.watch( [ './js/*.js' ], [ 'scripts' ] );
+  gulp.watch( [ './**/*.+(png|jpg|gif)' ] );
 } );
