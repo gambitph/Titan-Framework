@@ -8,7 +8,7 @@ Stable tag: 1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The most easy to use WordPress option framework.
+Create Settings for Your WordPress Themes & Plugins with Just a Few Lines of Code.
 
 == Description ==
 
@@ -67,12 +67,14 @@ The generated theme comes with sample pre-created options in the admin and theme
 * Editor (WYSIWYG)
 * Enable
 * Font Style (Web safe fonts and Google WebFonts)
+* Group
 * Heading
 * Iframe
 * Media uploader
 * Multicheck
 * Multicheck categories and taxonomies
 * Multicheck pages and posts
+* Multicheck post types
 * Note
 * Number
 * Radio buttons
@@ -83,6 +85,7 @@ The generated theme comes with sample pre-created options in the admin and theme
 * Select Google WebFont
 * Select categories and taxonomies
 * Select pages and posts
+* Select post types
 * Sortable
 * Text
 * Textarea
@@ -141,9 +144,10 @@ and to everyone else in the GitHub repo!
 == Changelog ==
 
 = 1.10 =
-* New: Added new options Multicheck-posttype and Select-posttype.
+* New: Added new options multicheck-post-types and select-post-types
+* New: Added Group option
 * New: Added include_fonts in Theme Customizer.
-* Enhanced: Generated Inline CSS now takes up ID value as the instance of the framework for easy parsing in the DOM.
+* Enhanced: Generated inline CSS now has an ID attribute.
 * Enhanced: Easy Digital Downloads product checking revised.
 * Enhanced: Timepicker styles.
 * Enhanced: EDD option.
