@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
-class TitanFrameworkOptionMulticheckPosttype extends TitanFrameworkOptionMulticheck {
+class TitanFrameworkOptionMulticheckPostTypes extends TitanFrameworkOptionMulticheck {
 
 	public $defaultSecondarySettings = array(
 		'options' => array(),
@@ -15,15 +15,15 @@ class TitanFrameworkOptionMulticheckPosttype extends TitanFrameworkOptionMultich
 	 * Display for options and meta
 	 */
 	public function display() {
-		
+
 		// Fetch post types.
 		$post_types = tf_get_post_types( $this->settings['public'], $this->settings['value'] );
 
 		$this->settings['options'] = array();
 		foreach ( $post_types as $post_type ) {
-			
+
 			$slug = $post_type->name;
-			
+
 			$slugname = true == $this->settings['slug'] ? ' (' . $slug . ')' : '';
 
 			$name = $post_type->name;
@@ -41,15 +41,15 @@ class TitanFrameworkOptionMulticheckPosttype extends TitanFrameworkOptionMultich
 	 * Display for theme customizer
 	 */
 	public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
-		
+
 		// Fetch post types.
 		$post_types = tf_get_post_types( $this->settings['public'], $this->settings['value'] );
 
 		$this->settings['options'] = array();
 		foreach ( $post_types as $post_type ) {
-			
+
 			$slug = $post_type->name;
-			
+
 			$slugname = true == $this->settings['slug'] ? ' (' . $slug . ')' : '';
 
 			$name = $post_type->name;

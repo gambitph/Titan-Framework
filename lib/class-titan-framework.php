@@ -17,6 +17,7 @@ class TitanFramework {
 
 	/**
 	 * All TitanFramework instances
+	 *
 	 * @var array
 	 */
 	private static $instances = array();
@@ -24,12 +25,14 @@ class TitanFramework {
 	/**
 	 * The current option namespace.
 	 * Options will be prefixed with this in the database
+	 *
 	 * @var string
 	 */
 	public $optionNamespace;
 
 	/**
 	 * All main containers (admin pages, meta boxes, customizer section)
+	 *
 	 * @var array of TitanFrameworkAdminPage, TitanFrameworkMetaBox, & TitanFrameworkCustomizer
 	 */
 	private $mainContainers = array();
@@ -37,25 +40,30 @@ class TitanFramework {
 	/**
 	 * All Google Font options used. This is for enqueuing Google Fonts for the frontend
 	 * TODO Move this to the TitanFrameworkOptionSelectGooglefont class and let it enqueue from there
+	 *
 	 * @var array TitanFrameworkOptionSelectGooglefont
 	 */
 	private $googleFontsOptions = array();
 
 	/**
 	 * We store option ids which should not be created here
+	 *
 	 * @var array
+	 *
 	 * @see removeOption()
 	 */
 	private $optionsToRemove = array();
 
 	/**
 	 * Holds the values of all admin (page & tab) options. We need this since
+	 *
 	 * @var array of TitanFrameworkOption
 	 */
 	private $adminOptions;
 
 	/**
 	 * The CSS class instance used
+	 *
 	 * @var TitanFrameworkCSS
 	 */
 	public $cssInstance;
@@ -63,18 +71,21 @@ class TitanFramework {
 	/**
 	 * We store the options (with IDs) here, used for ensuring our serialized option
 	 * value doesn't get cluttered with unused options
+	 *
 	 * @var array
 	 */
 	public $optionsUsed = array();
 
 	/**
 	 * The current list of settings
+	 *
 	 * @var array
 	 */
 	public $settings = array();
 
 	/**
 	 * Default settings
+	 *
 	 * @var array
 	 */
 	private $defaultSettings = array(

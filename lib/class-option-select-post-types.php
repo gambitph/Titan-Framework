@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
-class TitanFrameworkOptionSelectPosttype extends TitanFrameworkOption {
+class TitanFrameworkOptionSelectPostTypes extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
 		'default' => '0', // show this when blank
@@ -16,7 +16,7 @@ class TitanFrameworkOptionSelectPosttype extends TitanFrameworkOption {
 	 */
 	public function display() {
 		$this->echoOptionHeader();
-		
+
 		// Fetch post types.
 		$post_types = tf_get_post_types( $this->settings['public'], $this->settings['value'] );
 
@@ -31,9 +31,9 @@ class TitanFrameworkOptionSelectPosttype extends TitanFrameworkOption {
 
 		// Print all the other pages
 		foreach ( $post_types as $post_type ) {
-			
+
 			$slug = $post_type->name;
-			
+
 			$slugname = true == $this->settings['slug'] ? ' (' . $slug . ')' : '';
 
 			$name = $post_type->name;
@@ -46,7 +46,7 @@ class TitanFrameworkOptionSelectPosttype extends TitanFrameworkOption {
 				selected( $this->getValue(), $slug, false ),
 				$name
 			);
-			
+
 		}
 		echo '</select>';
 
@@ -82,8 +82,8 @@ function registerTitanFrameworkOptionSelectPosttypeControl() {
 		public $slug;
 
 		public function render_content() {
-			
-			// Fetch post types.			
+
+			// Fetch post types.
 			$post_types = tf_get_post_types( $this->public, $this->value );
 
 			?>
@@ -100,16 +100,16 @@ function registerTitanFrameworkOptionSelectPosttypeControl() {
 
 					// Print all the other pages
 					foreach ( $post_types as $post_type ) {
-						
+
 						$slug = $post_type->name;
-			
+
 						$slugname = true == $this->slug ? ' (' . $slug . ')' : '';
 
 						$name = $post_type->name;
 						if ( ! empty( $post_type->labels->singular_name ) ) {
 							$name = $post_type->labels->singular_name . $slugname;
 						}
-						
+
 						printf( "<option value='%s' %s>%s</option>",
 							$slug,
 							selected( $this->getValue(), $slug, false ),
