@@ -6,7 +6,39 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
 		'options' => array(),
+		'select2' => false,
 	);
+
+	/**
+	 * Check if this instance is the first load of the option class
+	 *
+	 * @since 1.9.3
+	 * @var bool $firstLoad
+	 */
+	private static $firstLoad = true;
+
+	/**
+	 * Constructor
+	 *
+	 * @param array  $settings Option settings
+	 * @param string $owner    Namespace
+	 *
+	 * @since    1.9.3
+	 */
+	function __construct( $settings, $owner ) {
+
+		parent::__construct( $settings, $owner );
+
+		// Because we use tf_add_action_once(), we only want to call it when select2 is needed.
+		// Without this check, if the first select doesn't use select2, the resources never get loaded.
+		if ( true === (bool) $this->settings['select2'] ) {
+			tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'load_select2_scripts' ) );
+			tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'load_select2_styles' ) );
+		}
+
+		add_action( 'admin_head', array( $this, 'select2_script' ) );
+
+	}
 
 	/*
 	 * Display for options and meta
@@ -16,17 +48,24 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 		$this->echoOptionHeader();
 
 		$multiple = isset( $this->settings['multiple'] ) && true == $this->settings['multiple'] ? 'multiple' : '';
+		$class    = '';
+
+		if ( true === (bool) $this->settings['select2'] ) {
+			$class .= ' tf-select2';
+		}
+
 		$name = $this->getID();
-		$val = (array) $this->getValue();
+		$val  = (array) $this->getValue();
 
 		if ( ! empty( $multiple ) ) {
 			$name = "{$name}[]";
 		}
 
-		?><select name="<?php echo $name; ?>" <?php echo $multiple; ?>><?php
-			tf_parse_select_options( $this->settings['options'], $val );
+		?><select name="<?php echo $name; ?>" <?php echo $multiple; ?> class="<?php echo trim( $class ); ?>"><?php
+		tf_parse_select_options( $this->settings['options'], $val );
 		?></select><?php
 		$this->echoOptionFooter();
+
 	}
 
 	/*
@@ -60,6 +99,70 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 			'priority' => $priority,
 		) ) );
 	}
+
+	/**
+	 * Register and load the select2 script
+	 *
+	 * @since 1.9.3
+	 * @return void
+	 */
+	public function load_select2_scripts() {
+
+		wp_register_script( 'tf-select2', TitanFramework::getURL( '../js/vendor/select2.min.js', __FILE__ ), array( 'jquery' ), TF_VERSION, true );
+		wp_enqueue_script( 'tf-select2' );
+
+	}
+
+	/**
+	 * Register and load the select2 styles
+	 *
+	 * @since 1.9.3
+	 * @return void
+	 */
+	public function load_select2_styles() {
+
+		wp_register_style( 'tf-select2-style', TitanFramework::getURL( '../css/vendor/select2.min.css', __FILE__ ), null, TF_VERSION, 'all' );
+		wp_register_style( 'tf-select2-option-style', TitanFramework::getURL( '../css/class-option-select.css', __FILE__ ), null, TF_VERSION, 'all' );
+		wp_enqueue_style( 'tf-select2-style' );
+		wp_enqueue_style( 'tf-select2-option-style' );
+
+	}
+
+	/**
+	 * Initialize the select2 field
+	 *
+	 * @since 1.9.3
+	 * @return void
+	 */
+	public function select2_script() {
+
+		if ( false === (bool) $this->settings['select2'] ) {
+			return;
+		}
+
+		if ( ! self::$firstLoad ) {
+			return;
+		}
+
+		self::$firstLoad = false;
+
+		?>
+		<script>
+		jQuery(document).ready(function ($) {
+			"use strict";
+
+			/**
+			 * Select2
+			 * https://select2.github.io/
+			 */
+			if (jQuery().select2 && $('.tf-select2').length) {
+				$('.tf-select2').select2();
+			}
+		});
+		</script>
+		<?php
+	}
+
 }
 
 
