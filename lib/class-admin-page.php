@@ -155,7 +155,7 @@ class TitanFrameworkAdminPage {
 					$this->save_single_option( $option );
 
 					if ( ! empty( $option->options ) ) {
-						foreach( $option->options as $group_option ) {
+						foreach ( $option->options as $group_option ) {
 							$this->save_single_option( $group_option );
 						}
 					}
@@ -166,7 +166,7 @@ class TitanFrameworkAdminPage {
 				$this->save_single_option( $option );
 
 				if ( ! empty( $option->options ) ) {
-					foreach( $option->options as $group_option ) {
+					foreach ( $option->options as $group_option ) {
 						$this->save_single_option( $group_option );
 					}
 				}
@@ -201,15 +201,14 @@ class TitanFrameworkAdminPage {
 				foreach ( $activeTab->options as $option ) {
 
 					if ( ! empty( $option->options ) ) {
-						foreach( $option->options as $group_option ) {
+						foreach ( $option->options as $group_option ) {
 
 							if ( ! empty( $group_option->settings['id'] ) ) {
 								$group_option->setValue( $group_option->settings['default'] );
 							}
-
 						}
 					}
-					
+
 					if ( empty( $option->settings['id'] ) ) {
 						continue;
 					}
@@ -221,12 +220,11 @@ class TitanFrameworkAdminPage {
 			foreach ( $this->options as $option ) {
 
 				if ( ! empty( $option->options ) ) {
-					foreach( $option->options as $group_option ) {
+					foreach ( $option->options as $group_option ) {
 
 						if ( ! empty( $group_option->settings['id'] ) ) {
 							$group_option->setValue( $group_option->settings['default'] );
 						}
-
 					}
 				}
 

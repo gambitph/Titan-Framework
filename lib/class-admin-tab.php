@@ -6,12 +6,14 @@ class TitanFrameworkAdminTab {
 
 	/**
 	 * Default settings specific for this container
+	 *
 	 * @var array
 	 */
 	private $defaultSettings = array(
 
 		/**
 		 * The name of the tab, this is used as the label for the tab.
+		 *
 		 * @since 1.0
 		 * @var string
 		 */
@@ -19,6 +21,7 @@ class TitanFrameworkAdminTab {
 
 		/**
 		 * (Optional) A unique slug for this admin tab. Defaults to a generated slug based from the name parameter. This is appended to the url such as <code>admin.php?page=current_page&tab=id</code>
+		 *
 		 * @since 1.0
 		 * @var string
 		 */
@@ -26,6 +29,7 @@ class TitanFrameworkAdminTab {
 
 		/**
 		 * (Optional) A description displayed just below the tab when it’s active. You can use HTML tags here.
+		 *
 		 * @since 1.0
 		 * @var string
 		 */
