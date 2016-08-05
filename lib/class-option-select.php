@@ -6,7 +6,6 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
 		'options' => array(),
-		'select2' => false,
 	);
 
 	/**
@@ -26,33 +25,22 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 	 * @since    1.9.3
 	 */
 	function __construct( $settings, $owner ) {
-
 		parent::__construct( $settings, $owner );
 
-		// Because we use tf_add_action_once(), we only want to call it when select2 is needed.
-		// Without this check, if the first select doesn't use select2, the resources never get loaded.
-		if ( true === (bool) $this->settings['select2'] ) {
-			tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'load_select2_scripts' ) );
-			tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'load_select2_styles' ) );
-		}
+		tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'load_select_scripts' ) );
+		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'load_select_scripts' ) );
 
-		add_action( 'admin_head', array( $this, 'select2_script' ) );
-
+		tf_add_action_once( 'admin_head', array( $this, 'init_select_script' ) );
+		tf_add_action_once( 'customize_controls_print_footer_scripts', array( $this, 'init_select_script' ) );
 	}
+
 
 	/*
 	 * Display for options and meta
 	 */
 	public function display() {
-
 		$this->echoOptionHeader();
-
 		$multiple = isset( $this->settings['multiple'] ) && true == $this->settings['multiple'] ? 'multiple' : '';
-		$class    = '';
-
-		if ( true === (bool) $this->settings['select2'] ) {
-			$class .= ' tf-select2';
-		}
 
 		$name = $this->getID();
 		$val  = (array) $this->getValue();
@@ -61,35 +49,20 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 			$name = "{$name}[]";
 		}
 
-		?><select name="<?php echo $name; ?>" <?php echo $multiple; ?> class="<?php echo trim( $class ); ?>"><?php
+		?><select name="<?php echo $name; ?>" <?php echo $multiple; ?>><?php
 		tf_parse_select_options( $this->settings['options'], $val );
 		?></select><?php
-		$this->echoOptionFooter();
 
+		$this->echoOptionFooter();
 	}
+
 
 	/*
 	 * Display for theme customizer
 	 */
 	public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
-		$isAssociativeArray = false;
 
-		if ( count( $this->settings['options'] ) ) {
-			foreach ( $this->settings['options'] as $value => $label ) {
-				$isAssociativeArray = is_array( $label );
-				break;
-			}
-		}
-
-		// Not associative array, do normal control
-		// if ( ! $isAssociativeArray ) {
-		// $class = "TitanFrameworkCustomizeControl";
-		//
-		// // Associative array, custom make the control
-		// } else {
-			$class = 'TitanFrameworkOptionSelectControl';
-		// }
-		$wp_customize->add_control( new $class( $wp_customize, $this->getID(), array(
+		$wp_customize->add_control( new TitanFrameworkOptionSelectControl( $wp_customize, $this->getID(), array(
 			'label' => $this->settings['name'],
 			'section' => $section->settings['id'],
 			'type' => 'select',
@@ -98,7 +71,9 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 			'description' => $this->settings['desc'],
 			'priority' => $priority,
 		) ) );
+
 	}
+
 
 	/**
 	 * Register and load the select2 script
@@ -106,27 +81,15 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 	 * @since 1.9.3
 	 * @return void
 	 */
-	public function load_select2_scripts() {
+	public function load_select_scripts() {
 
-		wp_register_script( 'tf-select2', TitanFramework::getURL( '../js/vendor/select2.min.js', __FILE__ ), array( 'jquery' ), TF_VERSION, true );
-		wp_enqueue_script( 'tf-select2' );
+		wp_enqueue_script( 'tf-select2', TitanFramework::getURL( '../js/select2/select2.min.js', __FILE__ ), array( 'jquery' ), TF_VERSION, true );
 
-	}
-
-	/**
-	 * Register and load the select2 styles
-	 *
-	 * @since 1.9.3
-	 * @return void
-	 */
-	public function load_select2_styles() {
-
-		wp_register_style( 'tf-select2-style', TitanFramework::getURL( '../css/vendor/select2.min.css', __FILE__ ), null, TF_VERSION, 'all' );
-		wp_register_style( 'tf-select2-option-style', TitanFramework::getURL( '../css/class-option-select.css', __FILE__ ), null, TF_VERSION, 'all' );
-		wp_enqueue_style( 'tf-select2-style' );
-		wp_enqueue_style( 'tf-select2-option-style' );
+		wp_enqueue_style( 'tf-select2-style', TitanFramework::getURL( '../css/select2/select2.min.css', __FILE__ ), null, TF_VERSION, 'all' );
+		wp_enqueue_style( 'tf-select-option-style', TitanFramework::getURL( '../css/class-option-select.css', __FILE__ ), null, TF_VERSION, 'all' );
 
 	}
+
 
 	/**
 	 * Initialize the select2 field
@@ -134,11 +97,7 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 	 * @since 1.9.3
 	 * @return void
 	 */
-	public function select2_script() {
-
-		if ( false === (bool) $this->settings['select2'] ) {
-			return;
-		}
+	public function init_select_script() {
 
 		if ( ! self::$firstLoad ) {
 			return;
@@ -148,15 +107,15 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 
 		?>
 		<script>
-		jQuery(document).ready(function ($) {
+		jQuery( document ).ready( function ($) {
 			"use strict";
 
 			/**
 			 * Select2
-			 * https://select2.github.io/
+			 * @see https://select2.github.io/
 			 */
-			if (jQuery().select2 && $('.tf-select2').length) {
-				$('.tf-select2').select2();
+			if ( jQuery().select2 ) {
+				$( 'select.tf-select, [class*="tf-select"] select' ).select2();
 			}
 		});
 		</script>
@@ -178,16 +137,19 @@ function registerTitanFrameworkOptionSelectControl() {
 			?>
 			<label>
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-				<select <?php $this->link(); ?>>
+				<select class="tf-select" <?php $this->link(); ?>>
 					<?php tf_parse_select_options( $this->choices, (array) $this->value() ); ?>
+					?></select>
 				</select>
 			</label>
 			<?php
-
-			echo "<p class='description'>{$this->description}</p>";
+			if ( ! empty( $this->description ) ) {
+				echo "<p class='description'>{$this->description}</p>";
+			}
 		}
 	}
 }
+
 
 /**
  * Helper function for parsing select options
@@ -204,19 +166,18 @@ function registerTitanFrameworkOptionSelectControl() {
  */
 function tf_parse_select_options( $options, $val = array() ) {
 
-	/* No options? Duh... */
+	// No options? Duh...
 	if ( empty( $options ) ) {
 		return;
 	}
 
-	/* Make sure the current value is an array (for multiple select) */
+	// Make sure the current value is an array (for multiple select).
 	if ( ! is_array( $val ) ) {
 		$val = (array) $val;
 	}
-
 	foreach ( $options as $value => $label ) {
 
-		// this is if we have option groupings
+		// This is if we have option groupings.
 		if ( is_array( $label ) ) {
 
 			?>
@@ -231,8 +192,8 @@ function tf_parse_select_options( $options, $val = array() ) {
 				);
 			}
 			?></optgroup><?php
-		} // this is for normal list of options
-		else {
+			// This is for normal list of options.
+		} else {
 			printf( '<option value="%s" %s %s>%s</option>',
 				$value,
 				in_array( $value, $val ) ? 'selected="selected"' : '',

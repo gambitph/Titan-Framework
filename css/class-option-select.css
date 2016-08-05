@@ -7,8 +7,15 @@ http://select2.github.io/select2/
 .tf-select2 {
 	width: 25em;
 }
+.customize-control .tf-select select {
+	width: 100%;
+}
 .select2-container {
 	margin: 1px;
+}
+.wp-customizer .select2-container {
+	z-index: 999999;
+	width: 260px !important;
 }
 .select2-container--open .select2-dropdown {
 	left: -1px;
