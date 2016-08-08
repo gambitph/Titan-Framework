@@ -1,23 +1,21 @@
-# Travis CI Configuration File
-
 # Tell Travis CI we're using PHP
 language: php
 
 # PHP version used in first build configuration.
 php:
-    - "5.2"
+    - "5.5"
+    - "5.4"
     - "5.3"
-    # - "5.4"
-    # - "5.5"
+    - "5.2"
 
 # WordPress version used in first build configuration.
 env:
     - WP_VERSION=latest WP_MULTISITE=0
-    - WP_VERSION=4.0 WP_MULTISITE=0
-    # - WP_VERSION=3.9 WP_MULTISITE=0
+    - WP_VERSION=4.2 WP_MULTISITE=0
+    - WP_VERSION=4.1 WP_MULTISITE=0
     - WP_VERSION=latest WP_MULTISITE=1
-    - WP_VERSION=4.0 WP_MULTISITE=1
-    # - WP_VERSION=3.9 WP_MULTISITE=1
+    - WP_VERSION=4.2 WP_MULTISITE=1
+    - WP_VERSION=4.1 WP_MULTISITE=1
 
 # Clones WordPress and configures our testing environment.
 before_script:
@@ -27,4 +25,9 @@ before_script:
     - mv $PLUGIN_SLUG "/tmp/wordpress/wp-content/plugins/$PLUGIN_SLUG"
     - cd "/tmp/wordpress/wp-content/plugins/$PLUGIN_SLUG"
 
-script: phpunit
+script:
+    - phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_success:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
