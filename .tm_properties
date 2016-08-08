@@ -1,0 +1,19 @@
+# Inspired from https://github.com/hmans/homedir/blob/master/.tm_properties
+
+# Extra files to include
+#
+myExtraIncludes = ".tm_properties,.htaccess,.gitignore,.jshintrc,.travis.yml,.scrutinizer.yml"
+fileBrowserGlob  = "{*,$myExtraIncludes}"
+include = "{$include,$myExtraIncludes}"
+
+# Hide log, vendor and tmp directories from search popups.
+#
+myExtraExcludes = "coverage,node_modules,vendor,bower_components"
+excludeInFileChooser  = "{$excludeInFileChooser,$myExtraExcludes}"
+excludeInFolderSearch = "{$excludeInFolderSearch,$myExtraExcludes}"
+
+# Default editing configuration
+#
+softWrap = false
+softTabs = false
+tabSize = 4

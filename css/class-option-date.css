@@ -14,8 +14,8 @@
 	width:12em;
 }
 .tf-date-datepicker.ui-widget-content {
-	border: 1px solid rgb(204, 204, 204);
-	background: rgb(241, 241, 241);
+	border: 1px solid #dfdfdf;
+	background: #fff;
 	color: #000;
 	width: 17em;
 	z-index: 500001 !important;
@@ -24,11 +24,12 @@
 .tf-date-datepicker .ui-datepicker-header {
 	position: relative;
 	padding: .2em 0;
-	background-color: #e4e4e4;
+	background-color: #F5F5F5;
 	margin-left: -10px;
 	margin-right: -10px;
 	margin-top: -10px;
 	padding: 10px;
+	border-bottom: 1px solid #dfdfdf;
 }
 .tf-date-datepicker .ui-datepicker-prev,
 .tf-date-datepicker .ui-datepicker-next {
@@ -40,7 +41,10 @@
 	top: 10px;
 }
 .tf-date-datepicker .ui-datepicker-prev span,
-.tf-date-datepicker .ui-datepicker-next span {
+.tf-date-datepicker .ui-datepicker-next span,
+.tf-date-datepicker .ui_tpicker_time_label,
+.tf-date-datepicker .ui_tpicker_time,
+.tf-date-datepicker .ui_tpicker_unit_hide {
 	display: none;
 }
 .tf-date-datepicker .ui-datepicker-prev:before,
@@ -82,8 +86,9 @@
 }
 .tf-date-datepicker .ui-datepicker-title {
 	margin: 0 3.3em;
-	line-height: 1.8em;
+    line-height: 1.4em;
 	text-align: center;
+	font-weight: 600;
 }
 .tf-date-datepicker table {
 	width: 100%;
@@ -106,22 +111,18 @@
 	padding: .2em;
 	text-align: right;
 	text-decoration: none;
-	border: 1px solid #d3d3d3;
-	background: #e6e6e6;
 	font-weight: normal;
 	color: #555555;
+    border: 1px solid #eee;
+    background: #fff;
+	border-radius: 3px;
 }
-.tf-date-datepicker .ui-datepicker-calendar .ui-state-active {
-	border: 1px solid #aaaaaa;
-	background: #ffffff;
-	font-weight: normal;
-	color: #212121;
-}
+.tf-date-datepicker .ui-datepicker-calendar .ui-state-active,
 .tf-date-datepicker .ui-datepicker-calendar .ui-state-hover {
-	border: 1px solid #999999;
-	background: #dddddd;
+    border-color: #999;
+	background: #fafafa;
 	font-weight: normal;
-	color: #343434;
+    color: #23282d;
 }
 
 /*
@@ -130,14 +131,18 @@
 .tf-date-datepicker .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .tf-date-datepicker .ui-timepicker-div dl { text-align: left; }
 .tf-date-datepicker .ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
-.tf-date-datepicker .ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+.tf-date-datepicker .ui-timepicker-div dl dd { margin: 0 10px 10px 40%; }
 .tf-date-datepicker .ui-timepicker-div td { font-size: 90%; }
 .tf-date-datepicker .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+/*.tf-date-datepicker .ui-timepicker-div .ui_tpicker_unit_hide{ display: none; }
+
+.tf-date-datepicker .ui-timepicker-div .ui_tpicker_time .ui_tpicker_time_input { background: none; color: inherit; border: none; outline: none; border-bottom: solid 1px #555; width: 95%; }
+.tf-date-datepicker .ui-timepicker-div .ui_tpicker_time .ui_tpicker_time_input:focus { border-bottom-color: #aaa; }*/
 
 .tf-date-datepicker .ui-timepicker-rtl{ direction: rtl; }
 .tf-date-datepicker .ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
 .tf-date-datepicker .ui-timepicker-rtl dl dt{ float: right; clear: right; }
-.tf-date-datepicker .ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+.tf-date-datepicker .ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }
 
 /*
  * Styles for Timepicker addon number slider
