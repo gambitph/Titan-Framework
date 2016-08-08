@@ -14,8 +14,12 @@
  *
  * For more details on embedding, read our docs:
  * http://www.titanframework.net/embedding-titan-framework-in-your-project/
+ *
+ * @package Titan Framework
  */
 
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
+}
 
 if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 
@@ -35,15 +39,15 @@ if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 		 */
 		function __construct() {
 			// Don't do anything when we're activating a plugin to prevent errors
-			// on redeclaring Titan classes
+			// on redeclaring Titan classes.
 			if ( is_admin() ) {
-				if ( ! empty( $_GET['action'] ) && ! empty( $_GET['plugin'] ) ) {
-				    if ( $_GET['action'] == 'activate' ) {
+				if ( ! empty( $_GET['action'] ) && ! empty( $_GET['plugin'] ) ) { // Input var: okay.
+				    if ( 'activate' === $_GET['action'] ) { // Input var: okay.
 				        return;
 				    }
 				}
 			}
-			add_action( 'after_setup_theme', array( $this, 'performCheck' ), 1 );
+			add_action( 'after_setup_theme', array( $this, 'perform_check' ), 1 );
 		}
 
 
@@ -52,13 +56,12 @@ if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 		 *
 		 * @since 1.6
 		 */
-		public function performCheck() {
+		public function perform_check() {
 			if ( class_exists( 'TitanFramework' ) ) {
 				return;
 			}
 			require_once( 'titan-framework.php' );
 		}
-
 	}
 
 	new TitanFrameworkEmbedder();

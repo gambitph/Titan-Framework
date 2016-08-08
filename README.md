@@ -1,15 +1,24 @@
+![alt text](http://www.titanframework.net/wp-content/uploads/2016/07/Titan-Framework-800x800-350x350.png "Titan Framework")
 Titan Framework
 =======
 
-[![Build Status](https://travis-ci.org/gambitph/Titan-Framework.png?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
+[![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
+[![Build Status](https://travis-ci.org/gambitph/Titan-Framework.svg?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
+[![Slack](https://gambit-slackin.herokuapp.com/badge.svg)](https://gambit-slackin.herokuapp.com)
+<!--[![Code Coverage](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/?branch=master)-->
+<!--[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/?branch=master)-->
+<!-- [![Built with Gulp](https://img.shields.io/badge/built%20with-Gulp-red.svg)](http://gulpjs.com/) -->
 
 *The easiest to use WordPress options framework.*
 
-Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
+Titan Framework allows theme and plugin developers to create admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 
 [Get it in the WordPress plugin repo](https://wordpress.org/plugins/titan-framework/)
 
 [Generate your own Underscores + Titan Framework based WordPress theme](http://www.titanframework.net)
+
+[Join the Community in Slack](https://gambit-slackin.herokuapp.com/)
 
 #### Features
 * Makes development unbelievably easy
@@ -33,31 +42,9 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar create-project gambitph/titan-framework titan-framework
 ```
 
-## Recent Changelog
+## Developing
 
-#### Version 1.7.4
-* Faster SCSS parsing
-* Faster loading time
-* Unit parameter for number options now supported in the Theme Customizer
-* Better font color option handling in Theme Customizer
-* Now prevents SCSS errors from showing up
-* Fixed name label issues with the enable option
-* Better plugin checking method
-* Plugin checker now integrates with TGM Plugin Activation
-* Updated Ace
-
-#### Version 1.7.3
-* Fixed bug introduced in 1.7.2 where admin options sometimes were not being saved
-
-#### Version 1.7.2
-* EDD option can now check for updates all by itself (thank you julien731)
-* `get_post_types` function now callable from `tf_create_options`
-* Now passes theme-check (ignored `add_menu_page` error)
-
-#### Version 1.7.1
-* Bug fixes for the Easy Digital Download License option
-* Enhanced date option parameters
-* New parameters for Theme Customizer for creating panels
+If you want to help with the development of Titan Framework, we have a [Developing guide in the wiki](https://github.com/gambitph/Titan-Framework/wiki/Developing)
 
 ## Creating a WordPress Theme?
 
@@ -84,7 +71,7 @@ Titan is super new, so far the framework has been getting good feedback from the
 
 ## Are You Using Titan Framework in Your Project?
 
-Let us know so we can showcase it in the site! Send me an email at bf.intal@gambit.ph, send the name, a screenshot, a link and a short description of your project.
+Let us know so we can showcase it in the site! Send me a tweet at [@bfintal](http://twitter.com/bfintal)
 
 
 ## Contributing, Pull Requests Are Very Welcome
@@ -98,15 +85,6 @@ PRs on these are welcome:
 * WordPress standardization
 * Code optimizations
 * Anything under the sun as long as it's helpful :)
-
-
-## Packaging
-
-Code cleanup can be performed by Composer with:
-
-```
-php composer.phar archive --format=zip
-```
 
 ## Translations
 
