@@ -309,3 +309,19 @@ p.description:empty {
     color: #666;
     font-weight: normal;
 }
+.tf-file-upload {
+	min-height: 20px;
+	padding: 10px 20px;
+	width: 215px;
+	background-color: #F2F2F2;
+	border: 1px solid rgba(0,0,0,0.1);
+	cursor: pointer;
+	position: relative;
+}
+.tf-file-upload p{
+	margin: 0 !important;
+}
+.tf-file-upload i{
+	position: absolute;
+	right: 10px;
+}

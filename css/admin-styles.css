@@ -505,3 +505,19 @@
     -moz-transform: translateX(-50%) translateY(-50%);
     -ms-transform: translateX(-50%) translateY(-50%);
 }
+.tf-file-upload {
+	min-height: 20px;
+	padding: 10px 20px;
+	width: 250px;
+	background-color: #F2F2F2;
+	border: 1px solid rgba(0,0,0,0.1);
+	cursor: pointer;
+	position: relative;
+}
+.tf-file-upload p{
+	margin-top: 0 !important;
+}
+.tf-file-upload i{
+	position: absolute;
+	right: 10px;
+}

@@ -73,6 +73,7 @@ require_once( TF_PATH . 'lib/class-option-sortable.php' );
 require_once( TF_PATH . 'lib/class-option-text.php' );
 require_once( TF_PATH . 'lib/class-option-textarea.php' );
 require_once( TF_PATH . 'lib/class-option-upload.php' );
+require_once( TF_PATH . 'lib/class-option-file.php' );
 require_once( TF_PATH . 'lib/class-titan-css.php' );
 require_once( TF_PATH . 'lib/class-titan-framework.php' );
 require_once( TF_PATH . 'lib/class-wp-customize-control.php' );
