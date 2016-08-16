@@ -82,8 +82,6 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
         success: function( data ) {
         var $ = jQuery;
         var value = data;
-        }
-        });
         <?php
     }
 
