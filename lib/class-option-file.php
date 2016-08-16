@@ -76,12 +76,14 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
         ?>
         wp.ajax.send( 'tf_file_upload_option_customizer_get_value', {
         data: {
-        nonce: '<?php echo esc_attr( $nonce ) ?>',
+        nonce: '<?php echo esc_attr( $nonce ); ?>',
         id: value
         },
         success: function( data ) {
         var $ = jQuery;
         var value = data;
+        }
+        });
         <?php
     }
 
