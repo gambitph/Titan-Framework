@@ -107,15 +107,15 @@ class TitanFrameworkOptionSelect extends TitanFrameworkOption {
 
 		?>
 		<script>
-		jQuery( document ).ready( function ($) {
-			"use strict";
+		jQuery( document ).ready( function () {
+			'use strict';
 
 			/**
 			 * Select2
 			 * @see https://select2.github.io/
 			 */
 			if ( jQuery().select2 ) {
-				$( 'select.tf-select, [class*="tf-select"] select' ).select2();
+				jQuery( 'select.tf-select, [class*="tf-select"] select' ).select2();
 			}
 		});
 		</script>
