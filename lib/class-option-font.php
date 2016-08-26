@@ -32,6 +32,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		'include_fonts' => '', // A regex string or array of regex strings to match font names to include.
 		'show_websafe_fonts' => true,
 		'show_google_fonts' => true,
+		'fonts' => array(),
 	);
 
 	// Default style options
@@ -172,6 +173,10 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			}
 
 			if ( $fontValue['font-type'] != 'google' ) {
+				continue;
+			}
+			// Stop load Custom Fonts
+			if ( in_array($fontValue['font-family'],$this->settings['fonts']) ) {
 				continue;
 			}
 
@@ -436,12 +441,12 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					tf_select_font_update_preview( $this, false )
 				}, 1 );
 			});
-			
-			
+
+
 			/**
 			 * Theme Customizer scripts
 			 */
-			
+
 			// Check for font selector clicks, we need to adjust styles to make it look nice
 			$('body.wp-customizer .tf-font').on('mouseup', function(e) {
 				if ( $(e.target).is('.wp-color-result') ) {
@@ -452,11 +457,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					}
 				}
 			});
-			
+
 			// Check for close clicks (clicking outside while the picker is open)
 			$('body.wp-customizer').on('mouseup', '*', function(e) {
 				var $target = $(e.target);
-				if ( $target.is('.wp-color-result, .wp-color-picker, .wp-picker-default') ) { 
+				if ( $target.is('.wp-color-result, .wp-color-picker, .wp-picker-default') ) {
 					return;
 				}
 				if ( $target.parents('.wp-picker-holder').length > 0 ) {
@@ -555,6 +560,24 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				<option value='inherit'>inherit</option>
 				<?php
 
+				if( $this->settings['fonts'] ) {
+					?>
+						<optgroup label="Custom Fonts" class='customf-fonts'>
+							<?php
+
+							foreach ( $this->settings['fonts'] as $family => $label ) {
+								printf( "<option value='%s'%s>%s</option>",
+									$family,
+									selected( $value['font-family'], $family, false ),
+									$label
+								);
+							}
+
+							?>
+						</optgroup>
+					<?php
+				}
+
 				if ( $this->settings['show_websafe_fonts'] ) {
 					?>
 					<optgroup label="Web Safe Fonts" class='safe'>
@@ -613,6 +636,8 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 					</optgroup>
 					<?php
 				}
+
+
 				?>
 			</select>
 		</label>
@@ -988,6 +1013,28 @@ function registerTitanFrameworkOptionFontControl() {
 				Font Family
 				<select class='tf-font-sel-family'>
 					<option value='inherit'>inherit</option>
+					<?php
+
+					if( $this->params['fonts'] ) {
+						?>
+							<optgroup label="Custom Fonts" class='customf-fonts'>
+								<?php
+
+								foreach ( $this->params['fonts'] as $family => $label ) {
+									printf( "<option value='%s'%s>%s</option>",
+										$family,
+										selected( $value['font-family'], $family, false ),
+										$label
+									);
+								}
+
+								?>
+							</optgroup>
+						<?php
+					}
+
+					if ( $this->params['show_websafe_fonts'] ) {
+					?>
 				    <optgroup label="Web Safe Fonts" class='safe'>
 						<?php
 						foreach ( TitanFrameworkOptionFont::$webSafeFonts as $family => $label ) {
@@ -999,10 +1046,43 @@ function registerTitanFrameworkOptionFontControl() {
 						}
 						?>
 					</optgroup>
+					<?php
+					}
+					?>
+
+					<?php
+					if ( $this->params['show_google_fonts'] ) {
+					?>
 				    <optgroup label="Google WebFonts" class='google'>
-						<?php
+				    <?php
 						$allFonts = titan_get_googlefonts();
 						foreach ( $allFonts as $key => $fontStuff ) {
+
+							// Show only the include_fonts (font names) if provided, uses regex.
+							if ( ! empty( $this->params['include_fonts'] ) ) {
+								if ( is_array( $this->params['include_fonts'] ) ) {
+									$fontNameMatch = false;
+									foreach ( $this->params['include_fonts'] as $fontNamePattern ) {
+										if ( ! is_string( $fontNamePattern ) ) {
+											continue;
+										}
+										$fontNamePattern = '/' . trim( $fontNamePattern, '/' ) . '/';
+										if ( preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+											$fontNameMatch = true;
+											break;
+										}
+									}
+									if ( ! $fontNameMatch ) {
+										continue;
+									}
+								} else if ( is_string( $this->params['include_fonts'] ) ) {
+									$fontNamePattern = '/' . trim( $this->params['include_fonts'], '/' ) . '/';
+									if ( ! preg_match( $fontNamePattern . 'i', $fontStuff['name'] ) ) {
+										continue;
+									}
+								}
+							}
+
 							printf( "<option value='%s'%s>%s</option>",
 								esc_attr( $fontStuff['name'] ),
 								selected( $value['font-family'], $fontStuff['name'], false ),
@@ -1011,6 +1091,10 @@ function registerTitanFrameworkOptionFontControl() {
 						}
 						?>
 					</optgroup>
+					<?php
+					// End the show_google_fonts conditional
+					}
+					?>
 				</select>
 			</label>
 			<?php

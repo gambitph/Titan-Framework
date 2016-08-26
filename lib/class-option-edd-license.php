@@ -27,9 +27,12 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 	class TitanFrameworkOptionEddLicense extends TitanFrameworkOption {
 
 		public $defaultSecondarySettings = array(
-			'placeholder' => '', // show this when blank
-			'is_password' => false,
-			'server'      => false,
+			'placeholder'                   => '',
+			'is_password'                   => false,
+			'server'                        => false,
+			// Whether or not a license number is mandatory for checking for new version. Without license number it still won't be possible to update though. Users will just see that there is a new version available.
+			'update_check_license_required' => false,
+			'wp_override'                   => false,
 		);
 
 		/**
@@ -311,15 +314,20 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 				return false;
 			}
 
+			/* Retrieve license key */
+			$license_key = trim( esc_attr( $this->getValue() ) );
+
+			// Abort if license key is empty and one is required for update check
+			if ( empty( $license_key ) && true === $this->settings['update_check_license_required'] ) {
+				return false;
+			}
+
 			/* Check what type of item the file is */
 			$item_is = $this->item_is( $this->settings['file'] );
 
 			/* Item name */
 			$item_name = isset( $this->settings['item_name'] ) ? sanitize_text_field( $this->settings['item_name'] ) : false;
 			$item_id   = isset( $this->settings['item_id'] ) ? (int) $this->settings['item_id'] : false;
-
-			/* Retrieve license key */
-			$license_key = trim( esc_attr( $this->getValue() ) );
 
 			/* Prepare updater arguments */
 			$args = array(
@@ -340,9 +348,10 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 					include( TF_PATH . 'inc/edd-licensing/EDD_SL_Plugin_Updater.php' );
 				}
 
-				$plugin          = get_plugin_data( $this->settings['file'] );
-				$args['version'] = $plugin['Version'];
-				$args['author']  = $plugin['Author'];
+				$plugin              = get_plugin_data( $this->settings['file'] );
+				$args['version']     = $plugin['Version'];
+				$args['author']      = $plugin['Author'];
+				$args['wp_override'] = $this->settings['wp_override'];
 
 			} /* Load the theme updater class and add required parameters. */
 			elseif ( in_array( $item_is, array( 'theme-parent', 'theme-child' ) ) ) {
@@ -477,3 +486,4 @@ if ( class_exists( 'TitanFrameworkOption' ) ) {
 		}
 	}
 }
+

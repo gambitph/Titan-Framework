@@ -180,16 +180,16 @@ class TitanFrameworkCustomizer {
 		<script>
 		window.tf_refresh_css = function() {
 			if ( typeof localStorage !== 'undefined' ) {
-				
+
 				// Using localStorage directly as an object-value dictionary doesn't work in FF, create a new object
 				var localStorageData = {}, keys = Object.keys( localStorage );
 				for ( var i in keys ) {
 			        localStorageData[ keys[ i ] ] = localStorage.getItem( keys[ i ] );
 			    }
-				
+
 				wp.ajax.send( 'tf_generate_customizer_css', {
 				    success: function( data ) {
-						
+
 						// Add the modified CSS Titan has generated from the preview values.
 						var style = document.querySelector('style#tf_live_preview');
 						if ( ! style ) {
@@ -200,7 +200,7 @@ class TitanFrameworkCustomizer {
 						} else {
 							style.innerHTML = data.css;
 						}
-						
+
 						<?php
 						/**
 						 * Render additional Javascript code for handling different data received for
@@ -215,7 +215,7 @@ class TitanFrameworkCustomizer {
 				    },
 					data: localStorageData
 				  });
-				  
+
 			}
 		};
 		</script>
@@ -359,7 +359,7 @@ class TitanFrameworkCustomizer {
 				$namespace = $this->owner->optionNamespace;
 				$option_type = $option->settings['type'];
 				$transport = empty( $option->settings['livepreview'] ) && empty( $option->settings['css'] ) ? 'refresh' : 'postMessage';
-				
+
 				// Allow options to override the transport parameter
 				if ( ! empty( $option->settings['transport'] ) ) {
 					$transport = $option->settings['transport'];
@@ -375,6 +375,7 @@ class TitanFrameworkCustomizer {
 				$wp_customize->add_setting( $option->getID(), array(
 					'default' => $option->settings['default'],
 					'transport' => $transport,
+					'sanitize_callback' => $option->settings['sanitize_callback'], // Sanitize callback function can be used before storing to DB
 				) );
 			}
 

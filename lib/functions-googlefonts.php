@@ -46,7 +46,7 @@ function bfi_get_googlefonts_from_json($json) {
 
 // All possible google fonts
 // List created on Sept 19, 2015
-if ( ! class_exists( 'titan_get_googlefonts' ) ) {
+if ( ! function_exists( 'titan_get_googlefonts' ) ) {
 	function titan_get_googlefonts() {
 		$fonts = array(
 

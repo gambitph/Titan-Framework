@@ -81,7 +81,7 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 		<script>
 		jQuery(document).ready(function($){
 			"use strict";
-            
+
             function tfUploadOptionCenterImage($this) {
 				// console.log('preview image loaded');
 				var _preview = $this.parents('.tf-gallery').find('.thumbnail');
@@ -122,7 +122,7 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 				$(this).parents('.thumbnail').remove();
 
 				get_attachments_of_gallery(_preview, _input);
-                
+
                 return false;
 			});
 
@@ -154,17 +154,21 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 				// get the url when done
 				frame.on('select', function() {
 					var selection = frame.state().get('selection');
-                    
+
                     if ( _preview.find('div.thumbnail').length > 0 ) {
                         // remove current preview
                         _preview.find('.used-thumbnail').remove();
                     }
-                    
+
                     var $attachments_str = [];
                     selection.each(function(attachment) {
-						
+
+						if ( typeof attachment.attributes.sizes === 'undefined' ) {
+							return;
+						}
+
                         $attachments_str.push(attachment.id);
-                        
+
                         // Get the preview image
                         var image = attachment.attributes.sizes.full;
                         if ( typeof attachment.attributes.sizes.thumbnail != 'undefined' ) {
@@ -178,15 +182,15 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 
 						_remove.show();
 					});
-                    
+
                     frame.off('select');
-                    
-                    
+
+
                     // Updating the attachments input field
                     if ( _input.length > 0 ) {
                         _input.val($attachments_str.join(','));
                     }
-                    
+
                     // we need to trigger a change so that WP would detect that we changed the value
                     // or else the save button won't be enabled
                     _input.trigger('change');

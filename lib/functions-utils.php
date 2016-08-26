@@ -107,3 +107,48 @@ function tf_add_filter_once( $tag, $function_to_add, $priority = 10, $accepted_a
 
 	return true;
 }
+
+
+/**
+ * Fetches post types. Based on helper functions developed inhouse.
+ * 
+ * @since 2.0
+ *
+ * @param boolean $public - Queries the get_post_types to fetch publicly-available post types.
+ * @param string $value - Fetches post types that are builtin, custom, or both. Values can be 'builtin', 'custom', or the default value, 'all'.
+ */
+function tf_get_post_types( $public = true, $value = 'all' ) {
+	
+	// Fetch builtin post types.
+	$args_builtin = array(
+		'public' => $public,
+		'_builtin' => true,
+	);
+	
+	$post_types_builtin = get_post_types( $args_builtin, 'objects' );
+	
+	// Fetch custom post types.
+	$args_custom = array(
+		'public' => $public,
+		'_builtin' => false,
+	);
+
+	$post_types_custom = get_post_types( $args_custom, 'objects' );
+
+	// Converge or pick post types based on selection.
+	switch ( $value ) {
+		case 'builtin' :
+			$post_types = $post_types_builtin;
+		break;		
+		
+		case 'custom' :
+			$post_types = $post_types_custom;
+		break;
+		
+		default :
+			$post_types = array_merge( $post_types_builtin, $post_types_custom );
+		break;
+	}
+	
+	return $post_types;
+}

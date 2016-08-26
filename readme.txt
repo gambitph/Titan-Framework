@@ -3,16 +3,16 @@ Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 4.1
-Tested up to: 4.3.1
-Stable tag: 1.9.2
+Tested up to: 4.6
+Stable tag: 1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The most easy to use WordPress option framework.
+Create Settings for Your WordPress Themes & Plugins with Just a Few Lines of Code.
 
 == Description ==
 
-Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
+Titan Framework allows theme and plugin developers to create admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 
 This means faster theme & plugin creation for everyone.
 
@@ -20,7 +20,7 @@ This means faster theme & plugin creation for everyone.
 
 = The Goal =
 
-Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options. 
+Titan Framework aims to be easily used by everyone. The goal is to make it plug and play - just activate the plugin and start creating your options.
 
 [How to start developing with Titan Framework](http://www.titanframework.net/how/)
 
@@ -67,12 +67,14 @@ The generated theme comes with sample pre-created options in the admin and theme
 * Editor (WYSIWYG)
 * Enable
 * Font Style (Web safe fonts and Google WebFonts)
+* Group
 * Heading
 * Iframe
 * Media uploader
 * Multicheck
 * Multicheck categories and taxonomies
 * Multicheck pages and posts
+* Multicheck post types
 * Note
 * Number
 * Radio buttons
@@ -83,6 +85,7 @@ The generated theme comes with sample pre-created options in the admin and theme
 * Select Google WebFont
 * Select categories and taxonomies
 * Select pages and posts
+* Select post types
 * Sortable
 * Text
 * Textarea
@@ -140,12 +143,32 @@ and to everyone else in the GitHub repo!
 
 == Changelog ==
 
+= 1.10 =
+* New: Added new options multicheck-post-types and select-post-types
+* New: Added Group option
+* New: Added include_fonts in Theme Customizer.
+* Enhanced: Generated inline CSS now has an ID attribute.
+* Enhanced: Easy Digital Downloads product checking revised.
+* Enhanced: Timepicker styles.
+* Enhanced: EDD option.
+* Change: Footer Text should be returned not echoed.
+* Change: class_exists to function_exists of googlefonts function.
+* Fixed: Input tag.
+
+= 1.9.3 =
+* New: Transport parameter for overriding the Customizer transport parameter
+* New: Added `enqueue` parameter for the code option
+* New: Added `size` parameter to the Text option
+* Change: Removed `title` parameter in admin tabs
+* Fixed: Fixed bug where a blank panel was being created
+* Fixed: Removed seconds, and other more precise controls in the date option.
+
 = 1.9.2 =
 * New: `tf_css_get_css_file_path_{$namespace}` filter
 * Enhanced: Heading options in Customizer now look great
 * Enhanced: The `css` parameter now performs live preview changes instead of reloading the page
 * Enhanced: Added `inherit` values for some styles in the font option
-* Enhanced: Changed some default style values in the font option to `inherit` 
+* Enhanced: Changed some default style values in the font option to `inherit`
 * Fixed: Options with a value of zero do not generate CSS properly (they wrongly reset to their default value before)
 * Fixed: `getOptions` function turned non-existent keys to false
 * Fixed: Existing panel names (not panel IDs) across different namespaces that match get shown in the wrong section
