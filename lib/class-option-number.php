@@ -81,6 +81,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 	public function enqueueSlider() {
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-slider' );
+		wp_enqueue_script( 'underscore' );
 	}
 
 
