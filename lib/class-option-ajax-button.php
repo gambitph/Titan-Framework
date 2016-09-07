@@ -269,7 +269,6 @@ class TitanFrameworkOptionAjaxButton extends TitanFrameworkOption {
 	 * Display for theme customizer
 	 */
 	public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
-		// var_dump($section->getID());
 		$wp_customize->add_control( new TitanFrameworkOptionAjaxButtonControl( $wp_customize, '', array(
 			'label' => $this->settings['name'],
 			'section' => $section->getID(),

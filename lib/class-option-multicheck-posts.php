@@ -11,6 +11,7 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
 		'post_status' => 'any',
 		'orderby' => 'post_date',
 		'order' => 'DESC',
+		'select_all' => false
 	);
 
 	/*
@@ -68,6 +69,7 @@ class TitanFrameworkOptionMulticheckPosts extends TitanFrameworkOptionMulticheck
 			'settings' => $this->getID(),
 			'description' => $this->settings['desc'],
 			'options' => $this->settings['options'],
+			'select_all' => $this->settings['select_all'],
 			'priority' => $priority,
 		) ) );
 	}
