@@ -29,7 +29,7 @@ class TitanFrameworkOptionSelectCategories extends TitanFrameworkOptionSelect {
 				'hide_empty' => $this->settings['hide_empty'] ? '1' : '0',
 			);
 
-			$categories = get_categories( $args );
+			$categories = get_terms( $args );
 
 			$this->settings['options'] = array(
 				'' => '— ' . __( 'Select', TF_I18NDOMAIN ) . ' —'
