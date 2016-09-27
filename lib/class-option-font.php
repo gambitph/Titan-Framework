@@ -671,6 +671,13 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 						$i . 'px'
 					);
 				}
+        for ( $i = 0.1; $i <= 3.1; $i += 0.1 ) {
+					printf( "<option value='%s'%s>%s</option>",
+						esc_attr( $i . 'em' ),
+						selected( $value['font-size'], $i . 'em', false ),
+						$i . 'em'
+					);
+				}
 				?>
 			</select>
 		</label>
