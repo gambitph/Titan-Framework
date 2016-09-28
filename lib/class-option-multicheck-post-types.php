@@ -9,6 +9,7 @@ class TitanFrameworkOptionMulticheckPostTypes extends TitanFrameworkOptionMultic
 		'public' => true,
 		'value' => 'all',
 		'slug' => true,
+		'select_all' => false
 	);
 
 	/*
@@ -69,6 +70,7 @@ class TitanFrameworkOptionMulticheckPostTypes extends TitanFrameworkOptionMultic
 			'value' => $this->settings['value'],
 			'slug' => $this->settings['slug'],
 			'options' => $this->settings['options'],
+			'select_all' => $this->settings['select_all'],
 			'priority' => $priority,
 		) ) );
 	}

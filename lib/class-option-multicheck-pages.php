@@ -6,6 +6,7 @@ class TitanFrameworkOptionMulticheckPages extends TitanFrameworkOptionMulticheck
 
 	public $defaultSecondarySettings = array(
 		'options' => array(),
+		'select_all' => false
 	);
 
 	private static $allPages;
@@ -56,6 +57,7 @@ class TitanFrameworkOptionMulticheckPages extends TitanFrameworkOptionMulticheck
 			'settings' => $this->getID(),
 			'description' => $this->settings['desc'],
 			'options' => $this->settings['options'],
+			'select_all' => $this->settings['select_all'],
 			'priority' => $priority,
 		) ) );
 	}

@@ -3,10 +3,13 @@ language: php
 
 # PHP version used in first build configuration.
 php:
+    - "hhvm"
+    - "7.0"
+    - "5.6"
     - "5.5"
     - "5.4"
     - "5.3"
-    - "5.2"
+#    - "5.2"
 
 # WordPress version used in first build configuration.
 env:

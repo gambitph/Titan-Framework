@@ -102,7 +102,7 @@ if ( $textShadowLocation != 'none' ) {
 				}
 			}
 
-			printf( "<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=%s:400,%s&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,vietnamese,cyrillic' type='text/css' media='all' />",
+			printf( "<link rel='stylesheet' href='//fonts.googleapis.com/css?family=%s:400,%s&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,vietnamese,cyrillic' type='text/css' media='all' />",
 				str_replace( ' ', '+', str_replace( '%20', '+', $fontFamily ) ),
 				implode( ',', $weight )
 			);

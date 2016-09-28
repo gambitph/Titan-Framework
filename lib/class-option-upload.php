@@ -262,6 +262,11 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 				frame.on('select', function() {
 					var selection = frame.state().get('selection');
 					selection.each(function(attachment) {
+
+						if ( typeof attachment.attributes.sizes === 'undefined' ) {
+							return;
+						}
+						
 						if ( _input.length > 0 ) {
 							_input.val(attachment.id);
 						}

@@ -11,6 +11,7 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
 		'taxonomy' => 'category',
 		'hide_empty' => false,
 		'show_count' => false,
+		'select_all' => false
 	);
 
 	/*
@@ -58,6 +59,7 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
 			'settings' => $this->getID(),
 			'description' => $this->settings['desc'],
 			'options' => $this->settings['options'],
+			'select_all' => $this->settings['select_all'],
 			'priority' => $priority,
 		) ) );
 	}
