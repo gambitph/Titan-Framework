@@ -1,18 +1,19 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
 }
 class TitanFrameworkOptionFile extends TitanFrameworkOption {
 
     private static $firstLoad = true;
 
     public $defaultSecondarySettings = array(
-        'placeholder' => '', // show this when blank
+        'placeholder' => '', // Show this when blank.
+        'label' => '', // Add label.
     );
 
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @return	void
      * @since	1.5
@@ -28,11 +29,11 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
 
 
     /**
-     * Generates CSS for the font, this is used in TitanFrameworkCSS
+     * Generates CSS for the font, this is used in TitanFrameworkCSS.
      *
-     * @param	string               $css The CSS generated
-     * @param	TitanFrameworkOption $option The current option being processed
-     * @return	string The CSS generated
+     * @param	String               $css The CSS generated.
+     * @param	TitanFrameworkOption $option The current option being processed.
+     * @return	String The CSS generated.
      * @since	1.5
      */
     public function generateCSS( $css, $option ) {
@@ -50,7 +51,7 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
 
         if ( ! empty( $option->settings['css'] ) ) {
             // In the css parameter, we accept the term `value` as our current value,
-            // translate it into the SaSS variable for the current option
+            // translate it into the SaSS variable for the current option.
             $css .= str_replace( 'value', '#{$' . $option->settings['id'] . '}', $option->settings['css'] );
         }
 
@@ -59,7 +60,7 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
 
 
     /**
-     * The upload option gives out an attachment ID. Live previews will not work since we cannot get
+     * The upload option gives out an attachment ID. Live previews will not work since we cannot get.
      * the upload URL from an ID easily. Use a specially created Ajax Handler for just getting the URL.
      *
      * @since 1.9
@@ -87,7 +88,7 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
 
 
     /**
-     * Closes the Javascript code created in preLivePreview()
+     * Closes the Javascript code created in preLivePreview().
      *
      * @since 1.9
      *
@@ -98,7 +99,7 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
             return;
         }
 
-        // Close the ajax call
+        // Close the ajax call.
         ?>
         }
         });
@@ -106,14 +107,14 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
     }
 
     /*
-     * Display for options and meta
+     * Display for options and meta.
      */
     public function display() {
         self::createUploaderScript();
 
         $this->echoOptionHeader();
 
-        // display the preview file name
+        // Display the preview file name.
         $value = $this->getValue();
         if ( ! is_array( $value ) ) {
             $value = $this->getValue();
@@ -122,6 +123,8 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
         $previewFile = '';
         if ( ! empty( $value ) ) {
             $previewFile = "<i class='dashicons dashicons-no-alt remove'></i><p>". basename( get_attached_file( $value ) ) . "</p>";
+        } else {
+          $previewFile = $this->settings['label'];
         }
         echo "<div class='tf-file-upload'>" . $previewFile . '</div>';
 
@@ -135,7 +138,7 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
     }
 
     /*
-     * Display for theme customizer
+     * Display for theme customizer.
      */
     public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
         $wp_customize->add_control( new TitanFrameworkOptionFileUploadControl( $wp_customize, $this->getID(), array(
@@ -144,6 +147,7 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
             'settings' => $this->getID(),
             'description' => $this->settings['desc'],
             'priority' => $priority,
+            'caption' => $this->settings['label'],
         ) ) );
     }
 
@@ -183,7 +187,7 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
                 });
 
 
-                // remove the image when the remove link is clicked
+                // Remove the image when the remove link is clicked.
                 $('body').on('click', '.tf-file-upload i.remove', function(event) {
                     event.preventDefault();
                     var _input = $(this).parents('.tf-file').find('input');
@@ -194,29 +198,29 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
                 });
 
 
-                // open the upload media lightbox when the upload button is clicked
+                // Open the upload media lightbox when the upload button is clicked.
                 $('body').on('click', '.tf-file-upload', function(event) {
                     event.preventDefault();
-                    // If we have a smaller image, users can click on the thumbnail
+                    // If we have a smaller image, users can click on the thumbnail.
                     var _this = $(this);
                     var _input = $(this).parents('.tf-file').find('input');
                     var _remove = $(this).siblings('.tf-file-upload-remove');
 
-                    // uploader frame properties
+                    // Uploader frame properties.
                     var frame = wp.media({
                         title: '<?php esc_html_e( 'Select File', TF_I18NDOMAIN ) ?>',
                         multiple: false,
                         button : { text : '<?php esc_html_e( 'Use file', TF_I18NDOMAIN ) ?>' }
                     });
 
-                    // get the url when done
+                    // Get the url when done.
                     frame.on('select', function() {
                         var selection = frame.state().get('selection');
                         selection.each(function(attachment) {
                             _input.val(attachment.id).trigger('change');
-                            //document.getElementById(_input.id).value = attachment.id;
+                            // document.getElementById(_input.id).value = attachment.id;
                             console.info(_input.val());
-                            // change filename
+                            // Change filename.
                             _this.html("<i class='dashicons dashicons-no-alt remove'></i><p>"+attachment.attributes.filename+"</p>");
 
                             _remove.show();
@@ -224,7 +228,7 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
                         frame.off('select');
                     });
 
-                    // open the uploader
+                    // Open the uploader.
                     frame.open();
 
                     return false;
@@ -236,13 +240,14 @@ class TitanFrameworkOptionFile extends TitanFrameworkOption {
 }
 
 /*
- * We create a new control for the theme customizer
+ * We create a new control for the theme customizer.
  */
 add_action( 'customize_register', 'registerTitanFrameworkOptionFileUploadControl', 1 );
 function registerTitanFrameworkOptionFileUploadControl() {
     class TitanFrameworkOptionFileUploadControl extends WP_Customize_Control {
         public $description;
-
+        public $caption;
+        
         public function render_content() {
             TitanFrameworkOptionFile::createUploaderScript();
 
@@ -254,6 +259,8 @@ function registerTitanFrameworkOptionFileUploadControl() {
 
             if ( ! empty( $value ) ) {
                 $previewFile = "<i class='dashicons dashicons-no-alt remove'></i><p>" . basename( get_attached_file( $value ) ) . "</p>";
+            } else {
+              $previewFile = $this->caption;
             }
 
             ?>
@@ -278,9 +285,9 @@ if ( ! function_exists( 'tf_file_upload_option_customizer_get_value' ) ) {
     add_action( 'wp_ajax_tf_file_upload_option_customizer_get_value', 'tf_file_upload_option_customizer_get_value' );
 
     /**
-     * Returns the image URL from an attachment ID & size
+     * Returns the image URL from an attachment ID & size.
      *
-     * @see TitanFrameworkOptionUpload->preLivePreview()
+     * @see TitanFrameworkOptionUpload->preLivePreview().
      */
     function tf_file_upload_option_customizer_get_value() {
 
@@ -288,7 +295,7 @@ if ( ! function_exists( 'tf_file_upload_option_customizer_get_value' ) ) {
 
             $nonce = sanitize_text_field( $_POST['nonce'] );
             $attachmentID = sanitize_text_field( $_POST['id'] );
-            //$size = sanitize_text_field( $_POST['size'] );
+            // $size = sanitize_text_field( $_POST['size'] );
 
             if ( wp_verify_nonce( $nonce, 'tf_file_upload_option_nonce' ) ) {
                 $attachment = $attachmentID;
@@ -298,8 +305,8 @@ if ( ! function_exists( 'tf_file_upload_option_customizer_get_value' ) ) {
             }
         }
 
-        // Instead of doing a wp_send_json_error, send a blank value instead so
-        // Javascript adjustments still get executed
+        // Instead of doing a wp_send_json_error, send a blank value instead so.
+        // Javascript adjustments still get executed.
         wp_send_json_success( '' );
     }
 }

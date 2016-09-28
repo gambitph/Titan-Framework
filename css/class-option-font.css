@@ -1,5 +1,6 @@
 .tf-upload .tf-image-preview, .tf-upload .tf-image-preview:before,
-.tf-gallery .tf-image-preview, .tf-gallery .tf-image-preview:before {
+.tf-gallery .tf-image-preview, .tf-gallery .tf-image-preview:before,
+.tf-file .tf-file-upload {
 	-webkit-transition: all .3s;
 	   -moz-transition: all .3s;
 	    -ms-transition: all .3s;

@@ -313,8 +313,8 @@ p.description:empty {
 	min-height: 20px;
 	padding: 10px 20px;
 	width: 215px;
-	background-color: #F2F2F2;
-	border: 1px solid rgba(0,0,0,0.1);
+	background-color: #FAFAFA;
+  box-shadow: inset 0 0 0 1px #EEE;
 	cursor: pointer;
 	position: relative;
 }
