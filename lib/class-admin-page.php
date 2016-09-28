@@ -83,7 +83,7 @@ class TitanFrameworkAdminPage {
 		// Parent menu
 		if ( empty( $this->settings['parent'] ) ) {
 			$this->panelID = add_menu_page( $this->settings['name'],
-				$this->settings['name'],
+				$this->settings['title'],
 				$this->settings['capability'],
 				$this->settings['id'],
 				array( $this, 'createAdminPage' ),
@@ -93,7 +93,7 @@ class TitanFrameworkAdminPage {
 		} else {
 			$this->panelID = add_submenu_page( $this->settings['parent'],
 				$this->settings['name'],
-				$this->settings['name'],
+				$this->settings['title'],
 				$this->settings['capability'],
 				$this->settings['id'],
 			array( $this, 'createAdminPage' ) );
