@@ -111,8 +111,15 @@
 }
 
 .titan-framework-panel-wrap .form-table {
-	margin: 20px 0 0;
+	margin-top: 0;
 }
+
+.titan-framework-panel-wrap .nav-tab-active,
+.titan-framework-panel-wrap .nav-tab-active:hover {
+	background: #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
 .titan-framework-panel-wrap .form-table tr {
 	background: white;
 	border-bottom: 1px solid #eee;
