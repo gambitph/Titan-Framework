@@ -543,7 +543,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		// Get the current value and merge with defaults
 		$value = $this->getValue();
-		$value = array_merge( self::$defaultStyling, $value );
+		if ( ! empty(  $value ) ) {
+			$value = array_merge( self::$defaultStyling, $value );
+		} else {
+			$value = self::$defaultStyling;
+		}
 
 		/*
 		 * Create all the fields
