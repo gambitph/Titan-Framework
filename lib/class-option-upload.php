@@ -1,19 +1,19 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
 }
 class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 	private static $firstLoad = true;
 
 	public $defaultSecondarySettings = array(
-		'size' => 'full', // The size of the image to use in the generated CSS
-		'placeholder' => '', // show this when blank
+		'size' => 'full', // The size of the image to use in the generated CSS.
+		'placeholder' => '', // Show this when blank.
 	);
 
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 *
 	 * @return	void
 	 * @since	1.5
@@ -22,17 +22,33 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		parent::__construct( $settings, $owner );
 
 		add_filter( 'tf_generate_css_upload_' . $this->getOptionNamespace(), array( $this, 'generateCSS' ), 10, 2 );
+		add_filter( 'upload_mimes', array( $this, 'allow_svg_uploads' ) );
 
 		add_action( 'tf_livepreview_pre_' . $this->getOptionNamespace(), array( $this, 'preLivePreview' ), 10, 3 );
 		add_action( 'tf_livepreview_post_' . $this->getOptionNamespace(), array( $this, 'postLivePreview' ), 10, 3 );
-	}
+		}
+
+
+		/**
+		* Allow SVG mime types to be uploaded to WP.
+		*
+		* @since 2.9
+		*
+		* @param array $mimes The allowed mime types.
+		*
+		* @return array $mimes The modified mime types.
+		*/
+		public function allow_svg_uploads( $mimes ) {
+				$mimes['svg'] = 'image/svg+xml';
+				return apply_filters( 'pbs_allow_svg_uploads', $mimes );
+		}
 
 
 	/**
 	 * Generates CSS for the font, this is used in TitanFrameworkCSS
 	 *
 	 * @param	string               $css The CSS generated
-	 * @param	TitanFrameworkOption $option The current option being processed
+	 * @param	TitanFrameworkOption $option The current option being processed.
 	 * @return	string The CSS generated
 	 * @since	1.5
 	 */
@@ -57,7 +73,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 		if ( ! empty( $option->settings['css'] ) ) {
 			// In the css parameter, we accept the term `value` as our current value,
-			// translate it into the SaSS variable for the current option
+			// translate it into the SaSS variable for the current option.
 			$css .= str_replace( 'value', '#{$' . $option->settings['id'] . '}', $option->settings['css'] );
 		}
 
@@ -96,7 +112,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 
 
 	/**
-	 * Closes the Javascript code created in preLivePreview()
+	 * Closes the Javascript code created in preLivePreview().
 	 *
 	 * @since 1.9
 	 *
@@ -107,7 +123,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			return;
 		}
 
-		// Close the ajax call
+		// Close the ajax call.
 		?>
 			}
 		  });
@@ -115,17 +131,18 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 	}
 
 	/*
-	 * Display for options and meta
+	 * Display for options and meta.
 	 */
 	public function display() {
 		self::createUploaderScript();
 
 		$this->echoOptionHeader();
 
-		// display the preview image
+		// Display the preview image.
 		$value = $this->getValue();
+
 		if ( is_numeric( $value ) ) {
-			// gives us an array with the first element as the src or false on fail
+			// Gives us an array with the first element as the src or false on fail.
 			$value = wp_get_attachment_image_src( $value, array( 150, 150 ) );
 		}
 		if ( ! is_array( $value ) ) {
@@ -150,7 +167,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 	}
 
 	/*
-	 * Display for theme customizer
+	 * Display for theme customizer.
 	 */
 	public function registerCustomizerControl( $wp_customize, $section, $priority = 1 ) {
 		$wp_customize->add_control( new TitanFrameworkOptionUploadControl( $wp_customize, $this->getID(), array(
@@ -172,9 +189,8 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 		<script>
 		jQuery(document).ready(function($){
 			"use strict";
-
+			$('.tf-upload .thumbnail').find('img').parent().addClass('has-value').find(':before').css({'opacity':'0'});
 			function tfUploadOptionCenterImage($this) {
-				// console.log('preview image loaded');
 				var _preview = $this.parents('.tf-upload').find('.thumbnail');
 				$this.css({
 					'marginTop': ( _preview.height() - $this.height() ) / 2,
@@ -183,11 +199,11 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			}
 
 
-			// Calculate display offset of preview image on load
+			// Calculate display offset of preview image on load.
 			$('.tf-upload .thumbnail img').load(function() {
 				tfUploadOptionCenterImage($(this));
 			}).each(function(){
-				// Sometimes the load event might not trigger due to cache
+				// Sometimes the load event might not trigger due to cache.
 				if(this.complete) {
 					$(this).trigger('load');
 				};
@@ -207,7 +223,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 				}
 			});
 			$.each( tfUploadAccordionSections, function() {
-				var $title = $(this).find('.accordion-section-title:eq(0)'); // just opening the section
+				var $title = $(this).find('.accordion-section-title:eq(0)'); // Just opening the section.
 				$title.click(function() {
 					var $accordion = $(this).parents('.control-section.accordion-section');
 					if ( ! $accordion.is('.open') ) {
@@ -222,23 +238,23 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 			});
 
 
-			// remove the image when the remove link is clicked
+			// Remove the image when the remove link is clicked.
 			$('body').on('click', '.tf-upload i.remove', function(event) {
 				event.preventDefault();
 				var _input = $(this).parents('.tf-upload').find('input');
 				var _preview = $(this).parents('.tf-upload').find('div.thumbnail');
 
-				_preview.find('img').remove().end().find('i').remove();
+				_preview.removeClass('has-value').find('img').remove().end().find('i').remove();
 				_input.val('').trigger('change');
 
 				return false;
 			});
 
 
-			// open the upload media lightbox when the upload button is clicked
+			// Open the upload media lightbox when the upload button is clicked.
 			$('body').on('click', '.tf-upload .thumbnail, .tf-upload img', function(event) {
 				event.preventDefault();
-				// If we have a smaller image, users can click on the thumbnail
+				// If we have a smaller image, users can click on the thumbnail.
 				if ( $(this).is('.thumbnail') ) {
 					if ( $(this).parents('.tf-upload').find('img').length != 0 ) {
 						$(this).parents('.tf-upload').find('img').trigger('click');
@@ -250,7 +266,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 				var _preview = $(this).parents('.tf-upload').find('div.thumbnail');
 				var _remove = $(this).siblings('.tf-upload-image-remove');
 
-				// uploader frame properties
+				// Uploader frame properties.
 				var frame = wp.media({
 					title: '<?php esc_html_e( 'Select Image', TF_I18NDOMAIN ) ?>',
 					multiple: false,
@@ -258,15 +274,15 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 					button : { text : '<?php esc_html_e( 'Use image', TF_I18NDOMAIN ) ?>' }
 				});
 
-				// get the url when done
+				// Get the url when done.
 				frame.on('select', function() {
 					var selection = frame.state().get('selection');
 					selection.each(function(attachment) {
 
-						if ( typeof attachment.attributes.sizes === 'undefined' ) {
-							return;
-						}
-						
+						// if ( typeof attachment.attributes.sizes === 'undefined' ) {
+						// 	return;
+						// }
+
 						if ( _input.length > 0 ) {
 							_input.val(attachment.id);
 						}
@@ -280,26 +296,37 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 								_preview.find('i.remove').remove();
 							}
 
-							// Get the preview image
-							var image = attachment.attributes.sizes.full;
-							if ( typeof attachment.attributes.sizes.thumbnail != 'undefined' ) {
-								image = attachment.attributes.sizes.thumbnail;
+							// Get the preview image.
+						if ( typeof attachment.attributes.sizes != 'undefined' ) {
+								var image = attachment.attributes.sizes.full;
+ 								if ( typeof attachment.attributes.sizes.thumbnail != 'undefined' ) {
+ 									image = attachment.attributes.sizes.thumbnail;
+ 								}
+ 								var url = image.url;
+ 								var marginTop = ( _preview.height() - image.height ) / 2;
+ 								var marginLeft = ( _preview.width() - image.width ) / 2;
+ 								var filename = '';
+ 							} else {
+ 								var url = attachment.attributes.url;
+ 								var marginTop = ( _preview.height() - 64 ) / 2;
+ 								var marginLeft = ( _preview.width() - 48 ) / 2;
+ 								var filename = attachment.attributes.filename;
 							}
-							var url = image.url;
 
 							$("<img src='" + url + "'/>").appendTo(_preview);
 							$("<i class='dashicons dashicons-no-alt remove'></i>").prependTo(_preview);
 						}
-						// we need to trigger a change so that WP would detect that we changed the value
-						// or else the save button won't be enabled
+						// We need to trigger a change so that WP would detect that we changed the value.
+						// Or else the save button won't be enabled.
 						_input.trigger('change');
 
 						_remove.show();
+						$('.tf-upload .thumbnail').find('img').parent().addClass('has-value').find(':before').css({'opacity':'0'});
 					});
 					frame.off('select');
 				});
 
-				// open the uploader
+				// Open the uploader.
 				frame.open();
 
 				return false;
@@ -311,7 +338,7 @@ class TitanFrameworkOptionUpload extends TitanFrameworkOption {
 }
 
 /*
- * We create a new control for the theme customizer
+ * We create a new control for the theme customizer.
  */
 add_action( 'customize_register', 'registerTitanFrameworkOptionUploadControl', 1 );
 function registerTitanFrameworkOptionUploadControl() {
@@ -324,7 +351,7 @@ function registerTitanFrameworkOptionUploadControl() {
 			$previewImage = '';
 			$value = $this->value();
 			if ( is_numeric( $value ) ) {
-				// gives us an array with the first element as the src or false on fail
+				// Gives us an array with the first element as the src or false on fail.
 				$value = wp_get_attachment_image_src( $value, array( 150, 150 ) );
 			}
 			if ( ! is_array( $value ) ) {
@@ -359,9 +386,9 @@ if ( ! function_exists( 'tf_upload_option_customizer_get_value' ) ) {
 	add_action( 'wp_ajax_tf_upload_option_customizer_get_value', 'tf_upload_option_customizer_get_value' );
 
 	/**
-	 * Returns the image URL from an attachment ID & size
+	 * Returns the image URL from an attachment ID & size.
 	 *
-	 * @see TitanFrameworkOptionUpload->preLivePreview()
+	 * @see TitanFrameworkOptionUpload->preLivePreview().
 	 */
 	function tf_upload_option_customizer_get_value() {
 
@@ -379,8 +406,8 @@ if ( ! function_exists( 'tf_upload_option_customizer_get_value' ) ) {
 			}
 		}
 
-		// Instead of doing a wp_send_json_error, send a blank value instead so
-		// Javascript adjustments still get executed
+		// Instead of doing a wp_send_json_error, send a blank value instead so.
+		// Javascript adjustments still get executed.
 		wp_send_json_success( '' );
 	}
 }
