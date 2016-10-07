@@ -39,7 +39,7 @@
 }
 
 /* radio image */
-.tf-radio-image img {
+.tf-radio-image img, .tf-radio-image-font-icon {
 	vertical-align: middle;
 }
 .tf-radio-image {
@@ -308,4 +308,20 @@ p.description:empty {
 	margin: 0;
     color: #666;
     font-weight: normal;
+}
+.tf-file-upload {
+	min-height: 20px;
+	padding: 10px 20px;
+	width: 215px;
+	background-color: #FAFAFA;
+  box-shadow: inset 0 0 0 1px #EEE;
+	cursor: pointer;
+	position: relative;
+}
+.tf-file-upload p{
+	margin: 0 !important;
+}
+.tf-file-upload i{
+	position: absolute;
+	right: 10px;
 }

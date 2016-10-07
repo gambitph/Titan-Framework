@@ -12,7 +12,7 @@ Plugin Name: Titan Framework
 Plugin URI: http://www.titanframework.net/
 Description: Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 Author: Benjamin Intal, Gambit
-Version: 1.9.3
+Version: 1.10
 Author URI: http://gambit.ph
  */
 
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
 }
 
 // Used for tracking the version used.
-defined( 'TF_VERSION' ) or define( 'TF_VERSION', '1.9.3' );
+defined( 'TF_VERSION' ) or define( 'TF_VERSION', '1.10' );
 // Used for text domains.
 defined( 'TF_I18NDOMAIN' ) or define( 'TF_I18NDOMAIN', 'titan-framework' );
 // Used for general naming, e.g. nonces.
@@ -48,7 +48,7 @@ require_once( TF_PATH . 'lib/class-option-date.php' );
 require_once( TF_PATH . 'lib/class-option-enable.php' );
 require_once( TF_PATH . 'lib/class-option-editor.php' );
 require_once( TF_PATH . 'lib/class-option-font.php' );
-/* require_once( TF_PATH . 'lib/class-option-gallery.php' ); */
+require_once( TF_PATH . 'lib/class-option-gallery.php' );
 require_once( TF_PATH . 'lib/class-option-group.php' );
 require_once( TF_PATH . 'lib/class-option-heading.php' );
 require_once( TF_PATH . 'lib/class-option-iframe.php' );
@@ -56,21 +56,24 @@ require_once( TF_PATH . 'lib/class-option-multicheck.php' );
 require_once( TF_PATH . 'lib/class-option-multicheck-categories.php' );
 require_once( TF_PATH . 'lib/class-option-multicheck-pages.php' );
 require_once( TF_PATH . 'lib/class-option-multicheck-posts.php' );
+require_once( TF_PATH . 'lib/class-option-multicheck-post-types.php' );
 require_once( TF_PATH . 'lib/class-option-note.php' );
 require_once( TF_PATH . 'lib/class-option-number.php' );
 require_once( TF_PATH . 'lib/class-option-radio.php' );
 require_once( TF_PATH . 'lib/class-option-radio-image.php' );
 require_once( TF_PATH . 'lib/class-option-radio-palette.php' );
 require_once( TF_PATH . 'lib/class-option-save.php' );
+require_once( TF_PATH . 'lib/class-option-select.php' );
 require_once( TF_PATH . 'lib/class-option-select-categories.php' );
 require_once( TF_PATH . 'lib/class-option-select-pages.php' );
 require_once( TF_PATH . 'lib/class-option-select-posts.php' );
-require_once( TF_PATH . 'lib/class-option-select.php' );
+require_once( TF_PATH . 'lib/class-option-select-post-types.php' );
 require_once( TF_PATH . 'lib/class-option-separator.php' );
 require_once( TF_PATH . 'lib/class-option-sortable.php' );
 require_once( TF_PATH . 'lib/class-option-text.php' );
 require_once( TF_PATH . 'lib/class-option-textarea.php' );
 require_once( TF_PATH . 'lib/class-option-upload.php' );
+require_once( TF_PATH . 'lib/class-option-file.php' );
 require_once( TF_PATH . 'lib/class-titan-css.php' );
 require_once( TF_PATH . 'lib/class-titan-framework.php' );
 require_once( TF_PATH . 'lib/class-wp-customize-control.php' );
@@ -146,12 +149,14 @@ class TitanFrameworkPlugin {
 	 * @since 1.0
 	 * @access public
 	 *
-	 * @return void
+	 * @param array $plugins List of plugins loaded.
+	 *
+	 * @return array Modified list of plugins.
 	 *
 	 * @see	initially based on http://snippets.khromov.se/modify-wordpress-plugin-load-order/
 	 */
 	public function force_load_first( $plugins = null ) {
-		$plugins = $plugins == null ? (array) get_option( 'active_plugins' ) : $plugins;
+		$plugins = null === $plugins ? (array) get_option( 'active_plugins' ) : $plugins;
 
 		if ( ! empty( $plugins ) ) {
 			$index = array_search( TF_PLUGIN_BASENAME, $plugins );
@@ -177,7 +182,7 @@ class TitanFrameworkPlugin {
 	 * @return	array  The current array of links together with our additions
 	 **/
 	public function plugin_links( $plugin_meta, $plugin_file ) {
-		if ( TF_PLUGIN_BASENAME == $plugin_file ) {
+		if ( TF_PLUGIN_BASENAME === $plugin_file ) {
 			$plugin_meta[] = sprintf( "<a href='%s' target='_blank'>%s</a>",
 				'http://www.titanframework.net/docs',
 				__( 'Documentation', TF_I18NDOMAIN )

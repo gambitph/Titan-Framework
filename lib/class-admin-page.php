@@ -83,7 +83,7 @@ class TitanFrameworkAdminPage {
 		// Parent menu
 		if ( empty( $this->settings['parent'] ) ) {
 			$this->panelID = add_menu_page( $this->settings['name'],
-				$this->settings['name'],
+				$this->settings['title'],
 				$this->settings['capability'],
 				$this->settings['id'],
 				array( $this, 'createAdminPage' ),
@@ -93,7 +93,7 @@ class TitanFrameworkAdminPage {
 		} else {
 			$this->panelID = add_submenu_page( $this->settings['parent'],
 				$this->settings['name'],
-				$this->settings['name'],
+				$this->settings['title'],
 				$this->settings['capability'],
 				$this->settings['id'],
 			array( $this, 'createAdminPage' ) );
@@ -111,7 +111,7 @@ class TitanFrameworkAdminPage {
 
 
 	public function addTitanCreditText() {
-		echo __( "<em>Options Page Created with <a href='http://titanframework.net?utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>", TF_I18NDOMAIN );
+		return __( "<em>Options Page Created with <a href='http://titanframework.net?utm_source=admin&utm_medium=admin footer'>Titan Framework</a></em>", TF_I18NDOMAIN );
 	}
 
 
@@ -155,7 +155,7 @@ class TitanFrameworkAdminPage {
 					$this->save_single_option( $option );
 
 					if ( ! empty( $option->options ) ) {
-						foreach( $option->options as $group_option ) {
+						foreach ( $option->options as $group_option ) {
 							$this->save_single_option( $group_option );
 						}
 					}
@@ -166,7 +166,7 @@ class TitanFrameworkAdminPage {
 				$this->save_single_option( $option );
 
 				if ( ! empty( $option->options ) ) {
-					foreach( $option->options as $group_option ) {
+					foreach ( $option->options as $group_option ) {
 						$this->save_single_option( $group_option );
 					}
 				}
@@ -201,15 +201,14 @@ class TitanFrameworkAdminPage {
 				foreach ( $activeTab->options as $option ) {
 
 					if ( ! empty( $option->options ) ) {
-						foreach( $option->options as $group_option ) {
+						foreach ( $option->options as $group_option ) {
 
 							if ( ! empty( $group_option->settings['id'] ) ) {
 								$group_option->setValue( $group_option->settings['default'] );
 							}
-
 						}
 					}
-					
+
 					if ( empty( $option->settings['id'] ) ) {
 						continue;
 					}
@@ -221,12 +220,11 @@ class TitanFrameworkAdminPage {
 			foreach ( $this->options as $option ) {
 
 				if ( ! empty( $option->options ) ) {
-					foreach( $option->options as $group_option ) {
+					foreach ( $option->options as $group_option ) {
 
 						if ( ! empty( $group_option->settings['id'] ) ) {
 							$group_option->setValue( $group_option->settings['default'] );
 						}
-
 					}
 				}
 

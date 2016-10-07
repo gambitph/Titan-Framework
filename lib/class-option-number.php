@@ -81,6 +81,7 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 	public function enqueueSlider() {
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-slider' );
+		wp_enqueue_script( 'underscore' );
 	}
 
 
@@ -94,29 +95,37 @@ class TitanFrameworkOptionNumber extends TitanFrameworkOption {
 		?>
 		<script>
 		jQuery(document).ready(function($) {
-			"use strict";
+			'use strict';
 
-			$('.tf-number input[type=number]').each(function() {
-				if ( ! $(this).prev().is('.number-slider') ) {
+			$( '.tf-number input[type=number]' ).each(function() {
+				if ( ! $( this ).prev().is( '.number-slider' ) ) {
 					return;
 				}
-				$(this).prev().slider({
-					max: Number( $(this).attr('max') ),
-					min: Number( $(this).attr('min') ),
-					step: Number( $(this).attr('step') ),
-					value: Number( $(this).val() ),
-					animate: "fast",
+				$( this ).prev().slider( {
+					max: Number( $( this ).attr('max') ),
+					min: Number( $( this ).attr('min') ),
+					step: Number( $( this ).attr('step') ),
+					value: Number( $( this ).val() ),
+					animate: 'fast',
 					change: function( event, ui ) {
-						$(ui.handle).parent().next().val(ui.value).trigger('change');
+						var input = $( ui.handle ).parent().next();
+						if ( ui.value !== input.val() ) {
+							input.val( ui.value ).trigger( 'change' );
+						}
 					},
 					slide: function( event, ui ) {
-						$(ui.handle).parent().next().val(ui.value).trigger('change');
+						var input = $( ui.handle ).parent().next();
+						if ( ui.value !== input.val() ) {
+							input.val( ui.value ).trigger( 'change' );
+						}
 					}
-				}).disableSelection();
-			});
-			$('.tf-number input[type=number]').on('keyup', function() {
-				$(this).prev().slider('value', $(this).val());
-			});
+				} ).disableSelection();
+			} );
+			$( '.tf-number input[type=number]' ).on( 'keyup', _.debounce( function() {
+				if ( $( this ).prev().slider( 'value' ).toString() !== $( this ).val().toString() ) {
+					$( this ).prev().slider( 'value', $( this ).val() );
+				}
+			}, 500 ) );
 		});
 		</script>
 		<?php

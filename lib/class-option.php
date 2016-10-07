@@ -93,6 +93,13 @@ class TitanFrameworkOption {
 		'transport' => '',
 
 		'example' => '', // An example value for this field, will be displayed in a <code>
+
+		/**
+		 * (Optional) Sanitization callback function
+		 * @since 1.9.4
+		 * @var string
+		 */
+		'sanitize_callback' => '',
 	);
 
 	/**
@@ -272,6 +279,9 @@ class TitanFrameworkOption {
 	protected function echoOptionHeader( $showDesc = false ) {
 
 		if ( ! $this->echo_wrapper ) {
+			if ( $this->getHidden() ) {
+				echo '<div style="display: none;">';
+			}
 			return;
 		}
 
@@ -310,6 +320,9 @@ class TitanFrameworkOption {
 	protected function echoOptionHeaderBare() {
 
 		if ( ! $this->echo_wrapper ) {
+			if ( $this->getHidden() ) {
+				echo '<div style="display: none;">';
+			}
 			return;
 		}
 
@@ -338,6 +351,9 @@ class TitanFrameworkOption {
 	protected function echoOptionFooter( $showDesc = true ) {
 
 		if ( ! $this->echo_wrapper ) {
+			if ( $this->getHidden() ) {
+				echo '</div>';
+			}
 			return;
 		}
 
@@ -374,6 +390,9 @@ class TitanFrameworkOption {
 	protected function echoOptionFooterBare( $showDesc = true ) {
 
 		if ( ! $this->echo_wrapper ) {
+			if ( $this->getHidden() ) {
+				echo '</div>';
+			}
 			return;
 		}
 

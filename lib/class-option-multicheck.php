@@ -6,7 +6,25 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 
 	public $defaultSecondarySettings = array(
 		'options' => array(),
+		'select_all' => false,
 	);
+
+	/**
+	 * Constructor
+	 *
+	 * @param array  $settings Option settings
+	 * @param string $owner    Namespace
+	 *
+	 * @since 1.11
+	 */
+	function __construct( $settings, $owner ) {
+		parent::__construct( $settings, $owner );
+
+		tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'load_select_scripts' ) );
+		tf_add_action_once( 'customize_controls_enqueue_scripts', array( $this, 'load_select_scripts' ) );
+
+	}
+
 
 	/*
 	 * Display for options and meta
@@ -18,7 +36,18 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 
 		$savedValue = $this->getValue();
 
+		if ( ! empty( $this->settings['select_all'] ) ) {
+			$select_all_label = __( 'Select All' );
+			if ( is_string(  $this->settings['select_all'] ) ) {
+				$select_all_label = $this->settings['select_all'];
+			}
+			printf('<label style="margin-bottom: 1em !important;"><input class="tf_checkbox_selectall" type="checkbox" /> %s </label><br>',
+				esc_html( $select_all_label )
+			);
+		}
+
 		foreach ( $this->settings['options'] as $value => $label ) {
+
 			printf('<label for="%s"><input id="%s" type="checkbox" name="%s[]" value="%s" %s/> %s</label><br>',
 				$this->getID() . $value,
 				$this->getID() . $value,
@@ -32,6 +61,19 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 		echo '</fieldset>';
 
 		$this->echoOptionFooter( false );
+
+	}
+
+	/**
+	 * Load the multicheck-selectall script
+	 *
+	 * @since 1.11
+	 * @return void
+	 */
+	public function load_select_scripts() {
+
+		wp_enqueue_script( 'tf-multicheck-select-all', TitanFramework::getURL( '../js/multicheck-select-all.js', __FILE__ ), array( 'jquery' ), TF_VERSION, true );
+
 	}
 
 	public function cleanValueForSaving( $value ) {
@@ -73,6 +115,7 @@ class TitanFrameworkOptionMulticheck extends TitanFrameworkOption {
 			'settings' => $this->getID(),
 			'description' => $this->settings['desc'],
 			'options' => $this->settings['options'],
+			'select_all' => $this->settings['select_all'],
 			'priority' => $priority,
 		) ) );
 	}
@@ -87,6 +130,7 @@ function registerTitanFrameworkOptionMulticheckControl() {
 	class TitanFrameworkOptionMulticheckControl extends WP_Customize_Control {
 		public $description;
 		public $options;
+		public $select_all;
 
 		private static $firstLoad = true;
 
@@ -140,6 +184,17 @@ function registerTitanFrameworkOptionMulticheckControl() {
 				<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
 				<?php
 				echo $description;
+
+				if ( ! empty( $this->select_all ) ) {
+					$select_all_label = __( 'Select All' );
+					if ( is_string( $this->select_all ) ) {
+						$select_all_label = $this->select_all;
+					}
+					printf('<label style="margin-bottom: 1em !important; display: inline-block;"><input class="tf_checkbox_selectall" type="checkbox" /> %s </label><br>',
+						esc_html( $select_all_label )
+					);
+				}
+
 				foreach ( $this->options as $value => $label ) {
 					printf('<label for="%s"><input class="tf-multicheck" id="%s" type="checkbox" value="%s" %s/> %s</label><br>',
 						$this->id . $value,

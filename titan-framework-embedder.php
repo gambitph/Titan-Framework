@@ -14,8 +14,12 @@
  *
  * For more details on embedding, read our docs:
  * http://www.titanframework.net/embedding-titan-framework-in-your-project/
+ *
+ * @package Titan Framework
  */
 
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
+}
 
 if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 
@@ -35,10 +39,10 @@ if ( ! class_exists( 'TitanFrameworkEmbedder' ) ) {
 		 */
 		function __construct() {
 			// Don't do anything when we're activating a plugin to prevent errors
-			// on redeclaring Titan classes
+			// on redeclaring Titan classes.
 			if ( is_admin() ) {
-				if ( ! empty( $_GET['action'] ) && ! empty( $_GET['plugin'] ) ) {
-				    if ( $_GET['action'] == 'activate' ) {
+				if ( ! empty( $_GET['action'] ) && ! empty( $_GET['plugin'] ) ) { // Input var: okay.
+				    if ( 'activate' === $_GET['action'] ) { // Input var: okay.
 				        return;
 				    }
 				}
