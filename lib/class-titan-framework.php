@@ -22,6 +22,12 @@ class TitanFramework {
 	 */
 	private static $instances = array();
 
+  /**
+   * The current blog id
+   * @var string 
+   */
+  private $blogId;
+  
 	/**
 	 * The current option namespace.
 	 * Options will be prefixed with this in the database
@@ -143,6 +149,9 @@ class TitanFramework {
 	 */
 	function __construct( $optionNamespace ) {
 
+    // Set current blog 
+    $this->blogId = get_current_blog_id();
+    
 		// Clean namespace.
 		$optionNamespace = str_replace( ' ', '-', trim( strtolower( $optionNamespace ) ) );
 
@@ -227,7 +236,9 @@ class TitanFramework {
 	 * @return array All admin options currently in the instance
 	 */
 	protected function getInternalAdminOptions() {
-		if ( empty( $this->adminOptions ) ) {
+    
+    // Reload options if blog has been switched
+		if ( empty( $this->adminOptions ) || get_current_blog_id() !== $this->blogId ) {
 			$this->adminOptions = array();
 		}
 
