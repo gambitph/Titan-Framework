@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 4.1
 Tested up to: 4.6
-Stable tag: 1.10
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,7 +66,9 @@ The generated theme comes with sample pre-created options in the admin and theme
 * EDD License (Easy Digital Downloads license)
 * Editor (WYSIWYG)
 * Enable
+* File upload
 * Font Style (Web safe fonts and Google WebFonts)
+* Gallery
 * Group
 * Heading
 * Iframe
@@ -142,6 +144,15 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 2.0 =
+* New: Added custom font in Theme Customizer
+* New: Added File Upload option
+* New: Added select_all in multicheck option
+* New: Added em in font size
+* Enhanced: Tabs color is changed, and the gap between tabs and panel is removed
+* Enhanced: Allow svg file in upload option
+* Fixed: Gallery option
 
 = 1.10 =
 * New: Added new options multicheck-post-types and select-post-types
