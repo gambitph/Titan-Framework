@@ -79,6 +79,7 @@ class TitanFrameworkAdminPage {
 		return $this->owner->createAdminPanel( $settings );
 	}
 
+	public function createSampleContentPage( $settings ) {
 		$settings['parent'] = $this->settings['id'];
 		return $this->owner->createSamplePanel( $settings );
 	}

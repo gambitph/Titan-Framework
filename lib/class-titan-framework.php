@@ -359,6 +359,7 @@ class TitanFramework {
  	 *
 	 *	@return TitanFrameworkAdminPage The created sample coennt page.
 	 */
+	public function createSampleContentPage( $settings ) {
 		$settings['type'] = 'sample-panel';
 		return $this->createContainer( $settings );
 	}
