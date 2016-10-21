@@ -79,6 +79,10 @@ class TitanFrameworkAdminPage {
 		return $this->owner->createAdminPanel( $settings );
 	}
 
+		$settings['parent'] = $this->settings['id'];
+		return $this->owner->createSamplePanel( $settings );
+	}
+
 	public function register() {
 		// Parent menu
 		if ( empty( $this->settings['parent'] ) ) {

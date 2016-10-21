@@ -24,10 +24,10 @@ class TitanFramework {
 
   /**
    * The current blog id
-   * @var string 
+   * @var string
    */
   private $blogId;
-  
+
 	/**
 	 * The current option namespace.
 	 * Options will be prefixed with this in the database
@@ -149,9 +149,9 @@ class TitanFramework {
 	 */
 	function __construct( $optionNamespace ) {
 
-    // Set current blog 
+    // Set current blog
     $this->blogId = get_current_blog_id();
-    
+
 		// Clean namespace.
 		$optionNamespace = str_replace( ' ', '-', trim( strtolower( $optionNamespace ) ) );
 
@@ -236,7 +236,7 @@ class TitanFramework {
 	 * @return array All admin options currently in the instance
 	 */
 	protected function getInternalAdminOptions() {
-    
+
     // Reload options if blog has been switched
 		if ( empty( $this->adminOptions ) || get_current_blog_id() !== $this->blogId ) {
 			$this->adminOptions = array();
@@ -346,6 +346,21 @@ class TitanFramework {
 	public function createAdminPanel( $settings ) {
 		// _deprecated_function( __FUNCTION__, '1.9', 'createAdminPage' );
 		return $this->createAdminPage( $settings );
+	}
+
+
+	/**
+	 *	Create a sample content only.
+ 	 * Use createSampleContent() with 'type' => 'sample-panel' or createSamplePanel() instead.
+	 *
+	 * @since 2.0
+   *
+ 	 * @param array $settings The arguments for creating the sample conent page.
+ 	 *
+	 *	@return TitanFrameworkAdminPage The created sample coennt page.
+	 */
+		$settings['type'] = 'sample-panel';
+		return $this->createContainer( $settings );
 	}
 
 
