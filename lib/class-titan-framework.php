@@ -353,7 +353,7 @@ class TitanFramework {
 	 *	Create a sample content only.
  	 * Use createSampleContent() with 'type' => 'sample-panel' or createSamplePanel() instead.
 	 *
-	 * @since 2.0
+	 * @since 1.11
    *
  	 * @param array $settings The arguments for creating the sample conent page.
  	 *

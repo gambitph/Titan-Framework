@@ -3,8 +3,8 @@ Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 4.1
-Tested up to: 4.6
-Stable tag: 2.0
+Tested up to: 4.6.1
+Stable tag: 1.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -145,11 +145,12 @@ and to everyone else in the GitHub repo!
 
 == Changelog ==
 
-= 2.0 =
+= 1.11 =
 * New: Added custom font in Theme Customizer
 * New: Added File Upload option
 * New: Added select_all in multicheck option
 * New: Added em in font size
+* New: Sample Content Extension support
 * Enhanced: Tabs color is changed, and the gap between tabs and panel is removed
 * Enhanced: Allow svg file in upload option
 * Fixed: Gallery option
