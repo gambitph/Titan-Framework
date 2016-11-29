@@ -12,6 +12,7 @@ class TitanFrameworkMetaBox {
 		// 'icon' => 'dashicons-admin-generic', // Menu icon for top level menus only
 		// 'position' => 100.01 // Menu position for top level menus only
 		'post_type' => 'page', // Post type, can be an array of post types
+		'page_template' => '', // if page template is selected, just will be show on that page
 		'context' => 'normal', // normal, advanced, or side
 		'hide_custom_fields' => true, // If true, the custom fields box will not be shown
 		'priority' => 'high', // high, core, default, low
@@ -49,6 +50,12 @@ class TitanFrameworkMetaBox {
 	}
 
 	public function register() {
+		if(!empty($this->settings['page_template']))
+		{
+			 $page_template = get_page_template_slug( get_queried_object_id() );
+			if($page_template!=$this->settings['page_template'])	
+				return false;
+		}			
 		$postTypes = array();
 
 		// accomodate multiple post types
@@ -76,6 +83,13 @@ class TitanFrameworkMetaBox {
 	}
 
 	public function display( $post ) {
+		if(!empty($this->settings['page_template']))
+		{
+			//echo $this->settings['page_template'];
+			 $page_template = get_page_template_slug( get_queried_object_id() );
+			if($page_template!=$this->settings['page_template'])	
+				return false;
+		}			
 		$this->postID = $post->ID;
 
 		wp_nonce_field( $this->settings['id'], TF . '_' . $this->settings['id'] . '_nonce' );
