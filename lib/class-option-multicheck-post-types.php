@@ -55,7 +55,7 @@ class TitanFrameworkOptionMulticheckPostTypes extends TitanFrameworkOptionMultic
 
 			$name = $post_type->name;
 			if ( ! empty( $post_type->labels->singular_name ) ) {
-				$name = $post_type->labels->singular_name . ' (' . $slugname . ')';
+				$name = $post_type->labels->singular_name . $slugname;
 			}
 
 			$this->settings['options'][ $slug ] = $name;
