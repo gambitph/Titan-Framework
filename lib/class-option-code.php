@@ -87,7 +87,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 			return;
 		}
 
-		// For CSS langs only
+		// For JavaScripts only
 		if ( $this->settings['lang'] != 'javascript' ) {
 			return;
 		}
@@ -161,7 +161,7 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 		}
 
 		// For CSS langs only
-		if ( $this->settings['lang'] != 'css' ) {
+		if ( $this->settings['lang'] != 'css' || $this->settings['lang'] != 'scss' ) {
 			return;
 		}
 
@@ -198,6 +198,11 @@ class TitanFrameworkOptionCode extends TitanFrameworkOption {
 	 * @since	1.3
 	 */
 	public function generateCSSCode( $css, $option ) {
+		// For CSS langs only
+		if ( $this->settings['lang'] != 'css' || $this->settings['lang'] != 'scss' ) {
+			return;
+		}
+		
 		if ( $this->settings['id'] != $option->settings['id'] ) {
 			return $css;
 		}
