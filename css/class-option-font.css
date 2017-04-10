@@ -1,5 +1,6 @@
 .tf-upload .tf-image-preview, .tf-upload .tf-image-preview:before,
-.tf-gallery .tf-image-preview, .tf-gallery .tf-image-preview:before {
+.tf-gallery .tf-image-preview, .tf-gallery .tf-image-preview:before,
+.tf-file .tf-file-upload {
 	-webkit-transition: all .3s;
 	   -moz-transition: all .3s;
 	    -ms-transition: all .3s;
@@ -65,6 +66,7 @@
 	top: 0;
 	border: 1px solid #DDD;
 	right: 0;
+	height: auto;
 }
 .tf-upload .tf-image-preview img,
 .tf-gallery .tf-image-preview img {

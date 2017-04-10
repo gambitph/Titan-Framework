@@ -1,0 +1,45 @@
+{
+  "name": "Titan Framework",
+  "version": "1.9.2",
+  "homepage": "http://titanframework.net",
+  "authors": [
+    "Benjamin Intal <bfintal@gmail.com>"
+  ],
+  "description": "Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.",
+  "main": "titan-framework.php",
+  "keywords": [
+    "framework",
+    "options",
+    "admin",
+    "admin",
+    "panel",
+    "meta",
+    "box",
+    "theme",
+    "customizer",
+    "option",
+    "framework",
+    "library",
+    "sdk",
+    "edd",
+    "settings",
+    "api",
+    "theme",
+    "creator",
+    "theme",
+    "framework"
+  ],
+  "license": "GPLv2 or later",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ace-builds": "~1.2",
+    "wp-color-picker-alpha": "23r9i0/wp-color-picker-alpha",
+	"jqueryui-timepicker-addon": "~1.5"
+  }
+}
