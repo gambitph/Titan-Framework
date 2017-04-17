@@ -2,6 +2,8 @@
 Titan Framework
 =======
 
+[![Join the chat at https://gitter.im/gambitph/Titan-Framework](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gambitph/Titan-Framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
 [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
 [![Build Status](https://travis-ci.org/gambitph/Titan-Framework.svg?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
