@@ -25,3 +25,4 @@ npm-debug.log
 coverage
 coverage.clover
 /dist
+.idea/
