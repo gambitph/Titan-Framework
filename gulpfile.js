@@ -22,7 +22,7 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
 	sourcemaps = require('gulp-sourcemaps'), // Creates sourcemap .map files for css
-	cmq = require('gulp-combine-media-queries'), // Combines media queries together
+	gcmq = require( 'gulp-group-css-media-queries' ),
 
 	// Javascript compilation
     jshint = require('gulp-jshint'),
@@ -166,7 +166,7 @@ gulp.task('styles', function () {
 	    this.emit( 'end' );
 	})
 	.pipe( autoprefixer( 'last 2 version' ) )
-	.pipe( cmq() )
+	.pipe( gcmq() )
 	.pipe( minifycss() )
 	// For file sourcemaps
     .pipe( sourcemaps.write( 'maps', {
