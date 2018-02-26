@@ -146,11 +146,17 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 	 * @since	1.0
 	 */
 	public function getDateValueInTime() {
-            if ( empty( $this->getValue() ) ) {
-                return '';
-            }
-            return strtotime($this->getValue());
-        }
+		if ( empty( $this->getValue() ) ) {
+		    return '';
+		}
+
+		$pos = strpos($this->getValue(), '-');
+		if ($pos !== false) {
+		    return strtotime($this->getValue());
+		}
+
+		return $this->getValue();
+	}
 
 
 	/**
