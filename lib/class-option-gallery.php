@@ -24,8 +24,20 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption
     function __construct($settings, $owner)
     {
         parent::__construct($settings, $owner);
+
+        tf_add_action_once( 'admin_enqueue_scripts', array( $this, 'enqueuejQueryUI' ) );
     }
 
+    /**
+     * Enqueues the jQuery UI scripts
+     *
+     * @return	void
+     * @since	1.11
+     */
+    public function enqueuejQueryUI() {
+        wp_enqueue_script('jquery-ui-core' );
+        wp_enqueue_script('jquery-ui-sortable' );
+    }
 
     /*
      * Display for options and meta.
@@ -64,7 +76,7 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption
                 }
 
                 $previewImage = "<i class='dashicons dashicons-no-alt remove'></i><img style='max-width: 150px; max-height: 150px; margin-top: 0px; margin-left: 0px;' src='" . esc_url($v) . "' style='display: none'/>";
-                echo "<div data-attachment-id=" . $value . " class='thumbnail used-thumbnail tf-image-preview'>" . $previewImage . '</div>';
+                echo "<div data-attachment-id=" . $value . " class='sortable-gallery-item thumbnail used-thumbnail tf-image-preview'>" . $previewImage . '</div>';
             }
         }
         echo "<div class='thumbnail tf-image-preview'></div>";
@@ -90,6 +102,32 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption
         <script>
             jQuery(document).ready(function ($) {
                 "use strict";
+
+                function tfGalleryItemSortable() {
+                    $( '.tf-gallery' ).sortable({
+                        items: "div.sortable-gallery-item",
+                        placeholder: ".tf-gallery",
+                        opacity: 0.5,
+                        start: function(evt, ui) {
+
+                        },
+                        stop: function(evt, ui) {
+                            tfUpdateGalleryItemSorting(evt, ui);
+                        }
+                    });
+                }
+
+                function tfUpdateGalleryItemSorting(evt, ui) {
+                    var _preview = ui.item.parents('.tf-gallery');
+                    var _input = _preview.find('input');
+
+                    var $attachments_str = [];
+                    _preview.find('.used-thumbnail').each(function (i, object) {
+                        $attachments_str.push($(object).attr('data-attachment-id'));
+                    });
+                    _input.val($attachments_str.join(','));
+                    _input.trigger('change');
+                }
 
                 function tfUploadOptionCenterImage($this) {
                     var _preview = $this.parents('.tf-gallery').find('.thumbnail');
@@ -178,9 +216,10 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption
                             // var marginTop = ( _preview.height() - image.height ) / 2;
                             // var marginLeft = ( _preview.width() - image.width ) / 2;
 
-                            $("<div data-attachment-id='" + attachment.id + "' class='thumbnail used-thumbnail tf-image-preview'><i class='dashicons dashicons-no-alt remove'></i><img style='max-width: 150px; max-height: 150px; margin-top: 0px; margin-left: 0px;' src='" + url + "'/></div>").insertBefore(_preview);
+                            $("<div data-attachment-id='" + attachment.id + "' class='sortable-gallery-item thumbnail used-thumbnail tf-image-preview'><i class='dashicons dashicons-no-alt remove'></i><img style='max-width: 150px; max-height: 150px; margin-top: 0px; margin-left: 0px;' src='" + url + "'/></div>").insertBefore(_preview);
 
                             _remove.show();
+                            tfGalleryItemSortable();
                         });
 
                         frame.off('select');
@@ -205,6 +244,8 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption
 
                     return false;
                 });
+
+                tfGalleryItemSortable();
             });
         </script>
         <?php
