@@ -652,7 +652,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		$visibilityAttrs = '';
 		if ( ! $this->settings['show_color'] ) {
-			$visibilityAttrs = "data-visible='false' style='display: BLOCK'";
+			$visibilityAttrs = "data-visible='false' style='display: block'";
 		}
 		?>
 		<label <?php echo $visibilityAttrs ?>>
