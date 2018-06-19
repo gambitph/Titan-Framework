@@ -170,15 +170,9 @@
 	margin: 0 5px;
 }
 .tf-font label.tf-picker-open {
-	/* color: #fcfcfc; */
 	background: transparent;
 	border-color: transparent;
-	/* margin-left: -10px; */
 	position: relative;
-}
-.tf-font label.tf-picker-open .wp-picker-container {
-	/* position: absolute;
-	left: 10px; */
 }
 .tf-font label.tf-picker-open .wp-picker-container .wp-color-result {
 	margin-left: 0;
