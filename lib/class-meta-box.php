@@ -50,12 +50,13 @@ class TitanFrameworkMetaBox {
 	}
 
 	public function register() {
-		if(!empty($this->settings['page_template']))
-		{
-			 $page_template = get_page_template_slug( get_queried_object_id() );
-			if($page_template!=$this->settings['page_template'])	
+		if ( ! empty( $this->settings['page_template'] ) ) {
+			$page_template = get_page_template_slug( get_queried_object_id() );
+			if ( $page_template !== $this->settings['page_template'] ) {
 				return false;
-		}			
+			}
+		}
+
 		$postTypes = array();
 
 		// accomodate multiple post types
@@ -83,13 +84,12 @@ class TitanFrameworkMetaBox {
 	}
 
 	public function display( $post ) {
-		if(!empty($this->settings['page_template']))
-		{
-			//echo $this->settings['page_template'];
-			 $page_template = get_page_template_slug( get_queried_object_id() );
-			if($page_template!=$this->settings['page_template'])	
+		if ( ! empty( $this->settings['page_template'] ) ) {
+			$page_template = get_page_template_slug( get_queried_object_id() );
+			if ( $page_template !== $this->settings['page_template'] ) {
 				return false;
-		}			
+			}
+		}
 		$this->postID = $post->ID;
 
 		wp_nonce_field( $this->settings['id'], TF . '_' . $this->settings['id'] . '_nonce' );

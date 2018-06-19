@@ -146,6 +146,7 @@ and to everyone else in the GitHub repo!
 == Changelog ==
 
 = 1.12 =
+* New: Added `page_template` parameter for meta boxes.
 * Fixed: Error with the color picker option (and options that use the color picker) in WP 4.9
 * Fixed: PHP warning when reseting font options
 
