@@ -484,12 +484,12 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 				 || $container.find('.tf-font-sel-location').parents('label:eq(0)').attr('data-visible') == 'false' ) {
 				$container.find(".tf-font-sel-distance").parents('label:eq(0)').fadeOut();
 				$container.find(".tf-font-sel-blur").parents('label:eq(0)').fadeOut();
-				$container.find(".tf-font-sel-shadow-color").parents('label:eq(0)').fadeOut();
+				$container.find(".tf-font-sel-shadow-color").parents('.wp-picker-container').parents('label:eq(0)').fadeOut();
 				$container.find(".tf-font-sel-opacity").parents('label:eq(0)').fadeOut();
 			} else {
 				$container.find(".tf-font-sel-distance").parents('label:eq(0)').fadeIn();
 				$container.find(".tf-font-sel-blur").parents('label:eq(0)').fadeIn();
-				$container.find(".tf-font-sel-shadow-color").parents('label:eq(0)').fadeIn();
+				$container.find(".tf-font-sel-shadow-color").parents('.wp-picker-container').parents('label:eq(0)').fadeIn();
 				$container.find(".tf-font-sel-opacity").parents('label:eq(0)').fadeIn();
 			}
 
