@@ -12,7 +12,7 @@ Plugin Name: Titan Framework
 Plugin URI: http://www.titanframework.net/
 Description: Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.
 Author: Benjamin Intal, Gambit
-Version: 1.11
+Version: 1.12
 Author URI: http://gambit.ph
  */
 
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly.
 }
 
 // Used for tracking the version used.
-defined( 'TF_VERSION' ) or define( 'TF_VERSION', '1.11' );
+defined( 'TF_VERSION' ) or define( 'TF_VERSION', '1.12' );
 // Used for text domains.
 defined( 'TF_I18NDOMAIN' ) or define( 'TF_I18NDOMAIN', 'titan-framework' );
 // Used for general naming, e.g. nonces.

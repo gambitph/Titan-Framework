@@ -3,8 +3,8 @@ Contributors: bfintal
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=D2MK28E7BDLHC
 Tags: framework, options, admin, admin panel, meta box, theme customizer, option framework, library, sdk, edd, settings, api, theme creator, theme framework
 Requires at least: 4.1
-Tested up to: 4.6.1
-Stable tag: 1.11
+Tested up to: 4.9.6
+Stable tag: 1.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -144,6 +144,10 @@ and to everyone else in the GitHub repo!
 4. Sample code on how to create admin pages and options
 
 == Changelog ==
+
+= 1.12 =
+* Fixed: Error with the color picker option (and options that use the color picker) in WP 4.9
+* Fixed: PHP warning when reseting font options
 
 = 1.11 =
 * New: Added custom font in Theme Customizer
