@@ -379,8 +379,15 @@
 	line-height: 28px;
 	height: 28px;
 	margin: 1px;
+	display: inline-block;
 }
-
+.tf-font .wp-picker-container.wp-picker-active .wp-picker-input-wrap label {
+	border: none;
+	padding: 0;
+}
+.tf-font .wp-picker-container.wp-picker-active .wp-picker-default {
+	 margin: 1px 2px 2px 3px;
+}
 .tf-font .wp-picker-container > a {
 	margin: 2px 7px 2px 10px;
 }
@@ -421,6 +428,12 @@
 
 .tf-font .wp-picker-container {
 	z-index: 9;
+}
+
+.tf-font .wp-picker-container .wp-color-result.button {
+	margin-left: 10px;
+	top: 1px;
+	position: relative;
 }
 
 .dashicons-visibility-faint:before {
