@@ -264,6 +264,9 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 		// If the value is blank, use the defaults
 		$value = $this->getValue();
+		if ( empty( $value ) ) {
+			$value = array();
+		}
 		$value = array_merge( self::$defaultStyling, $value );
 
 		foreach ( $value as $key => $val ) {
