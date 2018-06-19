@@ -61,7 +61,6 @@
     "gulp-rsync": "0.0.7",
     "gulp-ruby-sass": "^1.4.0",
     "gulp-run": "^1.6.10",
-    "gulp-sass": "^2.0.4",
     "gulp-scp2": "^0.2.0",
     "gulp-shell": "^0.4.3",
     "gulp-sort": "^1.1.1",
