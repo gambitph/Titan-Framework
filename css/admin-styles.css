@@ -430,6 +430,12 @@
 	z-index: 9;
 }
 
+.tf-font .wp-picker-container .wp-color-result.button {
+	margin-left: 10px;
+	top: 1px;
+	position: relative;
+}
+
 .dashicons-visibility-faint:before {
 	opacity: .2;
 }
