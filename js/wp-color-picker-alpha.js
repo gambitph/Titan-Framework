@@ -21,7 +21,7 @@
 		_wrap = '<div class="wp-picker-container" />',
 		_button = '<input type="button" class="button button-small" />',
 		// Prevent CSS issues in < WordPress 4.9
-		_deprecated = ( wpColorPickerL10n.current !== undefined );
+		_deprecated = ( wpColorPickerL10n.current !== undefined && wpColorPickerL10n.clearAriaLabel !== undefined && wpColorPickerL10n.defaultAriaLabel !== undefined );
 		// Declare some global variables when is deprecated or not
 		if ( _deprecated ) {
 			var _before = '<a tabindex="0" class="wp-color-result" />';
