@@ -6,6 +6,7 @@ class TitanFrameworkAdminPage {
 
 	private $defaultSettings = array(
 		'name' => '', // Name of the menu item
+		'menu_title' => '', // Title of the menu item
 		'title' => '', // Title displayed on the top of the admin panel
 		'parent' => null, // id of parent, if blank, then this is a top level menu
 		'id' => '', // Unique ID of the menu item
@@ -41,6 +42,10 @@ class TitanFrameworkAdminPage {
 
 		if ( empty( $this->settings['title'] ) ) {
 			$this->settings['title'] = $this->settings['name'];
+		}
+
+		if ( empty( $this->settings['menu_title'] ) ) {
+			$this->settings['menu_title'] = $this->settings['title'];
 		}
 
 		if ( empty( $this->settings['id'] ) ) {
@@ -88,7 +93,7 @@ class TitanFrameworkAdminPage {
 		// Parent menu
 		if ( empty( $this->settings['parent'] ) ) {
 			$this->panelID = add_menu_page( $this->settings['name'],
-				$this->settings['title'],
+				$this->settings['menu_title'],
 				$this->settings['capability'],
 				$this->settings['id'],
 				array( $this, 'createAdminPage' ),
@@ -98,7 +103,7 @@ class TitanFrameworkAdminPage {
 		} else {
 			$this->panelID = add_submenu_page( $this->settings['parent'],
 				$this->settings['name'],
-				$this->settings['title'],
+				$this->settings['menu_title'],
 				$this->settings['capability'],
 				$this->settings['id'],
 			array( $this, 'createAdminPage' ) );
