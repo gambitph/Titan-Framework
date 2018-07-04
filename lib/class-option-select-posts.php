@@ -11,7 +11,7 @@ class TitanFrameworkOptionSelectPosts extends TitanFrameworkOptionSelect {
 		'post_status' => 'any',
 		'orderby' => 'post_date',
 		'order' => 'DESC',
-    'query_args' => null 
+		'query_args' => null,
 	);
 
 
@@ -24,19 +24,18 @@ class TitanFrameworkOptionSelectPosts extends TitanFrameworkOptionSelect {
 	 */
 	public function create_select_options() {
     
-    if (isset($this->settings['query_args']) && is_array($this->settings['query_args']) && !empty($this->settings['query_args'])) { 
-      $args = $this->settings['query_args'];
-    } else {
-    
-      $args = array(
-        'post_type' => $this->settings['post_type'],
-        'posts_per_page' => $this->settings['num'],
-        'post_status' => $this->settings['post_status'],
-        'orderby' => $this->settings['orderby'],
-        'order' => $this->settings['order'],
-      );
+		if ( ! empty( $this->settings['query_args'] ) ) {
+			$args = $this->settings['query_args'];
 
-    }
+		} else {
+			$args = array(
+				'post_type' => $this->settings['post_type'],
+				'posts_per_page' => $this->settings['num'],
+				'post_status' => $this->settings['post_status'],
+				'orderby' => $this->settings['orderby'],
+				'order' => $this->settings['order'],
+			);
+		}
       
 		$posts = get_posts( $args );
 
