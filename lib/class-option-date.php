@@ -146,11 +146,11 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 	 * @since	1.0
 	 */
 	public function getDateValueInTime() {
-            if ( empty( $this->getValue() ) ) {
-                return '';
-            }
-            return strtotime($this->getValue());
-        }
+		if ( empty( $this->getValue() ) ) {
+			return '';
+		}
+		return strtotime( $this->getValue() );
+	}
 
 
 	/**
@@ -177,7 +177,7 @@ class TitanFrameworkOptionDate extends TitanFrameworkOption {
 			$this->getID(),
 			$placeholder,
 			$this->getID(),
-			esc_attr( ($this->getValue() > 0) ? date( $dateFormat, $this->getDateValueInTime() ) : '' ),
+			esc_attr( $this->getValue() > 0 ? date( $dateFormat, $this->getDateValueInTime() ) : '' ),
 			$this->settings['desc']
 		);
 		$this->echoOptionFooter( false );
