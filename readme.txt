@@ -145,6 +145,12 @@ and to everyone else in the GitHub repo!
 
 == Changelog ==
 
+= 1.12.2 =
+* New: Added support for `menu_title` argument on AdminPage
+* New: Adds `query_args` argument to select-posts
+* Fixed: Quick edit ajax saving with a post meta box added results in a forbidden error
+* Fixed: Date type default value non well formed
+
 = 1.12.1 =
 * Fixed: Compatibility of the color picker with NextGEN Gallery
 
