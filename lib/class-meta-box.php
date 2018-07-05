@@ -175,7 +175,14 @@ class TitanFrameworkMetaBox {
 		}
 
 		// Verify our nonce
-		if ( ! check_admin_referer( $this->settings['id'], TF . '_' . $this->settings['id'] . '_nonce' ) ) {
+		// Verify ajax via quick edits.
+		if ( ! empty( $_POST[ '_inline_edit' ] ) ) {
+			if ( ! check_ajax_referer( 'inlineeditnonce', '_inline_edit' ) ) {
+				return false;
+			}
+
+		// Verify our nonces
+		} else if ( ! check_admin_referer( $this->settings['id'], TF . '_' . $this->settings['id'] . '_nonce' ) ) {
 			return false;
 		}
 
