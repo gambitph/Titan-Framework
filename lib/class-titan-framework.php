@@ -336,7 +336,7 @@ class TitanFramework {
 	/**
 	 * Create a admin page
 	 *
-	 * @deprecated 1.9 Use createContainer() with 'type' => 'admin-page' or createAdminPanel() instead.
+	 * @deprecated 1.9 Use createContainer() with 'type' => 'admin-page' or createAdminPage() instead.
 	 * @since 1.0
 	 *
 	 * @param array $settings The arguments for creating the admin page.
