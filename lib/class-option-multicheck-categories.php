@@ -11,7 +11,11 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
 		'taxonomy' => 'category',
 		'hide_empty' => false,
 		'show_count' => false,
-		'select_all' => false
+		'select_all' => false,
+        'include' => false,
+        'exclude' => false,
+        'number' => 0,
+        'parent' => '',
 	);
 
 	/*
@@ -23,6 +27,10 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
 			'order' => $this->settings['order'],
 			'taxonomy' => $this->settings['taxonomy'],
 			'hide_empty' => $this->settings['hide_empty'] ? '1' : '0',
+            'include' => $this->settings['include'] ? $this->settings['include'] : array(),
+            'exclude' => $this->settings['exclude'] ? $this->settings['exclude'] : array(),
+            'number' => $this->settings['number'] ? $this->settings['number'] : 0,
+            'parent' => $this->settings['parent'] ? $this->settings['parent'] : '',
 		);
 
 		$categories = get_categories( $args );
@@ -44,6 +52,10 @@ class TitanFrameworkOptionMulticheckCategories extends TitanFrameworkOptionMulti
 			'order' => $this->settings['order'],
 			'taxonomy' => $this->settings['taxonomy'],
 			'hide_empty' => $this->settings['hide_empty'] ? '1' : '0',
+            'include' => $this->settings['include'] ? $this->settings['include'] : array(),
+            'exclude' => $this->settings['exclude'] ? $this->settings['exclude'] : array(),
+            'number' => $this->settings['number'] ? $this->settings['number'] : 0,
+            'parent' => $this->settings['parent'] ? $this->settings['parent'] : '',
 		);
 
 		$categories = get_categories( $args );
