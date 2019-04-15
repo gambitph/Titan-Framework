@@ -99,7 +99,11 @@ class TitanFrameworkCSS {
 			$generatedCss = $this->getCSSFilePath();
 
 			if ( file_exists( $generatedCss ) && empty( $css ) ) {
-				wp_enqueue_style( 'tf-compiled-options-' . $this->frameworkInstance->optionNamespace, $this->getCSSFileURL(), __FILE__ );
+				wp_enqueue_style(
+					'tf-compiled-options-' . $this->frameworkInstance->optionNamespace, 
+					$this->getCSSFileURL(), 
+					apply_filters( 'tf_css_deps_' . $this->frameworkInstance->optionNamespace, array() )
+				);
 			}
 		}
 	}
