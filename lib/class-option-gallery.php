@@ -145,7 +145,20 @@ class TitanFrameworkOptionGallery extends TitanFrameworkOption {
 					library: { type: 'image' },
 					button : { text : '<?php esc_html_e( 'Use image', TF_I18NDOMAIN ) ?>' }
 				});
+				frame.on('open',function() {
 
+				    var selection = frame.state().get('selection');
+				    if(_input.val()!="")
+				    {
+					var ids = _input.val().split(',');
+					ids.forEach(function(id) {
+					    var attachment = wp.media.attachment(id);
+					    attachment.fetch();
+					    selection.add( attachment ? [ attachment ] : [] );
+					});
+				    }
+
+				});
 				// Get the url when done.
 				frame.on('select', function() {
 					var selection = frame.state().get('selection');
