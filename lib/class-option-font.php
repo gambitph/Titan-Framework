@@ -57,20 +57,20 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 
 	// The list of web safe fonts
 	public static $webSafeFonts = array(
-		'Arial, Helvetica, sans-serif' => 'Arial',
-		'"Arial Black", Gadget, sans-serif' => 'Arial Black',
-		'"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
-		'"Courier New", Courier, monospace' => 'Courier New',
-		'Georgia, serif' => 'Geogia',
-		'Impact, Charcoal, sans-serif' => 'Impact',
-		'"Lucida Console", Monaco, monospace' => 'Lucida Console',
-		'"Lucida Sans Unicode", "Lucida Grande", sans-serif' => 'Lucida Sans',
-		'"Palatino Linotype", "Book Antiqua", Palatino, serif' => 'Palatino',
-		'Tahoma, Geneva, sans-serif' => 'Tahoma',
-		'"Times New Roman", Times, serif' => 'Times New Roman',
-		'"Trebuchet MS", Helvetica, sans-serif' => 'Trebuchet',
-		'Verdana, Geneva, sans-serif' => 'Verdana',
-	);
+        'Arial, Helvetica, sans-serif' => 'Arial',
+        '"Arial Black", Gadget, sans-serif' => 'Arial Black',
+        '"Comic Sans MS", cursive, sans-serif' => 'Comic Sans',
+        '"Courier New", Courier, monospace' => 'Courier New',
+        'Georgia, serif' => 'Georgia',
+        'Impact, Charcoal, sans-serif' => 'Impact',
+        '"Lucida Console", Monaco, monospace' => 'Lucida Console',
+        '"Lucida Sans Unicode", "Lucida Grande", sans-serif' => 'Lucida Sans',
+        '"Palatino Linotype", "Book Antiqua", Palatino, serif' => 'Palatino',
+        'Tahoma, Geneva, sans-serif' => 'Tahoma',
+        '"Times New Roman", Times, serif' => 'Times New Roman',
+        '"Trebuchet MS", Helvetica, sans-serif' => 'Trebuchet',
+        'Verdana, Geneva, sans-serif' => 'Verdana',
+    );
 
 	// Holds all the options with Google Fonts for enqueuing.
 	// We need to do this since we want to gather all the fonts first then enqueue only the unique fonts
@@ -168,7 +168,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			if ( empty( $fontValue['font-family'] ) ) {
 				continue;
 			}
-			if ( $fontValue['font-family'] == 'inherit' ) {
+			if ( $fontValue['font-family'] == 'inherit' || $fontValue['font-family'] == 'default' ) {
 				continue;
 			}
 
@@ -270,7 +270,11 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		$value = array_merge( self::$defaultStyling, $value );
 
 		foreach ( $value as $key => $val ) {
-
+                        
+                        //If value is set to default then skip
+                        if($val == 'default'){
+                            continue;
+                        }
 			// Force skip other keys, those are processed under another key, e.g. text-shadow-distance is
 			// used by text-shadow-location
 			if ( in_array( $key, $skip ) ) {
@@ -564,6 +568,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		<label <?php echo $visibilityAttrs ?>>
 			Font Family
 			<select class='tf-font-sel-family'>
+                                <option value='default' <?= selected( $value['font-family'], 'default', false ); ?>>default</option>
 				<option value='inherit'>inherit</option>
 				<?php
 
@@ -698,6 +703,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 		<label <?php echo $visibilityAttrs ?>>
 			Font Weight
 			<select class='tf-font-sel-weight'>
+                                <option value='default' <?= selected( $value['font-weight'], 'default', false ); ?>>default</option>
 				<option value='inherit'>inherit</option>
 				<?php
 				$options = array( 'normal', 'bold', 'bolder', 'lighter', '100', '200', '300', '400', '500', '600', '700', '800', '900' );
@@ -722,7 +728,7 @@ class TitanFrameworkOptionFont extends TitanFrameworkOption {
 			Font Style
 			<select class='tf-font-sel-style'>
 				<?php
-				$options = array( 'normal', 'italic' );
+				$options = array( 'default','normal', 'italic' );
 				foreach ( $options as $option ) {
 					printf( "<option value='%s'%s>%s</option>",
 						esc_attr( $option ),
@@ -1026,6 +1032,7 @@ function registerTitanFrameworkOptionFontControl() {
 			<label <?php echo $visibilityAttrs ?>>
 				Font Family
 				<select class='tf-font-sel-family'>
+                                        <option value='default' <?= selected( $value['font-family'], 'default', false ); ?>>default</option>
 					<option value='inherit'>inherit</option>
 					<?php
 
@@ -1132,6 +1139,7 @@ function registerTitanFrameworkOptionFontControl() {
 			<label <?php echo $visibilityAttrs ?>>
 				Font Size
 				<select class='tf-font-sel-size'>
+                                        <option value='default' <?= selected( $value['font-size'], 'default', false ); ?>>default</option>
 					<option value='inherit'>inherit</option>
 					<?php
 					for ( $i = 1; $i <= 150; $i++ ) {
@@ -1154,6 +1162,7 @@ function registerTitanFrameworkOptionFontControl() {
 			<label <?php echo $visibilityAttrs ?>>
 				Font Weight
 				<select class='tf-font-sel-weight'>
+                                        <option value='default' <?= selected( $value['font-weight'], 'default', false ); ?>>default</option>
 					<option value='inherit'>inherit</option>
 					<?php
 					$options = array( 'normal', 'bold', 'bolder', 'lighter', '100', '200', '300', '400', '500', '600', '700', '800', '900' );
