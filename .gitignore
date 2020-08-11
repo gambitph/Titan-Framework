@@ -22,6 +22,7 @@ README.html
 /bower_components
 npm-debug.log
 /node_modules
+package-lock.json
 coverage
 coverage.clover
 /dist
