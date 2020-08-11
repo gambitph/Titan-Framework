@@ -77,7 +77,7 @@ Colossus is super new, so far the framework has been getting good feedback from 
 
 ## Are You Using Colossus WP Options Framework in Your Project?
 
-Let us know so we can showcase it in the site! Send us a tweet at [@wp_colossus](http://twitter.com/colossus)
+Let us know so we can showcase it in the site! Send us a tweet at [@wp_colossus](http://twitter.com/colossus) <-- Coming Soon!
 
 ## Contributing, Pull Requests Are Very Welcome
 
