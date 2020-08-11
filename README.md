@@ -1,4 +1,5 @@
 Colossus WP Options Framework
+=============================
 
 Colossus WP Options Framework is a fork of the now abandonned Titan Framework. Titan was a widely used framework used for WordPress Plugins and Themes, and made it easy to add options and settings controls with minimal hassle. 
 
@@ -6,15 +7,10 @@ Colossus will bring new life to this powerful framework greatly improving on Tit
 
 If you have time to test the plugin, give feedback, suggest new features or even help with development or documentation, we'd love to have your input.
 
-=======
-
 [![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
 [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
 [![Build Status](https://travis-ci.org/gambitph/Titan-Framework.svg?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
 [![Slack](https://gambit-slackin.herokuapp.com/badge.svg)](https://gambit-slackin.herokuapp.com)
-<!--[![Code Coverage](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/?branch=master)-->
-<!--[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gambitph/Titan-Framework/?branch=master)-->
-<!-- [![Built with Gulp](https://img.shields.io/badge/built%20with-Gulp-red.svg)](http://gulpjs.com/) -->
 
 *The easiest to use WordPress options framework.*
 
@@ -62,57 +58,41 @@ Titan Framework aims to be easily used by everyone. The goal is to make it plug 
 
 Read our guide on how to [get started with Titan Framework](http://wordpress.org/plugins/titan-framework/)
 
-
 ## Donate to the Development
 
 If Titan Framework has helped you in any way, we would appreciate any amount of donations that you give us. Donations would mean more development time for the framework as I am continuously developing it during my free time.
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9X7HJBGJ37VH6)
 
+## Help Spread the Word on Colossus WP Options Framework
 
-## Help Spread the Word on Titan Framework
+Colossus is super new, so far the framework has been getting good feedback from the community. Help out and spread the word by starring this repo, sending tweets, writing blog posts about what you think about Titan, and [review the plugin in the WordPress plugin repo](http://wordpress.org/support/view/plugin-reviews/colossus-framework).
 
-Titan is super new, so far the framework has been getting good feedback from the community. Help out and spread the word by starring this repo, sending tweets, writing blog posts about what you think about Titan, and [review the plugin in the WordPress plugin repo](http://wordpress.org/support/view/plugin-reviews/titan-framework).
+## Are You Using Colossus WP Options Framework in Your Project?
 
-
-## Are You Using Titan Framework in Your Project?
-
-Let us know so we can showcase it in the site! Send me a tweet at [@bfintal](http://twitter.com/bfintal)
-
+Let us know so we can showcase it in the site! Send us a tweet at [@wp_colossus](http://twitter.com/colossus)
 
 ## Contributing, Pull Requests Are Very Welcome
 
 Have an idea for a cool option, or do you have a bug fix you want to implement? Please don't hessitate to place a *PR* (Pull Request).
 
 PRs on these are welcome:
-* Bug fixes
-* Cool new options
-* Cool new hooks
-* WordPress standardization
-* Code optimizations
-* Anything under the sun as long as it's helpful :)
+
+- Bug fixes
+- Cool new options
+- Cool new hooks
+- WordPress standardization
+- Code optimizations
+- Anything under the sun as long as it's helpful :)
 
 ## Translations
 
 We want Titan Framework to be used by everyone, and since not everyone speaks or reads english, we would appreciate it if you can [help translate the framework to your language](https://www.transifex.com/projects/p/titan-framework/).
 
 #### Current Translations
-* French (thanks @PunKeel)
-* German (thanks @jascha)
-* Italian (thanks @DavideVogliotti & Giuseppe Pignataro)
-* Portuguese (thanks @pagelab)
-* Spanish (thanks @maperezotero)
-* Turkish (thanks @gurkankara)
-
-## Important Links
-
-* [WordPress plugin page](http://wordpress.org/plugins/titan-framework/)
-* [Titan Framework main site](http://www.titanframework.net)
-* [Documentation & tutorials](http://www.titanframework.net/docs)
-* [Demo Theme with Titan Framework](https://github.com/gambitph/Titan-Framework-Demo-Theme)
-* [Transifex project page](https://www.transifex.com/projects/p/titan-framework/)
-
-
-
-
-
+- French (thanks @PunKeel)
+- German (thanks @jascha)
+- Italian (thanks @DavideVogliotti & Giuseppe Pignataro)
+- Portuguese (thanks @pagelab)
+- Spanish (thanks @maperezotero)
+- Turkish (thanks @gurkankara)
