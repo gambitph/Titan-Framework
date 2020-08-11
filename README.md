@@ -5,6 +5,7 @@ Colossus WP Options Framework is a fork of the now abandonned Titan Framework. T
 Colossus will bring new life to this powerful framework greatly improving on Titan Framework giving new life to plugins / themes that relied heavily on it. It's our goal to not only bring the Titan back to life but to fix all the underlying issues which led to it being abandonned. The result of this will be a new Framework that is backwards compliant with Titan but adding more power, new features, better compatibility with WordPress and any other enhancements we can find along the way.
 
 If you have time to test the plugin, give feedback, suggest new features or even help with development or documentation, we'd love to have your input.
+
 =======
 
 [![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
