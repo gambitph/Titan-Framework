@@ -3,22 +3,18 @@ language: php
 
 # PHP version used in first build configuration.
 php:
-    - "hhvm"
-    - "7.0"
-    - "5.6"
-    - "5.5"
-    - "5.4"
-    - "5.3"
-#    - "5.2"
+    - "7.4"
+    - "7.3"
+    - "7.2"
 
 # WordPress version used in first build configuration.
 env:
     - WP_VERSION=latest WP_MULTISITE=0
-    - WP_VERSION=4.2 WP_MULTISITE=0
-    - WP_VERSION=4.1 WP_MULTISITE=0
     - WP_VERSION=latest WP_MULTISITE=1
-    - WP_VERSION=4.2 WP_MULTISITE=1
-    - WP_VERSION=4.1 WP_MULTISITE=1
+    - WP_VERSION=5.4.2 WP_MULTISITE=0
+    - WP_VERSION=5.4.2 WP_MULTISITE=1
+    - WP_VERSION=5.5 WP_MULTISITE=0
+    - WP_VERSION=5.5 WP_MULTISITE=1
 
 # Clones WordPress and configures our testing environment.
 before_script:
@@ -34,3 +30,10 @@ script:
 after_success:
     - wget https://scrutinizer-ci.com/ocular.phar
     - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+
+cache:
+    apt: true
+    directories:
+        - $HOME/.npm
+        - vendor
+        - $HOME/.composer/cache
