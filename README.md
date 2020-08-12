@@ -7,10 +7,11 @@ Colossus will bring new life to this powerful framework greatly improving on Tit
 
 If you have time to test the plugin, give feedback, suggest new features or even help with development or documentation, we'd love to have your input.
 
+[![Build Status](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework.svg?branch=master)](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework)
+
 <!--
 [![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
 [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
-[![Build Status](https://travis-ci.org/gambitph/Titan-Framework.svg?branch=master)](https://travis-ci.org/gambitph/Titan-Framework)
 [![Slack](https://gambit-slackin.herokuapp.com/badge.svg)](https://gambit-slackin.herokuapp.com)
 -->
 
