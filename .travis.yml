@@ -1,4 +1,5 @@
-# Tell Travis CI we're using PHP
+os: linux
+dist: xenial
 language: php
 
 # PHP version used in first build configuration.
