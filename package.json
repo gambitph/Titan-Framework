@@ -1,7 +1,7 @@
 {
-  "name": "Titan-Framework",
+  "name": "colossus-wp-options-framework",
   "version": "1.9.2",
-  "description": "Titan Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.",
+  "description": "Colossus WP Options Framework allows theme and plugin developers to create a admin pages, options, meta boxes, and theme customizer options with just a few simple lines of code.",
   "main": "titan-framework.php",
   "directories": {
     "test": "tests"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gambitph/Titan-Framework.git"
+    "url": "https://github.com/davidsneighbour/colossus-wp-options-framework"
   },
   "keywords": [
     "framework",
@@ -35,12 +35,25 @@
     "theme",
     "framework"
   ],
-  "author": "Benjamin Intal, Gambit",
+  "author": {
+    "name": "Patrick Kollitsch",
+    "web": "https://davids-neighbour.com/"
+  },
+  "contributors": [
+    {
+      "name": "Phill Healey",
+      "web": "http://codeclinic.de"
+    },
+    {
+      "name": "Benjamin Intal, Gambit",
+      "web": "http://www.gambit.ph/"
+    }
+  ],
   "license": "GPLv2",
   "bugs": {
-    "url": "https://github.com/gambitph/Titan-Framework/issues"
+    "url": "https://github.com/davidsneighbour/colossus-wp-options-framework/issues"
   },
-  "homepage": "https://github.com/gambitph/Titan-Framework",
+  "homepage": "https://github.com/davidsneighbour/colossus-wp-options-framework",
   "devDependencies": {
     "gulp": "3.9.0",
     "gulp-autoprefixer": "2.3.1",
