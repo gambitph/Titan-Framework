@@ -29,6 +29,7 @@
 	"repositories": [
 	],
 	"require": {
+		"php": "7.*"
 	},
 	"require-dev": {
 	},
