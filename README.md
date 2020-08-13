@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Build Status](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework.svg?branch=master)](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework)
                                    
@@ -115,6 +115,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://davids-neighbour.com"><img src="https://avatars1.githubusercontent.com/u/83281?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Kollitsch</b></sub></a><br /><a href="https://github.com/davidsneighbour/colossus-wp-options-framework/issues?q=author%3Adavidsneighbour" title="Bug reports">🐛</a> <a href="https://github.com/davidsneighbour/colossus-wp-options-framework/commits?author=davidsneighbour" title="Code">💻</a> <a href="#content-davidsneighbour" title="Content">🖋</a> <a href="https://github.com/davidsneighbour/colossus-wp-options-framework/commits?author=davidsneighbour" title="Documentation">📖</a> <a href="#design-davidsneighbour" title="Design">🎨</a> <a href="#ideas-davidsneighbour" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-davidsneighbour" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-davidsneighbour" title="Maintenance">🚧</a> <a href="#projectManagement-davidsneighbour" title="Project Management">📆</a> <a href="#question-davidsneighbour" title="Answering Questions">💬</a> <a href="https://github.com/davidsneighbour/colossus-wp-options-framework/pulls?q=is%3Apr+reviewed-by%3Adavidsneighbour" title="Reviewed Pull Requests">👀</a> <a href="#security-davidsneighbour" title="Security">🛡️</a> <a href="https://github.com/davidsneighbour/colossus-wp-options-framework/commits?author=davidsneighbour" title="Tests">⚠️</a></td>
+  </tr>
+</table>
+
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
