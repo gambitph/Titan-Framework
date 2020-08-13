@@ -102,6 +102,6 @@
       "link": "[<%= symbol %>]"
     }
   },
-  "contributorsPerLine": 7,
+  "contributorsPerLine": 5,
   "skipCi": true
 }

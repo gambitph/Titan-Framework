@@ -122,10 +122,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://davids-neighbour.com"><img src="https://avatars1.githubusercontent.com/u/83281?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Patrick Kollitsch</b></sub></a><br /><a href="[👻]" title="Plugin Maintainer">👻</a></td>
     <td align="center"><a href="https://github.com/jascha"><img src="https://avatars0.githubusercontent.com/u/71447?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jascha Lee</b></sub></a><br /><a href="#translation-jascha" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/DavideVogliotti"><img src="https://avatars2.githubusercontent.com/u/7949574?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Davide</b></sub></a><br /><a href="#translation-DavideVogliotti" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/punkeel"><img src="https://avatars1.githubusercontent.com/u/1859135?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Maxime Guerreiro</b></sub></a><br /><a href="#translation-PunKeel" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://www.uberfacil.com"><img src="https://avatars1.githubusercontent.com/u/1451087?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcio Duarte</b></sub></a><br /><a href="#translation-pagelab" title="Translation">🌍</a></td>
   </tr>
   <tr>
+    <td align="center"><a href="https://github.com/punkeel"><img src="https://avatars1.githubusercontent.com/u/1859135?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Maxime Guerreiro</b></sub></a><br /><a href="#translation-PunKeel" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://www.uberfacil.com"><img src="https://avatars1.githubusercontent.com/u/1451087?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcio Duarte</b></sub></a><br /><a href="#translation-pagelab" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/maperezotero"><img src="https://avatars1.githubusercontent.com/u/3096153?v=4?s=100" width="100px;" alt=""/><br /><sub><b>maperezotero</b></sub></a><br /><a href="#translation-maperezotero" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/gurkankara"><img src="https://avatars3.githubusercontent.com/u/8336522?v=4?s=100" width="100px;" alt=""/><br /><sub><b>gurkankara</b></sub></a><br /><a href="#translation-gurkankara" title="Translation">🌍</a></td>
   </tr>
