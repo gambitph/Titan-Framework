@@ -11,6 +11,16 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "codeclinic",
+      "name": "Phill Healey",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6069510?v=4",
+      "profile": "http://codeclinic.de",
+      "contributions": [
+        "bug",
+        "ideas",
+        "question"
+        ]
+        },{
       "login": "davidsneighbour",
       "name": "Patrick Kollitsch",
       "avatar_url": "https://avatars1.githubusercontent.com/u/83281?v=4",
@@ -29,6 +39,7 @@
         "review",
         "security",
         "test"
+
       ]
     }
   ],
