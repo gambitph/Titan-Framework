@@ -11,6 +11,16 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "goodwinpress",
+      "name": "Alex Goodwin",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/8179689?v=4",
+      "profile": "http://goodwinpress.ru",
+      "contributions": [
+        "bug",
+        "code"
+        ]
+        },{
+
       "login": "codeclinic",
       "name": "Phill Healey",
       "avatar_url": "https://avatars3.githubusercontent.com/u/6069510?v=4",
