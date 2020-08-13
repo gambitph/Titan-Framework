@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "repository": {
     "type": "git",
@@ -55,6 +57,10 @@
   },
   "homepage": "https://github.com/davidsneighbour/colossus-wp-options-framework",
   "devDependencies": {
+    "all-contributors-cli": "^6.17.0",
+    "cz-conventional-changelog": "3.2.0",
+    "cz-customizable": "6.3.0",
+    "cz-customizable-ghooks": "1.5.0",
     "gulp": "3.9.0",
     "gulp-autoprefixer": "2.3.1",
     "gulp-bower": "0.0.15",
@@ -83,10 +89,7 @@
     "gulp-wp-pot": "1.0.3",
     "gulp-zip": "3.0.2",
     "jshint-stylish": "2.0.1",
-    "merge-stream": "1.0.0",
-    "cz-conventional-changelog": "3.2.0",
-    "cz-customizable": "6.3.0",
-    "cz-customizable-ghooks": "1.5.0"
+    "merge-stream": "1.0.0"
   },
   "config": {
     "commitizen": {

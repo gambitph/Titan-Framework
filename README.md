@@ -1,3 +1,14 @@
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![Build Status](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework.svg?branch=master)](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework)
+                                   
+<!--
+[![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
+[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
+[![Slack](https://gambit-slackin.herokuapp.com/badge.svg)](https://gambit-slackin.herokuapp.com)
+-->
+
 Colossus WP Options Framework
 =============================
 
@@ -6,14 +17,6 @@ Colossus WP Options Framework is a fork of the now abandonned [Titan Framework](
 Colossus will bring new life to this powerful framework greatly improving on Titan Framework giving new life to plugins / themes that relied heavily on it. It's our goal to not only bring the Titan back to life but to fix all the underlying issues which led to it being abandonned. The result of this will be a new Framework that is backwards compliant with Titan but adding more power, new features, better compatibility with WordPress and any other enhancements we can find along the way.
 
 If you have time to test the plugin, give feedback, suggest new features or even help with development or documentation, we'd love to have your input.
-
-[![Build Status](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework.svg?branch=master)](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework)
-
-<!--
-[![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
-[![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
-[![Slack](https://gambit-slackin.herokuapp.com/badge.svg)](https://gambit-slackin.herokuapp.com)
--->
 
 ## The easiest to use WordPress options framework.
 
@@ -104,3 +107,16 @@ We want Titan Framework to be used by everyone, and since not everyone speaks or
 - Portuguese (thanks @pagelab)
 - Spanish (thanks @maperezotero)
 - Turkish (thanks @gurkankara)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
