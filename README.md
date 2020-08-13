@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Build Status](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework.svg?branch=master)](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework)
                                    
@@ -117,9 +117,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://goodwinpress.ru"><img src="https://avatars0.githubusercontent.com/u/8179689?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alex Goodwin</b></sub></a><br /><a href="https://github.com/davidsneighbour/colossus-wp-options-framework/issues?q=author%3Agoodwinpress" title="Bug reports">🐛</a> <a href="https://github.com/davidsneighbour/colossus-wp-options-framework/commits?author=goodwinpress" title="Code">💻</a></td>
-    <td align="center"><a href="http://codeclinic.de"><img src="https://avatars3.githubusercontent.com/u/6069510?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Phill Healey</b></sub></a><br /><a href="https://github.com/davidsneighbour/colossus-wp-options-framework/issues?q=author%3Acodeclinic" title="Bug reports">🐛</a> <a href="#ideas-codeclinic" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-codeclinic" title="Answering Questions">💬</a></td>
-    <td align="center"><a href="https://davids-neighbour.com"><img src="https://avatars1.githubusercontent.com/u/83281?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Patrick Kollitsch</b></sub></a><br /><a href="[👻]" title="Plugin Maintainer">👻</a></td>
+    <td align="center"><a href="http://goodwinpress.ru"><img src="https://avatars0.githubusercontent.com/u/8179689?v=4" width="100px;" alt=""/><br /><sub><b>Alex Goodwin</b></sub></a><br /><a href="https://github.com/davidsneighbour/colossus-wp-options-framework/issues?q=author%3Agoodwinpress" title="Bug reports">🐛</a> <a href="https://github.com/davidsneighbour/colossus-wp-options-framework/commits?author=goodwinpress" title="Code">💻</a></td>
+    <td align="center"><a href="http://codeclinic.de"><img src="https://avatars3.githubusercontent.com/u/6069510?v=4" width="100px;" alt=""/><br /><sub><b>Phill Healey</b></sub></a><br /><a href="https://github.com/davidsneighbour/colossus-wp-options-framework/issues?q=author%3Acodeclinic" title="Bug reports">🐛</a> <a href="#ideas-codeclinic" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-codeclinic" title="Answering Questions">💬</a></td>
+    <td align="center"><a href="https://davids-neighbour.com"><img src="https://avatars1.githubusercontent.com/u/83281?v=4" width="100px;" alt=""/><br /><sub><b>Patrick Kollitsch</b></sub></a><br /><a href="[👻]" title="Plugin Maintainer">👻</a></td>
+    <td align="center"><a href="https://github.com/gurkankara"><img src="https://avatars3.githubusercontent.com/u/8336522?v=4" width="100px;" alt=""/><br /><sub><b>gurkankara</b></sub></a><br /><a href="#translation-gurkankara" title="Translation">🌍</a></td>
   </tr>
 </table>
 
