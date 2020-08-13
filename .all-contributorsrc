@@ -18,9 +18,9 @@
       "contributions": [
         "bug",
         "code"
-        ]
-        },{
-
+      ]
+    },
+    {
       "login": "codeclinic",
       "name": "Phill Healey",
       "avatar_url": "https://avatars3.githubusercontent.com/u/6069510?v=4",
@@ -29,30 +29,25 @@
         "bug",
         "ideas",
         "question"
-        ]
-        },{
+      ]
+    },
+    {
       "login": "davidsneighbour",
       "name": "Patrick Kollitsch",
       "avatar_url": "https://avatars1.githubusercontent.com/u/83281?v=4",
       "profile": "https://davids-neighbour.com",
       "contributions": [
-        "bug",
-        "code",
-        "content",
-        "doc",
-        "design",
-        "ideas",
-        "infra",
-        "maintenance",
-        "projectManagement",
-        "question",
-        "review",
-        "security",
-        "test"
-
+        "maintainer"
       ]
     }
   ],
+  "types": {
+    "maintainer": {
+      "symbol": "👻",
+      "description": "Plugin Maintainer",
+      "link": "[<%= symbol %>]"
+    }
+  },
   "contributorsPerLine": 7,
   "skipCi": true
 }
