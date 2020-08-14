@@ -1,12 +1,10 @@
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Build Status](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework.svg?branch=master)](https://travis-ci.com/davidsneighbour/colossus-wp-options-framework)
-                                   
+[![Slack](https://img.shields.io/badge/slack-colossus--talk.slack.com-blue)](https://colossus-talk.slack.com)
+
 <!--
 [![WordPress](https://img.shields.io/wordpress/v/titan-framework.svg)]()
 [![WordPress plugin](https://img.shields.io/wordpress/plugin/v/titan-framework.svg)]()
-[![Slack](https://gambit-slackin.herokuapp.com/badge.svg)](https://gambit-slackin.herokuapp.com)
+
 -->
 
 Colossus WP Options Framework
