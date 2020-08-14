@@ -33,7 +33,7 @@ before_script:
     - cd "/tmp/wordpress/wp-content/plugins/$PLUGIN_SLUG"
 
 script:
-    - phpunit --coverage-text --coverage-clover=coverage.clover
+    - ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_success:
     - wget https://scrutinizer-ci.com/ocular.phar
