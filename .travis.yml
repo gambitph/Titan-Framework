@@ -20,6 +20,9 @@ env:
 services:
     - mysql
 
+install:
+    - composer require --dev phpunit/phpunit ^7
+
 # Clones WordPress and configures our testing environment.
 before_script:
     - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
