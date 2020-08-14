@@ -100,6 +100,18 @@ PRs on these are welcome:
 
 We want Titan Framework to be used by everyone, and since not everyone speaks or reads english, we would appreciate it if you can [help translate the framework to your language](https://www.transifex.com/projects/p/colossus-wp-options-framework/).
 
+
+### Current Translations
+We're in the process of updating adding these translations back into Colossus from Titan. Since this may take some time, some translations may not be fully implemented at this time.
+
+    French (thanks @PunKeel)
+    German (thanks @jascha)
+    Italian (thanks @DavideVogliotti & Giuseppe Pignataro)
+    Portuguese (thanks @pagelab)
+    Spanish (thanks @maperezotero)
+    Turkish (thanks @gurkankara)
+
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
