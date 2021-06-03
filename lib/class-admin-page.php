@@ -17,7 +17,7 @@ class TitanFrameworkAdminPage {
 		'desc' => '', // Description displayed below the title
 	);
 
-	public $settings;
+	public $settings = array();
 	public $options = array();
 	public $tabs = array();
 	public $owner;
@@ -80,12 +80,12 @@ class TitanFrameworkAdminPage {
 	}
 
 	public function createAdminPanel( $settings ) {
-		$settings['parent'] = $this->settings['id'];
+		$settings['parent'] = $this->settings['id'] ?? null;
 		return $this->owner->createAdminPanel( $settings );
 	}
 
 	public function createSampleContentPage( $settings ) {
-		$settings['parent'] = $this->settings['id'];
+		$settings['parent'] = $this->settings['id'] ?? null;
 		return $this->owner->createSampleContentPage( $settings );
 	}
 
