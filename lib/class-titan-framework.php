@@ -256,7 +256,7 @@ class TitanFramework {
 
 		// Put all the available options in our global variable for future checking.
 		if ( ! empty( $currentOptions ) && ! count( $this->adminOptions ) ) {
-			$this->adminOptions = unserialize( $currentOptions );
+			$this->adminOptions = maybe_unserialize( $currentOptions );
 		}
 
 		if ( empty( $this->adminOptions ) ) {
